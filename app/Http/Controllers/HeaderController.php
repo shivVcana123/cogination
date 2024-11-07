@@ -31,6 +31,7 @@ class HeaderController extends Controller
 
             // Fill and save
             $category->title = $request->title;
+            $category->url = $request->url;
             $category->save();
 
             return response()->json([
@@ -95,6 +96,7 @@ class HeaderController extends Controller
 
             // Fill and save
             $subCategory->title = $request->title;
+            $subCategory->url = $request->url;
             $subCategory->categories_id  = $request->category_id;
             $subCategory->save();
 
@@ -142,7 +144,7 @@ class HeaderController extends Controller
         $category = Category::with('subCategory')->get();
         return response()->json([
             'status' => 'success',
-            'message' => 'Subcategory deleted successfully',
+            'message' => 'fetch data successfully',
             'data' => $category,
         ], 200);
     }
