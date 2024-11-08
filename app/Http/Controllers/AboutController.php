@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Home;
+use App\Models\AboutUs;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class AboutController extends Controller
 {
-    public function addOrUpdateHome(Request $request)
+    public function addOrUpdateAbout(Request $request)
     {
         // Debugging request data
-        //dd($request->all());
+        // dd($request->all());
 
         // Validate the request data
         // $validated = $request->validate([
@@ -25,34 +25,34 @@ class HomeController extends Controller
 
         try {
             // Check if we're updating or creating
-            $home = $request->has('id')
-                ? Home::findOrFail($request->id) 
-                : new Home;
+            $about = $request->has('id')
+                ? AboutUs::findOrFail($request->id) 
+                : new AboutUs;
 
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
                 $file = $request->file('image');
                 $fileName = time() . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('uploads'), $fileName);
-                if ($home->image && file_exists(public_path($home->image))) {
-                    unlink(public_path($home->image));
+                if ($about->image && file_exists(public_path($about->image))) {
+                    unlink(public_path($about->image));
                 }
-                $home->image = $fileName;
+                $about->image = $fileName;
             }
 
-            // Fill the home details
-            $home->title = $request->title;
-            $home->subtitle = $request->subtitle;
-            $home->description = $request->description;
-            $home->button_content = $request->button_content;
-            $home->button_link = $request->button_link;
-            $home->background_color = $request->background_color;
-            $home->save();
+            // Fill the about details
+            $about->title = $request->title;
+            $about->subtitle = $request->subtitle;
+            $about->description = $request->description;
+            $about->button_content = $request->button_content;
+            $about->button_link = $request->button_link;
+            $about->background_color = $request->background_color;
+            $about->save();
 
             // Return success response
             return response()->json([
                 'status' => 'success',
-                'message' => $request->has('id') ? 'Home updated successfully' : 'Home created successfully',
-                'data' => $home,
+                'message' => $request->has('id') ? 'about updated successfully' : 'about created successfully',
+                'data' => $about,
             ], 200);
         } catch (\Exception $e) {
             // Handle unexpected errors
@@ -65,39 +65,39 @@ class HomeController extends Controller
     }
 
 
-    public function deleteHome($id)
+    public function deleteAbout($id)
     {
         try {
-            $home = Home::findOrFail($id);
-            $home->delete();
+            $about = AboutUs::findOrFail($id);
+            $about->delete();
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Home deleted successfully',
+                'message' => 'about deleted successfully',
             ], 200);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Home not found',
+                'message' => 'about not found',
             ], 404);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'An error occurred while deleting the home.',
+                'message' => 'An error occurred while deleting the about.',
                 'error' => $e->getMessage(),
             ], 500);
         }
     }
 
-    public function fetchHomeData()
+    public function fetchAboutData()
     {
         // Fetch main sections with their subsections
-        $home = Home::get();
+        $about = AboutUs::get();
 
         return response()->json([
             'status' => 'success',
             'message' => 'Data fetched successfully',
-            'data' => $home,
+            'data' => $about,
         ], 200);
     }
 }
