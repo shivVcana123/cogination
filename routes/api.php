@@ -26,4 +26,5 @@ Route::get('fetch-header-data',[HeaderController::class,'fetchHeaderData']);
 
 Route::post('/home', [HomeController::class, 'addOrUpdateHome']); // Add or Update home
 Route::delete('/home/{id?}', [HomeController::class, 'deleteHome']); // Delete home
+Route::get('fetch-home-data',[HomeController::class,'fetchHomeData']);
 

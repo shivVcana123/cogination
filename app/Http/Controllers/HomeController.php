@@ -88,4 +88,16 @@ class HomeController extends Controller
             ], 500);
         }
     }
+
+    public function fetchHomeData()
+    {
+        // Fetch main sections with their subsections
+        $home = Home::get();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data fetched successfully',
+            'data' => $home,
+        ], 200);
+    }
 }
