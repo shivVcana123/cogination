@@ -38,6 +38,15 @@ class AboutController extends Controller
                 }
                 $about->image = $fileName;
             }
+            if ($request->hasFile('background_image') && $request->file('background_image')->isValid()) {
+                $file = $request->file('background_image');
+                $fileName = time() . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('uploads'), $fileName);
+                if ($about->background_image && file_exists(public_path($about->background_image))) {
+                    unlink(public_path($about->background_image));
+                }
+                $about->background_image = $fileName;
+            }
 
             // Fill the about details
             $about->title = $request->title;

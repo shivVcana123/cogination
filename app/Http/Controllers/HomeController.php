@@ -10,7 +10,7 @@ class HomeController extends Controller
     public function addOrUpdateHome(Request $request)
     {
         // Debugging request data
-        //dd($request->all());
+        // dd($request->all());
 
         // Validate the request data
         // $validated = $request->validate([
@@ -38,6 +38,16 @@ class HomeController extends Controller
                 }
                 $home->image = $fileName;
             }
+            if ($request->hasFile('background_image') && $request->file('background_image')->isValid()) {
+                $file = $request->file('background_image');
+                $fileName = time() . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('uploads'), $fileName);
+                if ($home->background_image && file_exists(public_path($home->background_image))) {
+                    unlink(public_path($home->background_image));
+                }
+                $home->background_image = $fileName;
+            }
+
 
             // Fill the home details
             $home->title = $request->title;
