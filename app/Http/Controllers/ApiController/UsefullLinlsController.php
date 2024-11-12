@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ApiController;
 
-use App\Models\Contact;
-use App\Models\User;
+use App\Http\Controllers\Controller;
+use App\Models\UsefulLink;
 use Illuminate\Http\Request;
-use Mockery\Matcher\Contains;
 
-class ContactController extends Controller
+class UsefullLinlsController extends Controller
 {
-    public function addOrUpdateContact(Request $request)
+    public function addOrUpdateUsefullLinls(Request $request)
     {
         // Debugging request data
         //dd($request->all());
@@ -28,8 +27,8 @@ class ContactController extends Controller
         try {
             // Check if we're updating or creating
             $usefulLink = $request->has('id')
-                ? Contact::findOrFail($request->id)
-                : new Contact;
+                ? UsefulLink::findOrFail($request->id) 
+                : new UsefulLink;
 
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
                 $file = $request->file('image');
@@ -76,53 +75,40 @@ class ContactController extends Controller
         }
     }
 
-    public function deleteContact($id)
-    {
-        $header = Contact::find($id);
 
-        if (!$header) {
+    public function deleteUsefullLinls($id)
+    {
+        try {
+            $usefulLink = UsefulLink::findOrFail($id);
+            $usefulLink->delete();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'UsefulLink deleted successfully',
+            ], 200);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Header not found.',
+                'message' => 'UsefulLink not found',
             ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'An error occurred while deleting the UsefulLink.',
+                'error' => $e->getMessage(),
+            ], 500);
         }
-
-        $header->delete();
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Header deleted successfully',
-        ], 200);
     }
 
-
-    public function fetchContactData()
+    public function fetchUsefullLinlsData()
     {
         // Fetch main sections with their subsections
-        $headers = Contact::with('children')->whereNull('parent_id')->get();
+        $usefulLink = UsefulLink::get();
 
         return response()->json([
             'status' => 'success',
             'message' => 'Data fetched successfully',
-            'data' => $headers,
-        ], 200);
-    }
-
-    public function addContact(Request $request)
-    {
-        // Create a new user
-        $contact = new Contact();
-        $contact->name = $request->name;
-        $contact->email = $request->email;
-        $contact->subject = $request->subject;
-        $contact->message = $request->message;
-        $contact->save();
-
-        // Return success response
-        return response()->json([
-            'status' => 'success',
-            'data' => $contact,
-            'message' => 'Contact added successfully',
+            'data' => $usefulLink,
         ], 200);
     }
 }
