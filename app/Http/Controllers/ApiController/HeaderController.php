@@ -11,12 +11,10 @@ use Illuminate\Support\Facades\DB;
 
 class HeaderController extends Controller
 {
-    /**
-     * Add or update a category.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+    public function header(){
+        $headerData = Header::with('children')->whereNull('parent_id')->get();
+        return view('header.header',compact('headerData'));
+    }
     public function addOrUpdateHeader(Request $request)
     {
         // dd($request->all());

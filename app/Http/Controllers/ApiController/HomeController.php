@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    public function home(){
+        $homeData = Home::get();
+        return view('home.home',compact('homeData'));
+    }
     public function addOrUpdateHome(Request $request)
     {
         // Debugging request data

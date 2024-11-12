@@ -9,6 +9,6 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
-        dd("bbbbbbb");
+        return view("dashboard.dashboard");
     }
 }
