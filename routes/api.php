@@ -50,3 +50,6 @@ Route::get('/latest-news/{id?}', [LatestNewsController::class, 'deleteLatestNews
 Route::get('fetch-latest-news-data',[LatestNewsController::class,'fetchLatestNewsData']); // Fetch all latest-news data 
 
 Route::post('/contact', [ContactController::class, 'addOrUpdateContact']); // Add or Update Contact
+Route::get('/contact/{id?}', [LatestNewsController::class, 'deleteContact']); // Delete section contact
+Route::get('fetch-contact-data',[LatestNewsController::class,'fetchContactData']);
+Route::post('/add-contact', [ContactController::class, 'addContact']); // Add or Update Contact
