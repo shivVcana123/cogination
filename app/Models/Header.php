@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Header extends Model
 {
     use HasFactory;
-
+    protected $fillable = [
+        'category',
+        'parent_id',
+    ];    
     public function parent()
     {
         return $this->belongsTo(Header::class, foreignKey: 'parent_id');

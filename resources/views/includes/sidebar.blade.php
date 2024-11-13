@@ -68,30 +68,15 @@
                           </p>
                       </a>
                   </li>
-                  <li class="nav-item">
-                      <a href="#" class="nav-link">
-                      <i class="nav-icon fa fa-cog"></i>
+                    <li class="nav-item">
+                      <a href="{{ route('services.index') }}" class="nav-link">
+                          <i class="nav-icon far fa-user"></i>
                           <p>
                               Services
-                              <i class="right fas fa-angle-left"></i>
                           </p>
                       </a>
-                      <ul class="nav nav-treeview">
-                          <li class="nav-item">
-                              <a href="#" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Real Estate Consulting Service
-                                  </p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="#" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Development</p>
-                              </a>
-                          </li>
-                      </ul>
                   </li>
+               
                   <li class="nav-item">
                       <a href="pages/gallery.html" class="nav-link">
                       <i class="nav-icon fa fa-newspaper" aria-hidden="true"></i>

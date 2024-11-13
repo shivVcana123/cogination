@@ -8,6 +8,7 @@ use App\Models\Header;
 use App\Models\SubCategory; // Assuming SubCategory model exists
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class HeaderController extends Controller
 {
@@ -15,43 +16,28 @@ class HeaderController extends Controller
         $headerData = Header::with('children')->whereNull('parent_id')->get();
         return view('header.header',compact('headerData'));
     }
-    public function addOrUpdateHeader(Request $request)
+    public function addOrUpdateHeader(Request $request, $id = null)
     {
-        // dd($request->all());
+        // If $id is provided, find the existing header; otherwise, create a new one
+        $header = $id ? Header::findOrFail($id) : new Header;
         $request->validate([
-            'title' => 'nullable|max:255|required_without:sub_title', // Require either title or sub_title
-            'link' => 'nullable|unique:headers,link,' . $request->id,
-            'parent_id' => 'nullable|exists:headers,id', // Check if parent_id exists in headers
-            'sub_title' => 'nullable|max:255|required_without:title', // Require either sub_title or title
-            'sub_link' => 'nullable|unique:headers,sub_link,' . $request->id,
+            'category' => [
+                'nullable',
+                'max:255',
+                Rule::unique('headers', 'category')->ignore($header->id)
+            ],
+            'parent_id' => 'nullable|exists:headers,id',
         ]);
-
-        try {
-            // Determine if we're creating or updating
-            $header = $request->has('id')
-                ? Header::findOrFail($request->id)
-                : new Header;
-
-            // Fill and save
-            $header->title = $request->title;
-            $header->link = $request->link;
-            $header->parent_id = $request->parent_id; // Assign parent ID for subsection
-            $header->sub_title = $request->sub_title;
-            $header->sub_link = $request->sub_link;
-            $header->save();
-
-            return response()->json([
-                'status' => 'success',
-                'message' => $request->has('id') ? 'Header updated successfully' : 'Header created successfully',
-                'data' => $header,
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'An error occurred while processing your request.',
-                'error' => $e->getMessage(),
-            ], 500);
-        }
+        // Set the attributes
+        $header->category = $request->category;
+        $header->parent_id = $request->parent_id;
+        // Save the header (either create or update)
+        $header->save();
+        return response()->json([
+            'status' => 'success',
+            'message' => $id ? 'Header updated successfully' : 'Header added successfully',
+            'data' => $header,
+        ], 200);
     }
 
     public function deleteHeader($id)
