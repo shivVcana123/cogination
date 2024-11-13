@@ -32,7 +32,10 @@
                                     @endforeach
                                 @endif
                             </td>
-                            <td>Action</td>
+                            <td>
+                                <i class="fa fa-edit"></i>
+                                <i class="fa fa-trash"></i>
+                            </td>
                         </tr>
                         @endforeach
 
