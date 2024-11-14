@@ -1,14 +1,16 @@
 <?php
 
 use App\Http\Controllers\ApiController\HomeController;
+use App\Http\Controllers\Backend\AboutController;
+use App\Http\Controllers\Backend\NewsController;
 use Illuminate\Support\Facades\Route;
     use Illuminate\Support\Facades\Auth;
     use  App\Http\Controllers\Backend\AuthController;
     use  App\Http\Controllers\Backend\DashboardController;
     use  App\Http\Controllers\Backend\HeaderController;
-    use  App\Http\Controllers\Backend\ServiceController;
-
-    
+use App\Http\Controllers\Backend\HomeController as BackendHomeController;
+use  App\Http\Controllers\Backend\ServiceController;
+use App\Http\Controllers\Backend\UsefullLinkController;
 
     /*
     |--------------------------------------------------------------------------
@@ -43,7 +45,12 @@ use Illuminate\Support\Facades\Route;
     
     Route::post('/save-header', [HeaderController::class, 'addOrUpdateHeader'])->name('addOrUpdateHeader'); // Add or Update header data
 
-    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard')->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/home', [HomeController::class, 'home'])->name('home');
 
     Route::resource('services', ServiceController::class);
+    Route::resource('homes', BackendHomeController::class);
+    Route::resource('abouts', AboutController::class);
+    Route::resource('news', NewsController::class);
+    Route::resource('usefulllinks', UsefullLinkController::class);
+  
