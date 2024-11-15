@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\HeaderResource;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Header;
@@ -9,6 +10,8 @@ use App\Models\SubCategory; // Assuming SubCategory model exists
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+
+use function Laravel\Prompts\select;
 
 class HeaderController extends Controller
 {
@@ -62,13 +65,13 @@ class HeaderController extends Controller
 
     public function fetchHeaderData()
     {
-        // Fetch main sections with their subsections
         $headers = Header::with('children')->whereNull('parent_id')->get();
-
+        
         return response()->json([
             'status' => 'success',
             'message' => 'Data fetched successfully',
-            'data' => $headers,
+            'data' => HeaderResource::collection($headers),
         ], 200);
     }
+    
 }
