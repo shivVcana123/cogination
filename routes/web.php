@@ -53,4 +53,13 @@ use App\Http\Controllers\Backend\UsefullLinkController;
     Route::resource('abouts', AboutController::class);
     Route::resource('news', NewsController::class);
     Route::resource('usefulllinks', UsefullLinkController::class);
-  
+    use Illuminate\Support\Facades\Artisan;
+
+    Route::get('/clear-cache', function () {
+        Artisan::call('optimize:clear');
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Application cache cleared successfully.',
+        ]);
+    });
+    

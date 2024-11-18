@@ -43,11 +43,11 @@ class UsefullLinkController extends Controller
         $ServiceData->pointers = json_encode($request->pointers);
         $ServiceData->background_color = $request->background_color;
         if ($request->hasFile('background_image')) {
-            $backgroundImagePath = $request->file('background_image')->store('service', 'public');
+            $backgroundImagePath = $request->file('background_image')->store('usefulLink', 'public');
             $ServiceData->background_image = $backgroundImagePath;
         }
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('service', 'public');
+            $imagePath = $request->file('image')->store('usefulLink', 'public');
             $ServiceData->image = $imagePath;
         }
         $ServiceData->save();

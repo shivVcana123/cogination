@@ -80,8 +80,63 @@ class HomeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validate incoming data
+        $request->validate([
+            'title' => 'nullable', // Optional fields
+            'subtitle' => 'nullable',
+            'description_1' => 'nullable',
+            'button_content' => 'nullable',
+            'background_color' => 'nullable',
+            'background_image' => 'nullable|image', // Validate image file
+            'image' => 'nullable|image', // Validate image file
+        ]);
+    
+        // Retrieve the existing record
+        $ServiceData = Home::findOrFail($id);
+    
+        // Update fields if present in the request
+        if ($request->has('title')) {
+            $ServiceData->title = $request->title;
+        }
+        if ($request->has('subtitle')) {
+            $ServiceData->subtitle = $request->subtitle;
+        }
+        if ($request->has('description_1')) {
+            $ServiceData->description_1 = $request->description_1;
+        }
+        if ($request->has('button_content')) {
+            $ServiceData->button_content = $request->button_content;
+        }
+        if ($request->has('background_color')) {
+            $ServiceData->background_color = $request->background_color;
+        }
+    
+        // Handle file uploads if they exist
+        if ($request->hasFile('background_image')) {
+            // Optionally delete the old image
+            if ($ServiceData->background_image) {
+                \Storage::disk('public')->delete($ServiceData->background_image);
+            }
+            $backgroundImagePath = $request->file('background_image')->store('home', 'public');
+            $ServiceData->background_image = $backgroundImagePath;
+        }
+    
+        if ($request->hasFile('image')) {
+            // Optionally delete the old image
+            if ($ServiceData->image) {
+                \Storage::disk('public')->delete($ServiceData->image);
+            }
+            $imagePath = $request->file('image')->store('home', 'public');
+            $ServiceData->image = $imagePath;
+        }
+    
+        // Save changes to the database
+        $ServiceData->save();
+    
+        // Redirect with a success message
+        return redirect()->route('homes.index')->with('success', 'Record updated successfully!');
     }
+    
 
     /**
      * Remove the specified resource from storage.
