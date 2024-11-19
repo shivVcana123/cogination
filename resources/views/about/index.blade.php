@@ -6,8 +6,8 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Abouts</h3>
-                <button class="btn btn-primary" style="margin-left: 82%;" ><a style="color:white" href="{{ route('about.create') }}">Add Abouts Section</a></button>
+                <h3 class="card-title">About</h3>
+                <button class="btn btn-primary" style="margin-left: 82%;" ><a style="color:white" href="{{ route('abouts.create') }}">+ About</a></button>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

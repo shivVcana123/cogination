@@ -22,6 +22,10 @@ use App\Http\Controllers\Backend\UsefullLinkController;
     | contains the "web" middleware group. Now create something great!
     |
     */
+
+        Route::get('/welcome', function () {
+            return view('welcome');
+        });
     Route::middleware(['guest'])->group(function () {
         Route::get('/login', function () {
             return view('login');

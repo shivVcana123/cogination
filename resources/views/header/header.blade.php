@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Header</h3>
-                <button class="btn btn-primary" style="margin-left: 82%;" ><a style="color:white" href="{{ route('header.create') }}">Add Header</a></button>
+                <button class="btn btn-primary" ><a style="color:white" href="{{ route('addheader') }}">+ Header</a></button>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
