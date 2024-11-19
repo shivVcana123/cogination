@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Header;
 use Illuminate\Http\Request;
 use App\Models\Service;
 class ServiceController extends Controller
@@ -22,7 +23,9 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('Service.form');
+        $headerChild = Header::with('children')->whereNull('parent_id')
+        ->where('category','services')->get();
+        return view('Service.form',compact('headerChild'));
 
     }
 
@@ -43,6 +46,7 @@ class ServiceController extends Controller
         $ServiceData->title = $request->title;
         $ServiceData->description_1 = $request->description_1;
         $ServiceData->subtitle = $request->subtitle;
+        $ServiceData->service_type = $request->service_type;
         $ServiceData->description_2 = $request->description_2;
         $ServiceData->pointers =json_encode($request->pointers);
         $ServiceData->button_content = $request->button_content;

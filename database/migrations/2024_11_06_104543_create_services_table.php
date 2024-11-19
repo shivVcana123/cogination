@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->string('subtitle')->nullable();
+            $table->string('service_type')->nullable();
             $table->string('description_1')->nullable();
             $table->string('description_2')->nullable();
             $table->string('button_content')->nullable();

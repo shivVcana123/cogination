@@ -49,16 +49,32 @@ class ApiController extends Controller
             'data' => AboutResource::collection($aboutData),
         ], 200);
     }
-    public function fetchServicesData()
-    {
-        $serviceData = Service::all();
+    // public function fetchServicesData()
+    // {
+    //     $serviceData = Service::all();
         
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Data fetched successfully',
-            'data' => ServicesResource::collection($serviceData),
-        ], 200);
-    }
+    //     return response()->json([
+    //         'status' => 'success',
+    //         'message' => 'Data fetched successfully',
+    //         'data' => ServicesResource::collection($serviceData),
+    //     ], 200);
+    // }
+    public function fetchServicesData()
+{
+    $serviceData = Service::all();
+
+    // Group the data by `service_type`
+    $groupedData = $serviceData->groupBy('service_type')->map(function ($services) {
+        return ServicesResource::collection($services);
+    });
+
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Data fetched successfully',
+        'data' => $groupedData,
+    ], 200);
+}
+
     public function fetchUsefullLinlsData()
     {
         $useFulLinkData = UsefulLink::all();

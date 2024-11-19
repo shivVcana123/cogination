@@ -33,6 +33,15 @@
                                     <label for="title">Title</label>
                                     <input type="text" class="form-control" name="title" id="title" placeholder="Enter title">
                                 </div>
+                                <div class="form-group">
+                                    <label for="title">Please Select Type</label>
+                                    <select class="form-control" name="service_type" id="service_type">
+                                        <option selected disabled>Please Select Type</option>
+                                        @foreach ($headerChild[0]['children'] as $child)
+                                        <option value="{{$child->category}}">{{$child->category}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                  <div class="form-group">
                                     <label for="title">Decription 1</label>
                                     <textarea type="text" class="form-control" name="description_1" id="description_1" ></textarea>

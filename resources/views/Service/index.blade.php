@@ -17,6 +17,7 @@
                             <th>#</th>
                             <th>Title</th>
                             <th>Subtitle</th>
+                            <th>Service Type</th>
                              <th>Button Content</th>
                             <th>Background Color</th>
                              <th>Button Link</th>
@@ -30,6 +31,7 @@
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $service->title }}</td>
                             <td>{{ $service->subtitle }}</td>
+                            <td>{{ $service->service_type }}</td>
                             <td>{{ $service->button_content }}</td>
                             <td>{{ $service->background_color }}</td>
                             <td>{{ $service->button_link }}</td>

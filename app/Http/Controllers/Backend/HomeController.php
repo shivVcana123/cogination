@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\HomeRequest;
 use App\Models\Home;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -14,7 +16,7 @@ class HomeController extends Controller
     public function index()
     {
         $homeData = Home::all();
-        return view('home.index',compact('homeData'));
+        return view('home.index', compact('homeData'));
     }
 
     /**
@@ -28,36 +30,35 @@ class HomeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(HomeRequest $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'subtitle' => 'required', // Ensure subcategories is an array
-            'description_1' => 'required',
-            'button_content' => 'required', 
-            'background_color' => 'required', 
-        ]);
-        $ServiceData = new Home();
-        // Save or update the category
-        $ServiceData->title = $request->title;
-        $ServiceData->description_1 = $request->description_1;
-        $ServiceData->subtitle = $request->subtitle;
-        // $ServiceData->pointers =json_encode($request->pointers);
-        $ServiceData->button_content = $request->button_content;
-        $ServiceData->button_link = $request->button_link;
-        $ServiceData->background_color = $request->background_color;
-        if ($request->hasFile('background_image')) {
-            $backgroundImagePath = $request->file('background_image')->store('home', 'public');
-            $ServiceData->background_image = $backgroundImagePath;
+        try {
+            $homeData = new Home();
+            $homeData->title = $request->title;
+            $homeData->description_1 = $request->description_1;
+            $homeData->subtitle = $request->subtitle;
+            $homeData->button_content = $request->button_content;
+            $homeData->button_link = $request->button_link;
+            $homeData->background_color = $request->background_color;
+
+            if ($request->hasFile('background_image')) {
+                $backgroundImagePath = $request->file('background_image')->store('home', 'public');
+                $homeData->background_image = $backgroundImagePath;
+            }
+
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('home', 'public');
+                $homeData->image = $imagePath;
+            }
+
+            $homeData->save();
+
+            return redirect()->route('homes.index')->with('success', 'Record created successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to create record: ' . $e->getMessage());
         }
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('home', 'public');
-            $ServiceData->image = $imagePath; 
-        }
-        $ServiceData->save();
-       
-        return redirect()->route('homes.index');
     }
+
 
     /**
      * Display the specified resource.
@@ -72,77 +73,72 @@ class HomeController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $homeData = Home::find($id);
+        return view('home.editform', compact('homeData'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(HomeRequest $request, string $id)
     {
-        // Validate incoming data
-        $request->validate([
-            'title' => 'nullable', // Optional fields
-            'subtitle' => 'nullable',
-            'description_1' => 'nullable',
-            'button_content' => 'nullable',
-            'background_color' => 'nullable',
-            'background_image' => 'nullable|image', // Validate image file
-            'image' => 'nullable|image', // Validate image file
-        ]);
-    
-        // Retrieve the existing record
-        $ServiceData = Home::findOrFail($id);
-    
-        // Update fields if present in the request
-        if ($request->has('title')) {
-            $ServiceData->title = $request->title;
-        }
-        if ($request->has('subtitle')) {
-            $ServiceData->subtitle = $request->subtitle;
-        }
-        if ($request->has('description_1')) {
-            $ServiceData->description_1 = $request->description_1;
-        }
-        if ($request->has('button_content')) {
-            $ServiceData->button_content = $request->button_content;
-        }
-        if ($request->has('background_color')) {
-            $ServiceData->background_color = $request->background_color;
-        }
-    
-        // Handle file uploads if they exist
-        if ($request->hasFile('background_image')) {
-            // Optionally delete the old image
-            if ($ServiceData->background_image) {
-                \Storage::disk('public')->delete($ServiceData->background_image);
+        try {
+            $homeData = Home::findOrFail($id);
+
+            if ($request->hasFile('background_image')) {
+                if ($homeData->background_image) {
+                    Storage::delete('public/' . $homeData->background_image);
+                }
+                $homeData->background_image = $request->file('background_image')->store('home', 'public');
             }
-            $backgroundImagePath = $request->file('background_image')->store('home', 'public');
-            $ServiceData->background_image = $backgroundImagePath;
-        }
-    
-        if ($request->hasFile('image')) {
-            // Optionally delete the old image
-            if ($ServiceData->image) {
-                \Storage::disk('public')->delete($ServiceData->image);
+
+            
+            if ($request->hasFile('image')) {
+                if ($homeData->image) {
+                    Storage::delete('public/' . $homeData->image);
+                }
+                $homeData->image = $request->file('image')->store('home', 'public');
             }
-            $imagePath = $request->file('image')->store('home', 'public');
-            $ServiceData->image = $imagePath;
+
+            $homeData->title = $request->title;
+            $homeData->description_1 = $request->description_1;
+            $homeData->subtitle = $request->subtitle;
+            $homeData->button_content = $request->button_content;
+            $homeData->button_link = $request->button_link;
+            $homeData->background_color = $request->background_color;
+
+            $homeData->save();
+
+            return redirect()->route('homes.index')->with('success', 'Record updated successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to update record: ' . $e->getMessage());
         }
-    
-        // Save changes to the database
-        $ServiceData->save();
-    
-        // Redirect with a success message
-        return redirect()->route('homes.index')->with('success', 'Record updated successfully!');
     }
-    
+
+
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $homeData = Home::findOrFail($id);
+
+            if ($homeData->background_image) {
+                Storage::delete('public/' . $homeData->background_image);
+            }
+
+            if ($homeData->image) {
+                Storage::delete('public/' . $homeData->image);
+            }
+
+            $homeData->delete();
+
+            return redirect()->route('homes.index')->with('success', 'Record deleted successfully!');
+        } catch (\Exception $e) {
+            return redirect()->route('homes.index')->with('error', 'Failed to delete record: ' . $e->getMessage());
+        }
     }
 }

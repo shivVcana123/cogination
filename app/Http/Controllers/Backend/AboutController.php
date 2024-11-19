@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AboutRequest;
 use App\Models\AboutUs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AboutController extends Controller
 {
@@ -13,8 +15,8 @@ class AboutController extends Controller
      */
     public function index()
     {
-        $aboutUs = AboutUs::all();
-        return view('about.index', compact('aboutUs'));
+        $about = AboutUs::all();
+        return view('about.index', compact('about'));
     }
 
     /**
@@ -28,33 +30,37 @@ class AboutController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AboutRequest $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'description_1' => 'required',
-        ]);
-        $ServiceData = new AboutUs;
-        // Save or update the category
-        $ServiceData->title = $request->title;
-        $ServiceData->description_1 = $request->description_1;
-        $ServiceData->description_2 = $request->description_2;
-        // $ServiceData->pointers = json_encode($request->pointers);
-        $ServiceData->button_content = $request->button_content;
-        $ServiceData->button_link = $request->button_link;
-        $ServiceData->background_color = $request->background_color;
-        if ($request->hasFile('background_image')) {
-            $backgroundImagePath = $request->file('background_image')->store('about', 'public');
-            $ServiceData->background_image = $backgroundImagePath;
+        try {
+            $about = new AboutUs();
+            $about->title = $request->title;
+            $about->description_1 = $request->description_1;
+            $about->description_2 = $request->description_2;
+            $about->button_content = $request->button_content;
+            $about->button_link = $request->button_link;
+            $about->background_color = $request->background_color;
+    
+            // Handle background_image file upload
+            if ($request->hasFile('background_image')) {
+                $backgroundImagePath = $request->file('background_image')->store('about', 'public');
+                $about->background_image = $backgroundImagePath;
+            }
+    
+            // Handle image file upload
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('about', 'public');
+                $about->image = $imagePath;
+            }
+    
+            $about->save();
+    
+            return redirect()->route('abouts.index')->with('success', 'Record created successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to create record: ' . $e->getMessage());
         }
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('about', 'public');
-            $ServiceData->image = $imagePath;
-        }
-        $ServiceData->save();
-
-        return redirect()->route('abouts.index');
     }
+    
 
     /**
      * Display the specified resource.
@@ -69,22 +75,72 @@ class AboutController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $about = AboutUs::find($id);
+        return view('about.editform', compact('about'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(AboutRequest $request, string $id)
     {
-        //
+        try {
+    
+            $about = AboutUs::findOrFail($id);
+    
+            // Update background image
+            if ($request->hasFile('background_image')) {
+                $about->background_image = $this->handleFileUpload($request->file('background_image'), 'about', $about->background_image);
+            }
+    
+            // Update main image
+            if ($request->hasFile('image')) {
+                $about->image = $this->handleFileUpload($request->file('image'), 'about', $about->image);
+            }
+    
+            $about->title = $request->title;
+            $about->subtitle = $request->subtitle; // Ensure consistency
+            $about->description_1 = $request->description_1;
+            $about->description_2 = $request->description_2;
+            $about->button_content = $request->button_content;
+            $about->button_link = $request->button_link;
+            $about->background_color = $request->background_color;
+    
+            $about->save();
+    
+
+            return redirect()->route('abouts.index')->with('success', 'Record updated successfully!');
+        } catch (\Exception $e) {
+
+            return redirect()->back()->with('error', 'Failed to update record. Please try again.');
+        }
     }
+    
+
+
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $about = AboutUs::findOrFail($id);
+
+            if ($about->background_image) {
+                Storage::delete('public/' . $about->background_image);
+            }
+
+            if ($about->image) {
+                Storage::delete('public/' . $about->image);
+            }
+
+            $about->delete();
+
+            return redirect()->route('abouts.index')->with('success', 'Record deleted successfully!');
+        } catch (\Exception $e) {
+            return redirect()->route('abouts.index')->with('error', 'Failed to delete record: ' . $e->getMessage());
+        }
     }
 }
