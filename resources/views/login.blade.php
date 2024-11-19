@@ -1,56 +1,166 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-    rel="stylesheet">
-  <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="./assets/sign.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <title>Sign In</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Login Page</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        .main-container {
+            background-color: #e0f0ff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            background: url('{{ asset('assets/images/imagebgLogin.png') }}');
+            background-position: bottom;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
 
+        .login-container {
+            max-width: 900px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            height: 507px;
+        }
+
+        .profile-icon {
+            position: relative;
+        }
+
+        .profile-icon img {
+            position: absolute;
+            top: 10px;
+        }
+
+        /* Left Panel */
+        .login-left {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            width: 35%;
+            background-image: url('{{ asset('assets/images/login-left.png') }}');
+            background-position: top;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .login-left h2 {
+            font-size: 30px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        /* Right Panel */
+        .login-right {
+            flex-grow: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-right h4 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #2a5298;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            padding: 15px;
+        }
+
+        .form-control {
+
+            font-size: 18px !important;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #B4B4B4 !important;
+            border-radius: 0px !important;
+            border-width: 0px 0px 1px 0px;
+            padding-left: 31px;
+
+
+        }
+
+        .form-group.form-check label,
+        .form-check a {
+            color: #282760 !important;
+            font-weight: 500;
+            font-size: 17px;
+        }
+
+        .btn-login {
+            background-color: #3753A4;
+            color: #fff;
+            font-weight: bold;
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 40px !important;
+        }
+
+        .btn:hover {
+            color: #ffffff !important;
+            text-decoration: none;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+                max-width: 90%;
+            }
+
+            .login-left {
+                width: 100%;
+                padding: 40px 20px;
+                text-align: center;
+
+            }
+
+            .login-right {
+                width: 100%;
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <div class="main-container">
+        <div class="login-container">
+            <!-- Left Panel -->
+            <div class="login-left">
 
-  <section class="login-container">
-    <div class="container ">
-      <div class="row">
-        <div class="col-lg-6"></div>
-        <div class="col-lg-6 form_section">
-          <div class="login-form ">
-            <div class="row">
-              <div class="col-6">
-                <h2 class="text-left set_mainheading">Sign In</h2>
-
-              </div>
-              <div class="col-6">
-                <a class="text-left setacount" href="">Create Your Acount</a>
-              </div>
             </div>
 
-            <div class="row">
-              <div class="col-lg-6">
+            <!-- Right Panel -->
+            <div class="login-right">
+                <h4>
+                    <img src="{{ asset('assets/images/logoBrand.png')}}" alt="logo">
+                </h4>
 
-                <button class="btn setBtn_primary mb-2"><i class="fa-brands fa-google" style="color: #ffffff;"></i> Sign
-                  in with Google</button>
-              </div>
-              <div class="col-lg-6 set_facebook">
-
-                <button class="btn setBtn_primary_white mb-2"> <i class="fa-brands fa-facebook-f"
-                    style="color: #005b96;"></i> With Facebook</button>
-              </div>
-            </div>
-            <div class="Set_usign">Or Sign in Using Your Email Address</div>
-            @if (session('error'))
+                 @if (session('error'))
             <div class="col-sm-12">
               <div class="alert  alert-danger alert-dismissible fade show" role="alert">
                 {{ session('error') }}
@@ -60,63 +170,50 @@
               </div>
             </div>
             @endif
-            <form action="{{route('login')}}" method="post">
+                <form action="{{route('login')}}" method="post">
               @csrf()
-              <div class="row set-data">
-                <div class="form-group col-lg-6  ">
-                  <label for="email">Your Email</label>
-                  <input type="email" class="form-control" name="email" id="email" placeholder="typeyourmail@example.com">
-                  @if ($errors->has('email'))
-                  <div style="color: red;">
-                    {{ $errors->first('email') }}
-                  </div>
-                  @endif
-                </div>
+                    <div class="form-group profile-icon">
+                        <img src="{{ asset('assets/images/profile.png') }}" alt="">
+                        <input type="email" class="form-control emailIcon" id="email" placeholder="Enter email" name="email"
+                            required>
+                        @if ($errors->has('email'))
+                        <div style="color: red;">
+                            {{ $errors->first('email') }}
+                        </div>
+                        @endif
 
-                <div class="form-group col-lg-6 set-pass-icon">
-                  <label for="password">Password</label>
-                  <input id="password-field" type="password" class="form-control @error('password') is-invalid @enderror" name="password">
-                  @error('password')
-                  <div style="color:red">{{ $message }}</div>
-                  @enderror
-                  <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                </div>
-                <!-- <div class="form-check col-lg-4 set_remember">
-                  <input type="radio" class="form-check-input" id="rememberMe">
-                  <label class="form-check-label" for="rememberMe">Remember Me</label>
-                </div> -->
 
-                <div class="col-lg-8 set_pass ">
-                  <a href="">Forgot Password?</a>
 
-                  
-                </div>
-                <div class=" col-12 set_sign">
-                  <button type="submit" class="setBtn_primary signin_button">Sign In</button>
-                </div>
-              </div>
-            </form>
-            
-          </div>
+                    </div>
+                    <div class="form-group profile-icon">
+                        <img src="{{ asset('assets/images/profile.png')}}" alt="">
+                        <input  id="password-field" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required>
+
+                        @error('password')
+                        <div style="color:red">{{ $message }}</div>
+                        @enderror
+                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span> 
+
+
+
+
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                        <label class="form-check-label remember-me" for="rememberMe">Remember me</label>
+                        <a href="#" class="float-right">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-login">Login</button>
+                </form>
+            </div>
         </div>
-      </div>
     </div>
-  </section>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script>
-    $(".toggle-password").click(function() {
 
-      $(this).toggleClass("fa-eye fa-eye-slash");
-      var input = $($(this).attr("toggle"));
-      if (input.attr("type") == "password") {
-        input.attr("type", "text");
-      } else {
-        input.attr("type", "password");
-      }
-    });
-  </script>
+
+    <!-- Bootstrap JS, jQuery, and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

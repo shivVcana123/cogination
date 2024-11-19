@@ -24,3 +24,20 @@
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 </head>
+<style>
+tr {
+  background-color: #0476b4;
+  color: white;
+}
+button.btn.btn-primary {
+    background-color: #0476b4;
+}
+.card{
+      margin-top: 32px;
+}
+
+button.btn.btn-primary {
+    float: inline-end!important;
+    
+}
+</style>

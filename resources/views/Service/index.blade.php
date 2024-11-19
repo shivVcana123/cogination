@@ -6,8 +6,8 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Header</h3>
-                <button class="btn btn-primary" style="margin-left: 82%;" ><a style="color:white" href="{{ route('services.create') }}">Add Service</a></button>
+                <h3 class="card-title">Service</h3>
+                <button class="btn btn-primary" ><a style="color:white" href="{{ route('services.create') }}">+ Service</a></button>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -20,7 +20,6 @@
                              <th>Button Content</th>
                             <th>Background Color</th>
                              <th>Button Link</th>
-                            <th>Background Image</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -33,7 +32,6 @@
                             <td>{{ $service->button_content }}</td>
                             <td>{{ $service->background_color }}</td>
                             <td>{{ $service->button_link }}</td>
-                            <td>{{ $service->background_image }}</td>
                             <td>
                                 <i class="fa fa-edit"></i>
                                 <i class="fa fa-trash"></i>
