@@ -39,20 +39,20 @@ use App\Http\Controllers\Backend\UsefullLinkController;
         Auth::logout();
         return redirect('/login');
     })->name('logout'); 
-    Route::get('/header', [HeaderController::class, 'header'])->name('header'); // Add or Update header data
-    Route::get('/add-header', [HeaderController::class, 'addheader'])->name('addheader'); // Add or Update header data
+    // Route::get('/header', [HeaderController::class, 'header'])->name('header'); // Add or Update header data
+    // Route::get('/add-header', [HeaderController::class, 'addheader'])->name('addheader'); // Add or Update header data
 
     
-    Route::post('/save-header', [HeaderController::class, 'addOrUpdateHeader'])->name('addOrUpdateHeader'); // Add or Update header data
+    // Route::post('/save-header', [HeaderController::class, 'addOrUpdateHeader'])->name('addOrUpdateHeader'); // Add or Update header data
 
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/home', [HomeController::class, 'home'])->name('home');
-
-    Route::resource('services', ServiceController::class);
-    Route::resource('homes', BackendHomeController::class);
-    Route::resource('abouts', AboutController::class);
+    Route::resource('header', HeaderController::class);
+    Route::resource('service', ServiceController::class);
+    Route::resource('home', BackendHomeController::class);
+    Route::resource('about', AboutController::class);
     Route::resource('news', NewsController::class);
-    Route::resource('usefulllinks', UsefullLinkController::class);
+    Route::resource('link', UsefullLinkController::class);
     use Illuminate\Support\Facades\Artisan;
 
     Route::get('/clear-cache', function () {

@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{route('abouts.index')}}">About</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('about.index')}}">About</a></li>
                         <li class="breadcrumb-item active">About Update Form</li>
                     </ol>
                 </div>
@@ -26,7 +26,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Update Details</h3>
                         </div>
-                        <form action="{{ route('abouts.update', $about->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('about.update', $about->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="card-body">

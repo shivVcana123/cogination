@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Home Section</h3>
-                <button class="btn btn-primary" style="margin-left: 82%;"><a style="color:white" href="{{ route('homes.create') }}">Add Home Section</a></button>
+                <button class="btn btn-primary" style="margin-left: 82%;"><a style="color:white" href="{{ route('home.create') }}">Add Home Section</a></button>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -35,8 +35,8 @@
                             <td>{{ $home->background_color }}</td>
                             <td>{{ $home->background_image }}</td>
                             <td>
-                                <a href="{{ route('homes.edit',$home->id) }}"><i class="fa fa-edit"></i></a>
-                                <form action="{{ route('homes.destroy', $home->id) }}" method="POST" style="display:inline;">
+                                <a href="{{ route('home.edit',$home->id) }}"><i class="fa fa-edit"></i></a>
+                                <form action="{{ route('home.destroy', $home->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-link p-0" onclick="return confirm('Are you sure you want to delete this record?')">

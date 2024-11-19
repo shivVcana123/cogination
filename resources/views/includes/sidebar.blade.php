@@ -45,7 +45,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="{{route('header')}}" class="nav-link {{request()->is('header*') ? 'active' : ''}}">
+                      <a href="{{route('header.index')}}" class="nav-link {{request()->is('header*') ? 'active' : ''}}">
                           <i class="nav-icon far fa-plus-square"></i>
                           <p>
                               Header
@@ -53,7 +53,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="{{route('homes.index')}}" class="nav-link {{request()->is('homes*') ? 'active' : ''}}">
+                      <a href="{{route('home.index')}}" class="nav-link {{request()->is('home*') ? 'active' : ''}}">
                           <i class="nav-icon fa fa-home"></i>
                           <p>
                               Home
@@ -61,7 +61,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="{{route('abouts.index')}}" class="nav-link {{request()->is('abouts*') ? 'active' : ''}}">
+                      <a href="{{route('about.index')}}" class="nav-link {{request()->is('about*') ? 'active' : ''}}">
                           <i class="nav-icon far fa-user"></i>
                           <p>
                               About Us
@@ -69,7 +69,7 @@
                       </a>
                   </li>
                     <li class="nav-item">
-                      <a href="{{ route('services.index') }}" class="nav-link {{request()->is('services*') ? 'active' : ''}}">
+                      <a href="{{ route('service.index') }}" class="nav-link {{request()->is('service*') ? 'active' : ''}}">
                           <i class="nav-icon far fa-user"></i>
                           <p>
                               Services
@@ -86,7 +86,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="{{route('usefulllinks.index')}}" class="nav-link {{request()->is('usefulllinks*') ? 'active' : ''}}">
+                      <a href="{{route('link.index')}}" class="nav-link {{request()->is('link*') ? 'active' : ''}}">
                           <i class="nav-icon fa fa-link"></i>
                           <p>
                               Useful Links

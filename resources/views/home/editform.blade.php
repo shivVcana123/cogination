@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{route('homes.index')}}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('home.index')}}">Home</a></li>
                         <li class="breadcrumb-item active">Home Update Form</li>
                     </ol>
                 </div>
@@ -26,7 +26,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Update Details</h3>
                         </div>
-                        <form action="{{ route('homes.update', $homeData->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('home.update', $homeData->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="card-body">
@@ -80,7 +80,7 @@
 
                                 <div class="form-group">
                                     <label for="image">Image</label>
-                                    <img id="blah" src="{{ asset('storage/' . $homeData->image) }}" alt="your image" style="width: 130px;" />
+                                    <img id="blah" src="{{ asset('/' . $homeData->image) }}" alt="your image" style="width: 130px;" />
                                     <input type="file" class="form-control" name="image" id="imgInp">
                                     @error('image')
                                     <div class="text-danger">{{ $message }}</div>
@@ -89,7 +89,7 @@
 
                                 <div class="form-group">
                                     <label for="background_image">Background Image</label>
-                                    <img id="bg_image" src="{{ asset('storage/' . $homeData->background_image) }}" style="width: 130px;" />
+                                    <img id="bg_image" src="{{ asset('/' . $homeData->background_image) }}" style="width: 130px;" />
                                     <input type="file" class="form-control" name="background_image" id="background_image">
                                     @error('background_image')
                                     <div class="text-danger">{{ $message }}</div>

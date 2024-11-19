@@ -53,12 +53,15 @@ class ServiceController extends Controller
         $ServiceData->button_link = $request->button_link;
         $ServiceData->background_color = $request->background_color;
         if ($request->hasFile('background_image')) {
-            $backgroundImagePath = $request->file('background_image')->store('service', 'public');
-            $ServiceData->background_image = $backgroundImagePath;
+            $backgroundImageName = time() . '_' . $request->file('background_image')->getClientOriginalName();
+            $backgroundImagePath = $request->file('background_image')->storeAs('service', $backgroundImageName, 'public');
+            $ServiceData->background_image = 'storage/app/public/' . $backgroundImagePath;
         }
+
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('service', 'public');
-            $ServiceData->image = $imagePath; 
+            $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+            $imagePath = $request->file('image')->storeAs('service', $imageName, 'public');
+            $ServiceData->image = 'storage/app/public/' . $imagePath;
         }
         $ServiceData->save();
        

@@ -26,7 +26,7 @@
                     <div class="card-header">
                         <h3 class="card-title">Add About</h3>
                     </div>
-                    <form action="{{ route('abouts.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('about.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
                             <div class="form-group">

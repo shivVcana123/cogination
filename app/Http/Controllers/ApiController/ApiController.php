@@ -16,6 +16,7 @@ use App\Models\News;
 use App\Models\Service;
 use App\Models\UsefulLink;
 use Illuminate\Http\Request;
+use Str;
 
 class ApiController extends Controller
 {
@@ -60,20 +61,24 @@ class ApiController extends Controller
     //     ], 200);
     // }
     public function fetchServicesData()
-{
-    $serviceData = Service::all();
-
-    // Group the data by `service_type`
-    $groupedData = $serviceData->groupBy('service_type')->map(function ($services) {
-        return ServicesResource::collection($services);
-    });
-
-    return response()->json([
-        'status' => 'success',
-        'message' => 'Data fetched successfully',
-        'data' => $groupedData,
-    ], 200);
-}
+    {
+        $serviceData = Service::all();
+    
+        // Group the data by `service_type` and transform dynamically
+        $groupedData = $serviceData->groupBy('service_type')->mapWithKeys(function ($services, $type) {
+            // Generate a dynamic key by transforming the `service_type`
+            $key = Str::slug($type, '_'); // Converts "Real Estate Consulting Service" to "real_estate_consulting_service"
+            return [$key => ServicesResource::collection($services)];
+        });
+    
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data fetched successfully',
+            'data' => $groupedData,
+        ], 200);
+    }
+    
+    
 
     public function fetchUsefullLinlsData()
     {

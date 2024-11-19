@@ -10,6 +10,7 @@ class Header extends Model
     use HasFactory;
     protected $fillable = [
         'category',
+        'link',
         'parent_id',
     ];    
     public function parent()

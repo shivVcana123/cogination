@@ -41,17 +41,19 @@ class AboutController extends Controller
             $about->button_link = $request->button_link;
             $about->background_color = $request->background_color;
     
-            // Handle background_image file upload
+    
             if ($request->hasFile('background_image')) {
-                $backgroundImagePath = $request->file('background_image')->store('about', 'public');
-                $about->background_image = $backgroundImagePath;
+                $backgroundImageName = time() . '_' . $request->file('background_image')->getClientOriginalName();
+                $backgroundImagePath = $request->file('background_image')->storeAs('about', $backgroundImageName, 'public');
+                $about->background_image = 'storage/app/public/' . $backgroundImagePath;
             }
     
-            // Handle image file upload
             if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('about', 'public');
-                $about->image = $imagePath;
+                $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+                $imagePath = $request->file('image')->storeAs('about', $imageName, 'public');
+                $about->image = 'storage/app/public/' . $imagePath;
             }
+    
     
             $about->save();
     

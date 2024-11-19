@@ -17,6 +17,7 @@ class HeaderResource extends JsonResource
         return [
             'id' => $this->id,
             'category' => $this->category,
+            'link' => $this->link,
             'children' => HeaderResource::collection($this->whenLoaded('children')),
         ];
     }

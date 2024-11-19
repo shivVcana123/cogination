@@ -26,7 +26,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Add Service</h3>
                         </div>
-                        <form action="{{ route('services.store') }}" method="POST" enctype="multipart/form-data"> 
+                        <form action="{{ route('service.store') }}" method="POST" enctype="multipart/form-data"> 
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">

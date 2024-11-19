@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Header</h3>
-                <button class="btn btn-primary" style="margin-left: 82%;" ><a style="color:white" href="{{ route('addheader') }}">Add Header</a></button>
+                <button class="btn btn-primary" style="margin-left: 82%;" ><a style="color:white" href="{{ route('header.create') }}">Add Header</a></button>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -16,27 +16,35 @@
                         <tr>
                             <th>#</th>
                             <th>Category</th>
+                            <th>Link</th>
                             <th>Sub Category</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($headerData as $key => $home)
+                        @foreach ($headerData as $key => $header)
                         <tr>
-                         @if($home->parent_id === null)
+                         @if($header->parent_id === null)
                             <td>{{ $key + 1 }}</td>
                            
-                                <td>{{ $home->category }}</td>
+                                <td>{{ $header->category }}</td>
+                                <td>{{ $header->link }}</td>
                                 <td>
-                                    @if($home->children->isNotEmpty())
-                                        @foreach ($home->children as $child)
+                                    @if($header->children->isNotEmpty())
+                                        @foreach ($header->children as $child)
                                         <button class="btn btn-info">{{ $child->category ?? '' }}</button>
                                         @endforeach
                                     @endif
                                 </td>
                                 <td>
-                                    <i class="fa fa-edit"></i>
-                                    <i class="fa fa-trash"></i>
+                                    <a href="{{route('header.edit',$header->id)}}"><i class="fa fa-edit"></i></a>
+                                    <form action="{{ route('header.destroy', $header->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-link p-0" onclick="return confirm('Are you sure you want to delete this record?')">
+                                        <i class="fa fa-trash text-danger"></i>
+                                    </button>
+                                </form>
                                 </td>
                              @endif
 

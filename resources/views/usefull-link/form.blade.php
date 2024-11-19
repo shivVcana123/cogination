@@ -26,7 +26,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Add Use full Links</h3>
                         </div>
-                        <form action="{{ route('usefulllinks.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('link.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
