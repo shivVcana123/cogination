@@ -5,7 +5,7 @@
     <!-- Content Header (Page header) -->
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header" >
                 <h3 class="card-title">Header</h3>
                 <button class="btn btn-primary" ><a style="color:white" href="{{ route('addheader') }}">+ Header</a></button>
             </div>

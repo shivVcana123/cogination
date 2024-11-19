@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-primary">
-                        <div class="card-header">
+                        <div class="card-header" style="background-color:#0476b4">
                             <h3 class="card-title">Add Header</h3>
                         </div>
                         <form action="{{ route('addOrUpdateHeader') }}" method="POST">
