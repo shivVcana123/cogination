@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Service</h3>
-                <button class="btn btn-primary" ><a style="color:white" href="{{ route('services.create') }}">+ Service</a></button>
+                <button class="btn btn-primary" ><a style="color:white" href="{{ route('service.create') }}">+ Service</a></button>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

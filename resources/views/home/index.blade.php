@@ -5,9 +5,10 @@
     <!-- Content Header (Page header) -->
     <div class="col-md-12">
         <div class="card">
+        
             <div class="card-header">
                 <h3 class="card-title">Home</h3>
-                <button class="btn btn-primary" style="margin-left: 82%;" ><a style="color:white" href="{{ route('homes.create') }}">+ Home</a></button>
+                <button class="btn btn-primary" ><a style="color:white" href="{{ route('home.create') }}">+ Home</a></button>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

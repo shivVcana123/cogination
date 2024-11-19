@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Use full Links</h3>
-                <button class="btn btn-primary"><a style="color:white" href="{{ route('usefulllinks.create') }}">+ Links</a></button>
+                <button class="btn btn-primary"><a style="color:white" href="{{ route('link.create') }}">+ Links</a></button>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

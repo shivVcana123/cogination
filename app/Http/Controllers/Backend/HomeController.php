@@ -61,34 +61,6 @@ class HomeController extends Controller
     }
 }
 
-    // public function store(HomeRequest $request)
-    // {
-    //     try {
-    //         $homeData = new Home();
-    //         $homeData->title = $request->title;
-    //         $homeData->description_1 = $request->description_1;
-    //         $homeData->subtitle = $request->subtitle;
-    //         $homeData->button_content = $request->button_content;
-    //         $homeData->button_link = $request->button_link;
-    //         $homeData->background_color = $request->background_color;
-
-    //         if ($request->hasFile('background_image')) {
-    //             $backgroundImagePath = $request->file('background_image')->store('home', 'public');
-    //               $homeData->background_image = 'storage/app/public/' . $backgroundImagePath;
-    //         }
-    //         if ($request->hasFile('image')) {
-    //             $imagePath = $request->file('image')->store('home', 'public');
-    //             $homeData->image = 'storage/app/public/' . $imagePath;
-    //         }
-
-    //         $homeData->save();
-
-    //         return redirect()->route('home.index')->with('success', 'Record created successfully!');
-    //     } catch (\Exception $e) {
-    //         return redirect()->back()->with('error', 'Failed to create record: ' . $e->getMessage());
-    //     }
-    // }
-
 
     /**
      * Display the specified resource.
@@ -154,85 +126,6 @@ class HomeController extends Controller
     }
 }
 
-//     public function update(HomeRequest $request, string $id)
-// {
-//     try {
-//         $homeData = Home::findOrFail($id);
-
-//         $homeData->title = $request->title;
-//         $homeData->description_1 = $request->description_1;
-//         $homeData->subtitle = $request->subtitle;
-//         $homeData->button_content = $request->button_content;
-//         $homeData->button_link = $request->button_link;
-//         $homeData->background_color = $request->background_color;
-
-//         if ($request->hasFile('background_image')) {
-//             // Delete the old background image if it exists
-//             if ($homeData->background_image && \Storage::exists(str_replace('storage/app/public/', '', $homeData->background_image))) {
-//                 \Storage::delete(str_replace('storage/app/public/', '', $homeData->background_image));
-//             }
-
-//             // Store the new background image
-//             $backgroundImagePath = $request->file('background_image')->store('home', 'public');
-//             $homeData->background_image = 'storage/app/public/' . $backgroundImagePath;
-//         }
-
-//         if ($request->hasFile('image')) {
-//             // Delete the old image if it exists
-//             if ($homeData->image && \Storage::exists(str_replace('storage/app/public/', '', $homeData->image))) {
-//                 \Storage::delete(str_replace('storage/app/public/', '', $homeData->image));
-//             }
-
-//             // Store the new image
-//             $imagePath = $request->file('image')->store('home', 'public');
-//             $homeData->image = 'storage/app/public/' . $imagePath;
-//         }
-
-//         $homeData->save();
-
-//         return redirect()->route('home.index')->with('success', 'Record updated successfully!');
-//     } catch (\Exception $e) {
-//         return redirect()->back()->with('error', 'Failed to update record: ' . $e->getMessage());
-//     }
-// }
-
-    // public function update(HomeRequest $request, string $id)
-    // {
-    //     try {
-    //         $homeData = Home::findOrFail($id);
-
-    //         if ($request->hasFile('background_image')) {
-    //             if ($homeData->background_image) {
-    //                 Storage::delete('public/' . $homeData->background_image);
-    //             }
-    //             $homeData->background_image = $request->file('background_image')->store('home', 'public');
-    //         }
-
-            
-    //         if ($request->hasFile('image')) {
-    //             if ($homeData->image) {
-    //                 Storage::delete('public/' . $homeData->image);
-    //             }
-    //             $homeData->image = $request->file('image')->store('home', 'public');
-    //         }
-
-    //         $homeData->title = $request->title;
-    //         $homeData->description_1 = $request->description_1;
-    //         $homeData->subtitle = $request->subtitle;
-    //         $homeData->button_content = $request->button_content;
-    //         $homeData->button_link = $request->button_link;
-    //         $homeData->background_color = $request->background_color;
-
-    //         $homeData->save();
-
-    //         return redirect()->route('homes.index')->with('success', 'Record updated successfully!');
-    //     } catch (\Exception $e) {
-    //         return redirect()->back()->with('error', 'Failed to update record: ' . $e->getMessage());
-    //     }
-    // }
-
-
-
 
     /**
      * Remove the specified resource from storage.
@@ -252,9 +145,9 @@ class HomeController extends Controller
 
             $homeData->delete();
 
-            return redirect()->route('homes.index')->with('success', 'Record deleted successfully!');
+            return redirect()->route('home.index')->with('success', 'Record deleted successfully!');
         } catch (\Exception $e) {
-            return redirect()->route('homes.index')->with('error', 'Failed to delete record: ' . $e->getMessage());
+            return redirect()->route('home.index')->with('error', 'Failed to delete record: ' . $e->getMessage());
         }
     }
 }
