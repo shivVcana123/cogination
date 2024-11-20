@@ -55,7 +55,7 @@ class UsefullLinkController extends Controller
         }
         $ServiceData->save();
 
-        return redirect()->route('usefulllinks.index');
+        return redirect()->route('link.index');
     }
 
     /**

@@ -65,7 +65,7 @@ class ServiceController extends Controller
         }
         $ServiceData->save();
        
-        return redirect()->route('services.index');
+        return redirect()->route('service.index');
     }
 
     /**

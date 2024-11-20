@@ -26,45 +26,18 @@
                         <div class="card-header" style="background-color:#0476b4">
                             <h3 class="card-title">Add News</h3>
                         </div>
-                        <form action="{{ route('news.store') }}" method="POST" enctype="multipart/form-data"> 
+                        <form action="{{ route('news.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="title">Title</label>
                                     <input type="text" class="form-control" name="title" id="title" placeholder="Enter title">
                                 </div>
-                                 <div class="form-group">
+                                <div class="form-group">
                                     <label for="title">Decription 1</label>
-                                    <textarea type="text" class="form-control" name="description_1" id="description_1" ></textarea>
+                                    <textarea type="text" class="form-control" name="description_1" id="description_1"></textarea>
                                 </div>
-                                <!-- <div class="form-group">
-                                    <label for="title">Subtitle</label>
-                                    <input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="Enter Subtitle">
-                                </div>
-                                <div class="form-group">
-                                    <label for="title">Decription 2</label>
-                                    <textarea type="text" class="form-control" name="description_2" id="description_2" ></textarea>
-                                </div> -->
-                                 <!-- <div class="form-group">
-                                    <label>Pointers</label>
-                                    <div id="Pointers-container">
-                                        <div class="input-group mb-2">
-                                            <input type="text" name="pointers[]" class="form-control" placeholder="Enter Pointers">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-danger remove-Pointers" type="button">Remove</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button type="button" class="btn btn-success" id="add-Pointers">Add Pointer</button>
-                                </div> -->
-                                <!-- <div class="form-group">
-                                    <label for="title">Button Text</label>
-                                    <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text">
-                                </div>
-                                <div class="form-group">
-                                    <label for="title">Button Link</label>
-                                    <input type="text" class="form-control" name="button_link" id="button_link" placeholder="Enter Button Link">
-                                </div> -->
+
                                 <div class="form-group">
                                     <label for="title">Background Color</label>
                                     <input type="color" class="form-control" name="background_color" id="background_color">
@@ -86,7 +59,7 @@
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                               
+
                             </div>
 
                             <div class="card-footer">
@@ -99,26 +72,7 @@
         </div>
     </section>
 </div>
-
 <script>
-    document.getElementById('add-Pointers').addEventListener('click', function () {
-        const container = document.getElementById('Pointers-container');
-        const newInputGroup = document.createElement('div');
-        newInputGroup.classList.add('input-group', 'mb-2');
-        newInputGroup.innerHTML = `
-            <input type="text" name="pointers[]" class="form-control" placeholder="Enter Pointers">
-            <div class="input-group-append">
-                <button class="btn btn-danger remove-Pointers" type="button">Remove</button>
-            </div>
-        `;
-        container.appendChild(newInputGroup);
-    });
-
-    document.getElementById('Pointers-container').addEventListener('click', function (event) {
-        if (event.target.classList.contains('remove-Pointers')) {
-            event.target.closest('.input-group').remove();
-        }
-    });
     imgInp.onchange = evt => {
         const [file] = imgInp.files;
         if (file) {
@@ -140,6 +94,6 @@
             bg_image.src = "#"; // Reset the src
         }
     };
-</script>
 
+</script>
 @endsection
