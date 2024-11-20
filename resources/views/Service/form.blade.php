@@ -79,13 +79,22 @@
                                     <input type="color" class="form-control" name="background_color" id="background_color">
                                 </div>
                                 <div class="form-group">
-                                    <label for="title">Image</label>
-                                    <input type="file" class="form-control" name="image" id="image">
-                                </div>
-                                 <div class="form-group">
-                                    <label for="title">Background Image</label>
-                                    <input type="file" class="form-control" name="background_image" id="background_image">
-                                </div>
+                                <label for="image">Image</label>
+                                <img id="blah" src="#" alt="Image Preview" style="width: 130px; display:none" />
+                                <input type="file" class="form-control" name="image" id="imgInp" accept="image/*">
+                                @error('image')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="background_image">Background Image</label>
+                                <img id="bg_image" src="#" alt="Background Image Preview" style="width: 130px; display:none" />
+                                <input type="file" class="form-control" name="background_image" id="background_image" accept="image/*">
+                                @error('background_image')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                                
                             </div>
 
@@ -119,6 +128,28 @@
             event.target.closest('.input-group').remove();
         }
     });
+    
+    imgInp.onchange = evt => {
+        const [file] = imgInp.files;
+        if (file) {
+            blah.src = URL.createObjectURL(file);
+            blah.style.display = "block"; // Show the image
+        } else {
+            blah.style.display = "none"; // Hide the image if no file is selected
+            blah.src = "#"; // Reset the src
+        }
+    };
+
+    background_image.onchange = evt => {
+        const [file] = background_image.files;
+        if (file) {
+            bg_image.src = URL.createObjectURL(file);
+            bg_image.style.display = "block"; // Show the image
+        } else {
+            bg_image.style.display = "none"; // Hide the image if no file is selected
+            bg_image.src = "#"; // Reset the src
+        }
+    };
 </script>
 
 @endsection
