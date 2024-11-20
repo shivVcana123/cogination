@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ServiceRequest;
 use App\Models\Header;
 use Illuminate\Http\Request;
 use App\Models\Service;
@@ -32,15 +33,8 @@ class ServiceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ServiceRequest $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'subtitle' => 'required', // Ensure subcategories is an array
-            'description_1' => 'required',
-            'button_content' => 'required', 
-            'background_color' => 'required', 
-        ]);
         $ServiceData = new Service;
         // Save or update the category
         $ServiceData->title = $request->title;

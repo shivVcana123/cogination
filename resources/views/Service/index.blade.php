@@ -18,9 +18,10 @@
                             <th>Title</th>
                             <th>Subtitle</th>
                             <th>Service Type</th>
-                             <th>Button Content</th>
+                            <th>Button Content</th>
+                            <th>Button Content</th>
                             <th>Background Color</th>
-                             <th>Button Link</th>
+                            <th>Button Link</th>
                             <th>Action</th>
                         </tr>
                     </thead>

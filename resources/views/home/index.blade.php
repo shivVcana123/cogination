@@ -21,7 +21,6 @@
                             <th>Button Content</th>
                             <th>Button Link</th>
                             <th>Background Color</th>
-                            <th>Background Image</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -34,7 +33,6 @@
                             <td>{{ $home->button_content }}</td>
                             <td>{{ $home->button_link }}</td>
                             <td>{{ $home->background_color }}</td>
-                            <td>{{ $home->background_image }}</td>
                             <td>
                                 <a href="{{ route('home.edit',$home->id) }}"><i class="fa fa-edit"></i></a>
                                 <form action="{{ route('home.destroy', $home->id) }}" method="POST" style="display:inline;">
