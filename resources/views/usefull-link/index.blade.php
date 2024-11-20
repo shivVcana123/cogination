@@ -22,19 +22,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($usefulllinks as $key => $home)
+                        @foreach ($usefulllinks as $key => $linkData)
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td>{{ $home->title }}</td>
+                            <td>{{ $linkData->title }}</td>
                             <td>
-                                @if ($home->link_type === 1)
+                                @if ($linkData->link_type === 1)
                                 <span>Department Of Veterans Affairs (VA)</span>
                                 @else
                                 <span>General Services Administration (GSA)</span>
                                 @endif
                             </td>
                             @php
-                            $links = $array = json_decode($home->pointers, true);
+                            $links = $array = json_decode($linkData->pointers, true);
                             @endphp
                             <td>
                                 @foreach ($links as $link)
@@ -43,8 +43,14 @@
                             </td>
 
                             <td>
-                                <i class="fa fa-edit"></i>
-                                <i class="fa fa-trash"></i>
+                                <a href="{{route('link.edit',$linkData->id)}}"><i class="fa fa-edit"></i></a>
+                                <form action="{{ route('link.destroy', $linkData->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-link p-0" onclick="return confirm('Are you sure you want to delete this record?')">
+                                        <i class="fa fa-trash text-danger"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach

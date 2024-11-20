@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Add Service Section</h1>
+                    <h1>Add Use full Links Data</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{route('service.index')}}">Service</a></li>
-                        <li class="breadcrumb-item active">Service Form</li>
+                        <li class="breadcrumb-item"><a href="#">Use full Links</a></li>
+                        <li class="breadcrumb-item active">Use full Links Form</li>
                     </ol>
                 </div>
             </div>
@@ -24,54 +24,37 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header" style="background-color:#0476b4">
-                            <h3 class="card-title">Add Service</h3>
+                            <h3 class="card-title">Add Use full Links</h3>
                         </div>
-                        <form action="{{ route('service.store') }}" method="POST" enctype="multipart/form-data"> 
+                        <form action="{{ route('link.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="title">Title</label>
-                                    <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" value="{{old('title')}}">
-                                    @error('title')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="title">Subtitle</label>
-                                    <input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="Enter Subtitle" value="{{old('subtitle')}}">
-                                    @error('subtitle')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                                    <input type="text" class="form-control" name="title" id="title" placeholder="Enter title">
                                 </div>
                                 <div class="form-group">
                                     <label for="title">Please Select Type</label>
-                                    <select class="form-control" name="service_type" id="service_type" value="{{old('service_type')}}">
+                                    <select class="form-control" name="link_type" id="link_type">
                                         <option selected disabled>Please Select Type</option>
-                                        <option value="Real Estate Consulting Service">Real Estate Consulting Service
-                                        </option>
-                                        <option value="Development">Development</option>
+                                        <option value="1">Department Of Veterans Affairs (VA)</option>
+                                        <option value="2">General Services Administration (GSA)</option>
                                     </select>
-                                    @error('service_type')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="title">Decription 1</label>
+                                    <textarea type="text" class="form-control" name="description_1" id="description_1"></textarea>
                                 </div>
 
-                                 <div class="form-group">
-                                    <label for="title">Decription 1</label>
-                                    <textarea type="text" class="form-control" name="description_1" id="description_1" >{{old('description_1')}}</textarea>
-                                    @error('description_1')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                                <!-- <div class="form-group">
+                                    <label for="title">Subtitle</label>
+                                    <input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="Enter Subtitle">
                                 </div>
-                                
                                 <div class="form-group">
                                     <label for="title">Decription 2</label>
-                                    <textarea type="text" class="form-control" name="description_2" id="description_2" >{{old('description_2')}}</textarea>
-                                    @error('description_2')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                                </div>
-                                 <div class="form-group">
+                                    <textarea type="text" class="form-control" name="description_2" id="description_2" ></textarea>
+                                </div> -->
+                                <div class="form-group">
                                     <label>Pointers</label>
                                     <div id="Pointers-container">
                                         <div class="input-group mb-2">
@@ -83,20 +66,14 @@
                                     </div>
                                     <button type="button" class="btn btn-success" id="add-Pointers">Add Pointer</button>
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="title">Button Text</label>
-                                    <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text" value="{{old('button_content')}}">
-                                    @error('button_content')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                                    <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text">
                                 </div>
                                 <div class="form-group">
                                     <label for="title">Button Link</label>
-                                    <input type="text" class="form-control" name="button_link" id="button_link" placeholder="Enter Button Link" value="{{old('button_link')}}">
-                                    @error('button_link')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                                </div>
+                                    <input type="text" class="form-control" name="button_link" id="button_link" placeholder="Enter Button Link">
+                                </div> -->
                                 <div class="form-group">
                                     <label for="title">Background Color</label>
                                     <input type="color" class="form-control" name="background_color" id="background_color">
@@ -118,7 +95,7 @@
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                               
+
                             </div>
 
                             <div class="card-footer">
@@ -133,7 +110,7 @@
 </div>
 
 <script>
-    document.getElementById('add-Pointers').addEventListener('click', function () {
+    document.getElementById('add-Pointers').addEventListener('click', function() {
         const container = document.getElementById('Pointers-container');
         const newInputGroup = document.createElement('div');
         newInputGroup.classList.add('input-group', 'mb-2');
@@ -146,12 +123,11 @@
         container.appendChild(newInputGroup);
     });
 
-    document.getElementById('Pointers-container').addEventListener('click', function (event) {
+    document.getElementById('Pointers-container').addEventListener('click', function(event) {
         if (event.target.classList.contains('remove-Pointers')) {
             event.target.closest('.input-group').remove();
         }
     });
-    
     imgInp.onchange = evt => {
         const [file] = imgInp.files;
         if (file) {

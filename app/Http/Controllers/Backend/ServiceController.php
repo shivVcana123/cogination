@@ -7,6 +7,8 @@ use App\Http\Requests\ServiceRequest;
 use App\Models\Header;
 use Illuminate\Http\Request;
 use App\Models\Service;
+use Illuminate\Support\Facades\Storage;
+
 class ServiceController extends Controller
 {
     /**
@@ -75,15 +77,61 @@ class ServiceController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $services = Service::find($id);
+        return view('Service.editform',compact('services'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ServiceRequest $request, string $id)
     {
-        //
+        try {
+    
+            $ServiceData = Service::findOrFail($id);
+    
+            if ($request->hasFile('background_image')) {
+                // Delete the old background image if it exists
+                if ($ServiceData->background_image && \Storage::exists(str_replace('storage/', '', $ServiceData->background_image))) {
+                    \Storage::delete(str_replace('storage/', '', $ServiceData->background_image));
+                }
+    
+                // Store the new background image with the original file name
+                $backgroundImageName = time() . '_' . $request->file('background_image')->getClientOriginalName();
+                $backgroundImagePath = $request->file('background_image')->storeAs('service', $backgroundImageName, 'public');
+                $ServiceData->background_image ='storage/app/public/' . $backgroundImagePath;
+            }
+    
+            if ($request->hasFile('image')) {
+                // Delete the old image if it exists
+                if ($ServiceData->image && \Storage::exists(str_replace('storage/', '', $ServiceData->image))) {
+                    \Storage::delete(str_replace('storage/', '', $ServiceData->image));
+                }
+    
+                // Store the new image with the original file name
+                $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+                $imagePath = $request->file('image')->storeAs('service', $imageName, 'public');
+                $ServiceData->image = 'storage/app/public/' . $imagePath;
+            }
+    
+            $ServiceData->title = $request->title;
+            $ServiceData->subtitle = $request->subtitle;
+            $ServiceData->service_type = $request->service_type;
+            $ServiceData->description_1 = $request->description_1;
+            $ServiceData->description_2 = $request->description_2;
+            $ServiceData->button_content = $request->button_content;
+            $ServiceData->button_link = $request->button_link;
+            $ServiceData->background_color = $request->background_color;
+            $ServiceData->pointers =json_encode($request->pointers);
+    
+            $ServiceData->save();
+    
+
+            return redirect()->route('service.index')->with('success', 'Record updated successfully!');
+        } catch (\Exception $e) {
+
+            return redirect()->back()->with('error', 'Failed to update record. Please try again.');
+        }
     }
 
     /**
@@ -91,6 +139,22 @@ class ServiceController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $ServiceData = Service::findOrFail($id);
+
+            if ($ServiceData->background_image) {
+                Storage::delete('public/' . $ServiceData->background_image);
+            }
+
+            if ($ServiceData->image) {
+                Storage::delete('public/' . $ServiceData->image);
+            }
+
+            $ServiceData->delete();
+
+            return redirect()->route('service.index')->with('success', 'Record deleted successfully!');
+        } catch (\Exception $e) {
+            return redirect()->route('service.index')->with('error', 'Failed to delete record: ' . $e->getMessage());
+        }
     }
 }

@@ -49,7 +49,6 @@
                             <th>#</th>
                             <th>Title</th>
                             <th>Description</th>
-                            <th>Background Color</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -64,7 +63,6 @@
                             <span class="tooltip-content"><p>{{ $home->description_1 }}</p></span>
                                 </span>
                             </td>
-                            <td>{{ $home->background_color }}</td>
                             <td>
                                 <i class="fa fa-edit"></i>
                                 <i class="fa fa-trash"></i>
