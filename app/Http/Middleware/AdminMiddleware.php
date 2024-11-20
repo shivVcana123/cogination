@@ -10,7 +10,9 @@ class AdminMiddleware
     public function handle($request, Closure $next, $role)
     {
         if (Auth::guard('web')->check()) {
-             return $next($request);
+            dd($request); 
+            return $next($request);
+
         }
 
         return redirect('/login')->withErrors('You do not have access to this page.');

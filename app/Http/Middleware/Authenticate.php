@@ -12,6 +12,9 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
+        logger('Middleware triggered. Authenticated: ' . (auth()->check() ? 'Yes' : 'No'));
+    
         return $request->expectsJson() ? null : route('login');
     }
+    
 }
