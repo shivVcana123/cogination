@@ -17,6 +17,7 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
+
 // Guest Middleware Group
 Route::middleware(['guest'])->group(function () {
     Route::get('/login', function () {
@@ -31,6 +32,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/change-password', [AuthController::class, 'changePassword'])->name('changePassword');
     Route::post('/change-password', [AuthController::class, 'saveChangePassword'])->name('saveChangePassword');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+        // Resource Routes
+    Route::resource('header', HeaderController::class);
+    Route::resource('service', ServiceController::class);
+    Route::resource('home', BackendHomeController::class);
+    Route::resource('about', AboutController::class);
+    Route::resource('news', NewsController::class);
+    Route::resource('link', UsefullLinkController::class);
 });
 
 // Clear Cache Route
@@ -42,10 +51,4 @@ Route::get('/clear-cache', function () {
     ]);
 })->name('clear.cache');
 
-// Resource Routes
-Route::resource('header', HeaderController::class);
-Route::resource('service', ServiceController::class);
-Route::resource('home', BackendHomeController::class);
-Route::resource('about', AboutController::class);
-Route::resource('news', NewsController::class);
-Route::resource('link', UsefullLinkController::class);
+
