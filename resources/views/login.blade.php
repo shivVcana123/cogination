@@ -172,7 +172,7 @@ span.fa.fa-fw.fa-eye.field-icon.toggle-password, span.fa.fa-fw.field-icon.toggle
                 </h4>
 
                  @if (session('error'))
-            <div class="col-sm-12">
+            <div class="">
               <div class="alert  alert-danger alert-dismissible fade show" role="alert">
                 {{ session('error') }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -210,9 +210,9 @@ span.fa.fa-fw.fa-eye.field-icon.toggle-password, span.fa.fa-fw.field-icon.toggle
 
                     </div>
                     <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                        {{-- <input type="checkbox" class="form-check-input" id="rememberMe">
                         <label class="form-check-label remember-me" for="rememberMe">Remember me</label>
-                        <a href="#" class="float-right">Forgot Password?</a>
+                        <a href="#" class="float-right">Forgot Password?</a> --}}
                     </div>
                     <button type="submit" class="btn btn-login">Login</button>
                 </form>

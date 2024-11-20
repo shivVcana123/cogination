@@ -41,6 +41,7 @@ class HeaderController extends Controller
             $headerData->category = $request->category;
             $headerData->link = $request->link;
             $headerData->save();
+
             // Save subcategories
             if ($request->has('subcategories')) {
                 foreach ($request->subcategories as $subCategory) {
@@ -54,7 +55,10 @@ class HeaderController extends Controller
                 }
             }
             return redirect()->route('header.index')->with('success', 'Record created successfully!');
+
         } catch (\Exception $e) {
+            dd($e->getMessage());
+
             return redirect()->back()->with('error', 'Failed to create record: ' . $e->getMessage());
         }
     }

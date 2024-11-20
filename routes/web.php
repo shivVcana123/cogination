@@ -23,13 +23,6 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/login', function () {
         return view('login');
     });
-   
-   
-    Route::get('/forgetpassword', [AuthController::class, 'forget'])->name('forget');
-
-    Route::post('/forgetpassword', [AuthController::class, 'forgetpassword'])->name('forgetpassword');
- 
- 
     Route::post('/login', [AuthController::class, 'login'])->name('login');
 });
 
