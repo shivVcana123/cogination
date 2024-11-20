@@ -22,34 +22,30 @@ class AuthController extends Controller
         return redirect()->back()->with('error', 'Invalid credentials');
     }
 
-    public function resetPassword()
-    {
-        return view('reset_password');
-    }
-
-    public function savePassword(SavePasswordRequest $request)
-    {
-        $user = User::where('reset_otp', $request->otp)->first();
-        if ($user) {
-            $user->password = Hash::make($request->password);
-            $user->save();
-            return redirect()->route('login');
-        } else {
-            return back()->with('error', 'Enter Valid OTP.');
-        }
-    }
-
     public function changePassword()
     {
         return view('change_password');
     }
 
+    public function profile()
+    {
+        return view('profile');
+    }
+
     public function saveChangePassword(SaveChangePasswordRequest $request)
     {
         $user = Auth::user();
+        
         $user->password = Hash::make($request->password);
         $user->save();
         return redirect('/');
+    }
+
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login');
     }
 
 }
