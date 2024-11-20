@@ -1,5 +1,37 @@
 @extends('layouts.guest')
 @section('content')
+<style>
+/* Tooltip container styling */
+.tooltip-container {
+    position: relative;
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+
+/* Hidden tooltip content */
+.tooltip-content {
+    display: none;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    width: 290px;
+    z-index: 10;
+    max-height: 200px; /* Set max height for scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Hide horizontal scrolling */
+    white-space: normal; /* Allow text wrapping */
+}
+
+/* Show tooltip on active class */
+.tooltip-container.active .tooltip-content {
+    display: block;
+}
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -19,7 +51,6 @@
                             <th>Description 1</th>
                             <th>Description 2</th>
                             <th>Background Color</th>
-                            <th>Background Image</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -28,10 +59,19 @@
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $abouts->title }}</td>
-                            <td>{{ substr($abouts->description_1,0,100) }}</td>
-                            <td>{{ substr($abouts->description_2, 0 ,100) }}</td>
+                            <td>{{ substr($abouts->description_1,0,25) }}
+                            <span class="tooltip-container" onclick="toggleTooltip(event, this)">
+                                    Read more...
+                            <span class="tooltip-content"><p>{{ $abouts->description_1 }}</p></span>
+                                </span>
+                            </td>
+                            <td>{{ substr($abouts->description_2, 0 ,25) }}
+                            <span class="tooltip-container" onclick="toggleTooltip(event, this)">
+                                    Read more...
+                            <span class="tooltip-content"><p>{{ $abouts->description_2 }}</p></span>
+                                </span>
+                            </td>
                             <td>{{ $abouts->background_color }}</td>
-                            <td>{{ $abouts->background_image }}</td>
                             <td>
                                 <a href="{{ route('about.edit',$abouts->id) }}"><i class="fa fa-edit"></i></a>
                                 <form action="{{ route('about.destroy', $abouts->id) }}" method="POST" style="display:inline;">
@@ -52,4 +92,28 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+<script>
+
+function toggleTooltip(event, element) {
+    // Close other active tooltips
+    document.querySelectorAll('.tooltip-container.active').forEach((tooltip) => {
+        if (tooltip !== element) {
+            tooltip.classList.remove('active');
+        }
+    });
+
+    // Toggle the clicked tooltip
+    element.classList.toggle('active');
+
+    // Stop event propagation to prevent triggering the document click listener
+    event.stopPropagation();
+}
+
+// Close all tooltips when clicking outside
+document.addEventListener('click', () => {
+    document.querySelectorAll('.tooltip-container.active').forEach((tooltip) => {
+        tooltip.classList.remove('active');
+    });
+});
+</script>
 @endsection

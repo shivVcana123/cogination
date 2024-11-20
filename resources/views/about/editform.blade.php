@@ -75,7 +75,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="image">Image</label>
-                                    <img id="blah" src="{{ asset('storage/' . $about->image) }}" alt="your image" style="width: 130px;" />
+                                    <img id="blah"  src="{{ asset(str_replace('storage/app/public', 'storage', $about->image)) }}" alt="your image" style="width: 130px;" />
                                     <input type="file" class="form-control" name="image" id="imgInp">
                                     @error('image')
                                     <div class="text-danger">{{ $message }}</div>
@@ -84,7 +84,7 @@
 
                                 <div class="form-group">
                                     <label for="background_image">Background Image</label>
-                                    <img id="bg_image" src="{{ asset('storage/' . $about->background_image) }}" style="width: 130px;" />
+                                    <img id="bg_image" src="{{ asset(str_replace('storage/app/public', 'storage', $about->background_image)) }}" style="width: 130px;" />
                                     <input type="file" class="form-control" name="background_image" id="background_image">
                                     @error('background_image')
                                     <div class="text-danger">{{ $message }}</div>

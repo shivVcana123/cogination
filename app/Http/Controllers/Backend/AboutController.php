@@ -57,7 +57,7 @@ class AboutController extends Controller
     
             $about->save();
     
-            return redirect()->route('abouts.index')->with('success', 'Record created successfully!');
+            return redirect()->route('about.index')->with('success', 'Record created successfully!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to create record: ' . $e->getMessage());
         }
@@ -90,18 +90,31 @@ class AboutController extends Controller
     
             $about = AboutUs::findOrFail($id);
     
-            // Update background image
             if ($request->hasFile('background_image')) {
-                $about->background_image = $this->handleFileUpload($request->file('background_image'), 'about', $about->background_image);
+                // Delete the old background image if it exists
+                if ($about->background_image && \Storage::exists(str_replace('storage/', '', $about->background_image))) {
+                    \Storage::delete(str_replace('storage/', '', $about->background_image));
+                }
+    
+                // Store the new background image with the original file name
+                $backgroundImageName = time() . '_' . $request->file('background_image')->getClientOriginalName();
+                $backgroundImagePath = $request->file('background_image')->storeAs('about', $backgroundImageName, 'public');
+                $about->background_image ='storage/app/public/' . $backgroundImagePath;
             }
     
-            // Update main image
             if ($request->hasFile('image')) {
-                $about->image = $this->handleFileUpload($request->file('image'), 'about', $about->image);
+                // Delete the old image if it exists
+                if ($about->image && \Storage::exists(str_replace('storage/', '', $about->image))) {
+                    \Storage::delete(str_replace('storage/', '', $about->image));
+                }
+    
+                // Store the new image with the original file name
+                $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+                $imagePath = $request->file('image')->storeAs('about', $imageName, 'public');
+                $about->image = 'storage/app/public/' . $imagePath;
             }
     
             $about->title = $request->title;
-            $about->subtitle = $request->subtitle; // Ensure consistency
             $about->description_1 = $request->description_1;
             $about->description_2 = $request->description_2;
             $about->button_content = $request->button_content;
@@ -111,7 +124,7 @@ class AboutController extends Controller
             $about->save();
     
 
-            return redirect()->route('abouts.index')->with('success', 'Record updated successfully!');
+            return redirect()->route('about.index')->with('success', 'Record updated successfully!');
         } catch (\Exception $e) {
 
             return redirect()->back()->with('error', 'Failed to update record. Please try again.');
@@ -140,9 +153,9 @@ class AboutController extends Controller
 
             $about->delete();
 
-            return redirect()->route('abouts.index')->with('success', 'Record deleted successfully!');
+            return redirect()->route('about.index')->with('success', 'Record deleted successfully!');
         } catch (\Exception $e) {
-            return redirect()->route('abouts.index')->with('error', 'Failed to delete record: ' . $e->getMessage());
+            return redirect()->route('about.index')->with('error', 'Failed to delete record: ' . $e->getMessage());
         }
     }
 }
