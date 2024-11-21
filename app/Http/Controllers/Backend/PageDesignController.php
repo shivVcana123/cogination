@@ -34,20 +34,7 @@ class PageDesignController extends Controller
 
      public function store(Request $request)
      {
-         // Validate the request data
-        //  $request->validate([
-        //      'title_style' => 'required',
-        //      'subtitle_style' => 'required',
-        //      'description_style' => 'required',
-        //      'button_content_style' => 'required',
-        //      'header_color' => 'required',
-        //      'footer_color' => 'required',
-        //      'header_image' => 'required|image',
-        //      'footer_image' => 'required|image',
-        //  ]);
- 
-        //  dd('sdsad');
-     
+    
          // Create a new PageDesign record
          $page = new PageDesign();
      
