@@ -70,6 +70,15 @@
                           </p>
                       </a>
                   </li>
+
+                  <li class="nav-item">
+                      <a href="{{route('page.index')}}" class="nav-link {{request()->is('page*') ? 'active' : ''}}">
+                          <i class="nav-icon fa fa-cog" style="color:white"></i>
+                          <p style="color:white">
+                              Page Design 
+                          </p>
+                      </a>
+                  </li>
                  
               </ul>
           </nav>

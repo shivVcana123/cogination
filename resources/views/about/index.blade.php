@@ -50,7 +50,6 @@
                             <th>Title</th>
                             <th>Description 1</th>
                             <th>Description 2</th>
-                            <th>Background Color</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -71,7 +70,6 @@
                             <span class="tooltip-content"><p>{{ $abouts->description_2 }}</p></span>
                                 </span>
                             </td>
-                            <td>{{ $abouts->background_color }}</td>
                             <td>
                                 <a href="{{ route('about.edit',$abouts->id) }}"><i class="fa fa-edit"></i></a>
                                 <form action="{{ route('about.destroy', $abouts->id) }}" method="POST" style="display:inline;">

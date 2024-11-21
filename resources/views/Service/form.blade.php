@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Add Service Data</h1>
+                    <h1>Add Service Section</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">General Form</li>
+                        <li class="breadcrumb-item"><a href="{{route('service.index')}}">Service</a></li>
+                        <li class="breadcrumb-item active">Service Form</li>
                     </ol>
                 </div>
             </div>

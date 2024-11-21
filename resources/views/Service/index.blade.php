@@ -31,8 +31,14 @@
                             <td>{{ $service->service_type }}</td>
                             <td>{{ $service->button_content }}</td>
                             <td>
-                                <i class="fa fa-edit"></i>
-                                <i class="fa fa-trash"></i>
+                                <a href="{{route('service.edit',$service->id)}}"><i class="fa fa-edit"></i></a>
+                                <form action="{{ route('service.destroy', $service->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-link p-0" onclick="return confirm('Are you sure you want to delete this record?')">
+                                        <i class="fa fa-trash text-danger"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach

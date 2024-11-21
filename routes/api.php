@@ -1,6 +1,6 @@
 <?php
 use App\Http\Controllers\ApiController\ApiController;
-
+use App\Http\Controllers\Backend\PageDesignController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,3 +14,4 @@ Route::get('about-us', [ApiController::class, 'fetchAboutData']); // Fetch all h
 Route::get('service', [ApiController::class, 'fetchServicesData']); // Fetch all header data
 Route::get('useful-links', [ApiController::class, 'fetchUsefullLinlsData']); // Fetch all header data
 Route::get('latest-news', [ApiController::class, 'fetchLatestNewsData']); // Fetch all header data
+Route::get('website-style', [ApiController::class, 'fetchWebsiteStyle']); // Fetch all website-style data
