@@ -80,7 +80,6 @@
 
                                 <div class="form-group">
                                     <label for="image">Image</label>
-                                    {{ dd($homeData->image) }}
                                     <img
                                         id="blah"
                                         src="{{ asset(str_replace('storage/app/public', 'storage', $homeData->image)) }}"

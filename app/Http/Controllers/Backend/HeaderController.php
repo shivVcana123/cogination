@@ -87,10 +87,12 @@ class HeaderController extends Controller
 
      public function update(Request $request, string $id)
      {
+
          try {
             $validated = $request->validate([
                 'category' => 'required',
             ]);
+
              // Find the existing header by ID
              $headerData = Header::findOrFail($id);
      
@@ -126,7 +128,6 @@ class HeaderController extends Controller
          } catch (\Exception $e) {
              // Log the error for debugging
              \Log::error('Header update failed: ' . $e->getMessage());
-     
              return redirect()->back()->with('error', 'Failed to update record: ' . $e->getMessage());
          }
      }

@@ -25,7 +25,7 @@
                       <a href="{{route('header.index')}}" class="nav-link {{request()->is('header*') ? 'active' : ''}}">
                           <i class="nav-icon far fa-plus-square" style="color:white"></i>
                           <p style="color:white">
-                              Hero Section
+                             Header
                           </p>
                       </a>
                   </li>
@@ -33,7 +33,7 @@
                       <a href="{{route('home.index')}}" class="nav-link {{request()->is('home*') ? 'active' : ''}}">
                           <i class="nav-icon fa fa-home" style="color:white"></i>
                           <p style="color:white">
-                              Home
+                              Hero Section
                           </p>
                       </a>
                   </li>
