@@ -29,10 +29,12 @@ Route::middleware(['guest'])->group(function () {
 // Auth Middleware Group
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
-    Route::get('/change-password', [AuthController::class, 'changePassword'])->name('changePassword');
-    Route::post('/change-password', [AuthController::class, 'saveChangePassword'])->name('saveChangePassword');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
+    Route::get('profile', [AuthController::class, 'profile'])->name('profile');
+
+    Route::get('/change-password', [AuthController::class, 'changePassword'])->name('changePassword');
+    Route::post('/saveChangePassword', [AuthController::class, 'saveChangePassword'])->name('saveChangePassword');
         // Resource Routes
     Route::resource('header', HeaderController::class);
     Route::resource('service', ServiceController::class);
