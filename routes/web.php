@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\HeaderController;
 use App\Http\Controllers\Backend\HomeController as BackendHomeController;
 use App\Http\Controllers\Backend\ServiceController;
 use App\Http\Controllers\Backend\UsefullLinkController;
+use App\Http\Controllers\Backend\PageDesignController;
 use Illuminate\Support\Facades\Artisan;
 
 Route::get('/welcome', function () {
@@ -42,6 +43,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('about', AboutController::class);
     Route::resource('news', NewsController::class);
     Route::resource('link', UsefullLinkController::class);
+    Route::resource('page', PageDesignController::class);
+
+    Route::post('/page-save', [PageDesignController::class, 'store'])->name('page-save');
 });
 
 // Clear Cache Route

@@ -9,10 +9,12 @@ use App\Http\Resources\HomeResource;
 use App\Http\Resources\NewsResource;
 use App\Http\Resources\ServicesResource;
 use App\Http\Resources\UsefullLinlsResource;
+use App\Http\Resources\WebsiteStyleResource;
 use App\Models\AboutUs;
 use App\Models\Header;
 use App\Models\Home;
 use App\Models\News;
+use App\Models\PageDesign;
 use App\Models\Service;
 use App\Models\UsefulLink;
 use Illuminate\Http\Request;
@@ -98,6 +100,17 @@ class ApiController extends Controller
             'status' => 'success',
             'message' => 'Data fetched successfully',
             'data' => NewsResource::collection($newsData),
+        ], 200);
+    }
+
+    public function fetchWebsiteStyle()
+    {
+        $pageDesign = PageDesign::all();
+        
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data fetched successfully',
+            'data' => WebsiteStyleResource::collection($pageDesign),
         ], 200);
     }
 }

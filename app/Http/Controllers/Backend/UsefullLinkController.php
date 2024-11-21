@@ -71,8 +71,8 @@ class UsefullLinkController extends Controller
      */
     public function edit(string $id)
     {
-        $useFullLinkData = UsefulLink::find($id);
-        return view('usefull-link.editform',compact('useFullLinkData'));
+        $linkData = UsefulLink::find($id);
+        return view('usefull-link.editform',compact('linkData'));
     }
 
     /**
