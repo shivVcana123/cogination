@@ -47,9 +47,15 @@
                                     <label for="title">Please Select Type</label>
                                     <select class="form-control" name="service_type" id="service_type" value="{{old('service_type')}}">
                                         <option selected disabled>Please Select Type</option>
-                                        <option value="Real Estate Consulting Service">Real Estate Consulting Service
-                                        </option>
-                                        <option value="Development">Development</option>
+
+                                      @if (isset($headerChild[0]->children) && $headerChild[0]->children->isNotEmpty())
+                                            @foreach($headerChild[0]->children as $child)
+                                                <option value="{{ $child->category }}">{{ $child->category }}</option>
+                                            @endforeach
+                                        @else
+                                            <option value="">No children available</option>
+                                        @endif
+                                        {{-- <option value="Development">Development</option> --}}
                                     </select>
                                     @error('service_type')
                                 <div class="text-danger">{{ $message }}</div>

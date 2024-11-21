@@ -7,6 +7,8 @@ use App\Http\Requests\ServiceRequest;
 use App\Models\Header;
 use Illuminate\Http\Request;
 use App\Models\Service;
+
+use App\Http\Resources\HeaderResource;
 class ServiceController extends Controller
 {
     /**
@@ -24,8 +26,10 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $headerChild = Header::with('children')->whereNull('parent_id')
-        ->where('category','services')->get();
+        $headerChild = Header::with('children')->whereNull('parent_id')->where('category','Services')->get();
+        $headerChild = HeaderResource::collection($headerChild);
+      
+        // dd($headerChild[0]['children'][0]['category']);
         return view('Service.form',compact('headerChild'));
 
     }

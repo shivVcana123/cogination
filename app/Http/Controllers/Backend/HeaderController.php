@@ -108,7 +108,6 @@ class HeaderController extends Controller
                  $submittedCategories = collect($subcategories)->filter(); // Remove empty values
                  $toDelete = array_diff(array_keys($existingSubcategories), $submittedCategories->toArray());
                  $headerData->children()->whereIn('category', $toDelete)->delete();
-     
                  // Update or create subcategories
                  foreach ($submittedCategories as $subCategory) {
                      if (!empty($subCategory)) {

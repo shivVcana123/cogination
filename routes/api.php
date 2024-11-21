@@ -9,8 +9,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('fetch-header-data', [ApiController::class, 'fetchHeaderData']); // Fetch all header data
-Route::get('fetch-home-data', [ApiController::class, 'fetchHomeData']); // Fetch all header data
-Route::get('fetch-about-data', [ApiController::class, 'fetchAboutData']); // Fetch all header data
-Route::get('fetch-services-data', [ApiController::class, 'fetchServicesData']); // Fetch all header data
-Route::get('fetch-usefull-links-data', [ApiController::class, 'fetchUsefullLinlsData']); // Fetch all header data
-Route::get('fetch-latest-news-data', [ApiController::class, 'fetchLatestNewsData']); // Fetch all header data
+Route::get('/', [ApiController::class, 'fetchHomeData']); // Fetch all header data
+Route::get('about-us', [ApiController::class, 'fetchAboutData']); // Fetch all header data
+Route::get('service', [ApiController::class, 'fetchServicesData']); // Fetch all header data
+Route::get('useful-links', [ApiController::class, 'fetchUsefullLinlsData']); // Fetch all header data
+Route::get('latest-news', [ApiController::class, 'fetchLatestNewsData']); // Fetch all header data

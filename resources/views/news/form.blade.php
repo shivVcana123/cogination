@@ -34,6 +34,10 @@
                                     <input type="text" class="form-control" name="title" id="title" placeholder="Enter title">
                                 </div>
                                 <div class="form-group">
+                                    <label for="title">Link</label>
+                                    <input type="text" class="form-control" name="link" id="title" placeholder="Enter link">
+                                </div>
+                                <div class="form-group">
                                     <label for="title">Decription 1</label>
                                     <textarea type="text" class="form-control" name="description_1" id="description_1"></textarea>
                                 </div>

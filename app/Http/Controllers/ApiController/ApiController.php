@@ -42,24 +42,13 @@ class ApiController extends Controller
     }
     public function fetchAboutData()
     {
-        $aboutData = AboutUs::all();
-        
+        $aboutData = AboutUs::latest()->first();
         return response()->json([
             'status' => 'success',
             'message' => 'Data fetched successfully',
             'data' => AboutResource::collection($aboutData),
         ], 200);
     }
-    // public function fetchServicesData()
-    // {
-    //     $serviceData = Service::all();
-        
-    //     return response()->json([
-    //         'status' => 'success',
-    //         'message' => 'Data fetched successfully',
-    //         'data' => ServicesResource::collection($serviceData),
-    //     ], 200);
-    // }
     public function fetchServicesData()
     {
         $serviceData = Service::all();
@@ -100,4 +89,5 @@ class ApiController extends Controller
             'data' => NewsResource::collection($newsData),
         ], 200);
     }
+
 }
