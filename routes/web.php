@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('link', UsefullLinkController::class);
     Route::resource('page', PageDesignController::class);
 
-    Route::post('/page-save', [PageDesignController::class, 'store'])->name('page-save');
+    Route::post('/website-style', [PageDesignController::class, 'store'])->name('website-style');
 });
 
 // Clear Cache Route
