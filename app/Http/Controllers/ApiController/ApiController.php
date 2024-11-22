@@ -102,4 +102,9 @@ class ApiController extends Controller
             'data' => WebsiteStyleResource::collection($pageDesign),
         ], 200);
     }
+
+    public function saveContactData(Request $request)
+    {
+        dd($request);
+    }
 }

@@ -15,3 +15,4 @@ Route::get('service', [ApiController::class, 'fetchServicesData']); // Fetch all
 Route::get('useful-links', [ApiController::class, 'fetchUsefullLinlsData']); // Fetch all header data
 Route::get('latest-news', [ApiController::class, 'fetchLatestNewsData']); // Fetch all header data
 Route::get('website-style', [ApiController::class, 'fetchWebsiteStyle']); // Fetch all website-style data
+Route::post('save-contact', [ApiController::class, 'saveContactData']); // Fetch all website-style data

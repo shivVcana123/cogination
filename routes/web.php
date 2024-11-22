@@ -12,6 +12,8 @@ use App\Http\Controllers\Backend\HomeController as BackendHomeController;
 use App\Http\Controllers\Backend\ServiceController;
 use App\Http\Controllers\Backend\UsefullLinkController;
 use App\Http\Controllers\Backend\PageDesignController;
+use App\Http\Controllers\Backend\FooterController;
+
 use Illuminate\Support\Facades\Artisan;
 
 Route::get('/welcome', function () {
@@ -44,6 +46,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('news', NewsController::class);
     Route::resource('link', UsefullLinkController::class);
     Route::resource('page', PageDesignController::class);
+    Route::resource('footer', FooterController::class);
+
 
     Route::post('/website-style', [PageDesignController::class, 'store'])->name('website-style');
 });
