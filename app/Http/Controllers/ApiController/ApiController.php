@@ -103,14 +103,45 @@ class ApiController extends Controller
         ], 200);
     }
 
-    public function fetchWebsiteStyle()
-    {
-        $pageDesign = PageDesign::all();
+    // public function fetchWebsiteStyle()
+    // {
+    //     $pageDesign = PageDesign::all();
         
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Data fetched successfully',
-            'data' => WebsiteStyleResource::collection($pageDesign),
-        ], 200);
-    }
+    //     return response()->json([
+    //         'status' => 'success',
+    //         'message' => 'Data fetched successfully',
+    //         'data' => WebsiteStyleResource::collection($pageDesign),
+    //     ], 200);
+    // }
+//     public function fetchWebsiteStyle()
+// {
+//     $pageDesign = PageDesign::all()->map(function ($item) {
+//         return [
+//             'header_color' => $item->header_color,
+//             'footer_color' => $item->footer_color,
+//             'title_style' => strip_tags($item->title_style),
+//             'subtitle_style' => strip_tags($item->subtitle_style),
+//             'description_style' => strip_tags($item->description_style),
+//             'button_content_style' => strip_tags($item->button_content_style),
+//         ];
+//     });
+
+//     return response()->json([
+//         'status' => 'success',
+//         'message' => 'CSS styles fetched successfully',
+//         'data' => $pageDesign,
+//     ], 200);
+// }
+public function fetchWebsiteStyle()
+{
+    $pageDesign = PageDesign::all();
+    return response()->json([
+        'status' => 'success',
+        'message' => 'CSS styles fetched successfully',
+        'data' => WebsiteStyleResource::collection($pageDesign),
+    ], 200);
+}
+
+
+
 }
