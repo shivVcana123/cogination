@@ -19,7 +19,6 @@
                             <th>Subtitle</th>
                             <th>Service Type</th>
                             <th>Button Content</th>
-                            <th>Button Link</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -31,7 +30,6 @@
                             <td>{{ $service->subtitle }}</td>
                             <td>{{ $service->service_type }}</td>
                             <td>{{ $service->button_content }}</td>
-                            <td>{{ $service->button_link }}</td>
                             <td>
                                 <a href="{{route('service.edit',$service->id)}}"><i class="fa fa-edit"></i></a>
                                 <form action="{{ route('service.destroy', $service->id) }}" method="POST" style="display:inline;">

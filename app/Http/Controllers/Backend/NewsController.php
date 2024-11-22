@@ -39,7 +39,7 @@ class NewsController extends Controller
         // Save or update the category
         $ServiceData->title = $request->title;
         $ServiceData->description_1 = $request->description_1;
-        // $ServiceData->pointers = json_encode($request->pointers);
+        $ServiceData->button_link = $request->link;
         $ServiceData->background_color = $request->background_color;
 
         if ($request->hasFile('background_image')) {

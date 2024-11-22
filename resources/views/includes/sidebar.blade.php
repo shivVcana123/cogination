@@ -25,7 +25,7 @@
                       <a href="{{route('header.index')}}" class="nav-link {{request()->is('header*') ? 'active' : ''}}">
                           <i class="nav-icon far fa-plus-square" style="color:white"></i>
                           <p style="color:white">
-                              Header
+                              Hero Section
                           </p>
                       </a>
                   </li>

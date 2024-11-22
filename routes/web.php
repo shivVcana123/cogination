@@ -48,6 +48,39 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/website-style', [PageDesignController::class, 'store'])->name('website-style');
 });
 
+
+// Database Migration Route
+Route::get('/header-seeder', function () {
+    try {
+        Artisan::call('db:seed');
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Database seed executed successfully.',
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Failed to run seed: ' . $e->getMessage(),
+        ], 500);
+    }
+});
+
+// Database Migration Route
+Route::get('/migrate', function () {
+    try {
+        Artisan::call('migrate');
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Database migrations executed successfully.',
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Failed to run migrations: ' . $e->getMessage(),
+        ], 500);
+    }
+});
+
 // Clear Cache Route
 Route::get('/clear-cache', function () {
     Artisan::call('optimize:clear');
