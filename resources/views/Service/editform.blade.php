@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Update Service Data</h1>
+                    <h1>Update Service Section</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{route('service.index')}}">Service</a></li>
-                        <li class="breadcrumb-item active"> Service Form</li>
+                        <li class="breadcrumb-item active"> Update Form</li>
                     </ol>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header" style="background-color:#0476b4">
-                            <h3 class="card-title">Update Service</h3>
+                            <h3 class="card-title">Update Service Details</h3>
                         </div>
                         <form action="{{ route('service.update',$services->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
@@ -126,7 +126,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="background_image">Background Image</label>
+                                    <label for="background_image">Background Center Image</label>
                                     <img id="bg_image" src="{{ asset(str_replace('storage/app/public', 'storage', $services->background_image)) }}" style="width: 130px;" />
                                     <input type="file" class="form-control" name="background_image" id="background_image">
                                     @error('background_image')

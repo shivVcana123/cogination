@@ -38,13 +38,13 @@
                                 </td>
                                 <td>
                                     <a href="{{route('header.edit',$header->id)}}"><i class="fa fa-edit"></i></a>
-                                    <form action="{{ route('header.destroy', $header->id) }}" method="POST" style="display:inline;">
+                                    <!-- <form action="{{ route('header.destroy', $header->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-link p-0" onclick="return confirm('Are you sure you want to delete this record?')">
                                         <i class="fa fa-trash text-danger"></i>
                                     </button>
-                                </form>
+                                </form> -->
                                 </td>
                              @endif
 

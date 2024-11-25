@@ -6,7 +6,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Service</h3>
+                <h3 class="card-title">Services</h3>
                 <button class="btn btn-primary" ><a style="color:white" href="{{ route('service.create') }}">+ Service</a></button>
             </div>
             <!-- /.card-header -->
@@ -32,10 +32,11 @@
                             <td>{{ $service->button_content }}</td>
                             <td>
                                 <a href="{{route('service.edit',$service->id)}}"><i class="fa fa-edit"></i></a>
-                                <form action="{{ route('service.destroy', $service->id) }}" method="POST" style="display:inline;">
+                        
+                                <form id="delete-form-{{ $service->id }}" action="{{ route('service.destroy', $service->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-link p-0" onclick="return confirm('Are you sure you want to delete this record?')">
+                                    <button type="button" class="btn btn-link p-0 delete-button" data-id="{{ $service->id }}">
                                         <i class="fa fa-trash text-danger"></i>
                                     </button>
                                 </form>
@@ -50,4 +51,31 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+ <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteButtons = document.querySelectorAll('.delete-button');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const recordId = this.dataset.id;
+                const form = document.getElementById(`delete-form-${recordId}`);
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this record!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#02476c',
+                    cancelButtonColor: '#dd3333',
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    });
+ </script>
 @endsection

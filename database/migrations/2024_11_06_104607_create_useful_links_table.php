@@ -14,15 +14,10 @@ return new class extends Migration
         Schema::create('useful_links', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
-            $table->string('link_type')->nullable();
-            $table->string('description_1')->nullable();
-            // $table->string('description_2')->nullable();
-            // $table->string('button_content')->nullable();
-            // $table->string('button_link')->nullable();
+            $table->json('pointers')->nullable();
+            $table->string('background_color')->nullable();
             $table->string('image')->nullable();
             $table->string('background_image')->nullable();
-            $table->string('background_color')->nullable();
-            $table->json('pointers')->nullable();
             $table->timestamps();
         });
     }

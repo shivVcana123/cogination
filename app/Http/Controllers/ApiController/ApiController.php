@@ -92,19 +92,17 @@ class ApiController extends Controller
         ], 200);
     }
 
-    public function fetchWebsiteStyle()
-    {
-        $pageDesign = PageDesign::all();
-        
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Data fetched successfully',
-            'data' => WebsiteStyleResource::collection($pageDesign),
-        ], 200);
-    }
 
-    public function saveContactData(Request $request)
-    {
-        dd($request);
-    }
+public function fetchWebsiteStyle()
+{
+    $pageDesign = PageDesign::all();
+    return response()->json([
+        'status' => 'success',
+        'message' => 'CSS styles fetched successfully',
+        'data' => WebsiteStyleResource::collection($pageDesign),
+    ], 200);
+}
+
+
+
 }

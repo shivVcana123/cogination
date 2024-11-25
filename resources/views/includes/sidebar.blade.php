@@ -84,7 +84,7 @@
                       <a href="{{route('page.index')}}" class="nav-link {{request()->is('page*') ? 'active' : ''}}">
                           <i class="nav-icon fa fa-cog" style="color:white"></i>
                           <p style="color:white">
-                              Page Design 
+                          Design Styles 
                           </p>
                       </a>
                   </li>
