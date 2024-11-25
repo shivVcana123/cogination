@@ -38,7 +38,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">News</h3>
+                <h3 class="card-title">Latest News</h3>
                 <button class="btn btn-primary"><a style="color:white" href="{{ route('news.create') }}">+ News</a></button>
             </div>
             <!-- /.card-header -->
@@ -53,19 +53,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($news as $key => $home)
+                        @foreach ($news as $key => $new)
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td>{{ $home->title }}</td>
-                            <td>{{ substr($home->description_1,0,25) }}
+                            <td>{{ $new->title }}</td>
+                            <td>{{ substr($new->description_1,0,25) }}
                             <span class="tooltip-container" onclick="toggleTooltip(event, this)">
                                     Read more...
-                            <span class="tooltip-content"><p>{{ $home->description_1 }}</p></span>
+                            <span class="tooltip-content"><p>{{ $new->description_1 }}</p></span>
                                 </span>
                             </td>
                             <td>
-                                <i class="fa fa-edit"></i>
-                                <i class="fa fa-trash"></i>
+                                <a href="{{route('news.edit',$new->id)}}"><i class="fa fa-edit"></i></a>
+                                <form id="delete-form-{{ $new->id }}" action="{{ route('news.destroy', $new->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" class="btn btn-link p-0 delete-button" data-id="{{ $new->id }}">
+                                        <i class="fa fa-trash text-danger"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -100,5 +106,30 @@ document.addEventListener('click', () => {
         tooltip.classList.remove('active');
     });
 });
+document.addEventListener('DOMContentLoaded', function() {
+        const deleteButtons = document.querySelectorAll('.delete-button');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const recordId = this.dataset.id;
+                const form = document.getElementById(`delete-form-${recordId}`);
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this record!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#02476c',
+                    cancelButtonColor: '#dd3333',
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    });
 </script>
 @endsection

@@ -8,12 +8,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Page Design</h1>
+                    <h1>Design Styles</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">News</a></li>
-                        <li class="breadcrumb-item active">style Form</li>
+                        <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Styles Form</li>
                     </ol>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header" style="background-color:#0476b4">
-                            <h3 class="card-title">Add News</h3>
+                            <h3 class="card-title">Add Design Styles</h3>
                         </div>
                         <!-- Form Start -->
                         <form action="{{ route('website-style') }}" method="POST" enctype="multipart/form-data">

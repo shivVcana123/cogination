@@ -10,8 +10,8 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">General About Form</li>
+                        <li class="breadcrumb-item"><a href="{{route('about.index')}}">About</a></li>
+                        <li class="breadcrumb-item active">Add Form</li>
                     </ol>
                 </div>
             </div>
@@ -24,7 +24,7 @@
             <div class="col-md-12">
                 <div class="card card-primary">
                     <div class="card-header" style="background-color:#0476b4">
-                        <h3 class="card-title">Add About</h3>
+                        <h3 class="card-title">Add About Details</h3>
                     </div>
                     <form action="{{ route('about.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -83,7 +83,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="background_image">Background Image</label>
+                                <label for="background_image">Background Center Image</label>
                                 <img id="bg_image" src="#" alt="Background Image Preview" style="width: 130px; display:none" />
                                 <input type="file" class="form-control" name="background_image" id="background_image" accept="image/*">
                                 @error('background_image')

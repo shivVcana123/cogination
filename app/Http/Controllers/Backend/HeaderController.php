@@ -88,9 +88,11 @@ class HeaderController extends Controller
      public function update(Request $request, string $id)
      {
          try {
-            $validated = $request->validate([
-                'category' => 'required',
-            ]);
+             // Validate the request
+             $validated = $request->validate([
+                 'category' => 'required',
+             ]);
+     
              // Find the existing header by ID
              $headerData = Header::findOrFail($id);
      
@@ -101,23 +103,13 @@ class HeaderController extends Controller
      
              // Handle subcategories
              if ($request->has('subcategories')) {
-                 $subcategories = $request->subcategories;
-     
-                 // Delete existing subcategories not in the request
-                 $existingSubcategories = $headerData->children->pluck('id', 'category')->toArray();
-                 $submittedCategories = collect($subcategories)->filter(); // Remove empty values
-                 $toDelete = array_diff(array_keys($existingSubcategories), $submittedCategories->toArray());
-                 $headerData->children()->whereIn('category', $toDelete)->delete();
-                 // Update or create subcategories
-                 foreach ($submittedCategories as $subCategory) {
+                 $headerData->children()->delete(); // Remove old subcategories
+                 foreach ($request->subcategories as $subCategory) {
                      if (!empty($subCategory)) {
-                         $headerData->children()->updateOrCreate(
-                             [
-                                 'category' => $subCategory,
-                                 'parent_id' => $headerData->id, // Ensure the parent ID matches
-                             ],
-                             ['category' => $subCategory]
-                         );
+                         $headerData->children()->create([
+                             'category' => $subCategory,
+                             'parent_id' => $headerData->id,
+                         ]);
                      }
                  }
              }

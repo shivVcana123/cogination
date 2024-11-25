@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Update Home Data</h1>
+                    <h1>Update Home Section</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{route('home.index')}}">Home</a></li>
-                        <li class="breadcrumb-item active">Home Update Form</li>
+                        <li class="breadcrumb-item active">Update Form</li>
                     </ol>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Update Details</h3>
+                            <h3 class="card-title">Update Home Details</h3>
                         </div>
                         <form action="{{ route('home.update', $homeData->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
@@ -47,7 +47,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="description_1">Description 1</label>
+                                    <label for="description_1">Description</label>
                                     <textarea class="form-control" name="description_1" id="description_1">{{ old('description_1', $homeData->description_1 ?? '') }}</textarea>
                                     @error('description_1')
                                     <div class="text-danger">{{ $message }}</div>
@@ -80,7 +80,6 @@
 
                                 <div class="form-group">
                                     <label for="image">Image</label>
-                                    {{ dd($homeData->image) }}
                                     <img
                                         id="blah"
                                         src="{{ asset(str_replace('storage/app/public', 'storage', $homeData->image)) }}"
@@ -94,7 +93,7 @@
 
 
                                 <div class="form-group">
-                                    <label for="background_image">Home Background Image</label>
+                                    <label for="background_image">Background Center Image</label>
                                     <img id="bg_image" src="{{ asset(str_replace('storage/app/public', 'storage', $homeData->background_image)) }}" style="width: 130px;" />
                                     <input type="file" class="form-control" name="background_image" id="background_image">
                                     @error('background_image')

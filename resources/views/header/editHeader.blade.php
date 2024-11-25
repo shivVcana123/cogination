@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Update Header Data</h1>
+                    <h1>Hero Section</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{route('header.index')}}">Header</a></li>
-                        <li class="breadcrumb-item active">Update</li>
+                        <li class="breadcrumb-item active">Update Form</li>
                     </ol>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Update Header</h3>
+                            <h3 class="card-title">Update Header Details</h3>
                         </div>
                         <form action="{{ route('header.update',$headerData[0]->id) }}" method="POST">
                             @csrf
@@ -36,12 +36,12 @@
                                 </div> -->
                                 <div class="form-group">
                                     <label for="category">Category</label>
-                                    <input type="text" oninput="categorySlug(this)" class="form-control" name="category" id="category" placeholder="Enter Category" value="{{old('category',$headerData[0]->category)}}">
+                                    <input type="text" oninput="categorySlug(this)" class="form-control" name="category" id="category" placeholder="Enter Category" value="{{ old('category', $headerData[0]->category) }}">
                                     @error('category')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                           
+                                <!-- @if($headerData[0]->children->isNotEmpty()) -->
                                 <div class="form-group">
                                     <label>Subcategories</label>
                                     <div id="subcategory-container">
@@ -53,14 +53,15 @@
                                         @foreach ($subcategories as $value)
                                         <div class="input-group mb-2">
                                             <input type="text" name="subcategories[]" class="form-control" placeholder="Enter Subcategory" value="{{ $value }}">
-                                            <div class="input-group-append">
+                                            <!-- <div class="input-group-append">
                                                 <button class="btn btn-danger remove-subcategory" type="button">Remove</button>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         @endforeach
                                     </div>
-                                    <button type="button" class="btn btn-success" id="add-subcategory">Add Subcategory</button>
+                                    <!-- <button type="button" class="btn btn-success" id="add-subcategory">Add Subcategory</button> -->
                                 </div>
+                                <!-- @endif -->
 
                             </div>
 
@@ -83,9 +84,10 @@
         newInputGroup.innerHTML = `
             <input type="text" name="subcategories[]" class="form-control" placeholder="Enter Subcategory">
             <div class="input-group-append">
-                <button class="btn btn-danger remove-subcategory" type="button">Remove</button>
+                
             </div>
         `;
+        // <button class="btn btn-danger remove-subcategory" type="button">Remove</button>
         container.appendChild(newInputGroup);
     });
 
