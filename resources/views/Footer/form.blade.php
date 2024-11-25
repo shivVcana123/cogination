@@ -47,8 +47,9 @@
                                 </div>
 
                               <div class="row">
-                                <label for="phone_no">Select Display Data</label>
-
+                                <div class="col-12">
+                                        <label for="headers">Select Display Data</label>
+                                    </div>
                                 @foreach ($headers as $header)
                                     <div class="col-md-4">
                                         <div class="form-group">
