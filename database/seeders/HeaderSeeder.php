@@ -16,44 +16,41 @@ class HeaderSeeder extends Seeder
         DB::table('headers')->insert([
             [
                 'category' => 'Home',
-                'link' => '',
+                'parent_id' => null,
+            ],
+            [
+                'category' => 'About Us +',
                 'parent_id' => null,
             ],
             [
                 'category' => 'About Us',
-                'link' => 'about-us',
+                'parent_id' => 2,
+            ],
+            [
+                'category' => 'Our Approach',
+                'parent_id' => 2,
+            ],
+            [
+                'category' => 'Accreditation & Certifications',
+                'parent_id' => 2,
+            ],
+            [
+                'category' => 'ADHD',
                 'parent_id' => null,
             ],
             [
-                'category' => 'Services',
-                'link' => '',
+                'category' => 'Autism',
                 'parent_id' => null,
             ],
             [
-                'category' => 'Real Estate Consulting Service',
-                'link' => 'service/1',
-                'parent_id' => 3,
-            ],
-            [
-                'category' => 'Development',
-                'link' => 'service/2',
-                'parent_id' => 3,
-            ],
-            [
-                'category' => 'Latest News',
-                'link' => 'latest-news',
+                'category' => 'Assessment',
                 'parent_id' => null,
             ],
             [
-                'category' => 'Useful Links',
-                'link' => 'useful-links',
+                'category' => 'Fees',
                 'parent_id' => null,
             ],
-            [
-                'category' => 'Contact us',
-                'link' => 'contact',
-                'parent_id' => null,
-            ],
+           
 
             // Add more entries as needed
         ]);
