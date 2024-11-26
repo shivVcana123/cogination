@@ -19,6 +19,8 @@ use App\Models\Service;
 use App\Models\UsefulLink;
 use Illuminate\Http\Request;
 use Str;
+use App\Models\Contact;
+
 
 class ApiController extends Controller
 {
@@ -104,5 +106,19 @@ public function fetchWebsiteStyle()
 }
 
 
+public function addContacts(Request $request)
+{
+    $pageDesign = new Contact();
+    $pageDesign->email = $request->pageDesign;
+    $pageDesign->name = $request->name;
+    $pageDesign->subject = $request->subject;
+    $pageDesign->message = $request->message;
+    $pageDesign->save();
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Contact saved successfully',
+        'data' => $pageDesign,
+    ], 200);
+}
 
 }

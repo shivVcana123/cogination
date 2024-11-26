@@ -24,9 +24,9 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header" style="background-color:#0476b4">
-                            <h3 class="card-title">Add News</h3>
+                            <h3 class="card-title">Add Footer</h3>
                         </div>
-                        <form action="{{ route('news.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('footer.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
@@ -35,15 +35,20 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="link">Address</label>
-                                    <input type="text" class="form-control" name="link" id="link" placeholder="Enter link">
+                                    <input type="text" class="form-control" name="address" id="address" placeholder="Enter Address">
                                 </div>
                                 <div class="form-group">
-                                    <label for="description_1">Email</label>
-                                    <textarea class="form-control" name="description_1" id="description_1" placeholder="Enter email"></textarea>
+                                    <label for="email">Fooetr Description</label>
+                                    <textarea class="form-control" name="description" id="description" placeholder="Enter Text" ></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="phone_no">Contact Info</label>
-                                    <input type="tel" class="form-control" name="phone_no" id="phone_no">
+                                    <input type="phone" class="form-control" name="phone_no" id="phone_no">
+                                </div>
+
+                                 <div class="form-group">
+                                    <label for="phone_no">Email</label>
+                                    <input type="email" class="form-control" name="email" id="email">
                                 </div>
 
                               <div class="row">
@@ -58,9 +63,9 @@
                                                 <input 
                                                     type="checkbox" 
                                                     class="form-check-input" 
-                                                    name="headers[]" 
+                                                    name="dats_display[]" 
                                                     id="header_{{ $header->id }}" 
-                                                    value="{{ $header->id }}"
+                                                    value="{{ $header->category }}"
                                                 >
                                                 <!-- Label for the Checkbox -->
                                                 <label class="form-check-label" for="header_{{ $header->id }}">
@@ -71,15 +76,37 @@
                                     </div>
                                 @endforeach
                             </div>
+                                {{-- <div class="form-group">
+                                    <label for="background_color">Link Name</label>
+                                    <input type="text" class="form-control" name="link" id="link">
+                                </div>
+                                <div class="form-group">
+                                    <label for="background_color">Url</label>
+                                    <input type="text" class="form-control" name="url" id="url">
+                                </div> --}}
+
+                                <div class="form-group">
+                                    <label for="link_name">Link Name</label>
+                                    <div id="link-url-container">
+                                        <!-- Default Input Fields -->
+                                        <div class="link-url-row">
+                                            <input type="text" class="form-control mb-2" name="links[0][name]" placeholder="Enter Link Name">
+                                            <input type="text" class="form-control mb-2" name="links[0][url]" placeholder="Enter URL">
+                                            <button type="button" class="btn btn-danger btn-sm remove-link-url" style="display: none;">Remove</button>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-success btn-sm add_more" id="add-more-link-url">Add More</button>
+                                </div>
+
 
 
                                 <div class="form-group">
-                                    <label for="background_color">Background Color</label>
+                                    <label for="background_color">Background Center Color</label>
                                     <input type="color" class="form-control" name="background_color" id="background_color">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="background_image">Background Image</label>
+                                    <label for="background_image">Background Center Image</label>
                                     <img id="bg_image" src="#" alt="Background Image Preview" style="width: 130px; display:none" />
                                     <input type="file" class="form-control" name="background_image" id="background_image" accept="image/*">
                                     @error('background_image')
@@ -99,55 +126,46 @@
     </section>
 </div>
 
-@endsection
 
-@push('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
 <script>
-    // Initialize intl-tel-input for phone input
-    const phoneInput = document.querySelector("#phone_no");
-    if (phoneInput) {
-        const iti = window.intlTelInput(phoneInput, {
-            initialCountry: "auto",
-            geoIpLookup: function (callback) {
-                fetch("https://ipinfo.io/json?token=YOUR_TOKEN_HERE")
-                    .then((response) => response.json())
-                    .then((data) => callback(data.country))
-                    .catch(() => callback("us"));
-            },
-            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+ background_image.onchange = evt => {
+        const [file] = background_image.files;
+
+        if (file) {
+            bg_image.src = URL.createObjectURL(file);
+            bg_image.style.display = "block"; // Show the image
+        } else {
+            bg_image.style.display = "none"; // Hide the image if no file is selected
+            bg_image.src = "#"; // Reset the src
+        }
+    };
+
+  document.addEventListener("DOMContentLoaded", function () {
+        let counter = 1; // Counter for input naming
+
+        // Add More Button Functionality
+        document.querySelector("#add-more-link-url").addEventListener("click", function () {
+
+            const container = document.querySelector("#link-url-container");
+            const newRow = document.createElement("div");
+            newRow.classList.add("link-url-row");
+            newRow.innerHTML = `
+                <input type="text" class="form-control mb-2" name="links[${counter}][name]" placeholder="Enter Link Name">
+                <input type="text" class="form-control mb-2" name="links[${counter}][url]" placeholder="Enter URL">
+                <button type="button" class="btn btn-danger btn-sm remove-link-url">Remove</button>
+            `;
+            container.appendChild(newRow);
+            counter++;
         });
 
-        document.querySelector("form").addEventListener("submit", function (e) {
-            const fullNumber = iti.getNumber(); // Get full number with country code
-            console.log("Full Number:", fullNumber);
+        // Remove Button Functionality
+        document.querySelector("#link-url-container").addEventListener("click", function (e) {
+            if (e.target && e.target.classList.contains("remove-link-url")) {
+                e.target.parentElement.remove();
+            }
         });
-    }
-
-    // Preview for image upload
-    document.querySelector("#imgInp").addEventListener("change", (evt) => {
-        const [file] = evt.target.files;
-        const imgPreview = document.querySelector("#blah");
-        if (file) {
-            imgPreview.src = URL.createObjectURL(file);
-            imgPreview.style.display = "block";
-        } else {
-            imgPreview.src = "#";
-            imgPreview.style.display = "none";
-        }
     });
 
-    // Preview for background image upload
-    document.querySelector("#background_image").addEventListener("change", (evt) => {
-        const [file] = evt.target.files;
-        const bgPreview = document.querySelector("#bg_image");
-        if (file) {
-            bgPreview.src = URL.createObjectURL(file);
-            bgPreview.style.display = "block";
-        } else {
-            bgPreview.src = "#";
-            bgPreview.style.display = "none";
-        }
-    });
 </script>
-@endpush
+@endsection

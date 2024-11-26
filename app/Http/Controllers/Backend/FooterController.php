@@ -33,7 +33,22 @@ class FooterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $footer = new Footer;
+        $footer->title = $request->title;
+        $footer->address = $request->address;
+        $footer->description = $request->description;
+        $footer->phone_no = $request->phone_no;
+        $footer->email = $request->email;
+        $footer->background_color = $request->background_color;
+        $footer->display_data = json_encode($request->dats_display);
+        $footer->link = json_encode($request->links);
+        if ($request->hasFile('background_image')) {
+            $backgroundImageName = time() . '_' . $request->file('background_image')->getClientOriginalName();
+            $backgroundImagePath = $request->file('background_image')->storeAs('service', $backgroundImageName, 'public');
+            $footer->background_image = 'storage/app/public/' . $backgroundImagePath;
+        }
+        $footer->save();
+        return redirect()->route('footer.index');
     }
 
     /**
