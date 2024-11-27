@@ -15,9 +15,6 @@
 <!-- jQuery Knob Chart -->
 <script src="{{asset('plugins/jquery-knob/jquery.knob.min.js')}}"></script>
 <!-- daterangepicker -->
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="{{asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
-<!-- Summernote -->
 <!-- <script src="{{asset('plugins/summernote/summernote-bs4.min.js')}}"></script> -->
 <!-- overlayScrollbars -->
 <script src="{{asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
