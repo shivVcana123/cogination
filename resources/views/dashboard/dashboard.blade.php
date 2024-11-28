@@ -27,11 +27,11 @@
         <div class="row">
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box " style="background-color:#0476b4">
+            <div class="small-box " style="background-color:#0377ce">
               <div class="inner">
                 <h3 style="color:white">{{ $users->count() }}</h3>
 
-                <p style="color:white">All Contacts</p>
+                <p style="color:white">All Appointments</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
@@ -42,7 +42,7 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box " style="background-color:#0476b4">
+            <div class="small-box " style="background-color:#0377ce">
               <div class="inner">
                 <h3 style="color:white">{{ $services->count() }}</h3>
 
@@ -57,7 +57,7 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box " style="background-color:#0476b4">
+            <div class="small-box " style="background-color:#0377ce">
               <div class="inner">
                 <h3 style="color:white">{{ $news->count() }}</h3>
 
@@ -72,7 +72,7 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box" style="background-color:#0476b4">
+            <div class="small-box" style="background-color:#0377ce">
               <div class="inner">
                 <h3 style="color:white">{{ $categories->count() }}</h3>
 
@@ -93,7 +93,7 @@
           <section class="col-lg-12 connectedSortable">
             <!-- Custom tabs (Charts with tabs)-->
             <div class="card">
-              <div class="card-header" style="background-color:#0476b4;color:white">
+              <div class="card-header" style="background-color:#0377ce;color:white">
                 <h3 class="card-title">
                   <i class="fas fa-chart-pie mr-1"></i>
                   Sales
@@ -132,7 +132,7 @@ new Chart("myChart", {
     labels: xValues,
     datasets: [{
       data: [860,1140,1060,1060,1070,1110,1330,2210,7830,2478],
-      borderColor: "#0476b4",
+      borderColor: "#0377ce",
       fill: false
     }]
   },

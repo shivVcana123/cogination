@@ -1,3 +1,4 @@
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -23,23 +24,25 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 
   </head>
   <style>
-.inner-colm {
+    .inner-colm {
       display: flex;
       flex-direction: column;
       justify-content: space-around;
       height: 100%;
     }
-      .login-section .space-left {
+    
+    .login-section .space-left {
       padding-left: 50px;
     }
-        .first-colm {
-      width: 100%;
+    
+    .first-colm {
+      /* width: 100%; */
       height: 100vh;
-      background-image: url('{{ asset('assets/images/bk.jpg') }}');
+      background-image:  url('{{ asset('assets/images/bkimage.png') }}');
       background-repeat: no-repeat;
       background-size: cover;
       display: flex;
@@ -209,12 +212,163 @@
       font-size: 0.875em;
       margin-top: 0.25rem;
     }
+    
+    @media (max-width: 767px) {
+      .login-section .space-left {
+        padding-left: 0px;
+      }
+    
+      .first-colm {
+        height: 64vh;
+        padding-top: 30px;
+        padding-bottom: 30px;
+      }
+    
+      .login-section h2 {
+        line-height: 30px;
+      }
+    
+      .login-foot {
+        padding-top: 30px;
+      }
+    
+      .login-section img {
+        padding-bottom: 54px;
+        width: 30%;
+      }
+    
+      .login-section h5 {
+        font-size: 25px !important;
+        line-height: 40px;
+        padding-top: 0px !important;
+      }
+    
+      .login-section h4 {
+        font-size: 25px;
+        line-height: 30px;
+      }
+    
+      .login-section h6 {
+        font-size: 20px;
+        line-height: 23px;
+      }
+    
+      .login-section .second-colm {
+        padding: 30px 15px;
+      }
+    
+      .inner-colm {
+        gap: 30px;
+      }
+    
+      .login-section .form-control {
+        height: 50px;
+        padding: 0 20px;
+      }
+    
+      .login-section input::placeholder {
+        font-size: 14px;
+        line-height: 20px;
+      }
+    
+      .signIn {
+        font-size: 14px !important;
+      }
+    
+      .form-check-label {
+        font-size: 15px;
+      }
+    
+      .loginbtn {
+        height: 50px;
+        font-size: 17px !important;
+      }
+    }
+    
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .login-section .space-left {
+        padding-left: 0px;
+      }
+    
+      .first-colm {
+        height: 60vh;
+        background-size: auto;
+      }
+    
+      .login-section h5 {
+        font-size: 30px !important;
+        line-height: 50px;
+        padding-top: 0px !important;
+      }
+    
+      .login-section h2 {
+        line-height: 35px;
+      }
+    
+      .login-foot {
+        padding-top: 30px;
+      }
+    
+      .login-section .second-colm {
+        padding: 30px 20px;
+      }
+    
+      .login-section h4 {
+        font-size: 35px;
+        line-height: 43px;
+      }
+    
+      .login-section form {
+        padding-top: 30px;
+      }
+    }
+    
+    @media (min-width: 1024px) and (max-width: 1279px) {
+      .login-section .space-left {
+        padding-left: 0px;
+      }
+    
+      .login-section p br {
+        display: none;
+      }
+    
+      .login-section .second-colm {
+        padding: 0 30px;
+      }
+    
+      .inner-colm {
+        justify-content: space-evenly;
+      }
+    }
+    
+    @media (min-width: 1280px) and (max-width: 1365px) {
+      .login-section .space-left {
+        padding-left: 0px;
+        padding-right: 100px;
+      }
+    
+      .login-section .second-colm {
+        padding-right: 7%;
+      }
+    }
+    
+    @media (min-width: 1366px) and (max-width: 1439px) {
+      .login-section .space-left {
+        padding-left: 0px;
+        padding-right: 100px;
+      }
+    }
+    
+    @media (min-width: 1400px) and (max-width: 1600px) {
+      .login-section .space-left {
+        padding-left: 0px;
+        padding-right: 100px;
+      }
+    }
     </style>
     
 
   <body>
-
-
       <section class="login-section">
         <div class="container-fluid">
           <div class="row">
@@ -245,12 +399,14 @@
                   <h4>Hello!</h4>
                   <h6>Sign In To Your Account</h6>
                 </div>
-                <form class="form-container">
+                <form class="form-container" method="post" action="{{ route('login') }}">
+                @csrf
                   <div class="mb-3">
                     <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
-                      placeholder="Enter Your Username" v-model="email" />
-                    <div v-if="!emailValid" class="text-danger"></div>
+                      placeholder="Enter Your Email" />
+                    <div class="text-danger"></div>
                   </div>
+
                   <div class="mb-3 passbrd">
                     <input type="password" class="form-control" id="password" placeholder="Enter Your Password"
                       name="password" v-model="password" />
@@ -260,10 +416,10 @@
                     <span class="signIn">Having trouble in signing in?</span>
                     <router-link to="/admin/reset/" class="signIn forgetpass">Forget Password?</router-link>
                   </div>
-                  <div class="mb-3 form-check">
+                  {{-- <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="remember" v-model="remember" />
                     <label class="form-check-label signIn" for="exampleCheck1">Remember Me</label>
-                  </div>
+                  </div> --}}
                   <button type="submit" class="btn btn-primary loginbtn">Login</button>
                 </form>
               </div>
@@ -275,4 +431,5 @@
     
     
   </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>

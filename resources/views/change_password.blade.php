@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-primary">
-                        <div class="card-header" style="background-color:#0476b4">
+                        <div class="card-header" style="background-color:#0377ce">
                             <h3 class="card-title">Change Password</h3>
                         </div>
                         <form action="{{ route('saveChangePassword') }}" method="POST" enctype="multipart/form-data">

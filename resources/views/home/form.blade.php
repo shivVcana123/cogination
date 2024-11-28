@@ -23,14 +23,14 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-primary">
-                        <div class="card-header" style="background-color:#0476b4">
+                        <div class="card-header" style="background-color:#0377ce">
                             <h3 class="card-title">Add Home Details</h3>
                         </div>
                         <form action="{{ route('home.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="title">Title</label>
+                                    <label for="title">Title</label><i class="fas fa-info-circle" title="Enter a title for Hero Section ."></i>
                                     <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" value="{{ old('title') }}">
                                     @error('title')
                                     <div class="text-danger">{{ $message }}</div>
@@ -38,7 +38,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="subtitle">Subtitle</label>
+                                    <label for="subtitle">Subtitle</label><i class="fas fa-info-circle" title="Enter a sub title for Hero Section."></i>
                                     <input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="Enter subtitle" value="{{ old('subtitle') }}">
                                     @error('subtitle')
                                     <div class="text-danger">{{ $message }}</div>
@@ -46,7 +46,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="description_1">Description</label>
+                                    <label for="description_1">Description</label><i class="fas fa-info-circle" title="Enter a Description for Hero Section."></i>
                                     <textarea class="form-control" name="description_1" id="description_1">{{ old('description_1') }}</textarea>
                                     @error('description_1')
                                     <div class="text-danger">{{ $message }}</div>
@@ -54,7 +54,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="button_content">Button Text</label>
+                                    <label for="button_content">Button Text</label><i class="fas fa-info-circle" title="Enter a Button text for Hero Section."></i>
                                     <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text" value="{{ old('button_content') }}">
                                     @error('button_content')
                                     <div class="text-danger">{{ $message }}</div>
@@ -62,22 +62,17 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="button_link">Button Link</label>
+                                    <label for="button_link">Button Link</label><i class="fas fa-info-circle" title="Enter a Button link for Hero Section."></i>
                                     <input type="text" class="form-control" name="button_link" id="button_link" placeholder="Enter Button Link" value="{{ old('button_link') }}">
                                     @error('button_link')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="background_color">Background Color</label>
-                                    <input type="color" class="form-control" name="background_color" id="background_color" value="{{ old('background_color') }}">
-                                    @error('background_color')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
 
-                                <div class="form-group">
+
+
+                                <div class="form-group"><i class="fas fa-info-circle" title="Select image for hero section background."></i>
                                 <label for="image">Image</label>
                                 <img id="blah" src="#" alt="Image Preview" style="width: 130px; display:none" />
                                 <input type="file" class="form-control" name="image" id="imgInp" accept="image/*">
@@ -85,16 +80,6 @@
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-
-                            <div class="form-group">
-                                <label for="background_image">Background Center Image</label>
-                                <img id="bg_image" src="#" alt="Background Image Preview" style="width: 130px; display:none" />
-                                <input type="file" class="form-control" name="background_image" id="background_image" accept="image/*">
-                                @error('background_image')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
                             </div>
 
                             <div class="card-footer">
@@ -130,6 +115,7 @@
             bg_image.src = "#"; // Reset the src
         }
     };
+ 
 </script>
 
 @endsection

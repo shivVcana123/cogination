@@ -25,7 +25,8 @@ class FooterController extends Controller
     {
        $footer =  new Footer();
        $headers = Header::all();
-       return view('Footer.form',compact('footer','headers'));
+       $footer = new Footer;
+       return view('Footer.form',compact('footer','headers','footer'));
     }
 
     /**
@@ -34,19 +35,16 @@ class FooterController extends Controller
     public function store(Request $request)
     {
         $footer = new Footer;
-        $footer->title = $request->title;
+        $footer->title1 = $request->title1;
+        $footer->title2 = $request->title2;
         $footer->address = $request->address;
         $footer->description = $request->description;
         $footer->phone_no = $request->phone_no;
         $footer->email = $request->email;
-        $footer->background_color = $request->background_color;
+        $footer->start_time = $request->start_time;
         $footer->display_data = json_encode($request->dats_display);
-        $footer->link = json_encode($request->links);
-        if ($request->hasFile('background_image')) {
-            $backgroundImageName = time() . '_' . $request->file('background_image')->getClientOriginalName();
-            $backgroundImagePath = $request->file('background_image')->storeAs('service', $backgroundImageName, 'public');
-            $footer->background_image = 'storage/app/public/' . $backgroundImagePath;
-        }
+        $footer->end_time = $request->end_time;
+        $footer->days = $request->days;
         $footer->save();
         return redirect()->route('footer.index');
     }
@@ -64,7 +62,10 @@ class FooterController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $footer =  new Footer();
+       $headers = Header::all();
+       $footer = Footer::find($id);
+       return view('Footer.form',compact('footer','headers','footer'));
     }
 
     /**

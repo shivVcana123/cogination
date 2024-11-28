@@ -23,37 +23,43 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-primary">
-                        <div class="card-header" style="background-color:#0476b4">
+                        <div class="card-header" style="background-color:#0377ce">
                             <h3 class="card-title">Add Footer</h3>
                         </div>
                         <form action="{{ route('footer.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="title">Title</label>
-                                    <input type="text" class="form-control" name="title" id="title" placeholder="Enter title">
+                                    <label for="title">Title 1</label><i class="fas fa-info-circle" title="Enter a first title for Footer Section ."></i>
+                                    <input type="text" class="form-control" name="title1" id="title1" placeholder="Enter title1">
                                 </div>
+
+                                 <div class="form-group">
+                                    <label for="title">Title 2</label><i class="fas fa-info-circle" title="Enter a second title for Footer Section ."></i>
+                                    <input type="text" class="form-control" name="title2" id="title2" placeholder="Enter title2">
+                                </div>
+
                                 <div class="form-group">
-                                    <label for="link">Address</label>
+                                    <label for="link">Address</label><i class="fas fa-info-circle" title="Enter a Address for Footer Section ."></i>
                                     <input type="text" class="form-control" name="address" id="address" placeholder="Enter Address">
                                 </div>
                                 <div class="form-group">
-                                    <label for="email">Fooetr Description</label>
+                                    <label for="email">Fooetr Description</label><i class="fas fa-info-circle" title="Enter a description for Footer Section ."></i>
                                     <textarea class="form-control" name="description" id="description" placeholder="Enter Text" ></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="phone_no">Contact Info</label>
+                                    <label for="phone_no">Contact Info</label><i class="fas fa-info-circle" title="Enter a Phone number for Footer Section ."></i>
                                     <input type="phone" class="form-control" name="phone_no" id="phone_no">
                                 </div>
 
                                  <div class="form-group">
-                                    <label for="phone_no">Email</label>
+                                    <label for="phone_no">Email</label><i class="fas fa-info-circle" title="Enter a rmail for Footer Section ."></i>
                                     <input type="email" class="form-control" name="email" id="email">
                                 </div>
 
                               <div class="row">
                                 <div class="col-12">
-                                        <label for="headers">Select Display Data</label>
+                                        <label for="headers">Select Display Data</label><i class="fas fa-info-circle" title="Select the values you want to show in the footer."></i>
                                     </div>
                                 @foreach ($headers as $header)
                                     <div class="col-md-4">
@@ -85,7 +91,7 @@
                                     <input type="text" class="form-control" name="url" id="url">
                                 </div> --}}
 
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="link_name">Link Name</label>
                                     <div id="link-url-container">
                                         <!-- Default Input Fields -->
@@ -96,23 +102,43 @@
                                         </div>
                                     </div>
                                     <button type="button" class="btn btn-success btn-sm add_more" id="add-more-link-url">Add More</button>
-                                </div>
-
-
-
+                                </div> --}}
                                 <div class="form-group">
-                                    <label for="background_color">Background Center Color</label>
-                                    <input type="color" class="form-control" name="background_color" id="background_color">
+                                    <label for="timing">Timing</label><i class="fas fa-info-circle" title="Enter the working hours for Footer Section."></i>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input 
+                                                type="time" 
+                                                class="form-control" 
+                                                name="start_time" 
+                                                id="start_time" 
+                                                title="Start Time" 
+                                                placeholder="Start Time"
+                                            >
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input 
+                                                type="time" 
+                                                class="form-control" 
+                                                name="end_time" 
+                                                id="end_time" 
+                                                title="End Time" 
+                                                placeholder="End Time"
+                                            >
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input 
+                                                type="text" 
+                                                class="form-control" 
+                                                name="days" 
+                                                id="days" 
+                                                placeholder="e.g., Mon to Sat" 
+                                                title="Enter the days (e.g., Mon to Sat)"
+                                            >
+                                        </div>
+                                    </div>
                                 </div>
-                                
-                                <div class="form-group">
-                                    <label for="background_image">Background Center Image</label>
-                                    <img id="bg_image" src="#" alt="Background Image Preview" style="width: 130px; display:none" />
-                                    <input type="file" class="form-control" name="background_image" id="background_image" accept="image/*">
-                                    @error('background_image')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                              
                             </div>
 
                             <div class="card-footer">

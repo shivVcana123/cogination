@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-primary">
-                        <div class="card-header" style="background-color:#0476b4">
+                        <div class="card-header" style="background-color:#0377ce">
                             <h3 class="card-title">Add Design Styles</h3>
                         </div>
                         <!-- Form Start -->
