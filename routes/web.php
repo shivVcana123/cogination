@@ -47,10 +47,23 @@ Route::middleware(['guest'])->group(function () {
     Route::resource('link', UsefullLinkController::class);
     Route::resource('page', PageDesignController::class);
     Route::resource('footer', FooterController::class);
+
+    Route::get('appointment', [HomeSectionControoler::class, 'appointment'])->name('appointment');
+    Route::post('save-appointment', [HomeSectionControoler::class, 'saveappointment'])->name('save-appointment');
+
+
+    Route::get('our-services', [HomeSectionControoler::class, 'ourservices'])->name('our-services');
+    Route::post('save-our-services', [HomeSectionControoler::class, 'saveourservices'])->name('save-our-services');
+
     Route::get('whychooseus', [HomeSectionControoler::class, 'whychooseus'])->name('whychooseus');
-Route::post('save-whychooseus', [HomeSectionControoler::class, 'savewhychooseus'])->name('save-whychooseus');
+    Route::post('save-whychooseus', [HomeSectionControoler::class, 'savewhychooseus'])->name('save-whychooseus');
+
     Route::get('bringinghealthcare', [HomeSectionControoler::class,'bringinghealthcare'])->name('bringinghealthcare');
-    Route::get('faqs', [HomeSectionControoler::class,'faqs'])->name('faqs');
+    Route::post('save-bringinghealthcare', [HomeSectionControoler::class, 'savebringinghealthcare'])->name('save-bringinghealthcare');
+
+    Route::get('faqs', [HomeSectionControoler::class, 'faqs'])->name('faqs');
+    Route::post('save-faq', [HomeSectionControoler::class, 'saveFaqs'])->name('save-faq');
+
 
 
     Route::post('/website-style', [PageDesignController::class, 'store'])->name('website-style');

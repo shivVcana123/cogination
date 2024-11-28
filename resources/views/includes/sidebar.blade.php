@@ -37,38 +37,52 @@
                           </p>
                       </a>
                   </li>
-                  <li class="nav-item">
-    <a href="#" class="nav-link">
-        <i class="nav-icon fa fa-home" style="color:white"></i>
-        <p style="color:white">
-            Home Section
-            <i class="fas fa-angle-left right"></i>
-        </p>
-    </a>
-    <ul class="nav nav-treeview">
-        <li class="nav-item">
-            <a href="{{route('whychooseus')}}" 
-               class="nav-link {{ request()->is('whychooseus*') ? 'active' : '' }}">
-                <i class="far fa-circle nav-icon" style="color:white"></i>
-                <p style="color:white">Why Choose Us</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{route('bringinghealthcare')}}" 
-               class="nav-link {{ request()->is('bringinghealthcare*') ? 'active' : '' }}">
-                <i class="far fa-circle nav-icon" style="color:white"></i>
-                <p style="color:white">Bringing healthcare</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{route('faqs')}}" 
-               class="nav-link {{ request()->is('faqs*') ? 'active' : '' }}">
-                <i class="far fa-circle nav-icon" style="color:white"></i>
-                <p style="color:white">FAQs</p>
-            </a>
-        </li>
-    </ul>
-</li>
+                  <li class="nav-item {{ request()->is('whychooseus*') || request()->is('bringinghealthcare*') || request()->is('faqs*') || request()->is('appointment*') || request()->is('our-services*') ? 'menu-open' : '' }}"">
+    <a href=" #" class="nav-link">
+                      <i class="nav-icon fa fa-home" style="color:white"></i>
+                      <p style="color:white">
+                          Home Section
+                          <i class="fas fa-angle-left right"></i>
+                      </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                          <li class="nav-item">
+                              <a href="{{route('appointment')}}"
+                                  class="nav-link {{ request()->is('appointment*') ? 'active' : '' }}">
+                                  <i class="far fa-circle nav-icon" style="color:white"></i>
+                                  <p style="color:white">Appointment</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="{{route('whychooseus')}}"
+                                  class="nav-link {{ request()->is('whychooseus*') ? 'active' : '' }}">
+                                  <i class="far fa-circle nav-icon" style="color:white"></i>
+                                  <p style="color:white">Why Choose Us</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="{{route('our-services')}}"
+                                  class="nav-link {{ request()->is('our-services*') ? 'active' : '' }}">
+                                  <i class="far fa-circle nav-icon" style="color:white"></i>
+                                  <p style="color:white">Our Services</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="{{route('bringinghealthcare')}}"
+                                  class="nav-link {{ request()->is('bringinghealthcare*') ? 'active' : '' }}">
+                                  <i class="far fa-circle nav-icon" style="color:white"></i>
+                                  <p style="color:white">Bringing healthcare</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="{{route('faqs')}}"
+                                  class="nav-link {{ request()->is('faqs*') ? 'active' : '' }}">
+                                  <i class="far fa-circle nav-icon" style="color:white"></i>
+                                  <p style="color:white">FAQs</p>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
 
 
                   <li class="nav-item">
