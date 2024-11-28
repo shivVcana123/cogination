@@ -13,7 +13,7 @@ use App\Http\Controllers\Backend\ServiceController;
 use App\Http\Controllers\Backend\UsefullLinkController;
 use App\Http\Controllers\Backend\PageDesignController;
 use App\Http\Controllers\Backend\FooterController;
-
+use App\Http\Controllers\Backend\HomeSectionControoler;
 use Illuminate\Support\Facades\Artisan;
 
 Route::get('/welcome', function () {
@@ -30,7 +30,7 @@ Route::middleware(['guest'])->group(function () {
 });
 
 // Auth Middleware Group
-Route::middleware(['auth'])->group(function () {
+// Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -48,9 +48,26 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('page', PageDesignController::class);
     Route::resource('footer', FooterController::class);
 
+    Route::get('appointment', [HomeSectionControoler::class, 'appointment'])->name('appointment');
+    Route::post('save-appointment', [HomeSectionControoler::class, 'saveappointment'])->name('save-appointment');
+
+
+    Route::get('our-services', [HomeSectionControoler::class, 'ourservices'])->name('our-services');
+    Route::post('save-our-services', [HomeSectionControoler::class, 'saveourservices'])->name('save-our-services');
+
+    Route::get('whychooseus', [HomeSectionControoler::class, 'whychooseus'])->name('whychooseus');
+    Route::post('save-whychooseus', [HomeSectionControoler::class, 'savewhychooseus'])->name('save-whychooseus');
+
+    Route::get('bringinghealthcare', [HomeSectionControoler::class,'bringinghealthcare'])->name('bringinghealthcare');
+    Route::post('save-bringinghealthcare', [HomeSectionControoler::class, 'savebringinghealthcare'])->name('save-bringinghealthcare');
+
+    Route::get('faqs', [HomeSectionControoler::class, 'faqs'])->name('faqs');
+    Route::post('save-faq', [HomeSectionControoler::class, 'saveFaqs'])->name('save-faq');
+
+
 
     Route::post('/website-style', [PageDesignController::class, 'store'])->name('website-style');
-});
+// });
 
 
 // Database Migration Route
