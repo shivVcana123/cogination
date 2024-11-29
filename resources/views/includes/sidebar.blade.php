@@ -1,5 +1,5 @@
   <!-- Main Sidebar Container -->
-   {{-- style="background-color:#0377ce" --}}
+  {{-- style="background-color:#0377ce" --}}
   <aside class="main-sidebar elevation-4">
       <!-- Brand Logo -->
       <!-- Sidebar -->
@@ -30,23 +30,24 @@
                           </p>
                       </a>
                   </li>
-                  <li class="nav-item">
-                      <a href="{{route('home.index')}}" class="nav-link {{request()->is('home*') ? 'active' : ''}}">
-                          <i class="nav-icon fa fa-home" style="color:black"></i>
-                          <p style="color:black">
-                              Hero Section
-                          </p>
-                      </a>
-                  </li>
-                  <li class="nav-item {{ request()->is('whychooseus*') || request()->is('bringinghealthcare*') || request()->is('faqs*') || request()->is('appointment*') || request()->is('our-services*') ? 'menu-open' : '' }}"">
-    <a href=" #" class="nav-link">
-                      <i class="nav-icon fa fa-home" style="color:black"></i>
-                      <p style="color:black">
-                          Home Section
-                          <i class="fas fa-angle-left right"></i>
-                      </p>
+       
+                  <li class="nav-item {{ request()->is('home*') || request()->is('whychooseus*') || request()->is('bringinghealthcare*') || request()->is('faqs*') || request()->is('appointment*') || request()->is('our-services*') ? 'menu-open' : '' }}"">
+                  <a href=" #" class="nav-link">
+                        <i class="nav-icon fa fa-home" style="color:black"></i>
+                        <p style="color:black">
+                            Home Section
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
                       </a>
                       <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                            <a href="{{route('home.index')}}" class="nav-link {{request()->is('home*') ? 'active' : ''}}">
+                            <i class="far fa-circle nav-icon" style="color:black"></i>
+                                <p style="color:black">
+                                    Hero Section
+                                </p>
+                            </a>
+                        </li>
                           <li class="nav-item">
                               <a href="{{route('appointment')}}"
                                   class="nav-link {{ request()->is('appointment*') ? 'active' : '' }}">
@@ -85,6 +86,67 @@
                       </ul>
                   </li>
 
+                  <li class="nav-item {{ request()->is('adhd-benefits*') || request()->is('adhd-first-section*') || request()->is('adhd-second-section*') || request()->is('appointment*') || request()->is('our-services*') ? 'menu-open' : '' }}"">
+                  <a href=" #" class="nav-link">
+                        <i class="nav-icon fa fa-home" style="color:black"></i>
+                        <p style="color:black">
+                            ADHD Section
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                              <a href="{{route('adhd-first-section')}}"
+                                  class="nav-link {{ request()->is('adhd-first-section*') ? 'active' : '' }}">
+                                  <i class="far fa-circle nav-icon" style="color:black"></i>
+                                  <p style="color:black">ADHD First Section </p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="{{route('adhd-second-section')}}"
+                                  class="nav-link {{ request()->is('adhd-second-section*') ? 'active' : '' }}">
+                                  <i class="far fa-circle nav-icon" style="color:black"></i>
+                                  <p style="color:black">ADHD Second Section </p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="{{route('adhd-benefits')}}"
+                                  class="nav-link {{ request()->is('adhd-benefits*') ? 'active' : '' }}">
+                                  <i class="far fa-circle nav-icon" style="color:black"></i>
+                                  <p style="color:black">ADHD Benefits</p>
+                              </a>
+                          </li>
+                          <!-- <li class="nav-item">
+                              <a href="{{route('whychooseus')}}"
+                                  class="nav-link {{ request()->is('whychooseus*') ? 'active' : '' }}">
+                                  <i class="far fa-circle nav-icon" style="color:black"></i>
+                                  <p style="color:black">Why Choose Us</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="{{route('our-services')}}"
+                                  class="nav-link {{ request()->is('our-services*') ? 'active' : '' }}">
+                                  <i class="far fa-circle nav-icon" style="color:black"></i>
+                                  <p style="color:black">Our Services</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="{{route('bringinghealthcare')}}"
+                                  class="nav-link {{ request()->is('bringinghealthcare*') ? 'active' : '' }}">
+                                  <i class="far fa-circle nav-icon" style="color:black"></i>
+                                  <p style="color:black">Bringing healthcare</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="{{route('faqs')}}"
+                                  class="nav-link {{ request()->is('faqs*') ? 'active' : '' }}">
+                                  <i class="far fa-circle nav-icon" style="color:black"></i>
+                                  <p style="color:black">FAQs</p>
+                              </a>
+                          </li> -->
+                      </ul>
+                  </li>
+
 
                   <li class="nav-item">
                       <a href="{{route('about.index')}}" class="nav-link {{request()->is('about*') ? 'active' : ''}}">
@@ -115,7 +177,7 @@
                       <a href="{{route('link.index')}}" class="nav-link {{request()->is('link*') ? 'active' : ''}}">
                           <i class="nav-icon fa fa-link" style="color:black"></i>
                           <p style="color:black">
-                             Fees
+                              Fees
                           </p>
                       </a>
                   </li>
