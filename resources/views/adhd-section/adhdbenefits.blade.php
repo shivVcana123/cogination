@@ -114,7 +114,7 @@
 
                                         <label>Image</label>
                                         <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                        <img id="blah" src="#" alt="Image Preview" style="width: 130px; display:none" />
+                                        <img id="blah" src="{{asset($pointer->sub_image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
                                         <input type="file" class="form-control" name="image[]" accept="image/*">
 
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
@@ -160,6 +160,7 @@
 
         <label>Image</label>
         <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+        <img id="blah" src="#" alt="Image Preview" style="width: 130px; display:none" />
         <input type="file" class="form-control" name="image[]" accept="image/*">
 
         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>

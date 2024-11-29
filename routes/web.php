@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\NewsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Backend\AuthController;
+use App\Http\Controllers\Backend\AutismSectionController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\HeaderController;
 use App\Http\Controllers\Backend\HomeController as BackendHomeController;
@@ -64,14 +65,12 @@ Route::middleware(['guest'])->group(function () {
     // ADHD section Route
     Route::get('adhd-benefits', [AdhdBenefitsController::class, 'adhdBenefits'])->name('adhd-benefits');
     Route::post('save-adhd-benefits', [AdhdBenefitsController::class, 'saveAdhdBenefits'])->name('save-adhd-benefits');
-
-    Route::get('adhd-first-section', [AdhdBenefitsController::class, 'adhdFirstSection'])->name('adhd-first-section');
+    Route::get('adhd-section', [AdhdBenefitsController::class, 'adhdSection'])->name('adhd-section');
     Route::get('/fetch-adhd-section-by-type', [AdhdBenefitsController::class, 'fetchAdhdSectionByType'])->name('fetch-adhd-section-by-type');
+    Route::post('save-adhd-section', [AdhdBenefitsController::class, 'saveAdhdSection'])->name('save-adhd-section');
 
-    Route::post('save-first-section', [AdhdBenefitsController::class, 'saveAdhdFirstSection'])->name('save-first-section');
-
-    Route::get('adhd-second-section', [AdhdBenefitsController::class, 'adhdSecondSection'])->name('adhd-second-section');
-    Route::post('save-second-section', [AdhdBenefitsController::class, 'saveAdhdSecondSection'])->name('save-second-section');
+    // Autism section Route
+    Route::get('autism-section', [AutismSectionController::class, 'autismSection'])->name('autism-section');
 
     Route::post('/website-style', [PageDesignController::class, 'store'])->name('website-style');
 // });

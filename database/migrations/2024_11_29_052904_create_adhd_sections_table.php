@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('adhd_child_sections', function (Blueprint $table) {
+        Schema::create('adhd_sections', function (Blueprint $table) {
             $table->id();
             $table->string('first_title')->nullable();
             $table->string('type')->nullable();
