@@ -7,88 +7,16 @@
             <img src="{{ asset('assets/images/New-logo.png') }}" alt="User Image" style="width: 188px;">
         </div>
 
-                  <li class="nav-item">
-                      <a href="{{route('dashboard')}}" class="nav-link {{request()->is('dashboard*') ? 'active' : ''}}">
-                          <i class="nav-icon fas fa-tachometer-alt" style="color:black"></i>
-                          <p style="color:black">
-                              Dashboard
-                          </p>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="{{route('header.index')}}" class="nav-link {{request()->is('header*') ? 'active' : ''}}">
-                          <i class="nav-icon far fa-plus-square" style="color:black"></i>
-                          <p style="color:black">
-                              Header
-                          </p>
-                      </a>
-                  </li>
-
-                    <li class="nav-item">
-                      <a href="{{route('banner.index')}}" class="nav-link {{request()->is('header*') ? 'active' : ''}}">
-                          <i class="nav-icon far fa-plus-square" style="color:black"></i>
-                          <p style="color:black">
-                              All pages Banner
-                          </p>
-                      </a>
-                    </li>
-
-
-                  
-                  <li class="nav-item">
-                      <a href="{{route('home.index')}}" class="nav-link {{request()->is('home*') ? 'active' : ''}}">
-                          <i class="nav-icon fa fa-home" style="color:black"></i>
-                          <p style="color:black">
-                              Hero Section
-                          </p>
-                      </a>
-                  </li>
-                  <li class="nav-item {{ request()->is('whychooseus*') || request()->is('bringinghealthcare*') || request()->is('faqs*') || request()->is('appointment*') || request()->is('our-services*') ? 'menu-open' : '' }}">
-                        <a href=" #" class="nav-link">
-                            <i class="nav-icon fa fa-home" style="color:black"></i>
-                            <p style="color:black">
-                                Home Section
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                      <ul class="nav nav-treeview">
-                          <li class="nav-item">
-                              <a href="{{route('appointment')}}"
-                                  class="nav-link {{ request()->is('appointment*') ? 'active' : '' }}">
-                                  <i class="far fa-circle nav-icon" style="color:black"></i>
-                                  <p style="color:black">Appointment</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="{{route('whychooseus')}}"
-                                  class="nav-link {{ request()->is('whychooseus*') ? 'active' : '' }}">
-                                  <i class="far fa-circle nav-icon" style="color:black"></i>
-                                  <p style="color:black">Why Choose Us</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="{{route('our-services')}}"
-                                  class="nav-link {{ request()->is('our-services*') ? 'active' : '' }}">
-                                  <i class="far fa-circle nav-icon" style="color:black"></i>
-                                  <p style="color:black">Our Services</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="{{route('bringinghealthcare')}}"
-                                  class="nav-link {{ request()->is('bringinghealthcare*') ? 'active' : '' }}">
-                                  <i class="far fa-circle nav-icon" style="color:black"></i>
-                                  <p style="color:black">Bringing healthcare</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="{{route('faqs')}}"
-                                  class="nav-link {{ request()->is('faqs*') ? 'active' : '' }}">
-                                  <i class="far fa-circle nav-icon" style="color:black"></i>
-                                  <p style="color:black">FAQs</p>
-                              </a>
-                          </li>
-                      </ul>
-                  </li>
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Dashboard -->
+                <li class="nav-item">
+                    <a href="{{route('dashboard')}}" class="nav-link {{request()->is('/*') ? 'active' : ''}}">
+                        <i class="nav-icon fas fa-tachometer-alt" style="color:black"></i>
+                        <p style="color:black">Dashboard</p>
+                    </a>
+                </li>
 
                 <!-- Header -->
                 <li class="nav-item">
@@ -177,7 +105,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-home" style="color:black"></i>
                         <p style="color:black">
-                            Autism  Section
+                            Autism Section
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -216,20 +144,25 @@
                 </li>
 
                 <!-- About Us -->
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="{{route('about.index')}}" class="nav-link {{request()->is('about*') ? 'active' : ''}}">
                         <i class="nav-icon far fa-address-card" style="color:black"></i>
                         <p style="color:black">About Us</p>
                     </a>
-                </li>
+                </li> -->
 
                 <!-- Assessments -->
-                <li class="nav-item">
-                    <a href="{{ route('service.index') }}" class="nav-link {{request()->is('service*') ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-concierge-bell" style="color:black"></i>
-                        <p style="color:black">Assessments</p>
+                <li class="nav-item {{ request()->is('assessment*') || request()->is('assessment*') || request()->is('autism-book*') || request()->is('autism*') || request()->is('autism-section*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-home" style="color:black"></i>
+                        <p style="color:black">
+                            Assessments Section
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
                     </a>
+                    
                 </li>
+
 
                 <!-- Latest News -->
                 <li class="nav-item">

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\BannerController;
-use App\Http\Controllers\Backend\AutismSectionController;
+// use App\Http\Controllers\Backend\AutismSectionController;
 use App\Http\Controllers\backend\AutismsSectionController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\HeaderController;
