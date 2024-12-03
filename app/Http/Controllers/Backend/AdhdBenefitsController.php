@@ -120,7 +120,7 @@ class AdhdBenefitsController extends Controller
 
     public function adhdSection()
     {
-        $adhdSection = AdhdSection::where('type', '=', 'Child')->get();
+        $adhdSection = AdhdSection::get();
         return view('adhd-section.adhdsection', compact('adhdSection'));
     }
     public function fetchAdhdSectionByType(Request $request)
@@ -144,13 +144,13 @@ class AdhdBenefitsController extends Controller
         $validated = $request->validate([
             'type' => 'required|string',
             'first_title' => 'required|string|max:255',
-            'first_subtitle' => 'nullable|string|max:255',
-            'first_description' => 'nullable|string',
+            'first_subtitle' => 'required|string|max:255',
+            'first_description' => 'required|string',
             'first_button_content' => 'nullable|string|max:255',
             'first_button_link' => 'nullable|string|max:255',
-            'second_title' => 'nullable|string|max:255',
-            'second_subtitle' => 'nullable|string|max:255',
-            'second_description' => 'nullable|string',
+            'second_title' => 'required|string|max:255',
+            'second_subtitle' => 'required|string|max:255',
+            'second_description' => 'required|string',
             'second_sub_title' => 'array',
             'second_sub_title.*' => 'nullable|string|max:255',
             'second_sub_description' => 'array',

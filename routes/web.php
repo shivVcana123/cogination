@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\AutismSectionController;
+use App\Http\Controllers\backend\AutismsSectionController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\HeaderController;
 use App\Http\Controllers\Backend\HomeController as BackendHomeController;
@@ -72,7 +73,22 @@ Route::middleware(['guest'])->group(function () {
     Route::post('save-adhd-section', [AdhdBenefitsController::class, 'saveAdhdSection'])->name('save-adhd-section');
 
     // Autism section Route
-    Route::get('autism-section', [AutismSectionController::class, 'autismSection'])->name('autism-section');
+    Route::get('autism-section', [AutismsSectionController::class, 'autismSection'])->name('autism-section');
+    Route::post('save-autism-section', [AutismsSectionController::class, 'saveAutismSection'])->name('save-autism-section');
+    Route::get('/fetch-autism-section-by-type', [AutismsSectionController::class, 'fetchAutismsSectionByType'])->name('fetch-autism-section-by-type');
+    Route::get('autism-process', [AutismsSectionController::class, 'autismProcessSection'])->name('autism-process-section');
+    Route::post('save-process-section', [AutismsSectionController::class, 'saveProcessSection'])->name('save-process-section');
+    Route::get('/fetch-process-section-by-type', [AutismsSectionController::class, 'fetchAutismsProcessSectionByType'])->name('fetch-process-section-by-type');
+
+    Route::get('autism-screening', [AutismsSectionController::class, 'autismScreeningSection'])->name('autism-screening-section');
+    Route::post('save-screening-section', [AutismsSectionController::class, 'saveScreeningSection'])->name('save-screening-section');
+    Route::get('/fetch-screening-section-by-type', [AutismsSectionController::class, 'fetchAutismsScreeningSectionByType'])->name('fetch-screening-section-by-type');
+
+    Route::get('autism', [AutismsSectionController::class, 'autism'])->name('autism');
+
+    Route::get('autism-book', [AutismsSectionController::class, 'autismBookSection'])->name('autism-book-section');
+    Route::post('save-book-section', [AutismsSectionController::class, 'saveBookSection'])->name('save-book-section');
+    Route::get('/fetch-book-section-by-type', [AutismsSectionController::class, 'fetchAutismsBookSectionByType'])->name('fetch-book-section-by-type');
 
     Route::post('/website-style', [PageDesignController::class, 'store'])->name('website-style');
 // });

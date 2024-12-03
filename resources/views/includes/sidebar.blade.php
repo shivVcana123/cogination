@@ -173,7 +173,7 @@
                 </li>
 
                 <!-- Autism  Section -->
-                <li class="nav-item {{ request()->is('adhd-benefits*') || request()->is('adhd-section*') ? 'menu-open' : '' }}">
+                <li class="nav-item {{ request()->is('autism-process*') || request()->is('autism-screening*') || request()->is('autism-book*') || request()->is('autism*') || request()->is('autism-section*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-home" style="color:black"></i>
                         <p style="color:black">
@@ -189,11 +189,29 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('adhd-benefits')}}" class="nav-link {{ request()->is('adhd-benefits*') ? 'active' : '' }}">
+                            <a href="{{route('autism-process-section')}}" class="nav-link {{ request()->is('autism-process*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">ADHD Benefits</p>
+                                <p style="color:black">Autism Process</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{route('autism-screening-section')}}" class="nav-link {{ request()->is('autism-screening*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon" style="color:black"></i>
+                                <p style="color:black">Autism Screening</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('autism-book-section')}}" class="nav-link {{ request()->is('autism-book*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon" style="color:black"></i>
+                                <p style="color:black">Autism Book</p>
+                            </a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a href="{{route('autism')}}" class="nav-link {{ request()->is('autism') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon" style="color:black"></i>
+                                <p style="color:black">Autism</p>
+                            </a>
+                        </li> -->
                     </ul>
                 </li>
 
