@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\NewsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Backend\AuthController;
+use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\HeaderController;
 use App\Http\Controllers\Backend\HomeController as BackendHomeController;
@@ -47,6 +48,7 @@ Route::middleware(['guest'])->group(function () {
     Route::resource('link', UsefullLinkController::class);
     Route::resource('page', PageDesignController::class);
     Route::resource('footer', FooterController::class);
+    Route::resource('banner', BannerController::class);
 
     Route::get('appointment', [HomeSectionControoler::class, 'appointment'])->name('appointment');
     Route::post('save-appointment', [HomeSectionControoler::class, 'saveappointment'])->name('save-appointment');
