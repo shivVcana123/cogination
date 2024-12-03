@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\ApiController\HomeController;
 use App\Http\Controllers\Backend\AboutController;
+use App\Http\Controllers\backend\AdhdBenefitsController;
 use App\Http\Controllers\Backend\NewsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\BannerController;
+use App\Http\Controllers\Backend\AutismSectionController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\HeaderController;
 use App\Http\Controllers\Backend\HomeController as BackendHomeController;
@@ -50,23 +52,27 @@ Route::middleware(['guest'])->group(function () {
     Route::resource('footer', FooterController::class);
     Route::resource('banner', BannerController::class);
 
+    // Home section Route
     Route::get('appointment', [HomeSectionControoler::class, 'appointment'])->name('appointment');
     Route::post('save-appointment', [HomeSectionControoler::class, 'saveappointment'])->name('save-appointment');
-
-
     Route::get('our-services', [HomeSectionControoler::class, 'ourservices'])->name('our-services');
     Route::post('save-our-services', [HomeSectionControoler::class, 'saveourservices'])->name('save-our-services');
-
     Route::get('whychooseus', [HomeSectionControoler::class, 'whychooseus'])->name('whychooseus');
     Route::post('save-whychooseus', [HomeSectionControoler::class, 'savewhychooseus'])->name('save-whychooseus');
-
     Route::get('bringinghealthcare', [HomeSectionControoler::class,'bringinghealthcare'])->name('bringinghealthcare');
     Route::post('save-bringinghealthcare', [HomeSectionControoler::class, 'savebringinghealthcare'])->name('save-bringinghealthcare');
-
     Route::get('faqs', [HomeSectionControoler::class, 'faqs'])->name('faqs');
     Route::post('save-faq', [HomeSectionControoler::class, 'saveFaqs'])->name('save-faq');
 
+    // ADHD section Route
+    Route::get('adhd-benefits', [AdhdBenefitsController::class, 'adhdBenefits'])->name('adhd-benefits');
+    Route::post('save-adhd-benefits', [AdhdBenefitsController::class, 'saveAdhdBenefits'])->name('save-adhd-benefits');
+    Route::get('adhd-section', [AdhdBenefitsController::class, 'adhdSection'])->name('adhd-section');
+    Route::get('/fetch-adhd-section-by-type', [AdhdBenefitsController::class, 'fetchAdhdSectionByType'])->name('fetch-adhd-section-by-type');
+    Route::post('save-adhd-section', [AdhdBenefitsController::class, 'saveAdhdSection'])->name('save-adhd-section');
 
+    // Autism section Route
+    Route::get('autism-section', [AutismSectionController::class, 'autismSection'])->name('autism-section');
 
     Route::post('/website-style', [PageDesignController::class, 'store'])->name('website-style');
 // });
