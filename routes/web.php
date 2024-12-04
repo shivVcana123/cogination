@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\AutismsSectionController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\FeesController;
 use App\Http\Controllers\Backend\HeaderController;
 use App\Http\Controllers\Backend\HomeController as BackendHomeController;
 use App\Http\Controllers\Backend\ServiceController;
@@ -102,7 +103,12 @@ Route::middleware(['guest'])->group(function () {
     Route::get('understanding-conditions', [AssessmentController::class, 'understandingConditionsSection'])->name('understanding-conditions-section');
     Route::post('save-understanding-conditions', [AssessmentController::class, 'saveUnderstandingConditions'])->name('save-understanding-conditions');
 
-    
+
+    // Fees section Route
+    Route::get('our-pricing-section', [FeesController::class, 'ourPricingSection'])->name('our-pricing-section');
+
+    Route::post('save-our-pricing-section', [FeesController::class, 'saveOurPricingSection'])->name('save-our-pricing-section');
+
 
     Route::post('/website-style', [PageDesignController::class, 'store'])->name('website-style');
 // });

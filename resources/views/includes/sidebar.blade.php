@@ -191,7 +191,7 @@
 
 
                 <!-- Fees -->
-                <li class="nav-item {{ request()->is('assessment-section*') || request()->is('assessment-whychoose*') || request()->is('our-diagnostic-services*') || request()->is('understanding-conditions*') ? 'menu-open' : '' }}">
+                <li class="nav-item {{ request()->is('our-pricing-section*') || request()->is('assessment-whychoose*') || request()->is('our-diagnostic-services*') || request()->is('understanding-conditions*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-home" style="color:black"></i>
                         <p style="color:black">
@@ -201,9 +201,9 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('assessment-section') }}" class="nav-link {{ request()->is('assessment-section*') ? 'active' : '' }}">
+                            <a href="{{ route('our-pricing-section') }}" class="nav-link {{ request()->is('our-pricing-section*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-concierge-bell" style="color:black"></i>
-                                <p style="color:black">Comprehensive Diagnosis</p>
+                                <p style="color:black">Our Pricing</p>
                             </a>
                         </li>
                     </ul>
