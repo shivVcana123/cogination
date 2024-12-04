@@ -3,6 +3,7 @@
 use App\Http\Controllers\ApiController\HomeController;
 use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\backend\AdhdBenefitsController;
+use App\Http\Controllers\Backend\AssessmentController;
 use App\Http\Controllers\Backend\NewsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -86,6 +87,22 @@ Route::middleware(['guest'])->group(function () {
     Route::get('autism-book', [AutismsSectionController::class, 'autismBookSection'])->name('autism-book-section');
     Route::post('save-book-section', [AutismsSectionController::class, 'saveBookSection'])->name('save-book-section');
     Route::get('/fetch-book-section-by-type', [AutismsSectionController::class, 'fetchAutismsBookSectionByType'])->name('fetch-book-section-by-type');
+
+    // Assessment section Route
+    Route::get('assessment-section', [AssessmentController::class, 'assessmentSection'])->name('assessment-section');
+    
+    Route::post('save-assessment', [AssessmentController::class, 'saveAssessmentSection'])->name('save-assessment');
+
+    Route::get('assessment-whychoose', [AssessmentController::class, 'assessmentWhychooseSection'])->name('assessment-whychoose-section');
+    Route::post('save-whychoose-section', [AssessmentController::class, 'saveWhychooseSection'])->name('save-whychoose-section');
+
+    Route::get('our-diagnostic-services', [AssessmentController::class, 'assessmentOurDiagnosticServicesSection'])->name('assessment-our-diagnostic-services-section');
+    Route::post('save-our-diagnostic-services', [AssessmentController::class, 'saveOurDiagnosticServices'])->name('save-our-diagnostic-services');
+
+    Route::get('understanding-conditions', [AssessmentController::class, 'understandingConditionsSection'])->name('understanding-conditions-section');
+    Route::post('save-understanding-conditions', [AssessmentController::class, 'saveUnderstandingConditions'])->name('save-understanding-conditions');
+
+    
 
     Route::post('/website-style', [PageDesignController::class, 'store'])->name('website-style');
 // });

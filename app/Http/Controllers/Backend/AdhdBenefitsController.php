@@ -18,6 +18,7 @@ class AdhdBenefitsController extends Controller
 
     public function saveAdhdBenefits(Request $request)
     {
+        
         // Validate the request data
         $validated = $request->validate(
             [

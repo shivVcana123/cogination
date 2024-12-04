@@ -105,7 +105,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-home" style="color:black"></i>
                         <p style="color:black">
-                            Autism  Section
+                            Autism Section
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -144,20 +144,52 @@
                 </li>
 
                 <!-- About Us -->
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="{{route('about.index')}}" class="nav-link {{request()->is('about*') ? 'active' : ''}}">
                         <i class="nav-icon far fa-address-card" style="color:black"></i>
                         <p style="color:black">About Us</p>
                     </a>
-                </li>
+                </li> -->
 
                 <!-- Assessments -->
-                <li class="nav-item">
-                    <a href="{{ route('service.index') }}" class="nav-link {{request()->is('service*') ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-concierge-bell" style="color:black"></i>
-                        <p style="color:black">Assessments</p>
+                <li class="nav-item {{ request()->is('assessment-section*') || request()->is('assessment-whychoose*') || request()->is('our-diagnostic-services*') || request()->is('understanding-conditions*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-home" style="color:black"></i>
+                        <p style="color:black">
+                            Assessments Section
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('assessment-section') }}" class="nav-link {{ request()->is('assessment-section*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-concierge-bell" style="color:black"></i>
+                                <p style="color:black">Comprehensive Diagnosis</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('assessment-our-diagnostic-services-section') }}" class="nav-link {{ request()->is('our-diagnostic-services*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-concierge-bell" style="color:black"></i>
+                                <p style="color:black">Our Diagnostic Services</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('assessment-whychoose-section') }}" class="nav-link {{ request()->is('assessment-whychoose*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-concierge-bell" style="color:black"></i>
+                                <p style="color:black">Why Choose Cognitive Care</p>
+                            </a>
+                        </li>
+                   
+                        <li class="nav-item">
+                            <a href="{{ route('understanding-conditions-section') }}" class="nav-link {{ request()->is('understanding-conditions*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-concierge-bell" style="color:black"></i>
+                                <p style="color:black">Understanding the Conditions</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
+
+
 
                 <!-- Latest News -->
                 <li class="nav-item">
