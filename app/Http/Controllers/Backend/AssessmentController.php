@@ -13,7 +13,7 @@ class AssessmentController extends Controller
 {
     public function assessmentSection(){
         $assessmentSection = Assessment::all();
-        return view('assessment.assessment',compact('assessmentSection'));
+        return view('assessment-section.assessment',compact('assessmentSection'));
     }
 
     public function saveAssessmentSection(Request $request)
@@ -116,7 +116,7 @@ class AssessmentController extends Controller
 
     public function assessmentOurDiagnosticServicesSection(){
         $ourDiagnostic = AssessmentOurDiagnosticService::all();
-        return view('assessment.ourdiagnosticservices',compact('ourDiagnostic'));
+        return view('assessment-section.ourdiagnosticservices',compact('ourDiagnostic'));
     }
 
     public function saveOurDiagnosticServices(Request $request)
@@ -196,7 +196,7 @@ class AssessmentController extends Controller
     
     public function understandingConditionsSection(){
         $ourDiagnostic = AssessmentUnderstandingCondition::all();
-        return view('assessment.understandingconditions',compact('ourDiagnostic'));
+        return view('assessment-section.understandingconditions',compact('ourDiagnostic'));
     }
 
     public function saveUnderstandingConditions(Request $request)

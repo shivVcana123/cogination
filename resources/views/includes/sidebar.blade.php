@@ -190,23 +190,24 @@
                 </li>
 
 
-
-                <!-- Latest News -->
-                <li class="nav-item">
-                    <a href="{{route('news.index')}}" class="nav-link {{request()->is('news*') ? 'active' : ''}}">
-                        <i class="nav-icon fa fa-newspaper" style="color:black"></i>
-                        <p style="color:black">Latest News</p>
-                    </a>
-                </li>
-
                 <!-- Fees -->
-                <li class="nav-item">
-                    <a href="{{route('link.index')}}" class="nav-link {{request()->is('link*') ? 'active' : ''}}">
-                        <i class="nav-icon fa fa-link" style="color:black"></i>
-                        <p style="color:black">Fees</p>
+                <li class="nav-item {{ request()->is('assessment-section*') || request()->is('assessment-whychoose*') || request()->is('our-diagnostic-services*') || request()->is('understanding-conditions*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-home" style="color:black"></i>
+                        <p style="color:black">
+                            Fees Section
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('assessment-section') }}" class="nav-link {{ request()->is('assessment-section*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-concierge-bell" style="color:black"></i>
+                                <p style="color:black">Comprehensive Diagnosis</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-
                 <!-- Footer -->
                 <li class="nav-item">
                     <a href="{{route('footer.index')}}" class="nav-link {{request()->is('footer*') ? 'active' : ''}}">
