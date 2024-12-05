@@ -140,12 +140,12 @@
                                 <p style="color:black">Autism</p>
                             </a>
                         </li> -->
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="{{route('autism-index')}}" class="nav-link {{ request()->is('autism-index') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
                                 <p style="color:black">Autism</p>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </li>
 
