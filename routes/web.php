@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ApiController\HomeController;
 use App\Http\Controllers\Backend\AboutController;
+use App\Http\Controllers\Backend\AboutUsController;
+use App\Http\Controllers\Backend\AccreditationController;
 use App\Http\Controllers\backend\AdhdBenefitsController;
 use App\Http\Controllers\Backend\AssessmentController;
 use App\Http\Controllers\Backend\NewsController;
@@ -18,6 +20,7 @@ use App\Http\Controllers\Backend\UsefullLinkController;
 use App\Http\Controllers\Backend\PageDesignController;
 use App\Http\Controllers\Backend\FooterController;
 use App\Http\Controllers\Backend\HomeSectionControoler;
+use App\Http\Controllers\Backend\OurApproachController;
 use Illuminate\Support\Facades\Artisan;
 
 Route::get('/welcome', function () {
@@ -44,12 +47,8 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/saveChangePassword', [AuthController::class, 'saveChangePassword'])->name('saveChangePassword');
         // Resource Routes
     Route::resource('header', HeaderController::class);
-    Route::resource('service', ServiceController::class);
     Route::resource('home', BackendHomeController::class);
-    Route::resource('about', AboutController::class);
-    Route::resource('news', NewsController::class);
-    Route::resource('link', UsefullLinkController::class);
-    Route::resource('page', PageDesignController::class);
+
     Route::resource('footer', FooterController::class);
 
     // Home section Route
@@ -83,7 +82,12 @@ Route::middleware(['guest'])->group(function () {
     Route::post('save-screening-section', [AutismsSectionController::class, 'saveScreeningSection'])->name('save-screening-section');
     Route::get('/fetch-screening-section-by-type', [AutismsSectionController::class, 'fetchAutismsScreeningSectionByType'])->name('fetch-screening-section-by-type');
 
-    Route::get('autism', [AutismsSectionController::class, 'autism'])->name('autism');
+    Route::get('autism', action: [AutismsSectionController::class, 'autism'])->name('autism');
+    Route::get('form', action: [AutismsSectionController::class, 'form'])->name('form');
+    Route::post('save-form', action: [AutismsSectionController::class, 'saveform'])->name('save-form');
+
+
+    Route::get('autism-index', [AutismsSectionController::class, 'autismIndex'])->name('autism-index');
 
     Route::get('autism-book', [AutismsSectionController::class, 'autismBookSection'])->name('autism-book-section');
     Route::post('save-book-section', [AutismsSectionController::class, 'saveBookSection'])->name('save-book-section');
@@ -106,11 +110,42 @@ Route::middleware(['guest'])->group(function () {
 
     // Fees section Route
     Route::get('our-pricing-section', [FeesController::class, 'ourPricingSection'])->name('our-pricing-section');
-
     Route::post('save-our-pricing-section', [FeesController::class, 'saveOurPricingSection'])->name('save-our-pricing-section');
 
 
-    Route::post('/website-style', [PageDesignController::class, 'store'])->name('website-style');
+     // About Us section Route
+     Route::get('our-story-section', [AboutUsController::class, 'ourStorySection'])->name('our-story-section');
+     Route::post('save-our-story-section', [AboutUsController::class, 'saveOurStorySection'])->name('save-our-story-section');
+
+     Route::get('our-mission-section', [AboutUsController::class, 'ourMissionSection'])->name('our-mission-section');
+     Route::post('save-our-mission-section', [AboutUsController::class, 'saveOurMissionSection'])->name('save-our-mission-section');
+
+     Route::get('join-community-section', [AboutUsController::class, 'joinCommunitySection'])->name('join-community-section');
+     Route::post('save-join-community-section', [AboutUsController::class, 'savejoinCommunitySection'])->name('save-join-community-section');
+
+      // Our Approach section Route
+      Route::get('our-approach', [OurApproachController::class, 'ourApproachSection'])->name('our-approach-section');
+      Route::post('save-our-approach', [OurApproachController::class, 'saveOurApproachSection'])->name('save-our-approach-section');
+
+      Route::get('how-it-works', [OurApproachController::class, 'howItWorksSection'])->name('how-it-works-section');
+      Route::post('save-how-it-works', [OurApproachController::class, 'savehowItWorksSection'])->name('save-how-it-works-section');
+
+    // Accreditation & Certifications section Route
+    Route::get('our-commitment', [AccreditationController::class, 'ourCommitmentSection'])->name('our-commitment-section');
+    Route::post('save-our-commitment', [AccreditationController::class, 'saveOurCommitmentSection'])->name('save-our-commitment-section');
+
+    Route::get('certifications-section', [AccreditationController::class, 'certificationsSection'])->name('certifications-section');
+    Route::post('save-certifications', [AccreditationController::class, 'saveCertificationsSection'])->name('save-certifications-section');
+
+    Route::get('accreditations-section', [AccreditationController::class, 'accreditationsSection'])->name('accreditations-section');
+    Route::post('save-accreditations', [AccreditationController::class, 'saveAccreditationsSection'])->name('save-accreditations-section');
+
+    Route::get('specialized-certifications-section', [AccreditationController::class, 'specializedCertificationsSection'])->name('specialized-certifications-section');
+    Route::post('save-specialized-certifications', [AccreditationController::class, 'saveSpecializedCertifications'])->name('save-specialized-certification-section');
+
+    Route::get('our-team-continuous-section', [AccreditationController::class, 'ourTeamContinuousSection'])->name('our-team-continuous-section');
+    Route::post('save-our-team-continuous', [AccreditationController::class, 'saveOurTeamContinuousSection'])->name('save-our-team-continuous-section');
+
 // });
 
 

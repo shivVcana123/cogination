@@ -57,7 +57,7 @@ class AssessmentController extends Controller
 
     public function assessmentWhychooseSection(){
         $assessmentWhyChoose = AssessmentWhyChoose::all();
-        return view('assessment.whychoose',compact('assessmentWhyChoose'));
+        return view('assessment-section.whychoose',compact('assessmentWhyChoose'));
     }
 
     public function saveWhychooseSection(Request $request)

@@ -7,6 +7,8 @@ use App\Models\AutismsBook;
 use App\Models\AutismsProcess;
 use App\Models\AutismsScreening;
 use App\Models\AutismsSection;
+use App\Models\CategorySection;
+use App\Models\SubCategorySection;
 use Illuminate\Http\Request;
 
 class AutismsSectionController extends Controller
@@ -282,6 +284,47 @@ class AutismsSectionController extends Controller
 
     public function autism(){
         $autismBook = AutismsBook::get();
-        return view('autism-section.autism',compact('autismBook'));
+        return view('test.autism',compact('autismBook'));
     }
+
+    public function autismIndex(){
+        $autismBook = SubCategorySection::get();
+        return view('test.index',compact('autismBook'));
+    }
+
+    public function form(){
+        $autismBook = AutismsBook::get();
+        return view('test.form');
+    }
+
+    public function saveForm(Request $request)
+    {
+        // Save the CategorySection
+        // dd($request->all());
+    
+        // Save the SubCategorySection using the newly created CategorySection ID
+        $subCategorySection = SubCategorySection::create([
+            'first_title' => $request->first_title,
+            'type' => $request->type,
+            'first_subtitle' => $request->first_subtitle ?? null,
+            'first_description' => $request->first_description ?? null,
+            'first_button_content' => $request->first_button_content ?? null,
+            'first_button_link' => $request->first_button_link ?? null,
+            'first_image' => $request->first_image ?? null,
+            'second_title' => $request->second_title ?? null,
+            'second_subtitle' => $request->second_subtitle ?? null,
+            'second_description' => $request->second_description ?? null,
+            'second_button_content' => $request->second_button_content ?? null,
+            'second_button_link' => $request->second_button_link ?? null,
+            'second_image' => $request->second_image ?? null,
+            'pointers' => json_encode($request->pointers ?? []),
+        ]);
+    
+        // Return a JSON response
+        return redirect()->route('autism-index')->with('success', 'Adhd details saved successfully.');
+
+    }
+    
+    
+
 }
