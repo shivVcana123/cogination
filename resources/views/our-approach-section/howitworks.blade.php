@@ -34,15 +34,27 @@
                             <input type="hidden" name="id" value="{{ old('id', $howItWorkSection[0]->id ?? '') }}">
 
                             <div class="card-body">
-                                <!-- Title Field -->
-                                <div class="form-group">
-                                    <label for="title">Title</label>
-                                    <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-                                    <input type="text" class="form-control" name="title" id="title"
-                                        placeholder="Enter title" value="{{ old('title', $howItWorkSection[0]->title ?? '') }}">
-                                    @error('title')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                <div class="row">
+                                    <!-- Title Field -->
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Title</label>
+                                        <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                                        <input type="text" class="form-control" name="title" id="title"
+                                            placeholder="Enter title" value="{{ old('title', $howItWorkSection[0]->title ?? '') }}">
+                                        @error('title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="image">Image</label>
+                                        <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+                                        <img id="blah" src="{{asset($ourApproachSection[0]->image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                        <input type="file" class="form-control" name="image" id="imgInp" accept="image/*">
+                                        @error('image')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
 
 
@@ -63,14 +75,19 @@
                                     <!-- Loop through each pointer and display -->
                                     @foreach($pointers as $index => $pointer)
                                     <div class="form-group url-group">
-                                        <label>Sub Title</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter sub title">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Title</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter sub title">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter sub description">
+                                            </div>
 
-                                        <label>Sub Description</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter sub description">
-
+                                        </div>
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                     </div>
                                     @endforeach
@@ -78,14 +95,19 @@
 
                                     <!-- Default empty field when no pointers exist -->
                                     <div class="form-group url-group">
-                                        <label>Sub Title</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Title</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+                                            </div>
 
-                                        <label>Sub Description</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
-
+                                        </div>
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                     </div>
                                     @endif
@@ -93,15 +115,7 @@
                                 <!-- Add Pointer Button -->
                                 <button type="button" class="btn btn-success" id="add-Pointers">Add Pointer</button>
 
-                                <div class="form-group">
-                                    <label for="image">Image</label>
-                                    <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                    <img id="blah" src="{{asset($ourApproachSection[0]->image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
-                                    <input type="file" class="form-control" name="image" id="imgInp" accept="image/*">
-                                    @error('image')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
+
                             </div>
 
                             <div class="card-footer">
@@ -129,13 +143,19 @@
         const newInputGroup = document.createElement('div');
         newInputGroup.classList.add('form-group', 'url-group');
         newInputGroup.innerHTML = `
-        <label>Sub Title</label>
-        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-        <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
-
-        <label>Sub Description</label>
-        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-        <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+               <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Title</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+                                            </div>
+                                         
+                                        </div>
 
         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
     `;

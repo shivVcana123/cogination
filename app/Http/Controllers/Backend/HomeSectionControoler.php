@@ -345,28 +345,20 @@ class HomeSectionControoler extends Controller
             'sub_title.*' => 'nullable|string|max:255',
             'sub_description.*' => 'nullable|string|max:255',
             'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ],
-        [
+        ], [
             'title.required' => 'The title is required.',
             'title.string' => 'The title must be a valid string.',
             'title.max' => 'The title may not exceed 255 characters.',
-            'subtitle.required' => 'The subtitle is required.',
             'subtitle.string' => 'The subtitle must be a valid string.',
             'subtitle.max' => 'The subtitle may not exceed 255 characters.',
-            'description_1.required' => 'The description is required.',
             'description_1.string' => 'The description must be a valid string.',
-            'sub_title.required' => 'At least one sub-title is required.',
-            'sub_title.array' => 'The sub-title field must be an array.',
-            'sub_title.*.required' => 'Each sub-title is required.',
             'sub_title.*.string' => 'Each sub-title must be a valid string.',
             'sub_title.*.max' => 'Each sub-title may not exceed 255 characters.',
-            'sub_description.required' => 'At least one sub-description is required.',
-            'sub_description.array' => 'The sub-description field must be an array.',
-            'sub_description.*.required' => 'Each sub-description is required.',
             'sub_description.*.string' => 'Each sub-description must be a valid string.',
-            'sub_description.*.max' => 'Each sub-description may not exceed 500 characters.',
-            'image.image' => 'The uploaded file must be an image.',
-            'image.max' => 'The image may not exceed 2MB in size.',
+            'sub_description.*.max' => 'Each sub-description may not exceed 255 characters.',
+            'image.*.image' => 'The uploaded file must be an image.',
+            'image.*.mimes' => 'The image must be of type jpeg, png, jpg, gif, or svg.',
+            'image.*.max' => 'The image may not exceed 2MB in size.',
         ]);
     
         // Initialize pointers array
@@ -377,22 +369,22 @@ class HomeSectionControoler extends Controller
             foreach ($validated['sub_title'] as $index => $subTitle) {
                 // Upload image if provided for each pointer
                 $subImagePath = null;
-                if ($request->hasFile('image') && $request->file('image')[$index]) {
-                    // Delete the old image if it exists
-                    if (isset($validated['sub_image'][$index]) && \Storage::exists('storage/' . $validated['sub_image'][$index])) {
-                        \Storage::delete('storage/' . $validated['sub_image'][$index]);
+                if ($request->hasFile("image.$index") && $request->file("image.$index")->isValid()) {
+                    // Delete the old image if it exists (optional, depends on existing data structure)
+                    if (isset($ourservice->pointers[$index]['sub_image'])) {
+                        \Storage::disk('public')->delete(str_replace('storage/', '', $ourservice->pointers[$index]['sub_image']));
                     }
     
-                    // Store the new image with the original file name
-                    $imageName = time() . '_' . $request->file('image')[$index]->getClientOriginalName();
-                    $subImagePath = $request->file('image')[$index]->storeAs('home', $imageName, 'public');
+                    // Store the new image with a unique file name
+                    $imageName = time() . '_' . $request->file("image.$index")->getClientOriginalName();
+                    $subImagePath = $request->file("image.$index")->storeAs('home', $imageName, 'public');
                 }
     
                 // Add pointer data to the pointers array
                 $pointers[] = [
                     'sub_title' => $subTitle,
                     'sub_description' => $validated['sub_description'][$index] ?? null,
-                    'sub_image' => 'storage/' .$subImagePath ?? null,  // Set the image path if available
+                    'sub_image' => $subImagePath ? 'storage/' . $subImagePath : null,
                 ];
             }
         }
@@ -409,7 +401,7 @@ class HomeSectionControoler extends Controller
             $message = 'Our Services details updated successfully.';
         } else {
             // Create a new record
-            $ourservice = new HomeOurService(); // Replace `HomeOurService` with your actual model name
+            $ourservice = new HomeOurService();
             $ourservice->title = $validated['title'];
             $ourservice->subtitle = $validated['subtitle'];
             $ourservice->description_1 = $validated['description_1'];
@@ -421,6 +413,7 @@ class HomeSectionControoler extends Controller
         // Redirect with a success message
         return redirect()->route('our-services')->with('success', $message);
     }
+    
     
 
     

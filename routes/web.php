@@ -85,9 +85,10 @@ Route::middleware(['guest'])->group(function () {
     Route::get('autism', action: [AutismsSectionController::class, 'autism'])->name('autism');
     Route::get('form', action: [AutismsSectionController::class, 'form'])->name('form');
     Route::post('save-form', action: [AutismsSectionController::class, 'saveform'])->name('save-form');
-
-
     Route::get('autism-index', [AutismsSectionController::class, 'autismIndex'])->name('autism-index');
+
+
+    
 
     Route::get('autism-book', [AutismsSectionController::class, 'autismBookSection'])->name('autism-book-section');
     Route::post('save-book-section', [AutismsSectionController::class, 'saveBookSection'])->name('save-book-section');

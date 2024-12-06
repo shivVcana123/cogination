@@ -30,20 +30,38 @@
                             @csrf
                             @method('PUT')
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label for="title">Title</label>
-                                    <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" value="{{ old('title', $homeData->title ?? '') }}">
-                                    @error('title')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Title</label>
+                                        <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" value="{{ old('title', $homeData->title ?? '') }}">
+                                        @error('title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
-                                <div class="form-group">
-                                    <label for="subtitle">Subtitle</label>
-                                    <input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="Enter Subtitle" value="{{ old('subtitle', $homeData->subtitle ?? '') }}">
-                                    @error('subtitle')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    <div class="form-group col-md-6">
+                                        <label for="subtitle">Subtitle</label>
+                                        <input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="Enter Subtitle" value="{{ old('subtitle', $homeData->subtitle ?? '') }}">
+                                        @error('subtitle')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="button_content">Button Text</label>
+                                        <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text" value="{{ old('button_content', $homeData->button_content ?? '') }}">
+                                        @error('button_content')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="button_link">Button Link</label>
+                                        <input type="text" class="form-control" name="button_link" id="button_link" placeholder="Enter Button Link" value="{{ old('button_link', $homeData->button_link ?? '') }}">
+                                        @error('button_link')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
@@ -55,52 +73,14 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="button_content">Button Text</label>
-                                    <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text" value="{{ old('button_content', $homeData->button_content ?? '') }}">
-                                    @error('button_content')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="button_link">Button Link</label>
-                                    <input type="text" class="form-control" name="button_link" id="button_link" placeholder="Enter Button Link" value="{{ old('button_link', $homeData->button_link ?? '') }}">
-                                    @error('button_link')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="background_color">Background Color</label>
-                                    <input type="color" class="form-control" name="background_color" id="background_color" value="{{ old('background_color', $homeData->background_color ?? '') }}">
-                                    @error('background_color')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group">
                                     <label for="image">Image</label>
-                                    <img
-                                        id="blah"
-                                        src="{{ asset(str_replace('storage/app/public', 'storage', $homeData->image)) }}"
-                                        alt="your image"
-                                        style="width: 130px;" />
-                                    <input type="file" class="form-control" name="image" id="imgInp">
+                                    <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+                                    <img id="blah" src="{{asset($homeData->image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                    <input type="file" class="form-control" name="image" id="imgInp" accept="image/*">
                                     @error('image')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-
-
-                                <div class="form-group">
-                                    <label for="background_image">Background Center Image</label>
-                                    <img id="bg_image" src="{{ asset(str_replace('storage/app/public', 'storage', $homeData->background_image)) }}" style="width: 130px;" />
-                                    <input type="file" class="form-control" name="background_image" id="background_image">
-                                    @error('background_image')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
                             </div>
 
                             <div class="card-footer">
@@ -117,18 +97,15 @@
 
 <script>
     imgInp.onchange = evt => {
-        const [file] = imgInp.files
+        const [file] = imgInp.files;
         if (file) {
-            blah.src = URL.createObjectURL(file)
+            blah.src = URL.createObjectURL(file);
+            blah.style.display = "block"; // Show the image
+        } else {
+            blah.style.display = "none"; // Hide the image if no file is selected
+            blah.src = "#"; // Reset the src
         }
-    }
-
-    background_image.onchange = evt => {
-        const [file] = background_image.files
-        if (file) {
-            bg_image.src = URL.createObjectURL(file)
-        }
-    }
+    };
 </script>
 
 @endsection

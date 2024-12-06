@@ -38,19 +38,40 @@
                                         <option value="Adult" {{ old('type', $autismScreening[0]->type ?? '') === 'Adult' ? 'selected' : '' }}>Adult</option>
                                     </select>
                                 </div>
+                                <div class="row">
 
-                                <div class="form-group">
-                                    <label for="title">Title</label>
-                                    <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Title</label>
+                                        <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
 
-                                    <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" value="{{ old('title', $autismScreening[0]->title ?? '') }}">
-                                </div>
+                                        <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" value="{{ old('title', $autismScreening[0]->title ?? '') }}">
+                                    </div>
 
-                                <div class="form-group">
-                                    <label for="subtitle">Subtitle</label>
-                                    <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
+                                    <div class="form-group col-md-6">
+                                        <label for="subtitle">Subtitle</label>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
 
-                                    <input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="Enter subtitle" value="{{ old('subtitle', $autismScreening[0]->subtitle ?? '') }}">
+                                        <input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="Enter subtitle" value="{{ old('subtitle', $autismScreening[0]->subtitle ?? '') }}">
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Button Text</label>
+                                        <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
+
+                                        <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text" value="{{old('button_content',$autismScreening[0]->button_content ?? '')}}">
+                                        @error('button_content')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Button Link</label>
+                                        <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
+
+                                        <input type="text" class="form-control" name="button_link" id="button_link" placeholder="Enter Button Link" value="{{old('button_link',$autismScreening[0]->button_link ?? '')}}">
+                                        @error('button_link')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
@@ -60,34 +81,17 @@
                                     <textarea name="description" id="description" class="form-control">{{ old('description', $autismScreening[0]->description ?? '') }}</textarea>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="title">Button Text</label>
-                                    <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
 
-                                    <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text" value="{{old('button_content',$autismScreening[0]->button_content ?? '')}}">
-                                    @error('button_content')
+
+                                <div class="form-group">
+                                    <label for="image">Image</label>
+                                    <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+                                    <img id="img" src="{{asset($autismScreening[0]->image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                    <input type="file" class="form-control" name="image" id="image" accept="image/*">
+                                    @error('image')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-group">
-                                    <label for="title">Button Link</label>
-                                    <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
-
-                                    <input type="text" class="form-control" name="button_link" id="button_link" placeholder="Enter Button Link" value="{{old('button_link',$autismScreening[0]->button_link ?? '')}}">
-                                    @error('button_link')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group">
-                                        <label for="image">Image</label>
-                                        <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                        <img id="img" src="{{asset($autismScreening[0]->image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
-                                        <input type="file" class="form-control" name="image" id="image" accept="image/*">
-                                        @error('image')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
 
 
                                 <div class="card-footer">
@@ -102,7 +106,7 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-     $('#type').on('change', function() {
+    $('#type').on('change', function() {
         const selectedType = $(this).val();
         if (selectedType) {
             $.ajax({

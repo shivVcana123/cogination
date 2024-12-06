@@ -30,34 +30,35 @@
 
 
                         <form action="{{ route('save-faq') }}" method="post" enctype="multipart/form-data">
-                        @csrf
+                            @csrf
                             <input type="hidden" name="id" value="{{ old('id', $saveFaqs[0]->id ?? '') }}">
 
                             <div class="card-body">
-                                <!-- Title Field -->
-                                <div class="form-group">
-                                    <label for="title">Title</label>
-                                    <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-                                    <input type="text" class="form-control" name="title" id="title"
-                                        placeholder="Enter title" value="{{ old('title', $saveFaqs[0]->title ?? '') }}">
-                                    @error('title')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                <div class="row">
+                                    <!-- Title Field -->
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Title</label>
+                                        <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                                        <input type="text" class="form-control" name="title" id="title"
+                                            placeholder="Enter title" value="{{ old('title', $saveFaqs[0]->title ?? '') }}">
+                                        @error('title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+
+                                    <!-- Subtitle Field -->
+                                    <div class="form-group col-md-6">
+                                        <label for="subtitle">Subtitle</label>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
+                                        <input type="text" class="form-control" name="subtitle" id="subtitle"
+                                            placeholder="Enter subtitle" value="{{ old('subtitle', $saveFaqs[0]->subtitle ?? '') }}">
+                                        @error('subtitle')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
 
-
-                                <!-- Subtitle Field -->
-                                <div class="form-group">
-                                    <label for="subtitle">Subtitle</label>
-                                    <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
-                                    <input type="text" class="form-control" name="subtitle" id="subtitle"
-                                        placeholder="Enter subtitle" value="{{ old('subtitle', $saveFaqs[0]->subtitle ?? '') }}">
-                                    @error('subtitle')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                        
                                 <!-- Pointers Section -->
                                 <div id="Pointers-container">
                                     @php
@@ -69,25 +70,30 @@
                                     @if (!empty($pointers))
                                     @foreach ($pointers as $index => $pointer)
                                     <div class="form-group url-group">
-                                        <!-- Sub Title -->
-                                        <label>Question</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="question[]" class="form-control"
-                                            value="{{ old('question.' . $index, $pointer['question'] ?? '') }}"
-                                            placeholder="Enter question">
-                                        @error("question.{$index}")
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                        <div class="row">
+                                            <!-- Title Field -->
+                                            <div class="form-group col-md-6">
+                                                <label for="question">Question</label>
+                                                <i class="fas fa-info-circle" title="Enter a meaningful question that summarizes the purpose of this section."></i>
+                                                <input type="text" class="form-control" name="question[]" id="question"
+                                                    placeholder="Enter question" value="{{ old('question.' . $index, $pointer['question'] ?? '') }}">
+                                                @error('question')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
 
-                                        <!-- Sub Description -->
-                                        <label>Answer</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="answer[]" class="form-control"
-                                            value="{{ old('answer.' . $index, $pointer['answer'] ?? '') }}"
-                                            placeholder="Enter sub description">
-                                        @error("answer.{$index}")
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+
+                                            <!-- answer Field -->
+                                            <div class="form-group col-md-6">
+                                                <label for="answer">Answer</label>
+                                                <i class="fas fa-info-circle" title="Provide a brief answer that complements the main title of this section."></i>
+                                                <input type="text" class="form-control" name="answer[]" id="answer"
+                                                    placeholder="Enter answer" value="{{ old('answer.' . $index, $pointer['answer'] ?? '') }}">
+                                                @error('answer')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
 
                                         <!-- Remove Button -->
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
@@ -96,14 +102,30 @@
                                     @else
                                     <!-- Default empty field when no pointers exist -->
                                     <div class="form-group url-group">
-                                        <label>Question</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="question[]" class="form-control"
-                                            value="" placeholder="Enter sub title">
-                                        <label>Answer</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="answer[]" class="form-control"
-                                            value="" placeholder="Enter sub description">
+                                        <div class="row">
+                                            <!-- Title Field -->
+                                            <div class="form-group col-md-6">
+                                                <label for="question">Question</label>
+                                                <i class="fas fa-info-circle" title="Enter a meaningful question that summarizes the purpose of this section."></i>
+                                                <input type="text" class="form-control" name="question[]" id="question"
+                                                    placeholder="Enter question" value="">
+                                                @error('question')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+
+                                            <!-- answer Field -->
+                                            <div class="form-group col-md-6">
+                                                <label for="answer">Answer</label>
+                                                <i class="fas fa-info-circle" title="Provide a brief answer that complements the main title of this section."></i>
+                                                <input type="text" class="form-control" name="answer[]" id="answer"
+                                                    placeholder="Enter answer" value="">
+                                                @error('answer')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                     </div>
                                     @endif
@@ -141,17 +163,26 @@
         const newInputGroup = document.createElement('div');
         newInputGroup.classList.add('form-group', 'url-group');
         newInputGroup.innerHTML = `
-        <label>Question</label>
-        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-        <div class="input-group mb-2">
-            <input type="text" name="question[]" class="form-control" placeholder="Enter sub title">
-        </div>
-        <label>Answer</label>
-        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-        <div class="input-group mb-2">
-            <input type="text" name="answer[]" class="form-control" placeholder="Enter sub description">
-        </div>
-        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+        <div class="row">
+                                            <!-- Title Field -->
+                                            <div class="form-group col-md-6">
+                                                <label for="question">Question</label>
+                                                <i class="fas fa-info-circle" title="Enter a meaningful question that summarizes the purpose of this section."></i>
+                                                <input type="text" class="form-control" name="question[]" id="question"
+                                                    placeholder="Enter question" value="">
+                                            </div>
+
+
+                                            <!-- answer Field -->
+                                            <div class="form-group col-md-6">
+                                                <label for="answer">Answer</label>
+                                                <i class="fas fa-info-circle" title="Provide a brief answer that complements the main title of this section."></i>
+                                                <input type="text" class="form-control" name="answer[]" id="answer"
+                                                    placeholder="Enter answer" value="">
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                                    </div>
     `;
         container.appendChild(newInputGroup);
         updateRemoveButtonVisibility(); // Ensure the visibility of "Remove" buttons is updated
@@ -169,17 +200,6 @@
         updateRemoveButtonVisibility();
     });
 
-
-    imgInp.onchange = evt => {
-        const [file] = imgInp.files;
-        if (file) {
-            blah.src = URL.createObjectURL(file);
-            blah.style.display = "block"; // Show the image
-        } else {
-            blah.style.display = "none"; // Hide the image if no file is selected
-            blah.src = "#"; // Reset the src
-        }
-    };
 </script>
 
 @endsection

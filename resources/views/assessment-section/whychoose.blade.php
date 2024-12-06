@@ -29,6 +29,7 @@
                             @csrf
                             <input type="hidden" name="id" id="id" value="{{ old('id', $assessmentWhyChoose[0]->id ?? '') }}">
                             <div class="card-body">
+                              
                                 <div class="form-group">
                                     <label for="title">Title</label>
                                     <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
@@ -49,7 +50,9 @@
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-group">
+
+                                <div class="row">
+                                <div class="form-group col-md-6">
                                     <label for="title">Button Text 1</label>
                                     <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
                                     <input type="text" class="form-control" name="first_button_content" id="button_content" placeholder="Enter Button Text" value="{{old('first_button_content',$assessmentWhyChoose[0]->first_button_content ?? '')}}">
@@ -57,7 +60,7 @@
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group col-md-6">
                                     <label for="title">Button Link 1</label>
                                     <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
                                     <input type="text" class="form-control" name="first_button_link" id="button_link" placeholder="Enter Button Link" value="{{old('first_button_link',$assessmentWhyChoose[0]->first_button_link ?? '')}}">
@@ -66,7 +69,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group col-md-6">
                                     <label for="title">Button Text 2</label>
                                     <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
                                     <input type="text" class="form-control" name="second_button_content" id="button_content" placeholder="Enter Button Text" value="{{old('second_button_content',$assessmentWhyChoose[0]->second_button_content ?? '')}}">
@@ -74,7 +77,7 @@
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group col-md-6">
                                     <label for="title">Button Link 2</label>
                                     <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
                                     <input type="text" class="form-control" name="second_button_link" id="button_link" placeholder="Enter Button Link" value="{{old('second_button_link',$assessmentWhyChoose[0]->second_button_link ?? '')}}">
@@ -83,6 +86,9 @@
                                     @enderror
                                 </div>
 
+
+</div>
+                                
 
                                 @php
                                 // Check if the $assessmentWhyChoose exists and contains data before attempting to decode
@@ -99,13 +105,20 @@
                                     <!-- Loop through each pointer and display -->
                                     @foreach($pointers as $index => $pointer)
                                     <div class="form-group url-group">
-                                        <label>Sub Title</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter sub title">
-
-                                        <label>Sub Description</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter sub description">
+                               
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Title</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter sub title">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter sub description">
+                                            </div>
+                                         
+                                        </div>
 
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                     </div>
@@ -114,13 +127,19 @@
 
                                     <!-- Default empty field when no pointers exist -->
                                     <div class="form-group url-group">
-                                        <label>Sub Title</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
-
-                                        <label>Sub Description</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+                                    <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Title</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+                                            </div>
+                                         
+                                        </div>
 
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                     </div>
@@ -166,13 +185,19 @@
         const newInputGroup = document.createElement('div');
         newInputGroup.classList.add('form-group', 'url-group');
         newInputGroup.innerHTML = `
-        <label>Sub Title</label>
-        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-        <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
-
-        <label>Sub Description</label>
-        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-        <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+         <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Title</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+                                            </div>
+                                         
+                                        </div>
 
         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
     `;

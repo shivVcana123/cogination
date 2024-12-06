@@ -34,28 +34,31 @@
                             <input type="hidden" name="id" value="{{ old('id', $chooseusData[0]->id ?? '') }}">
 
                             <div class="card-body">
-                                <!-- Title Field -->
-                                <div class="form-group">
-                                    <label for="title">Title</label>
-                                    <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-                                    <input type="text" class="form-control" name="title" id="title"
-                                        placeholder="Enter title" value="{{ old('title', $chooseusData[0]->title ?? '') }}">
-                                    @error('title')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                <div class="row">
+                                    <!-- Title Field -->
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Title</label>
+                                        <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                                        <input type="text" class="form-control" name="title" id="title"
+                                            placeholder="Enter title" value="{{ old('title', $chooseusData[0]->title ?? '') }}">
+                                        @error('title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
 
-                                <!-- Subtitle Field -->
-                                <div class="form-group">
-                                    <label for="subtitle">Subtitle</label>
-                                    <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
-                                    <input type="text" class="form-control" name="subtitle" id="subtitle"
-                                        placeholder="Enter subtitle" value="{{ old('subtitle', $chooseusData[0]->subtitle ?? '') }}">
-                                    @error('subtitle')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    <!-- Subtitle Field -->
+                                    <div class="form-group col-md-6">
+                                        <label for="subtitle">Subtitle</label>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
+                                        <input type="text" class="form-control" name="subtitle" id="subtitle"
+                                            placeholder="Enter subtitle" value="{{ old('subtitle', $chooseusData[0]->subtitle ?? '') }}">
+                                        @error('subtitle')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
+
 
                                 <!-- Description Field -->
                                 <div class="form-group">
@@ -84,18 +87,24 @@
                                     <!-- Loop through each pointer and display -->
                                     @foreach($pointers as $index => $pointer)
                                     <div class="form-group url-group">
-                                        <label>Sub Title</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter sub title">
-
-                                        <label>Sub Description</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter sub description">
-
-                                        <label>Image</label>
-                                        <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                        <img id="blah" src="{{asset($pointer->sub_image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
-                                        <input type="file" class="form-control" name="image[]" accept="image/*">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Title</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter sub title">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter sub description">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Image</label>
+                                                <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+                                                <img id="blah" src="{{asset($pointer->sub_image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                                <input type="file" class="form-control" name="image[]" accept="image/*">
+                                            </div>
+                                        </div>
 
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                     </div>
@@ -104,19 +113,24 @@
 
                                     <!-- Default empty field when no pointers exist -->
                                     <div class="form-group url-group">
-                                        <label>Sub Title</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
-
-                                        <label>Sub Description</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
-
-                                        <label>Image</label>
-                                        <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                        <img id="blah" src="#" alt="Image Preview" style="width: 130px; display:none" />
-                                        <input type="file" class="form-control" name="image[]" accept="image/*">
-
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Title</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Image</label>
+                                                <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+                                                <img id="blah" src="#" alt="Image Preview" style="width: 130px; display:none" />
+                                                <input type="file" class="form-control" name="image[]" accept="image/*">
+                                            </div>
+                                        </div>
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                     </div>
                                     @endif
@@ -150,17 +164,24 @@
         const newInputGroup = document.createElement('div');
         newInputGroup.classList.add('form-group', 'url-group');
         newInputGroup.innerHTML = `
-        <label>Sub Title</label>
-        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-        <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
-
-        <label>Sub Description</label>
-        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-        <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
-
-        <label>Image</label>
-        <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-        <input type="file" class="form-control" name="image[]" accept="image/*">
+        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Title</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Image</label>
+                                                <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+                                                <img id="blah" src="#" alt="Image Preview" style="width: 130px; display:none" />
+                                                <input type="file" class="form-control" name="image[]" accept="image/*">
+                                            </div>
+                                        </div>
 
         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
     `;

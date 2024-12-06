@@ -42,29 +42,49 @@
                                     @enderror
                                 </div>
 
+                                <div class="row">
 
-                                <div class="form-group">
-                                    <label for="title">Title</label>
-                                    <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Title</label>
+                                        <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
 
-                                    <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-                                    <input type="text" class="form-control" name="first_title" id="title"
-                                        placeholder="Enter first title" value="{{ old('first_title',$adhdSection[0]->first_title ?? '') }}">
-                                    @error('first_title')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                        <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                                        <input type="text" class="form-control" name="first_title" id="title"
+                                            placeholder="Enter first title" value="{{ old('first_title',$adhdSection[0]->first_title ?? '') }}">
+                                        @error('first_title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <!-- Subtitle Field -->
+                                    <div class="form-group col-md-6">
+                                        <label for="subtitle">Subtitle</label>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
+                                        <input type="text" class="form-control" name="first_subtitle" id="subtitle"
+                                            placeholder="Enter first subtitle" value="{{ old('first_subtitle',$adhdSection[0]->first_subtitle ?? '') }}">
+                                        @error('first_subtitle')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Button Text</label>
+                                        <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
+                                        <input type="text" class="form-control" name="first_button_content" id="button_content" placeholder="Enter Button Text" value="{{old('first_button_content',$adhdSection[0]->first_button_content ?? '')}}">
+                                        @error('first_button_content')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Button Link</label>
+                                        <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
+                                        <input type="text" class="form-control" name="first_button_link" id="button_link" placeholder="Enter Button Link" value="{{old('first_button_link',$adhdSection[0]->first_button_link ?? '')}}">
+                                        @error('first_button_link')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
 
-                                <!-- Subtitle Field -->
-                                <div class="form-group">
-                                    <label for="subtitle">Subtitle</label>
-                                    <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
-                                    <input type="text" class="form-control" name="first_subtitle" id="subtitle"
-                                        placeholder="Enter first subtitle" value="{{ old('first_subtitle',$adhdSection[0]->first_subtitle ?? '') }}">
-                                    @error('first_subtitle')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
+
                                 <!-- Description Field -->
                                 <div class="form-group">
                                     <label for="description_1">Description</label>
@@ -74,38 +94,26 @@
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+
+
                                 <div class="form-group">
-                                    <label for="title">Button Text</label>
-                                    <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
-                                    <input type="text" class="form-control" name="first_button_content" id="button_content" placeholder="Enter Button Text" value="{{old('first_button_content',$adhdSection[0]->first_button_content ?? '')}}">
-                                    @error('first_button_content')
+                                    <label for="image">Image</label>
+                                    <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+                                    <img id="blah" src="{{asset($adhdSection[0]->first_image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                    <input type="file" class="form-control" name="first_image" id="imgInp" accept="image/*">
+                                    @error('first_image')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-group">
-                                    <label for="title">Button Link</label>
-                                    <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
-                                    <input type="text" class="form-control" name="first_button_link" id="button_link" placeholder="Enter Button Link" value="{{old('first_button_link',$adhdSection[0]->first_button_link ?? '')}}">
-                                    @error('first_button_link')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
 
-                                    <div class="form-group">
-                                        <label for="image">Image</label>
-                                        <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                        <img id="blah" src="{{asset($adhdSection[0]->first_image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
-                                        <input type="file" class="form-control" name="first_image" id="imgInp" accept="image/*">
-                                        @error('first_image')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                <hr>
+                                <h3> Second Section Details</h3>
+                                <hr>
 
-                                    <hr>
-                                    <h3> Second Section Details</h3>
-                                    <hr>
+                                <div class="row">
 
                                     <!-- Title Field -->
-                                    <div class="form-group">
+                                    <div class="form-group col-md-6">
                                         <label for="title">Title</label>
                                         <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
                                         <input type="text" class="form-control" name="second_title" id="second_title"
@@ -116,7 +124,7 @@
                                     </div>
 
                                     <!-- Subtitle Field -->
-                                    <div class="form-group">
+                                    <div class="form-group col-md-6">
                                         <label for="subtitle">Subtitle</label>
                                         <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
                                         <input type="text" class="form-control" name="second_subtitle" id="second_subtitle"
@@ -125,76 +133,90 @@
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <!-- Description Field -->
-                                    <div class="form-group">
-                                        <label for="description_1">Description</label>
-                                        <i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
-                                        <textarea class="form-control" name="second_description" id="second_description">{{ old('second_description', $adhdSection[0]->second_description ?? '') }}</textarea>
-                                        @error('second_description')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    @php
-                                    // Check if the $adhdSection exists and contains data before attempting to decode
-                                    $pointers = isset($adhdSection[0]) && !empty($adhdSection[0]->pointers)
-                                    ? json_decode($adhdSection[0]->pointers)
-                                    : [];
-                                    @endphp
-
-
-                                    <!-- Pointers Section -->
-                                    <label for="">Add Extra Pointers</label>
-                                    <div id="Pointers-container">
-
-                                        @if(!empty($pointers) && is_array($pointers))
-                                        <!-- Loop through each pointer and display -->
-                                        @foreach($pointers as $index => $pointer)
-                                        <div class="form-group url-group">
-                                            <label>Sub Title</label>
-                                            <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                            <input type="text" name="second_sub_title[]" class="form-control" value="{{$pointer->second_sub_title}}" placeholder="Enter sub title">
-
-                                            <label>Sub Description</label>
-                                            <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                            <input type="text" name="second_sub_description[]" class="form-control" value="{{$pointer->second_sub_description}}" placeholder="Enter sub description">
-
-                                            <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
-                                        </div>
-                                        @endforeach
-                                        @else
-
-                                        <!-- Default empty field when no pointers exist -->
-                                        <div class="form-group url-group">
-                                            <label>Sub Title</label>
-                                            <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                            <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter sub title">
-
-                                            <label>Sub Description</label>
-                                            <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                            <input type="text" name="second_sub_description[]" class="form-control" value="" placeholder="Enter sub description">
-
-                                            <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
-                                        </div>
-                                        @endif
-                                    </div>
-                                    <!-- Add Pointer Button -->
-                                    <button type="button" class="btn btn-success" id="add-Pointers">Add Pointer</button>
-
-                                    <div class="form-group">
-                                        <label for="image">Image</label>
-                                        <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                        <img id="second_img" src="{{asset($adhdSection[0]->second_image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
-                                        <input type="file" class="form-control" name="second_image" id="second_image" accept="image/*">
-                                        @error('image')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
+                                </div>
+                                <!-- Description Field -->
+                                <div class="form-group">
+                                    <label for="description_1">Description</label>
+                                    <i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
+                                    <textarea class="form-control" name="second_description" id="second_description">{{ old('second_description', $adhdSection[0]->second_description ?? '') }}</textarea>
+                                    @error('second_description')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                                @php
+                                // Check if the $adhdSection exists and contains data before attempting to decode
+                                $pointers = isset($adhdSection[0]) && !empty($adhdSection[0]->pointers)
+                                ? json_decode($adhdSection[0]->pointers)
+                                : [];
+                                @endphp
+
+
+                                <!-- Pointers Section -->
+                                <label for="">Add Extra Pointers</label>
+                                <div id="Pointers-container">
+
+                                    @if(!empty($pointers) && is_array($pointers))
+                                    <!-- Loop through each pointer and display -->
+                                    @foreach($pointers as $index => $pointer)
+                                    <div class="form-group url-group">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Title</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="second_sub_title[]" class="form-control" value="{{$pointer->second_sub_title}}" placeholder="Enter sub title">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="second_sub_description[]" class="form-control" value="{{$pointer->second_sub_description}}" placeholder="Enter sub description">
+                                            </div>
+
+                                        </div>
+                                        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                                    </div>
+                                    @endforeach
+                                    @else
+
+                                    <!-- Default empty field when no pointers exist -->
+                                    <div class="form-group url-group">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Title</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="second_sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+                                            </div>
+
+                                        </div>
+
+                                        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                                    </div>
+                                    @endif
                                 </div>
+                                <!-- Add Pointer Button -->
+                                <button type="button" class="btn btn-success" id="add-Pointers">Add Pointer</button>
+
+                                <div class="form-group">
+                                    <label for="image">Image</label>
+                                    <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+                                    <img id="second_img" src="{{asset($adhdSection[0]->second_image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                    <input type="file" class="form-control" name="second_image" id="second_image" accept="image/*">
+                                    @error('image')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                            </div>
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -207,6 +229,7 @@
 <script>
     function updateRemoveButtonVisibility() {
         const urlGroups = document.querySelectorAll('.url-group');
+        console.log("Current URL Groups Count:", urlGroups.length); // Log count
         urlGroups.forEach((group) => {
             const removeButton = group.querySelector('.remove-Pointers');
             removeButton.style.display = urlGroups.length > 1 ? 'inline-block' : 'none';
@@ -218,37 +241,41 @@
         const newInputGroup = document.createElement('div');
         newInputGroup.classList.add('form-group', 'url-group');
         newInputGroup.innerHTML = `
-        <label>Sub Title</label>
-        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-        <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter sub title">
-
-        <label>Sub Description</label>
-        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-        <input type="text" name="second_sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+       <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Title</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="second_sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+                                            </div>
+                                         
+                                        </div>
 
         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
     `;
         container.appendChild(newInputGroup);
-        updateRemoveButtonVisibility(); // Update "Remove" buttons visibility
+        console.log("Pointer added:", newInputGroup); // Log new pointer
+        updateRemoveButtonVisibility();
     });
 
     document.getElementById('Pointers-container').addEventListener('click', function(event) {
         if (event.target.classList.contains('remove-Pointers')) {
-            event.target.closest('.url-group').remove();
-            updateRemoveButtonVisibility(); // Update "Remove" buttons visibility
+            const groupToRemove = event.target.closest('.url-group');
+            console.log("Pointer removed:", groupToRemove); // Log removed pointer
+            groupToRemove.remove();
+            updateRemoveButtonVisibility();
         }
     });
 
-    // Initial visibility check when the page loads
     document.addEventListener('DOMContentLoaded', function() {
+        console.log("Page Loaded - Initial Check");
         updateRemoveButtonVisibility();
     });
 
-
-    // Initial visibility check when the page loads
-    document.addEventListener('DOMContentLoaded', function() {
-        updateRemoveButtonVisibility();
-    });
     imgInp.onchange = evt => {
         const [file] = imgInp.files;
         if (file) {
@@ -271,16 +298,19 @@
     };
 
 
-    $(document).ready(function () {
-    // Function to toggle the "Remove" button visibility
-    function toggleRemoveButton() {
-        const pointerCount = $('#Pointers-container .url-group').length;
-        $('.remove-Pointers').toggle(pointerCount > 1);
-    }
+    $(document).ready(function() {
+        // Function to toggle the "Remove" button visibility
+        function toggleRemoveButton() {
+            const pointerCount = $('#Pointers-container .url-group').length;
+            $('.remove-Pointers').toggle(pointerCount > 1);
+        }
 
-    // Function to append a pointer
-    function appendPointer(container, data = { second_sub_title: '', second_sub_description: '' }) {
-        const pointerHtml = `
+        // Function to append a pointer
+        function appendPointer(container, data = {
+            second_sub_title: '',
+            second_sub_description: ''
+        }) {
+            const pointerHtml = `
             <div class="form-group url-group">
                 <label>Sub Title</label>
                 <input type="text" name="second_sub_title[]" class="form-control" value="${data.second_sub_title}" placeholder="Enter sub title">
@@ -288,81 +318,82 @@
                 <input type="text" name="second_sub_description[]" class="form-control" value="${data.second_sub_description}" placeholder="Enter sub description">
                 <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
             </div>`;
-        container.append(pointerHtml);
-    }
-
-    // Handle change event on the #type dropdown
-    $('#type').on('change', function () {
-        const selectedType = $(this).val();
-
-        if (selectedType) {
-            $.ajax({
-                url: "{{ route('fetch-adhd-section-by-type') }}", // Update with your route
-                type: "GET",
-                data: { type: selectedType },
-                beforeSend: function () {
-                    $('#loading-spinner').show(); // Show loader
-                },
-                success: function (response) {
-                    const section = response.data?.[0] || null;
-
-                    if (section) {
-                        // Populate form fields
-                        $('#id').val(section.id || '');
-                        $('#title').val(section.first_title || '');
-                        $('#subtitle').val(section.first_subtitle || '');
-                        $('#description').val(section.first_description || '');
-                        $('#button_content').val(section.first_button_content || '');
-                        $('#button_link').val(section.first_button_link || '');
-                        $('#second_title').val(section.second_title || '');
-                        $('#second_subtitle').val(section.second_subtitle || '');
-                        $('#second_description').val(section.second_description || '');
-
-                        // Populate pointers
-                        const container = $('#Pointers-container');
-                        container.empty();
-                        const pointers = section.pointers ? JSON.parse(section.pointers) : [];
-                        if (pointers.length > 0) {
-                            pointers.forEach(pointer => appendPointer(container, pointer));
-                        } else {
-                            appendPointer(container); // Add an empty group if no pointers
-                        }
-                    } else {
-                        // Reset form fields if no data is found
-                        $('#id, #title, #subtitle, #description, #button_content, #button_link, #second_title, #second_subtitle, #second_description').val('');
-                        const container = $('#Pointers-container');
-                        container.empty();
-                        appendPointer(container); // Add a single empty group
-                    }
-
-                    toggleRemoveButton(); // Re-evaluate "Remove" button visibility
-                },
-                error: function () {
-                    alert('An error occurred while fetching data.');
-                },
-                complete: function () {
-                    $('#loading-spinner').hide(); // Hide loader
-                }
-            });
+            container.append(pointerHtml);
         }
-    });
 
-    // Handle click event to dynamically add pointers
-    $('#add-pointer-btn').on('click', function () {
-        appendPointer($('#Pointers-container'));
+        // Handle change event on the #type dropdown
+        $('#type').on('change', function() {
+            const selectedType = $(this).val();
+
+            if (selectedType) {
+                $.ajax({
+                    url: "{{ route('fetch-adhd-section-by-type') }}", // Update with your route
+                    type: "GET",
+                    data: {
+                        type: selectedType
+                    },
+                    beforeSend: function() {
+                        $('#loading-spinner').show(); // Show loader
+                    },
+                    success: function(response) {
+                        const section = response.data?.[0] || null;
+
+                        if (section) {
+                            // Populate form fields
+                            $('#id').val(section.id || '');
+                            $('#title').val(section.first_title || '');
+                            $('#subtitle').val(section.first_subtitle || '');
+                            $('#description').val(section.first_description || '');
+                            $('#button_content').val(section.first_button_content || '');
+                            $('#button_link').val(section.first_button_link || '');
+                            $('#second_title').val(section.second_title || '');
+                            $('#second_subtitle').val(section.second_subtitle || '');
+                            $('#second_description').val(section.second_description || '');
+
+                            // Populate pointers
+                            const container = $('#Pointers-container');
+                            container.empty();
+                            const pointers = section.pointers ? JSON.parse(section.pointers) : [];
+                            if (pointers.length > 0) {
+                                pointers.forEach(pointer => appendPointer(container, pointer));
+                            } else {
+                                appendPointer(container); // Add an empty group if no pointers
+                            }
+                        } else {
+                            // Reset form fields if no data is found
+                            $('#id, #title, #subtitle, #description, #button_content, #button_link, #second_title, #second_subtitle, #second_description').val('');
+                            const container = $('#Pointers-container');
+                            container.empty();
+                            appendPointer(container); // Add a single empty group
+                        }
+
+                        toggleRemoveButton(); // Re-evaluate "Remove" button visibility
+                    },
+                    error: function() {
+                        alert('An error occurred while fetching data.');
+                    },
+                    complete: function() {
+                        $('#loading-spinner').hide(); // Hide loader
+                    }
+                });
+            }
+        });
+
+        // Handle click event to dynamically add pointers
+        $('#add-pointer-btn').on('click', function() {
+            appendPointer($('#Pointers-container'));
+            toggleRemoveButton();
+        });
+
+        // Handle click event to remove pointers
+        $(document).on('click', '.remove-Pointers', function() {
+            $(this).closest('.url-group').remove();
+            toggleRemoveButton();
+        });
+
+        // Initial setup
         toggleRemoveButton();
     });
-
-    // Handle click event to remove pointers
-    $(document).on('click', '.remove-Pointers', function () {
-        $(this).closest('.url-group').remove();
-        toggleRemoveButton();
-    });
-
-    // Initial setup
-    toggleRemoveButton();
-});
-
 </script>
 
 @endsection

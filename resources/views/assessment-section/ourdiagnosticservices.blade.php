@@ -71,49 +71,70 @@
                                     <!-- Loop through each pointer and display -->
                                     @foreach($pointers as $index => $pointer)
                                     <div class="form-group url-group">
-                                        <label>Sub Title</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter sub title">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Title</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter sub title">
+                                                @error('button_link_2')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
 
-                                        <label>Sub Description</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter sub description">
-                                        <div class="form-group">
-                                            <label for="title">Button Text</label>
-                                            <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
-                                            <input type="text" class="form-control" name="button_content_1[]" id="button_content" placeholder="Enter Button Text" value="{{old('button_content_1',$pointer->button_content_1 ?? '')}}">
-                                            @error('button_content_1')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
+
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter sub description">
+                                                @error('button_link_2')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="title">Button 1 Text</label>
+                                                <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
+                                                <input type="text" class="form-control" name="button_content_1[]" id="button_content_1" placeholder="Enter Button Text" value="{{old('button_content_1',$pointer->button_content_1 ?? '')}}">
+                                                @error('button_content_1')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="title">Button 1 Link</label>
+                                                <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
+                                                <input type="text" class="form-control" name="button_link_1[]" id="button_link_1" placeholder="Enter Button Link" value="{{old('button_link_1[]',$pointer->button_link_1 ?? '')}}">
+                                                @error('button_link_1')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="title">Button 2 Text</label>
+                                                <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
+                                                <input type="text" class="form-control" name="button_content_2[]" id="button_content_2" placeholder="Enter Button Text" value="{{old('button_content_2[]',$pointer->button_content_2 ?? '')}}">
+                                                @error('button_content_2')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="title">Button 2 Link</label>
+                                                <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
+                                                <input type="text" class="form-control" name="button_link_2[]" id="button_link_2" placeholder="Enter Button Link" value="{{old('button_link_2[]',$pointer->button_link_2 ?? '')}}">
+                                                @error('button_link_2')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>Image</label>
+                                                <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+                                                <img id="blah" src="{{asset($pointer->sub_image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                                <input type="file" class="form-control" name="image[]" accept="image/*">
+                                                @error('image')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="title">Button Link</label>
-                                            <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
-                                            <input type="text" class="form-control" name="button_link_1[]" id="button_link" placeholder="Enter Button Link" value="{{old('button_link_1[]',$pointer->button_link_1 ?? '')}}">
-                                            @error('button_link_1')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="title">Button Text</label>
-                                            <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
-                                            <input type="text" class="form-control" name="button_content_2[]" id="button_content" placeholder="Enter Button Text" value="{{old('button_content_2',$pointer->button_content_2 ?? '')}}">
-                                            @error('button_content_2')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="title">Button Link</label>
-                                            <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
-                                            <input type="text" class="form-control" name="button_link_2[]" id="button_link" placeholder="Enter Button Link" value="{{old('button_link_2',$pointer->button_link_2 ?? '')}}">
-                                            @error('button_link_2')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <label>Image</label>
-                                        <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                        <img id="blah" src="{{asset($pointer->sub_image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
-                                        <input type="file" class="form-control" name="image[]" accept="image/*">
 
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                     </div>
@@ -122,49 +143,70 @@
 
                                     <!-- Default empty field when no pointers exist -->
                                     <div class="form-group url-group">
-                                        <label>Sub Title</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Title</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+                                                @error('button_link_2')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
 
-                                        <label>Sub Description</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
-                                        <div class="form-group">
-                                            <label for="title">Button Text</label>
-                                            <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
-                                            <input type="text" class="form-control" name="button_content_1[]" id="button_content_1" placeholder="Enter Button Text" value="">
-                                            @error('button_content_1')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
+
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+                                                @error('button_link_2')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="title">Button 1 Text</label>
+                                                <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
+                                                <input type="text" class="form-control" name="button_content_1[]" id="button_content_1" placeholder="Enter Button Text" value="">
+                                                @error('button_content_1')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="title">Button 1 Link</label>
+                                                <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
+                                                <input type="text" class="form-control" name="button_link_1[]" id="button_link_1" placeholder="Enter Button Link" value="">
+                                                @error('button_link_1')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="title">Button 2 Text</label>
+                                                <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
+                                                <input type="text" class="form-control" name="button_content_2[]" id="button_content_2" placeholder="Enter Button Text" value="">
+                                                @error('button_content_2')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="title">Button 2 Link</label>
+                                                <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
+                                                <input type="text" class="form-control" name="button_link_2[]" id="button_link_2" placeholder="Enter Button Link" value="">
+                                                @error('button_link_2')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>Image</label>
+                                                <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+                                                <img id="blah" src="#" alt="Image Preview" style="width: 130px; display:none" />
+                                                <input type="file" class="form-control" name="image[]" accept="image/*">
+                                                @error('image')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="title">Button Link</label>
-                                            <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
-                                            <input type="text" class="form-control" name="button_link_1[]" id="button_link_1" placeholder="Enter Button Link" value="">
-                                            @error('button_link_1')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="title">Button Text</label>
-                                            <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
-                                            <input type="text" class="form-control" name="button_content_2[]" id="button_content_2" placeholder="Enter Button Text" value="">
-                                            @error('button_content_2')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="title">Button Link</label>
-                                            <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
-                                            <input type="text" class="form-control" name="button_link_2[]" id="button_link_2" placeholder="Enter Button Link" value="">
-                                            @error('button_link_2')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <label>Image</label>
-                                        <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                        <img id="blah" src="#" alt="Image Preview" style="width: 130px; display:none" />
-                                        <input type="file" class="form-control" name="image[]" accept="image/*">
 
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                     </div>
@@ -199,41 +241,56 @@
         const newInputGroup = document.createElement('div');
         newInputGroup.classList.add('form-group', 'url-group');
         newInputGroup.innerHTML = `
-        <label>Sub Title</label>
-        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-        <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+            <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Title</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+                                           
+                                            </div>
 
-        <label>Sub Description</label>
-        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-        <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
-    <div class="form-group">
-                                    <label for="title">Button Text</label>
-                                    <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
-                                    <input type="text" class="form-control" name="button_content_1[]" id="button_content_1" placeholder="Enter Button Text" value="">
-                                    
-                                </div>
-                                <div class="form-group">
-                                    <label for="title">Button Link</label>
-                                    <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
-                                    <input type="text" class="form-control" name="button_link_1[]" id="button_link_1" placeholder="Enter Button Link" value="">
-                                   
-                                </div>
-                                 <div class="form-group">
-                                            <label for="title">Button Text</label>
-                                            <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
-                                            <input type="text" class="form-control" name="button_content_2[]" id="button_content_2" placeholder="Enter Button Text" value="">
-                                       
+
+                                            <div class="form-group col-md-6">
+                                                <label>Sub Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+                                        
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="title">Button 1 Text</label>
+                                                <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
+                                                <input type="text" class="form-control" name="button_content_1[]" id="button_content_1" placeholder="Enter Button Text" value="">
+                                          
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="title">Button 1 Link</label>
+                                                <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
+                                                <input type="text" class="form-control" name="button_link_1[]" id="button_link_1" placeholder="Enter Button Link" value="">
+                                            
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="title">Button 2 Text</label>
+                                                <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
+                                                <input type="text" class="form-control" name="button_content_2[]" id="button_content_2" placeholder="Enter Button Text" value="">
+                                         
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="title">Button 2 Link</label>
+                                                <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
+                                                <input type="text" class="form-control" name="button_link_2[]" id="button_link_2" placeholder="Enter Button Link" value="">
+                                        
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>Image</label>
+                                                <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+                                                <img id="blah" src="#" alt="Image Preview" style="width: 130px; display:none" />
+                                                <input type="file" class="form-control" name="image[]" accept="image/*">
+                                         
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="title">Button Link</label>
-                                            <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
-                                            <input type="text" class="form-control" name="button_link_2[]" id="button_link_2" placeholder="Enter Button Link" value="">
-                                       
-                                        </div>
-        <label>Image</label>
-        <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-        <img id="blah" src="#" alt="Image Preview" style="width: 130px; display:none" />
-        <input type="file" class="form-control" name="image[]" accept="image/*">
 
         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
     `;

@@ -29,25 +29,65 @@
                             @csrf
                             <input type="hidden" name="id" id="id" value="{{ old('id', $ourStorySection[0]->id ?? '') }}">
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label for="title">Title</label>
-                                    <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-                                    <input type="text" class="form-control" name="title" id="title"
-                                        placeholder="Enter first title" value="{{ old('title',$ourStorySection[0]->title ?? '') }}">
-                                    @error('title')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                <div class="row">
 
-                                <!-- Subtitle Field -->
-                                <div class="form-group">
-                                    <label for="subtitle">Subtitle</label>
-                                    <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
-                                    <input type="text" class="form-control" name="subtitle" id="subtitle"
-                                        placeholder="Enter first subtitle" value="{{ old('subtitle',$ourStorySection[0]->subtitle ?? '') }}">
-                                    @error('subtitle')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Title</label>
+                                        <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                                        <input type="text" class="form-control" name="title" id="title"
+                                            placeholder="Enter first title" value="{{ old('title',$ourStorySection[0]->title ?? '') }}">
+                                        @error('title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <!-- Subtitle Field -->
+                                    <div class="form-group col-md-6">
+                                        <label for="subtitle">Subtitle</label>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
+                                        <input type="text" class="form-control" name="subtitle" id="subtitle"
+                                            placeholder="Enter first subtitle" value="{{ old('subtitle',$ourStorySection[0]->subtitle ?? '') }}">
+                                        @error('subtitle')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Button Text</label>
+                                        <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
+                                        <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text" value="{{old('button_content',$ourStorySection[0]->button_content ?? '')}}">
+                                        @error('button_content')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Button Link</label>
+                                        <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
+                                        <input type="text" class="form-control" name="button_link" id="button_link" placeholder="Enter Button Link" value="{{old('button_link',$ourStorySection[0]->button_link ?? '')}}">
+                                        @error('button_link')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="first_image">Left Image</label>
+                                        <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+                                        <img id="blah" src="{{asset($ourStorySection[0]->first_image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                        <input type="file" class="form-control" name="first_image" id="imgInp" accept="image/*">
+                                        @error('first_image')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="image">Right Image</label>
+                                        <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+                                        <img id="second_img" src="{{asset($ourStorySection[0]->second_image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                        <input type="file" class="form-control" name="second_image" id="second_image" accept="image/*">
+                                        @error('image')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
                                 <!-- Description Field -->
                                 <div class="form-group">
@@ -58,47 +98,11 @@
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-group">
-                                    <label for="title">Button Text</label>
-                                    <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
-                                    <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text" value="{{old('button_content',$ourStorySection[0]->button_content ?? '')}}">
-                                    @error('button_content')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="title">Button Link</label>
-                                    <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
-                                    <input type="text" class="form-control" name="button_link" id="button_link" placeholder="Enter Button Link" value="{{old('button_link',$ourStorySection[0]->button_link ?? '')}}">
-                                    @error('button_link')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                            </div>
 
-                                    <div class="form-group">
-                                        <label for="first_image">Image</label>
-                                        <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                        <img id="blah" src="{{asset($ourStorySection[0]->first_image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
-                                        <input type="file" class="form-control" name="first_image" id="imgInp" accept="image/*">
-                                        @error('first_image')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="image">Image</label>
-                                        <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                        <img id="second_img" src="{{asset($ourStorySection[0]->second_image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
-                                        <input type="file" class="form-control" name="second_image" id="second_image" accept="image/*">
-                                        @error('image')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                </div>
-
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -108,7 +112,6 @@
 </div>
 
 <script>
-
     imgInp.onchange = evt => {
         const [file] = imgInp.files;
         if (file) {
@@ -129,7 +132,6 @@
             second_img.src = "#"; // Reset the src
         }
     };
-
 </script>
 
 @endsection

@@ -42,26 +42,47 @@
                                     @enderror
                                 </div>
 
+                                <div class="row">
 
-                                <div class="form-group">
-                                    <label for="title">Title</label>
-                                    <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-                                    <input type="text" class="form-control" name="first_title" id="title"
-                                        placeholder="Enter first title" value="{{ old('first_title',$autismSection[0]->first_title ?? '') }}">
-                                    @error('first_title')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Title</label>
+                                        <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                                        <input type="text" class="form-control" name="first_title" id="title"
+                                            placeholder="Enter first title" value="{{ old('first_title',$autismSection[0]->first_title ?? '') }}">
+                                        @error('first_title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
-                                <!-- Subtitle Field -->
-                                <div class="form-group">
-                                    <label for="subtitle">Subtitle</label>
-                                    <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
-                                    <input type="text" class="form-control" name="first_subtitle" id="subtitle"
-                                        placeholder="Enter first subtitle" value="{{ old('first_subtitle',$autismSection[0]->first_subtitle ?? '') }}">
-                                    @error('first_subtitle')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    <!-- Subtitle Field -->
+                                    <div class="form-group col-md-6">
+                                        <label for="subtitle">Subtitle</label>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
+                                        <input type="text" class="form-control" name="first_subtitle" id="subtitle"
+                                            placeholder="Enter first subtitle" value="{{ old('first_subtitle',$autismSection[0]->first_subtitle ?? '') }}">
+                                        @error('first_subtitle')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Button Text</label>
+                                        <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
+
+                                        <input type="text" class="form-control" name="first_button_content" id="button_content" placeholder="Enter Button Text" value="{{old('first_button_content',$autismSection[0]->first_button_content ?? '')}}">
+                                        @error('first_button_content')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Button Link</label>
+                                        <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
+
+                                        <input type="text" class="form-control" name="first_button_link" id="button_link" placeholder="Enter Button Link" value="{{old('first_button_link',$autismSection[0]->first_button_link ?? '')}}">
+                                        @error('first_button_link')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
                                 <!-- Description Field -->
                                 <div class="form-group">
@@ -72,24 +93,7 @@
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-group">
-                                    <label for="title">Button Text</label>
-                                    <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
 
-                                    <input type="text" class="form-control" name="first_button_content" id="button_content" placeholder="Enter Button Text" value="{{old('first_button_content',$autismSection[0]->first_button_content ?? '')}}">
-                                    @error('first_button_content')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="title">Button Link</label>
-                                    <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
-
-                                    <input type="text" class="form-control" name="first_button_link" id="button_link" placeholder="Enter Button Link" value="{{old('first_button_link',$autismSection[0]->first_button_link ?? '')}}">
-                                    @error('first_button_link')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label for="image">Image</label>
@@ -104,27 +108,47 @@
                                     <hr>
                                     <h3> Second Section Details</h3>
                                     <hr>
+                                    <div class="row">
 
-                                    <!-- Title Field -->
-                                    <div class="form-group">
-                                        <label for="title">Title</label>
-                                        <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-                                        <input type="text" class="form-control" name="second_title" id="second_title"
-                                            placeholder="Enter second title" value="{{ old('second_title',$autismSection[0]->second_title ?? '') }}">
-                                        @error('second_title')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                        <!-- Title Field -->
+                                        <div class="form-group col-md-6">
+                                            <label for="title">Title</label>
+                                            <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                                            <input type="text" class="form-control" name="second_title" id="second_title"
+                                                placeholder="Enter second title" value="{{ old('second_title',$autismSection[0]->second_title ?? '') }}">
+                                            @error('second_title')
+                                            <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-                                    <!-- Subtitle Field -->
-                                    <div class="form-group">
-                                        <label for="subtitle">Subtitle</label>
-                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
-                                        <input type="text" class="form-control" name="second_subtitle" id="second_subtitle"
-                                            placeholder="Enter second subtitle" value="{{ old('second_subtitle',$autismSection[0]->second_subtitle ?? '') }}">
-                                        @error('second_subtitle')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                        <!-- Subtitle Field -->
+                                        <div class="form-group col-md-6">
+                                            <label for="subtitle">Subtitle</label>
+                                            <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
+                                            <input type="text" class="form-control" name="second_subtitle" id="second_subtitle"
+                                                placeholder="Enter second subtitle" value="{{ old('second_subtitle',$autismSection[0]->second_subtitle ?? '') }}">
+                                            @error('second_subtitle')
+                                            <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <label for="title">Button Text</label>
+                                            <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
+                                            <input type="text" class="form-control" name="second_button_content" id="second_button_content" placeholder="Enter Button Text" value="{{old('second_button_content',$autismSection[0]->second_button_content ?? '')}}">
+                                            @error('second_button_content')
+                                            <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="title">Button Link</label>
+                                            <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
+
+                                            <input type="text" class="form-control" name="second_button_link" id="second_button_link" placeholder="Enter Button Link" value="{{old('second_button_link',$autismSection[0]->second_button_link ?? '')}}">
+                                            @error('second_button_link')
+                                            <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     </div>
                                     <!-- Description Field -->
                                     <div class="form-group">
@@ -135,23 +159,7 @@
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="form-group">
-                                        <label for="title">Button Text</label>
-                                        <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
-                                        <input type="text" class="form-control" name="second_button_content" id="second_button_content" placeholder="Enter Button Text" value="{{old('second_button_content',$autismSection[0]->second_button_content ?? '')}}">
-                                        @error('second_button_content')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="title">Button Link</label>
-                                        <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
 
-                                        <input type="text" class="form-control" name="second_button_link" id="second_button_link" placeholder="Enter Button Link" value="{{old('second_button_link',$autismSection[0]->second_button_link ?? '')}}">
-                                        @error('second_button_link')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
                                     @php
                                     // Check if the $autismSection exists and contains data before attempting to decode
                                     $pointers = isset($autismSection[0]) && !empty($autismSection[0]->pointers)

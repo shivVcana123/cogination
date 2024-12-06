@@ -39,18 +39,21 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="title">Title</label>
-                                    <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                                <div class="row">
 
-                                    <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" value="{{ old('title', $autismProcess[0]->title ?? '') }}">
-                                </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Title</label>
+                                        <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
 
-                                <div class="form-group">
-                                    <label for="subtitle">Subtitle</label>
-                                    <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
+                                        <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" value="{{ old('title', $autismProcess[0]->title ?? '') }}">
+                                    </div>
 
-                                    <input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="Enter subtitle" value="{{ old('subtitle', $autismProcess[0]->subtitle ?? '') }}">
+                                    <div class="form-group col-md-6">
+                                        <label for="subtitle">Subtitle</label>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
+
+                                        <input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="Enter subtitle" value="{{ old('subtitle', $autismProcess[0]->subtitle ?? '') }}">
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
@@ -60,9 +63,9 @@
                                     <textarea name="description" id="description" class="form-control">{{ old('description', $autismProcess[0]->description ?? '') }}</textarea>
                                 </div>
 
-      <!-- Pointers Section -->
-                                    <label for="">Add Extra Pointers</label>
-                                    <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                <!-- Pointers Section -->
+                                <label for="">Add Extra Pointers</label>
+                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
 
                                 <div id="Pointers-container">
                                     @php
