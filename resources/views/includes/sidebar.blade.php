@@ -251,7 +251,6 @@
                     </ul>
                 </li>
 
-
                 <!-- Assessments -->
                 <li class="nav-item {{ request()->is('assessment-section*') || request()->is('assessment-whychoose*') || request()->is('our-diagnostic-services*') || request()->is('understanding-conditions*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
@@ -290,7 +289,6 @@
                     </ul>
                 </li>
 
-
                 <!-- Fees -->
                 <li class="nav-item {{ request()->is('our-pricing-section*') || request()->is('assessment-whychoose*') || request()->is('our-diagnostic-services*') || request()->is('understanding-conditions*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
@@ -309,6 +307,7 @@
                         </li>
                     </ul>
                 </li>
+
                 <!-- Footer -->
                 <li class="nav-item">
                     <a href="{{route('footer.index')}}" class="nav-link {{request()->is('footer*') ? 'active' : ''}}">
@@ -316,8 +315,6 @@
                         <p style="color:black">Footer</p>
                     </a>
                 </li>
-
-          
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

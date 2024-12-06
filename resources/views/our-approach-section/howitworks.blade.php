@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>ADHD Benefits Section</h1>
+                    <h1>How It Works Section</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -24,7 +24,7 @@
                     <div class="card card-primary">
                         <div class="card-header" style="background-color:#0476b4">
                             <h3 class="card-title">
-                                {{ empty($howItWorkSection) || !isset($howItWorkSection[0]) ? 'Add' : 'Edit' }} ADHD Benefits Details
+                                {{ empty($howItWorkSection) || !isset($howItWorkSection[0]) ? 'Add' : 'Edit' }} How It Works Details
                             </h3>
                         </div>
 

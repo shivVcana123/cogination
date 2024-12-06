@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>About Us Section</h1>
+                    <h1>Our Approach Section</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -23,7 +23,7 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header" style="background-color:#0476b4">
-                            <h3 class="card-title">{{ empty($ourApproachSection) || !isset($ourApproachSection[0]) ? 'Add' : 'Edit' }} Our Story Details</h3>
+                            <h3 class="card-title">{{ empty($ourApproachSection) || !isset($ourApproachSection[0]) ? 'Add' : 'Edit' }} Our Approach Details</h3>
                         </div>
                         <form action="{{ route('save-our-approach-section') }}" method="POST" enctype="multipart/form-data">
                             @csrf

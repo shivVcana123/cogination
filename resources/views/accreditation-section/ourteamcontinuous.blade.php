@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Assessment Section</h1>
+                    <h1>Our Team’s  Section</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -23,7 +23,7 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header" style="background-color:#0476b4">
-                            <h3 class="card-title">{{ empty($ourTeamContinuousSection) || !isset($ourTeamContinuousSection[0]) ? 'Add' : 'Edit' }} Assessment Section Details</h3>
+                            <h3 class="card-title">{{ empty($ourTeamContinuousSection) || !isset($ourTeamContinuousSection[0]) ? 'Add' : 'Edit' }} Our Team’s  Details</h3>
                         </div>
                         <form action="{{ route('save-our-team-continuous-section') }}" method="POST" enctype="multipart/form-data">
                             @csrf
