@@ -17,38 +17,48 @@ class HeaderSeeder extends Seeder
             [
                 'category' => 'Home',
                 'parent_id' => null,
+                'link' => '/',
             ],
-            [
-                'category' => 'About Us +',
-                'parent_id' => null,
-            ],
-            [
-                'category' => 'About Us',
-                'parent_id' => 2,
-            ],
-            [
-                'category' => 'Our Approach',
-                'parent_id' => 2,
-            ],
-            [
-                'category' => 'Accreditation & Certifications',
-                'parent_id' => 2,
-            ],
+            
             [
                 'category' => 'ADHD',
                 'parent_id' => null,
+                'link' => 'adhd',
             ],
             [
                 'category' => 'Autism',
                 'parent_id' => null,
+                'link' => 'autism',
             ],
             [
                 'category' => 'Assessment',
                 'parent_id' => null,
+                'link' => 'assessment',
+            ],
+            [
+                'category' => 'About Us +',
+                'parent_id' => null,
+                'link' => null,
+            ],
+            [
+                'category' => 'About Us',
+                'parent_id' => 5,
+                'link' => 'about',
+            ],
+            [
+                'category' => 'Our Approach',
+                'parent_id' => 5,
+                'link' => 'our-approach',
+            ],
+            [
+                'category' => 'Accreditation & Certifications',
+                'parent_id' => 5,
+                'link' => 'accreditation',
             ],
             [
                 'category' => 'Fees',
                 'parent_id' => null,
+                'link' => 'fee',
             ],
            
 

@@ -310,7 +310,7 @@
 
                 <!-- Footer -->
                 <li class="nav-item">
-                    <a href="{{route('footer.index')}}" class="nav-link {{request()->is('footer*') ? 'active' : ''}}">
+                    <a href="{{route('footer')}}" class="nav-link {{request()->is('footer*') ? 'active' : ''}}">
                         <i class="nav-icon fas fa-info" style="color:black"></i>
                         <p style="color:black">Footer</p>
                     </a>

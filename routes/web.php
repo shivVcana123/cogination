@@ -49,8 +49,9 @@ Route::middleware(['guest'])->group(function () {
     Route::resource('header', HeaderController::class);
     Route::resource('home', BackendHomeController::class);
 
-    Route::resource('footer', FooterController::class);
-
+    // footer section Route
+    Route::get('footer', [FooterController::class,'footer'])->name('footer');
+    Route::post('save-footer', [FooterController::class,'saveFooter'])->name('save-footer');
     // Home section Route
     Route::get('appointment', [HomeSectionControoler::class, 'appointment'])->name('appointment');
     Route::post('save-appointment', [HomeSectionControoler::class, 'saveappointment'])->name('save-appointment');

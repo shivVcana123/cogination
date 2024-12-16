@@ -21,20 +21,30 @@ class FooterController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function footer()
     {
-       $footer =  new Footer();
+       $footerData = Footer::get();
        $headers = Header::all();
-       $footer = new Footer;
-       return view('Footer.form',compact('footer','headers','footer'));
+       return view('Footer.form',compact('footerData','headers'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function saveFooter(Request $request)
     {
-        $footer = new Footer;
+
+        $linkPointers = [];
+        if ($request->has('name')) {
+            foreach ($request->name as $index => $nameData) {
+                $linkPointers[] = [
+                    'name' => $nameData,
+                    'link' => $request->link [$index] ?? null,
+                ];
+            }
+        }
+    
+        $footer = $request->id ? Footer::find($request->id) : new Footer;
         $footer->title1 = $request->title1;
         $footer->title2 = $request->title2;
         $footer->address = $request->address;
@@ -43,10 +53,11 @@ class FooterController extends Controller
         $footer->email = $request->email;
         $footer->start_time = $request->start_time;
         $footer->display_data = json_encode($request->dats_display);
+        $footer->link = json_encode($linkPointers);
         $footer->end_time = $request->end_time;
         $footer->days = $request->days;
         $footer->save();
-        return redirect()->route('footer.index');
+        return redirect()->route('footer');
     }
 
     /**
