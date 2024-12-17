@@ -18,8 +18,11 @@ class HomeBringingHealthcareResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'subtitle' => $this->subtitle,
-            'description_1' => $this->description_1,
-            'pointers' => $this->pointers,
+            'button_content1' => $this->button_content1,
+            'button_link1' => $this->button_link1,
+            'button_content2' => $this->button_content1,
+            'button_link2' => $this->button_link1,
+            'image' => $this->image,
         ];
     }
 }
