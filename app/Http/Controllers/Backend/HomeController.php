@@ -42,8 +42,16 @@ class HomeController extends Controller
             $homeData->background_color = $request->background_color;
 
             // Handle image upload
+            // if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            //     $imageName = uniqid() . '_' . $request->file('image')->getClientOriginalName();
+            //     $imagePath = $request->file('image')->storeAs('home', $imageName, 'public');
+            //     $homeData->image = 'storage/' . $imagePath;
+            // }
+
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
-                $imageName = uniqid() . '_' . $request->file('image')->getClientOriginalName();
+                $originalName = $request->file('image')->getClientOriginalName();
+                $cleanedName = str_replace(' ', '_', $originalName); // Replace spaces with underscores
+                $imageName = uniqid() . '_' . $cleanedName;
                 $imagePath = $request->file('image')->storeAs('home', $imageName, 'public');
                 $homeData->image = 'storage/' . $imagePath;
             }
@@ -82,14 +90,17 @@ class HomeController extends Controller
 
             // Handle image upload
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
-                // Delete the old image if exists
                 if ($homeData->image) {
                     Storage::disk('public')->delete(str_replace('storage/', '', $homeData->image));
                 }
-                $imageName = uniqid() . '_' . $request->file('image')->getClientOriginalName();
+                $originalName = $request->file('image')->getClientOriginalName();
+                $cleanedName = str_replace(' ', '_', $originalName); // Replace spaces with underscores
+                $imageName = uniqid() . '_' . $cleanedName;
                 $imagePath = $request->file('image')->storeAs('home', $imageName, 'public');
                 $homeData->image = 'storage/' . $imagePath;
             }
+
+
 
             $homeData->save();
 

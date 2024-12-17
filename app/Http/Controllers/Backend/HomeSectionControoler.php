@@ -9,6 +9,7 @@ use App\Models\HomeChooseUs;
 use App\Models\HomeFaq;
 use App\Models\HomeOurService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class HomeSectionControoler extends Controller
 {
@@ -86,14 +87,13 @@ class HomeSectionControoler extends Controller
         $chooseus->pointers = json_encode($pointers);
     
         // Handle image upload
-        if ($request->hasFile('image')) {
-            // Delete the old image if it exists
-            if ($chooseus->image && \Storage::exists(str_replace('storage/', '', $chooseus->image))) {
-                \Storage::delete(str_replace('storage/', '', $chooseus->image));
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            if ($chooseus->image) {
+                Storage::disk('public')->delete(str_replace('storage/', '', $chooseus->image));
             }
-    
-            // Store the new image with the original file name
-            $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+            $originalName = $request->file('image')->getClientOriginalName();
+            $cleanedName = str_replace(' ', '_', $originalName); // Replace spaces with underscores
+            $imageName = uniqid() . '_' . $cleanedName;
             $imagePath = $request->file('image')->storeAs('home', $imageName, 'public');
             $chooseus->image = 'storage/' . $imagePath;
         }
@@ -335,7 +335,90 @@ class HomeSectionControoler extends Controller
     // return redirect()->route('our-services')->with('success', 'Our Services details saved successfully.');
     // }
 
-    public function saveourservices(Request $request)
+    // public function saveourservices(Request $request)
+    // {
+    //     // Validate the request data
+    //     $validated = $request->validate([
+    //         'title' => 'required|string|max:255',
+    //         'subtitle' => 'nullable|string|max:255',
+    //         'description_1' => 'nullable|string',
+    //         'sub_title.*' => 'nullable|string|max:255',
+    //         'sub_description.*' => 'nullable|string|max:255',
+    //         'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    //     ], [
+    //         'title.required' => 'The title is required.',
+    //         'title.string' => 'The title must be a valid string.',
+    //         'title.max' => 'The title may not exceed 255 characters.',
+    //         'subtitle.string' => 'The subtitle must be a valid string.',
+    //         'subtitle.max' => 'The subtitle may not exceed 255 characters.',
+    //         'description_1.string' => 'The description must be a valid string.',
+    //         'sub_title.*.string' => 'Each sub-title must be a valid string.',
+    //         'sub_title.*.max' => 'Each sub-title may not exceed 255 characters.',
+    //         'sub_description.*.string' => 'Each sub-description must be a valid string.',
+    //         'sub_description.*.max' => 'Each sub-description may not exceed 255 characters.',
+    //         'image.*.image' => 'The uploaded file must be an image.',
+    //         'image.*.mimes' => 'The image must be of type jpeg, png, jpg, gif, or svg.',
+    //         'image.*.max' => 'The image may not exceed 2MB in size.',
+    //     ]);
+    
+    //     // Initialize pointers array
+    //     $pointers = [];
+    
+    //     // Handle multiple pointers if any
+    //     if (!empty($validated['sub_title'])) {
+    //         foreach ($validated['sub_title'] as $index => $subTitle) {
+    //             // Upload image if provided for each pointer
+    //             $subImagePath = null;
+    //             if ($request->hasFile("image.$index") && $request->file("image.$index")->isValid()) {
+    //                 // Delete the old image if it exists (optional, depends on existing data structure)
+    //                 if (isset($ourservice->pointers[$index]['sub_image'])) {
+    //                     \Storage::disk('public')->delete(str_replace('storage/', '', $ourservice->pointers[$index]['sub_image']));
+    //                 }
+        
+    //                 // Get the original file name and replace spaces with underscores
+    //                 $imageName = time() . '_' . str_replace(' ', '_', $request->file("image.$index")->getClientOriginalName());
+        
+    //                 // Store the new image with the updated file name
+    //                 $subImagePath = $request->file("image.$index")->storeAs('home', $imageName, 'public');
+    //             }
+        
+    //             // Add pointer data to the pointers array
+    //             $pointers[] = [
+    //                 'sub_title' => $subTitle,
+    //                 'sub_description' => $validated['sub_description'][$index] ?? null,
+    //                 'sub_image' => $subImagePath ? 'storage/' . $subImagePath : null,
+    //             ];
+    //         }
+    //     }
+        
+    
+    //     // Check if an ID is provided (update) or not (create new)
+    //     if ($request->id) {
+    //         // Update the existing record
+    //         $ourservice = HomeOurService::findOrFail($request->id);
+    //         $ourservice->title = $validated['title'];
+    //         $ourservice->subtitle = $validated['subtitle'];
+    //         $ourservice->description_1 = $validated['description_1'];
+    //         $ourservice->pointers = json_encode($pointers);
+    //         $ourservice->save();
+    //         $message = 'Our Services details updated successfully.';
+    //     } else {
+    //         // Create a new record
+    //         $ourservice = new HomeOurService();
+    //         $ourservice->title = $validated['title'];
+    //         $ourservice->subtitle = $validated['subtitle'];
+    //         $ourservice->description_1 = $validated['description_1'];
+    //         $ourservice->pointers = json_encode($pointers);
+    //         $ourservice->save();
+    //         $message = 'Our Services details saved successfully.';
+    //     }
+    
+    //     // Redirect with a success message
+    //     return redirect()->route('our-services')->with('success', $message);
+    // }
+    
+    
+    public function saveOurServices(Request $request)
     {
         // Validate the request data
         $validated = $request->validate([
@@ -343,14 +426,14 @@ class HomeSectionControoler extends Controller
             'subtitle' => 'nullable|string|max:255',
             'description_1' => 'nullable|string',
             'sub_title.*' => 'nullable|string|max:255',
-            'sub_description.*' => 'nullable|string|max:255',
+            'sub_description.*' => 'nullable',
             'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ], [
             'title.required' => 'The title is required.',
             'title.string' => 'The title must be a valid string.',
             'title.max' => 'The title may not exceed 255 characters.',
             'subtitle.string' => 'The subtitle must be a valid string.',
-            'subtitle.max' => 'The subtitle may not exceed 255 characters.',
+            // 'subtitle.max' => 'The subtitle may not exceed 255 characters.',
             'description_1.string' => 'The description must be a valid string.',
             'sub_title.*.string' => 'Each sub-title must be a valid string.',
             'sub_title.*.max' => 'Each sub-title may not exceed 255 characters.',
@@ -364,19 +447,28 @@ class HomeSectionControoler extends Controller
         // Initialize pointers array
         $pointers = [];
     
+        // Check if we are updating an existing record
+        $ourservice = $request->id ? HomeOurService::find($request->id) : new HomeOurService();
+    
+        // Decode the existing pointers if updating
+        $existingPointers = $ourservice->id ? json_decode($ourservice->pointers, true) : [];
+    
         // Handle multiple pointers if any
         if (!empty($validated['sub_title'])) {
             foreach ($validated['sub_title'] as $index => $subTitle) {
                 // Upload image if provided for each pointer
                 $subImagePath = null;
+    
                 if ($request->hasFile("image.$index") && $request->file("image.$index")->isValid()) {
                     // Delete the old image if it exists (optional, depends on existing data structure)
-                    if (isset($ourservice->pointers[$index]['sub_image'])) {
-                        \Storage::disk('public')->delete(str_replace('storage/', '', $ourservice->pointers[$index]['sub_image']));
+                    if (isset($existingPointers[$index]['sub_image'])) {
+                        \Storage::disk('public')->delete(str_replace('storage/', '', $existingPointers[$index]['sub_image']));
                     }
     
-                    // Store the new image with a unique file name
-                    $imageName = time() . '_' . $request->file("image.$index")->getClientOriginalName();
+                    // Get the original file name and replace spaces with underscores
+                    $imageName = time() . '_' . str_replace(' ', '_', $request->file("image.$index")->getClientOriginalName());
+    
+                    // Store the new image with the updated file name
                     $subImagePath = $request->file("image.$index")->storeAs('home', $imageName, 'public');
                 }
     
@@ -384,38 +476,26 @@ class HomeSectionControoler extends Controller
                 $pointers[] = [
                     'sub_title' => $subTitle,
                     'sub_description' => $validated['sub_description'][$index] ?? null,
-                    'sub_image' => $subImagePath ? 'storage/' . $subImagePath : null,
+                    'sub_image' => $subImagePath ? 'storage/' . $subImagePath : ($existingPointers[$index]['sub_image'] ?? null),
                 ];
             }
         }
     
-        // Check if an ID is provided (update) or not (create new)
-        if ($request->id) {
-            // Update the existing record
-            $ourservice = HomeOurService::findOrFail($request->id);
-            $ourservice->title = $validated['title'];
-            $ourservice->subtitle = $validated['subtitle'];
-            $ourservice->description_1 = $validated['description_1'];
-            $ourservice->pointers = json_encode($pointers);
-            $ourservice->save();
-            $message = 'Our Services details updated successfully.';
-        } else {
-            // Create a new record
-            $ourservice = new HomeOurService();
-            $ourservice->title = $validated['title'];
-            $ourservice->subtitle = $validated['subtitle'];
-            $ourservice->description_1 = $validated['description_1'];
-            $ourservice->pointers = json_encode($pointers);
-            $ourservice->save();
-            $message = 'Our Services details saved successfully.';
-        }
+        // Assign the validated data to the ourservice model
+        $ourservice->title = $validated['title'];
+        $ourservice->subtitle = $validated['subtitle'];
+        $ourservice->description_1 = $validated['description_1'];
+        $ourservice->pointers = json_encode($pointers);  // Store updated pointers data
+    
+        // Save the model (create or update)
+        $ourservice->save();
+    
+        $message = $ourservice->wasRecentlyCreated ? 'Our Services created successfully.' : 'Our Services updated successfully.';
     
         // Redirect with a success message
         return redirect()->route('our-services')->with('success', $message);
     }
     
-    
-
     
     public function appointment()
     {
@@ -457,15 +537,26 @@ class HomeSectionControoler extends Controller
         $healthcare->subtitle = $validated['subtitle'] ?? null;
     
         // Handle image upload
-        if ($request->hasFile('image')) {
-            // Delete the old image if it exists
-            if ($healthcare->image && \Storage::exists(str_replace('storage/', '', $healthcare->image))) {
-                \Storage::delete(str_replace('storage/', '', $healthcare->image));
-            }
+        // if ($request->hasFile('image')) {
+        //     // Delete the old image if it exists
+        //     if ($healthcare->image && \Storage::exists(str_replace('storage/', '', $healthcare->image))) {
+        //         \Storage::delete(str_replace('storage/', '', $healthcare->image));
+        //     }
     
-            // Store the new image with the original file name
-            $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
-            $imagePath = $request->file('image')->storeAs('images', $imageName, 'public');
+        //     // Store the new image with the original file name
+        //     $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+        //     $imagePath = $request->file('image')->storeAs('images', $imageName, 'public');
+        //     $healthcare->image = 'storage/' . $imagePath;
+        // }
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            if ($healthcare->image) {
+                Storage::disk('public')->delete(str_replace('storage/', '', $healthcare->image));
+            }
+            $originalName = $request->file('image')->getClientOriginalName();
+            $cleanedName = str_replace(' ', '_', $originalName); // Replace spaces with underscores
+            $imageName = uniqid() . '_' . $cleanedName;
+            $imagePath = $request->file('image')->storeAs('home', $imageName, 'public');
             $healthcare->image = 'storage/' . $imagePath;
         }
     

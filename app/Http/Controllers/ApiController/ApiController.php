@@ -5,12 +5,20 @@ namespace App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AboutResource;
 use App\Http\Resources\HeaderResource;
+use App\Http\Resources\HomeAppointmentResource;
+use App\Http\Resources\HomeBringingHealthcareResource;
+use App\Http\Resources\HomeOurServicesResource;
 use App\Http\Resources\HomeResource;
+use App\Http\Resources\HomeWhyChooseUsResource;
 use App\Http\Resources\NewsResource;
 use App\Http\Resources\ServicesResource;
 use App\Http\Resources\UsefullLinlsResource;
 use App\Http\Resources\WebsiteStyleResource;
 use App\Models\AboutUs;
+use App\Models\AboutUsJoinCommunity;
+use App\Models\AboutUsOurMission;
+use App\Models\AboutUsOurStory;
+use App\Models\BringingHealthcare;
 use App\Models\Header;
 use App\Models\Home;
 use App\Models\News;
@@ -20,39 +28,72 @@ use App\Models\UsefulLink;
 use Illuminate\Http\Request;
 use Str;
 use App\Models\Contact;
-
+use App\Models\Footer;
+use App\Models\HomeAppointment;
+use App\Models\HomeChooseUs;
+use App\Models\HomeOurService;
 
 class ApiController extends Controller
 {
     public function fetchHeaderData()
     {
         $headerData = Header::with('children')->whereNull('parent_id')->get();
+        $footerData = Footer::get();
+
+        $data = [
+            'data' => HeaderResource::collection($headerData),
+            'footerData' => $footerData,
+        ];
         
         return response()->json([
             'status' => 'success',
             'message' => 'Data fetched successfully',
-            'data' => HeaderResource::collection($headerData),
+            'data' => $data,
         ], 200);
     }
     public function fetchHomeData()
     {
         $homeData = Home::all();
+        $homeAppointmentData = HomeAppointment::all();
+        $homeChooseUsData = HomeChooseUs::all();
+        $homeOurServiceData = HomeOurService::all();
+        $homeBringingHealthcareData = BringingHealthcare::all();
+
+        $data = [
+            'heroSection' => HomeResource::collection($homeData),
+            'appointmentSection' => HomeAppointmentResource::collection($homeAppointmentData),
+            'whyChooseUs' => HomeWhyChooseUsResource::collection($homeChooseUsData),
+            'ourService' => HomeOurServicesResource::collection($homeOurServiceData),
+            'bringingHealthcare' => HomeBringingHealthcareResource::collection($homeBringingHealthcareData),
+        ];
         
         return response()->json([
             'status' => 'success',
             'message' => 'Data fetched successfully',
-            'data' => HomeResource::collection($homeData),
+            'data' => $data,
         ], 200);
     }
     public function fetchAboutData()
     {
-        $aboutData = AboutUs::latest()->first();
+        $aboutUsData = AboutUs::latest()->first();
+        $ourStoryData = AboutUsOurStory::latest()->first();
+        $ourMissionData = AboutUsOurMission::latest()->first();
+        $joinCommunityData = AboutUsJoinCommunity::latest()->first();
+    
+        $data = [
+            // 'aboutUsData' => $aboutUsData ? new AboutResource($aboutUsData) : null,
+            'ourStoryData' => $ourStoryData ? new AboutResource($ourStoryData) : null,
+            'ourMissionData' => $ourMissionData ? new AboutResource($ourMissionData) : null,
+            // 'joinCommunityData' => $joinCommunityData ? new AboutResource($joinCommunityData) : null,
+        ];
+    
         return response()->json([
             'status' => 'success',
             'message' => 'Data fetched successfully',
-            'data' => AboutResource::collection($aboutData),
+            'data' => $data,
         ], 200);
     }
+    
     public function fetchServicesData()
     {
         $serviceData = Service::all();
