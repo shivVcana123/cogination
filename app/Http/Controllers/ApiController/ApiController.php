@@ -7,6 +7,7 @@ use App\Http\Resources\AboutResource;
 use App\Http\Resources\HeaderResource;
 use App\Http\Resources\HomeAppointmentResource;
 use App\Http\Resources\HomeBringingHealthcareResource;
+use App\Http\Resources\HomeFaqResource;
 use App\Http\Resources\HomeOurServicesResource;
 use App\Http\Resources\HomeResource;
 use App\Http\Resources\HomeWhyChooseUsResource;
@@ -18,7 +19,7 @@ use App\Models\AboutUs;
 use App\Models\AboutUsJoinCommunity;
 use App\Models\AboutUsOurMission;
 use App\Models\AboutUsOurStory;
-use App\Models\BringingHealthcare;
+use App\Models\HomeBringingHealthcare;
 use App\Models\Header;
 use App\Models\Home;
 use App\Models\News;
@@ -31,6 +32,7 @@ use App\Models\Contact;
 use App\Models\Footer;
 use App\Models\HomeAppointment;
 use App\Models\HomeChooseUs;
+use App\Models\HomeFaq;
 use App\Models\HomeOurService;
 
 class ApiController extends Controller
@@ -57,7 +59,9 @@ class ApiController extends Controller
         $homeAppointmentData = HomeAppointment::all();
         $homeChooseUsData = HomeChooseUs::all();
         $homeOurServiceData = HomeOurService::all();
-        $homeBringingHealthcareData = BringingHealthcare::all();
+        $homeBringingHealthcareData = HomeBringingHealthcare::all();
+        $footerData = Footer::get();
+        $homeFaqData = HomeFaq::all();
 
         $data = [
             'heroSection' => HomeResource::collection($homeData),
@@ -65,6 +69,8 @@ class ApiController extends Controller
             'whyChooseUs' => HomeWhyChooseUsResource::collection($homeChooseUsData),
             'ourService' => HomeOurServicesResource::collection($homeOurServiceData),
             'bringingHealthcare' => HomeBringingHealthcareResource::collection($homeBringingHealthcareData),
+            'footerData' =>$footerData,
+            'homeFaq' => HomeFaqResource::collection($homeFaqData),
         ];
         
         return response()->json([

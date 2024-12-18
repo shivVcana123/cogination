@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\BringingHealthcare;
+use App\Models\HomeBringingHealthcare;
 use App\Models\HomeAppointment;
 use App\Models\HomeChooseUs;
 use App\Models\HomeFaq;
@@ -108,7 +108,7 @@ class HomeSectionControoler extends Controller
 
     public function bringinghealthcare()
     {
-        $healthcare = BringingHealthcare::all();
+        $healthcare = HomeBringingHealthcare::all();
         return view('home-section.bringinghealthcare',compact('healthcare'));
     }
 
@@ -140,7 +140,7 @@ class HomeSectionControoler extends Controller
 
     
         // Check if an ID is passed for update or create a new record
-        $healthcare = $request->id ? BringingHealthcare::find($request->id) : new BringingHealthcare();
+        $healthcare = $request->id ? HomeBringingHealthcare::find($request->id) : new HomeBringingHealthcare();
     
         if (!$healthcare) {
             return redirect()->route('whyhealthcare')->withErrors('Record not found.');
@@ -510,6 +510,8 @@ class HomeSectionControoler extends Controller
             [
                 'title' => 'required|string|max:255',
                 'subtitle' => 'required|string|max:255',
+                'button_content' => 'required|string|max:255',
+                'button_link' => 'required|string|max:255',
                 'image' => 'nullable|image|max:2048', // Validate image type and size
             ],
             [
@@ -518,6 +520,8 @@ class HomeSectionControoler extends Controller
                 'title.max' => 'The title may not exceed 255 characters.',
                 'subtitle.required' => 'The subtitle is required.',
                 'subtitle.string' => 'The subtitle must be a valid string.',
+                'button_content.required' => 'The button content is required.',
+                'button_link.required' => 'The button link is required.',
                 'image.image' => 'The uploaded file must be an image.',
                 'image.max' => 'The image may not exceed 2MB in size.',
             ]
@@ -535,6 +539,8 @@ class HomeSectionControoler extends Controller
         // Assign validated fields
         $healthcare->title = $validated['title'];
         $healthcare->subtitle = $validated['subtitle'] ?? null;
+        $healthcare->button_content = $validated['button_content'] ?? null;
+        $healthcare->button_link = $validated['button_link'] ?? null;
     
         // Handle image upload
         // if ($request->hasFile('image')) {

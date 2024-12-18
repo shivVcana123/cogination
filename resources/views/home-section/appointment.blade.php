@@ -51,8 +51,26 @@
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div>
+                                
 
+                                <div class="form-group col-md-6">
+                                        <label for="button_content">Button Text</label>
+                                        <i class="fas fa-info-circle" title="Provide a meaningful label for Button 1."></i>
+                                        <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text" value="{{ old('button_content',$appointment[0]->button_content ?? '') }}">
+                                        @error('button_content')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="button_link">Button Link</label>
+                                        <i class="fas fa-info-circle" title="Provide a valid URL for Button 1."></i>
+                                        <input type="text" class="form-control" name="button_link" id="button_link" placeholder="Enter Button Link" value="{{ old('button_link',$appointment[0]->button_link ?? '') }}">
+                                        @error('button_link')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    </div>
                                 <div class="form-group">
                                     <label for="image">Image</label>
                                     <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
