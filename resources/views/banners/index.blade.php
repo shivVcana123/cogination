@@ -17,6 +17,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Banner</th>
                             <th>Title</th>
                             <th>Button Text</th>
                             <th>Action</th>
@@ -27,8 +28,9 @@
                         <tr>
                          @if($banner->parent_id === null)
                             <td>{{ $key + 1 }}</td>
+                                <td>{{ $banner->type }}</td>
                            
-                                <td>{{ $banner->title }}</td>
+                                <td>{{ $banner->heading }}</td>
                                 <td>{{ $banner->button_text }}</td>
                                 <td>
                                     <a href="{{route('banner.edit',$banner->id)}}"><i class="fa fa-edit"></i></a>

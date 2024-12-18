@@ -42,6 +42,12 @@
                                 <p style="color:black">Hero Section</p>
                             </a>
                         </li>
+                         <li class="nav-item">
+                            <a href="{{route('homeAbout')}}" class="nav-link {{ request()->is('homeAbout*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon" style="color:black"></i>
+                                <p style="color:black">About Us</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="{{route('appointment')}}" class="nav-link {{ request()->is('appointment*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
@@ -308,6 +314,13 @@
                     </ul>
                 </li>
 
+                <li class="nav-item">
+                    <a href="{{route('banner.index')}}" class="nav-link {{request()->is('banner*') ? 'active' : ''}}">
+                        <i class="nav-icon fas fa-info" style="color:black"></i>
+                        <p style="color:black">Banner</p>
+                    </a>
+                </li>
+
                 <!-- Footer -->
                 <li class="nav-item">
                     <a href="{{route('footer')}}" class="nav-link {{request()->is('footer*') ? 'active' : ''}}">
@@ -315,6 +328,16 @@
                         <p style="color:black">Footer</p>
                     </a>
                 </li>
+
+
+                  <li class="nav-item">
+                      <a href="{{route('page.index')}}" class="nav-link {{request()->is('page*') ? 'active' : ''}}">
+                          <i class="nav-icon fa fa-cog" style="color:white"></i>
+                          <p style="color:white">
+                          Design Styles 
+                          </p>
+                      </a>
+                  </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

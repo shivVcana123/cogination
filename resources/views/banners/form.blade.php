@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{route('home.index')}}">Banner</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('banner.index')}}">Banner</a></li>
                         <li class="breadcrumb-item active">Add Form</li>
                     </ol>
                 </div>
@@ -26,10 +26,10 @@
                         <div class="card-header" style="background-color:#0377ce">
                             <h3 class="card-title">Add Banner Detail</h3>
                         </div>
-                        <form action="{{ isset($banner) ? route('banner.update', $banner->id) : route('banner.store') }}" method="POST">
+                        <form action="{{ isset($banner->id) ? route('banner.update', $banner->id) : route('banner.store') }}" method="POST">
 
                             @csrf
-                            @if(isset($banner))
+                            @if(isset($banner->id))
                                 @method('PUT') <!-- For update requests -->
                             @endif
                             <div class="card-body">

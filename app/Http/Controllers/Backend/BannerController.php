@@ -33,6 +33,7 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
+
         try {
             $banner = new BannerSection();
             $banner->heading = $request->heading;
@@ -91,3 +92,4 @@ class BannerController extends Controller
         //
     }
 }
+

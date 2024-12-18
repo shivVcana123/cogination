@@ -60,4 +60,9 @@ button.btn.btn-primary {
     float: inline-end!important;
     
 }
+.cke_notification_warning {
+    background: #c83939;
+    border: 1px solid #902b2b;
+    display: none;
+}
 </style>

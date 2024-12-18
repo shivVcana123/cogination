@@ -50,6 +50,9 @@ Route::middleware(['guest'])->group(function () {
         // Resource Routes
     Route::resource('header', HeaderController::class);
     Route::resource('home', BackendHomeController::class);
+    Route::resource('banner', BannerController::class);
+    Route::resource('page', PageDesignController::class);
+
 
     // footer section Route
     Route::get('footer', [FooterController::class,'footer'])->name('footer');
@@ -65,6 +68,10 @@ Route::middleware(['guest'])->group(function () {
     Route::post('save-bringinghealthcare', [HomeSectionControoler::class, 'savebringinghealthcare'])->name('save-bringinghealthcare');
     Route::get('faqs', [HomeSectionControoler::class, 'faqs'])->name('faqs');
     Route::post('save-faq', [HomeSectionControoler::class, 'saveFaqs'])->name('save-faq');
+
+    
+    Route::get('home-about', [HomeSectionControoler::class, 'homeAbout'])->name('homeAbout');
+    Route::post('save-home-about', [HomeSectionControoler::class, 'saveHomeAbout'])->name('saveHomeAbout');
 
     // ADHD section Route
     Route::get('adhd-benefits', [AdhdBenefitsController::class, 'adhdBenefits'])->name('adhd-benefits');

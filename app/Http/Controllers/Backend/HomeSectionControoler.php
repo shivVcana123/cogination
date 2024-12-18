@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\BringingHealthcare;
+use App\Models\HomeAboutUsData;
 use App\Models\HomeAppointment;
 use App\Models\HomeChooseUs;
 use App\Models\HomeFaq;
@@ -13,6 +14,47 @@ use Illuminate\Support\Facades\Storage;
 
 class HomeSectionControoler extends Controller
 {
+
+
+    public function homeAbout()
+    {
+        // Fetch all records to display or pass to the view
+        $chooseusData = HomeAboutUsData::first();
+        return view('home-section.homeAbout', compact('chooseusData'));
+    }
+    public function saveHomeAbout(Request $request)
+    {
+        $validated = $request->validate(
+            [
+                'title' => 'required|string|max:255',
+            ],
+            [
+                'title.required' => 'The title is required.',
+                'title.string' => 'The title must be a valid string.',
+                'title.max' => 'The title may not exceed 255 characters.',
+            ]
+        );
+        $about = $request->id ? HomeAboutUsData::find($request->id) : new HomeAboutUsData();
+        $about->title = $validated['title'];
+        $about->subtitle = $request->subtitle;
+        $about->description =$request->description;
+        $about->button_content = $request->button_content;
+        $about->button_link = $request->button_link;
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            if ($about->image) {
+                Storage::disk('public')->delete(str_replace('storage/', '', $about->image));
+            }
+            $originalName = $request->file('image')->getClientOriginalName();
+            $cleanedName = str_replace(' ', '_', $originalName); // Replace spaces with underscores
+            $imageName = uniqid() . '_' . $cleanedName;
+            $imagePath = $request->file('image')->storeAs('home', $imageName, 'public');
+            $about->image = 'storage/' . $imagePath;
+        }
+        $about->save();
+        return redirect()->route('homeAbout')->with('message', 'Data saved successfully.');
+    }
+    
+    
     /**
      * Display a listing of the resource.
      */
@@ -250,174 +292,6 @@ class HomeSectionControoler extends Controller
         return view('home-section.ourservices', compact('chooseusData'));
     }
     
-    // public function saveourservices(Request $request)
-    // {
-    //     dd($request->all());
-    //     // Validate incoming request
-    //     $validated = $request->validate(
-    //         [
-    //             'title' => 'required|string|max:255',
-    //             'subtitle' => 'required|string|max:255',
-    //             'description_1' => 'required|string',
-    //             'sub_title' => 'required|array',
-    //             'sub_title.*' => 'required|string|max:255',
-    //             'sub_description' => 'required|array',
-    //             'sub_description.*' => 'required|string|max:500',
-    //             'image' => 'nullable|image|max:2048', // Validate image type and size
-    //         ],
-    //         [
-    //             'title.required' => 'The title is required.',
-    //             'title.string' => 'The title must be a valid string.',
-    //             'title.max' => 'The title may not exceed 255 characters.',
-    //             'subtitle.required' => 'The subtitle is required.',
-    //             'subtitle.string' => 'The subtitle must be a valid string.',
-    //             'subtitle.max' => 'The subtitle may not exceed 255 characters.',
-    //             'description_1.required' => 'The description is required.',
-    //             'description_1.string' => 'The description must be a valid string.',
-    //             'sub_title.required' => 'At least one sub-title is required.',
-    //             'sub_title.array' => 'The sub-title field must be an array.',
-    //             'sub_title.*.required' => 'Each sub-title is required.',
-    //             'sub_title.*.string' => 'Each sub-title must be a valid string.',
-    //             'sub_title.*.max' => 'Each sub-title may not exceed 255 characters.',
-    //             'sub_description.required' => 'At least one sub-description is required.',
-    //             'sub_description.array' => 'The sub-description field must be an array.',
-    //             'sub_description.*.required' => 'Each sub-description is required.',
-    //             'sub_description.*.string' => 'Each sub-description must be a valid string.',
-    //             'sub_description.*.max' => 'Each sub-description may not exceed 500 characters.',
-    //             'image.image' => 'The uploaded file must be an image.',
-    //             'image.max' => 'The image may not exceed 2MB in size.',
-    //         ]
-    //     );
-        
-    
-    //     // Combine `sub_title`, `sub_description`, and `sub_images` into JSON
-    // $pointers = [];
-    // foreach ($request->sub_title as $index => $subTitle) {
-    //     $subImagePath = null;
-
-    //     if ($request->hasFile("sub_images.$index")) {
-    //         $subImagePath = $request->file("sub_images.$index")->store('public/pointers');
-    //         $subImagePath = str_replace('public/', 'storage/', $subImagePath);
-    //     }
-
-    //     $pointers[] = [
-    //         'sub_title' => $subTitle,
-    //         'sub_description' => $request->sub_description[$index] ?? null,
-    //         'sub_image' => $subImagePath,
-    //     ];
-    // }
-
-    // // Check if an ID is passed for update or create a new record
-    // $ourservice = $request->id ? HomeOurService::find($request->id) : new HomeOurService();
-
-    // if (!$ourservice) {
-    //     return redirect()->route('our-services')->withErrors('Record not found.');
-    // }
-
-    // // Assign validated fields
-    // $ourservice->title = $validated['title'];
-    // $ourservice->subtitle = $validated['subtitle'];
-    // $ourservice->description_1 = $validated['description_1'];
-    // $ourservice->pointers = json_encode($pointers);
-
-    // // Handle main image upload
-    // if ($request->hasFile('image')) {
-    //     if ($ourservice->image && \Storage::exists($ourservice->image)) {
-    //         \Storage::delete($ourservice->image);
-    //     }
-
-    //     $imagePath = $request->file('image')->store('public/images');
-    //     $ourservice->image = str_replace('public/', 'storage/', $imagePath);
-    // }
-
-    // $ourservice->save();
-
-    // return redirect()->route('our-services')->with('success', 'Our Services details saved successfully.');
-    // }
-
-    // public function saveourservices(Request $request)
-    // {
-    //     // Validate the request data
-    //     $validated = $request->validate([
-    //         'title' => 'required|string|max:255',
-    //         'subtitle' => 'nullable|string|max:255',
-    //         'description_1' => 'nullable|string',
-    //         'sub_title.*' => 'nullable|string|max:255',
-    //         'sub_description.*' => 'nullable|string|max:255',
-    //         'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    //     ], [
-    //         'title.required' => 'The title is required.',
-    //         'title.string' => 'The title must be a valid string.',
-    //         'title.max' => 'The title may not exceed 255 characters.',
-    //         'subtitle.string' => 'The subtitle must be a valid string.',
-    //         'subtitle.max' => 'The subtitle may not exceed 255 characters.',
-    //         'description_1.string' => 'The description must be a valid string.',
-    //         'sub_title.*.string' => 'Each sub-title must be a valid string.',
-    //         'sub_title.*.max' => 'Each sub-title may not exceed 255 characters.',
-    //         'sub_description.*.string' => 'Each sub-description must be a valid string.',
-    //         'sub_description.*.max' => 'Each sub-description may not exceed 255 characters.',
-    //         'image.*.image' => 'The uploaded file must be an image.',
-    //         'image.*.mimes' => 'The image must be of type jpeg, png, jpg, gif, or svg.',
-    //         'image.*.max' => 'The image may not exceed 2MB in size.',
-    //     ]);
-    
-    //     // Initialize pointers array
-    //     $pointers = [];
-    
-    //     // Handle multiple pointers if any
-    //     if (!empty($validated['sub_title'])) {
-    //         foreach ($validated['sub_title'] as $index => $subTitle) {
-    //             // Upload image if provided for each pointer
-    //             $subImagePath = null;
-    //             if ($request->hasFile("image.$index") && $request->file("image.$index")->isValid()) {
-    //                 // Delete the old image if it exists (optional, depends on existing data structure)
-    //                 if (isset($ourservice->pointers[$index]['sub_image'])) {
-    //                     \Storage::disk('public')->delete(str_replace('storage/', '', $ourservice->pointers[$index]['sub_image']));
-    //                 }
-        
-    //                 // Get the original file name and replace spaces with underscores
-    //                 $imageName = time() . '_' . str_replace(' ', '_', $request->file("image.$index")->getClientOriginalName());
-        
-    //                 // Store the new image with the updated file name
-    //                 $subImagePath = $request->file("image.$index")->storeAs('home', $imageName, 'public');
-    //             }
-        
-    //             // Add pointer data to the pointers array
-    //             $pointers[] = [
-    //                 'sub_title' => $subTitle,
-    //                 'sub_description' => $validated['sub_description'][$index] ?? null,
-    //                 'sub_image' => $subImagePath ? 'storage/' . $subImagePath : null,
-    //             ];
-    //         }
-    //     }
-        
-    
-    //     // Check if an ID is provided (update) or not (create new)
-    //     if ($request->id) {
-    //         // Update the existing record
-    //         $ourservice = HomeOurService::findOrFail($request->id);
-    //         $ourservice->title = $validated['title'];
-    //         $ourservice->subtitle = $validated['subtitle'];
-    //         $ourservice->description_1 = $validated['description_1'];
-    //         $ourservice->pointers = json_encode($pointers);
-    //         $ourservice->save();
-    //         $message = 'Our Services details updated successfully.';
-    //     } else {
-    //         // Create a new record
-    //         $ourservice = new HomeOurService();
-    //         $ourservice->title = $validated['title'];
-    //         $ourservice->subtitle = $validated['subtitle'];
-    //         $ourservice->description_1 = $validated['description_1'];
-    //         $ourservice->pointers = json_encode($pointers);
-    //         $ourservice->save();
-    //         $message = 'Our Services details saved successfully.';
-    //     }
-    
-    //     // Redirect with a success message
-    //     return redirect()->route('our-services')->with('success', $message);
-    // }
-    
-    
     public function saveOurServices(Request $request)
     {
         // Validate the request data
@@ -535,19 +409,6 @@ class HomeSectionControoler extends Controller
         // Assign validated fields
         $healthcare->title = $validated['title'];
         $healthcare->subtitle = $validated['subtitle'] ?? null;
-    
-        // Handle image upload
-        // if ($request->hasFile('image')) {
-        //     // Delete the old image if it exists
-        //     if ($healthcare->image && \Storage::exists(str_replace('storage/', '', $healthcare->image))) {
-        //         \Storage::delete(str_replace('storage/', '', $healthcare->image));
-        //     }
-    
-        //     // Store the new image with the original file name
-        //     $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
-        //     $imagePath = $request->file('image')->storeAs('images', $imageName, 'public');
-        //     $healthcare->image = 'storage/' . $imagePath;
-        // }
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             if ($healthcare->image) {
