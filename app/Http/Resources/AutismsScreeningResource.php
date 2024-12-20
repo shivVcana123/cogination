@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UsefullLinlsResource extends JsonResource
+class AutismsScreeningResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,13 +16,13 @@ class UsefullLinlsResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'type' => $this->type,
             'title' => $this->title,
-            'link_type' => $this->link_type,
-            'description_1' => $this->description_1,
+            'subtitle' => $this->subtitle,
+            'description' => $this->description,
+            'button_content' => $this->button_content,
+            'button_link' => $this->button_link,
             'image' => $this->image,
-            'background_image' => $this->background_image,
-            'background_color' => $this->background_color,
-            'pointers' => json_decode($this->pointers),
         ];
     }
 }

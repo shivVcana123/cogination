@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AboutResource;
 use App\Http\Resources\AdhdBenefitResource;
 use App\Http\Resources\AdhdSectionResource;
+use App\Http\Resources\AutismsBookResource;
+use App\Http\Resources\AutismsProcessResource;
+use App\Http\Resources\AutismsScreeningResource;
+use App\Http\Resources\AutismsSectionResource;
 use App\Http\Resources\HeaderResource;
 use App\Http\Resources\HomeAppointmentResource;
 use App\Http\Resources\HomeBringingHealthcareResource;
@@ -14,8 +18,6 @@ use App\Http\Resources\HomeOurServicesResource;
 use App\Http\Resources\HomeResource;
 use App\Http\Resources\HomeWhyChooseUsResource;
 use App\Http\Resources\NewsResource;
-use App\Http\Resources\ServicesResource;
-use App\Http\Resources\UsefullLinlsResource;
 use App\Http\Resources\WebsiteStyleResource;
 use App\Models\AboutUs;
 use App\Models\AboutUsJoinCommunity;
@@ -23,13 +25,15 @@ use App\Models\AboutUsOurMission;
 use App\Models\AboutUsOurStory;
 use App\Models\AdhdBenefit;
 use App\Models\AdhdSection;
+use App\Models\AutismsBook;
+use App\Models\AutismsProcess;
+use App\Models\AutismsScreening;
+use App\Models\AutismsSection;
 use App\Models\HomeBringingHealthcare;
 use App\Models\Header;
 use App\Models\Home;
 use App\Models\News;
 use App\Models\PageDesign;
-use App\Models\Service;
-use App\Models\UsefulLink;
 use Illuminate\Http\Request;
 use Str;
 use App\Models\Contact;
@@ -123,16 +127,28 @@ class ApiController extends Controller
     
     
 
-    public function fetchUsefullLinlsData()
+    public function fetchAutismSectionData()
     {
-        $useFulLinkData = UsefulLink::all();
+        $autismsSectionData = AutismsSection::all();
+        $procesSectionData = AutismsProcess::all();
+        $screeningSectionData = AutismsScreening::all();
+        $bookSectionData = AutismsBook::all();
+
+        $data = [
+            'autismsSection' => AutismsSectionResource::collection($autismsSectionData),
+            'procesSection' => AutismsProcessResource::collection($procesSectionData),
+            'screeningSection' => AutismsScreeningResource::collection($screeningSectionData),
+            'bookSection' => AutismsBookResource::collection($bookSectionData),
+        ];
         
         return response()->json([
             'status' => 'success',
             'message' => 'Data fetched successfully',
-            'data' => UsefullLinlsResource::collection($useFulLinkData),
+            'data' => $data,
         ], 200);
     }
+
+
     public function fetchLatestNewsData()
     {
         $newsData = News::all();
