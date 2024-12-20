@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class NewsResource extends JsonResource
+class AdhdBenefitResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,11 @@ class NewsResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'type' => $this->type,
             'title' => $this->title,
+            'subtitle' => $this->subtitle,
             'description_1' => $this->description_1,
-            'link' =>$this->button_link,
-            'image' => $this->image,
-            'background_image' => $this->background_image,
-            'background_color' => $this->background_color,
+            'pointers' => json_decode($this->pointers),
         ];
     }
 }

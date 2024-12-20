@@ -4,6 +4,8 @@ namespace App\Http\Controllers\ApiController;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AboutResource;
+use App\Http\Resources\AdhdBenefitResource;
+use App\Http\Resources\AdhdSectionResource;
 use App\Http\Resources\HeaderResource;
 use App\Http\Resources\HomeAppointmentResource;
 use App\Http\Resources\HomeBringingHealthcareResource;
@@ -19,6 +21,8 @@ use App\Models\AboutUs;
 use App\Models\AboutUsJoinCommunity;
 use App\Models\AboutUsOurMission;
 use App\Models\AboutUsOurStory;
+use App\Models\AdhdBenefit;
+use App\Models\AdhdSection;
 use App\Models\HomeBringingHealthcare;
 use App\Models\Header;
 use App\Models\Home;
@@ -100,21 +104,20 @@ class ApiController extends Controller
         ], 200);
     }
     
-    public function fetchServicesData()
+    public function fetchAdhdSectionData()
     {
-        $serviceData = Service::all();
-    
+        $adhdSection = AdhdSection::all();
+        $adhdBenefit = AdhdBenefit::all();
         // Group the data by `service_type` and transform dynamically
-        $groupedData = $serviceData->groupBy('service_type')->mapWithKeys(function ($services, $type) {
-            // Generate a dynamic key by transforming the `service_type`
-            $key = Str::slug($type, '_'); // Converts "Real Estate Consulting Service" to "real_estate_consulting_service"
-            return [$key => ServicesResource::collection($services)];
-        });
+        $data = [
+            'adhdSection' => AdhdSectionResource::collection($adhdSection),
+            'adhdBenefit' => AdhdBenefitResource::collection($adhdBenefit),
+        ];
     
         return response()->json([
             'status' => 'success',
             'message' => 'Data fetched successfully',
-            'data' => $groupedData,
+            'data' => $data,
         ], 200);
     }
     

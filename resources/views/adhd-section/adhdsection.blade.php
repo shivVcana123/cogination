@@ -47,8 +47,6 @@
                                     <div class="form-group col-md-6">
                                         <label for="title">Title</label>
                                         <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-
-                                        <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
                                         <input type="text" class="form-control" name="first_title" id="title"
                                             placeholder="Enter first title" value="{{ old('first_title',$adhdSection[0]->first_title ?? '') }}">
                                         @error('first_title')
@@ -184,12 +182,12 @@
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label>Sub Title</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful sub title for this section."></i>
                                                 <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter sub title">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Sub Description</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful sub description for this section."></i>
                                                 <input type="text" name="second_sub_description[]" class="form-control" value="" placeholder="Enter sub description">
                                             </div>
 
@@ -243,13 +241,13 @@
         newInputGroup.innerHTML = `
        <div class="row">
                                             <div class="form-group col-md-6">
-                                                <label>Sub Title</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                            <label>Sub Title</label>
+                                            <i class="fas fa-info-circle" title="Provide a meaningful sub title for this section."></i>
                                                 <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter sub title">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label>Sub Description</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                            <label>Sub Description</label>
+                                            <i class="fas fa-info-circle" title="Provide a meaningful sub description for this section."></i>
                                                 <input type="text" name="second_sub_description[]" class="form-control" value="" placeholder="Enter sub description">
                                             </div>
                                          
@@ -312,11 +310,19 @@
         }) {
             const pointerHtml = `
             <div class="form-group url-group">
-                <label>Sub Title</label>
-                <input type="text" name="second_sub_title[]" class="form-control" value="${data.second_sub_title}" placeholder="Enter sub title">
-                <label>Sub Description</label>
-                <input type="text" name="second_sub_description[]" class="form-control" value="${data.second_sub_description}" placeholder="Enter sub description">
-                <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                    <label>Sub Title</label>
+                    <i class="fas fa-info-circle" title="Provide a meaningful sub title for this section."></i>
+                        <input type="text" name="second_sub_title[]" class="form-control" value="${data.second_sub_title}" placeholder="Enter sub title">
+                    </div>
+                    <div class="form-group col-md-6">
+                    <label>Sub Description</label>
+                    <i class="fas fa-info-circle" title="Provide a meaningful sub description for this section."></i>
+                        <input type="text" name="second_sub_description[]" class="form-control" value="${data.second_sub_description}" placeholder="Enter sub description">
+                    </div>
+                    <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                </div>
             </div>`;
             container.append(pointerHtml);
         }

@@ -36,8 +36,8 @@ class AutismsSectionController extends Controller
             'second_sub_title.*' => 'nullable|string|max:255',
             'second_button_content' => 'nullable|string|max:255',
             'second_button_link' => 'nullable|string|max:255',
-            'first_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'first_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
+            'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
         ]);
 
         // Fetch or create a new section
@@ -182,7 +182,7 @@ class AutismsSectionController extends Controller
             'description' => 'required|string',
             'button_content' => 'required|string|max:255',
             'button_link' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
         ]);
 
         // Fetch or create a new section
@@ -240,7 +240,7 @@ class AutismsSectionController extends Controller
             'description' => 'required|string',
             'button_content' => 'required|string|max:255',
             'button_link' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
         ]);
 
         // Fetch or create a new section

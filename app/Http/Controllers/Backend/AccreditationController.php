@@ -27,7 +27,7 @@ class AccreditationController extends Controller
             'description' => 'required|string',
             'button_content' => 'required|string|max:255',
             'button_link' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
         ]);
 
         // Fetch or create a new section
@@ -214,7 +214,7 @@ class AccreditationController extends Controller
             'description' => 'required|string',
             'button_content' => 'required|string|max:255',
             'button_link' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
         ]);
 
         // Fetch or create a new section

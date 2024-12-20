@@ -26,7 +26,7 @@ class AssessmentController extends Controller
             'description' => 'required|string',
             'button_content' => 'required|string|max:255',
             'button_link' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
         ]);
 
         // Fetch or create a new section
@@ -69,7 +69,7 @@ class AssessmentController extends Controller
             'first_button_link' => 'nullable|string|max:255',
             'second_button_content' => 'nullable|string|max:255',
             'second_button_link' => 'nullable|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
             'sub_title' => 'nullable|array',
             'sub_title.*' => 'string|max:255',
             'sub_description' => 'nullable|array',
@@ -138,7 +138,7 @@ class AssessmentController extends Controller
             'button_link_2' => 'nullable|array',
             'button_link_2.*' => 'nullable|string|max:255',
             'image' => 'nullable|array',
-            'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
         ]);
     
         $adhdfirstSection = $request->id

@@ -67,6 +67,8 @@ Route::middleware(['guest'])->group(function () {
     // ADHD section Route
     Route::get('adhd-benefits', [AdhdBenefitsController::class, 'adhdBenefits'])->name('adhd-benefits');
     Route::post('save-adhd-benefits', [AdhdBenefitsController::class, 'saveAdhdBenefits'])->name('save-adhd-benefits');
+    Route::get('/fetch-adhd-benefits-section-by-type', [AdhdBenefitsController::class, 'fetchAdhdBenefitSectionByType'])->name('fetch-adhd-benefits-section-by-type');
+
     Route::get('adhd-section', [AdhdBenefitsController::class, 'adhdSection'])->name('adhd-section');
     Route::get('/fetch-adhd-section-by-type', [AdhdBenefitsController::class, 'fetchAdhdSectionByType'])->name('fetch-adhd-section-by-type');
     Route::post('save-adhd-section', [AdhdBenefitsController::class, 'saveAdhdSection'])->name('save-adhd-section');

@@ -344,7 +344,7 @@ class HomeSectionControoler extends Controller
     //         'description_1' => 'nullable|string',
     //         'sub_title.*' => 'nullable|string|max:255',
     //         'sub_description.*' => 'nullable|string|max:255',
-    //         'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    //         'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
     //     ], [
     //         'title.required' => 'The title is required.',
     //         'title.string' => 'The title must be a valid string.',
@@ -427,7 +427,7 @@ class HomeSectionControoler extends Controller
             'description_1' => 'nullable|string',
             'sub_title.*' => 'nullable|string|max:255',
             'sub_description.*' => 'nullable',
-            'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
         ], [
             'title.required' => 'The title is required.',
             'title.string' => 'The title must be a valid string.',
