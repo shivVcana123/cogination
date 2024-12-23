@@ -18,7 +18,7 @@ use App\Http\Controllers\Backend\FeesController;
 use App\Http\Controllers\Backend\HeaderController;
 use App\Http\Controllers\Backend\HomeController as BackendHomeController;
 use App\Http\Controllers\Backend\ServiceController;
-use App\Http\Controllers\Backend\UsefullLinkController;
+use App\Http\Controllers\Backend\CtaController;
 use App\Http\Controllers\Backend\PageDesignController;
 use App\Http\Controllers\Backend\FooterController;
 use App\Http\Controllers\Backend\HomeSectionControoler;
@@ -39,9 +39,13 @@ Route::middleware(['guest'])->group(function () {
 });
 
 // Auth Middleware Group
-// Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+    
+
+    Route::get('/change-logo', [AuthController::class, 'changeLogo'])->name('changeLogo');
+    Route::post('/save-change-logo', [AuthController::class, 'saveChangeLogo'])->name('saveChangeLogo');
 
     Route::get('profile', [AuthController::class, 'profile'])->name('profile');
 
@@ -52,7 +56,9 @@ Route::middleware(['guest'])->group(function () {
     Route::resource('home', BackendHomeController::class);
     Route::resource('banner', BannerController::class);
     Route::resource('page', PageDesignController::class);
+    Route::resource('cta', CtaController::class);
 
+    Route::get('/saveDesign', [PageDesignController::class, 'saveDesign'])->name('saveDesign');
 
     // footer section Route
     Route::get('footer', [FooterController::class,'footer'])->name('footer');
@@ -157,7 +163,7 @@ Route::middleware(['guest'])->group(function () {
     Route::get('our-team-continuous-section', [AccreditationController::class, 'ourTeamContinuousSection'])->name('our-team-continuous-section');
     Route::post('save-our-team-continuous', [AccreditationController::class, 'saveOurTeamContinuousSection'])->name('save-our-team-continuous-section');
 
-// });
+});
 
 
 // Database Migration Route

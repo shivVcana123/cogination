@@ -49,7 +49,11 @@ class PageDesignController extends Controller
          $page->font_weight = $request->font_weight;
          $page->content_color = $request->content_color;
          $page->text_alignment = $request->text_alignment;
-       
+        //  if ($request->hasFile('image') && $request->file('image')->isValid()) {
+        //     $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
+        //     $imagePath = $request->file('image')->storeAs('design', $imageName, 'public');
+        //     $page->logo = 'storage/' . $imagePath;
+        // }
          $page->save();
          return redirect()->route('page.index')->with('success', 'Page created successfully');
      }
@@ -88,7 +92,11 @@ class PageDesignController extends Controller
         $page->font_weight = $request->font_weight;
         $page->content_color = $request->content_color;
         $page->text_alignment = $request->text_alignment;
-
+        // if ($request->hasFile('image') && $request->file('image')->isValid()) {
+        //     $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
+        //     $imagePath = $request->file('image')->storeAs('design', $imageName, 'public');
+        //     $page->logo = 'storage/' . $imagePath;
+        // }
         $page->save();
         return redirect()->route('page.index')->with('success', 'Page updated successfully');
     }
@@ -130,6 +138,12 @@ class PageDesignController extends Controller
         $page->font_weight = $request->font_weight;
         $page->content_color = $request->content_color;
         $page->text_alignment = $request->text_alignment;
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
+            $imagePath = $request->file('image')->storeAs('design', $imageName, 'public');
+            $page->logo = 'storage/' . $imagePath;
+        }
+
         $page->save();
         return response()->json(['message' => 'Design applied successfully!']);
   }

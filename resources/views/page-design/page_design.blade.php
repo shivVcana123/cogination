@@ -110,8 +110,16 @@
                                             @enderror
                                         </div>
                                     </div>
-                                </div>
-
+                                {{-- </div>
+                                <div class="form-group">
+                                    <label for="image">Image</label>
+                                    <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+                                    <img id="blah" src="{{asset($pageData->logo ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                    <input type="file" class="form-control" name="image" id="imgInp" accept="image/*">
+                                    @error('image')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div> --}}
                             
                             
                             </div>
@@ -145,19 +153,21 @@
     var font_weight = $('[name="font_weight"]').val();
     var category = $('[name="category"]').val();
     var hidden_id = $('[name="hidden_id"]').val();
+    var logo = $('[name="image"]').val();
 
     $.ajax({
          headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         url : "{{ route('saveDesign') }}",
+        type : 'get',
         data : {'font_size' : font_size,
         'text_alignment':text_alignment,
         'content_color':content_color,
         'font_weight':font_weight,
         'category':category,
+        'image':logo,
                'hidden_id':hidden_id},
-        type : 'post',
         dataType : 'json',
         success : function(result){
 

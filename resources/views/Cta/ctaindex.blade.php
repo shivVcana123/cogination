@@ -5,11 +5,9 @@
     <!-- Content Header (Page header) -->
     <div class="col-md-12">
         <div class="card">
-
             <div class="card-header">
-                <h3 class="card-title">Styles</h3>
-                <button class="btn btn-primary">        <a style="color: black;" href="{{ route('page.create') }}">+ Style</a>
-</button>
+                <h3 class="card-title">CTA</h3>
+                <button class="btn btn-primary" ><a style="color:black" href="{{ route('cta.create') }}">+ ADD</a></button>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -17,31 +15,29 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Page</th>
-                            <th>Font Size</th>
-                            <th>Font Weight</th>
-                            <th>Font Allignment</th>
+                            <th>Title</th>
+                            <th>Service Type</th>
+                            <th>Button Content</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($pageData as $key => $page)
+                        @foreach ($cts as $key => $cta)
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td>{{ ucfirst($page->category) }}</td>
-                            <td>{{ $page->font_size }}</td>
-                            <td>{{ $page->font_weight }}</td>
-                            <td>{{ $page->text_alignment }}</td>
+                            <td>{{ $cta->title }}</td>
+                            <td>{{ $cta->cta_type }}</td>
+                            <td>{{ ($cta->button_content)?$cta->button_content:'N/A' }}</td>
                             <td>
-                                <a href="{{ route('page.edit',$page->id) }}"><i class="fa fa-edit"   style="color:black"></i></a>
-                                <form id="delete-form-{{ $page->id }}" action="{{ route('page.destroy', $page->id) }}" method="POST" style="display:inline;">
+                                <a href="{{route('cta.edit',$cta->id)}}"><i class="fa fa-edit"   style="color:black"></i></a>
+                        
+                                <form id="delete-form-{{ $cta->id }}" action="{{ route('cta.destroy', $cta->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" class="btn btn-link p-0 delete-button" data-id="{{ $page->id }}">
+                                    <button type="button" class="btn btn-link p-0 delete-button" data-id="{{ $cta->id }}">
                                         <i class="fa fa-trash"   style="color:black"></i>
                                     </button>
                                 </form>
-
                             </td>
                         </tr>
                         @endforeach
@@ -53,7 +49,7 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-<script>
+ <script>
     document.addEventListener('DOMContentLoaded', function() {
         const deleteButtons = document.querySelectorAll('.delete-button');
 
@@ -79,5 +75,5 @@
             });
         });
     });
-</script>
+ </script>
 @endsection
