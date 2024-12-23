@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AboutResource;
 use App\Http\Resources\AdhdBenefitResource;
 use App\Http\Resources\AdhdSectionResource;
+use App\Http\Resources\AssessmentOurDiagnosticServiceResource;
+use App\Http\Resources\AssessmentResource;
+use App\Http\Resources\AssessmentUnderstandingConditionResource;
+use App\Http\Resources\AssessmentWhyChooseResource;
 use App\Http\Resources\AutismsBookResource;
 use App\Http\Resources\AutismsProcessResource;
 use App\Http\Resources\AutismsScreeningResource;
@@ -25,6 +29,10 @@ use App\Models\AboutUsOurMission;
 use App\Models\AboutUsOurStory;
 use App\Models\AdhdBenefit;
 use App\Models\AdhdSection;
+use App\Models\Assessment;
+use App\Models\AssessmentOurDiagnosticService;
+use App\Models\AssessmentUnderstandingCondition;
+use App\Models\AssessmentWhyChoose;
 use App\Models\AutismsBook;
 use App\Models\AutismsProcess;
 use App\Models\AutismsScreening;
@@ -149,14 +157,25 @@ class ApiController extends Controller
     }
 
 
-    public function fetchLatestNewsData()
+    public function fetchAssessmentSectionData()
     {
-        $newsData = News::all();
+        $assessmentSectionData = Assessment::all();
+        $diagnosticServiceSectionData = AssessmentOurDiagnosticService::all();
+        $whyChooseSectionData = AssessmentWhyChoose::all();
+        $understandingConditionSectionData = AssessmentUnderstandingCondition::all();
+
+
+        $data = [
+            'assessmentSection' => AssessmentResource::collection($assessmentSectionData),
+            'diagnosticServiceSection' => AssessmentOurDiagnosticServiceResource::collection($diagnosticServiceSectionData),
+            'whyChooseSection' => AssessmentWhyChooseResource::collection($whyChooseSectionData),
+            'understandingConditionSection' => AssessmentUnderstandingConditionResource::collection($understandingConditionSectionData),
+        ];
         
         return response()->json([
             'status' => 'success',
             'message' => 'Data fetched successfully',
-            'data' => NewsResource::collection($newsData),
+            'data' =>$data, 
         ], 200);
     }
 

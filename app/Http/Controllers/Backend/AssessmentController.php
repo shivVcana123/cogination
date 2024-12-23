@@ -148,29 +148,23 @@ class AssessmentController extends Controller
         $pointers = [];
         if (!empty($validated['sub_title'])) {
             foreach ($validated['sub_title'] as $index => $subTitle) {
+                // Default to null if no image
                 $subImagePath = null;
-        
-                // Check if an image exists for this pointer
-                if (isset($request->file('image')[$index]) && $request->file('image')[$index]->isValid()) {
-                    // Delete the old image if it exists
-                    if (!empty($adhdfirstSection[$index]['sub_image']) && \Storage::exists($adhdfirstSection[$index]['sub_image'])) {
-                        \Storage::delete($adhdfirstSection[$index]['sub_image']);
-                    }
-        
-                    // Store the new image in the 'adhd' folder
-                    $imageName = time() . '_' . uniqid() . '_' . $request->file('image')[$index]->getClientOriginalName();
-                    $subImagePath = $request->file('image')[$index]->storeAs('adhd', $imageName, 'public');
-                    $subImagePath = 'storage/' . $subImagePath; // Ensure proper path format
-                } else {
-                    // Retain the existing image if no new upload is made
-                    $subImagePath = $adhdfirstSection[$index]['sub_image'] ?? null;
+                  // Handle image upload if provided
+                  if (isset($request->file('image')[$index]) && $request->file('image')[$index]->isValid()) {
+                    $imageName = time() . '_' . $request->file('image')[$index]->getClientOriginalName();
+                    $subImagePath = $request->file('image')[$index]->storeAs('assessment', $imageName, 'public');
+                    $subImagePath = 'storage/' . $subImagePath;
+                } elseif (isset($adhdfirstSection->pointers)) {
+                    $existingPointers = json_decode($adhdfirstSection->pointers, true);
+                    $subImagePath = $existingPointers[$index]['sub_image'] ?? null;
                 }
         
-                // Append pointer data, including all buttons
+                // Append pointer data, including all buttons and updated sub_image
                 $pointers[] = [
                     'sub_title' => $subTitle,
                     'sub_description' => $validated['sub_description'][$index] ?? null,
-                    'sub_image' => $subImagePath,
+                    'sub_image' => $subImagePath, // Only updated if a new image was uploaded or kept the old one
                     'button_content_1' => $validated['button_content_1'][$index] ?? null,
                     'button_link_1' => $validated['button_link_1'][$index] ?? null,
                     'button_content_2' => $validated['button_content_2'][$index] ?? null,
@@ -178,6 +172,9 @@ class AssessmentController extends Controller
                 ];
             }
         }
+        
+        
+        
         
     
         $adhdfirstSection->title = $validated['title'];
