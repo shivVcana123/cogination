@@ -27,7 +27,6 @@
                             </h3>
                         </div>
 
-
                         <form action="{{ route('save-our-diagnostic-services') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="id" value="{{ old('id', $ourDiagnostic[0]->id ?? '') }}">
@@ -37,8 +36,7 @@
                                 <div class="form-group">
                                     <label for="title">Title</label>
                                     <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-                                    <input type="text" class="form-control" name="title" id="title"
-                                        placeholder="Enter title" value="{{ old('title', $ourDiagnostic[0]->title ?? '') }}">
+                                    <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" value="{{ old('title', $ourDiagnostic[0]->title ?? '') }}">
                                     @error('title')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -55,278 +53,213 @@
                                 </div>
                                 <hr>
 
+                                <!-- Extra Pointers Section -->
                                 @php
-                                // Check if the $ourDiagnostic exists and contains data before attempting to decode
                                 $pointers = isset($ourDiagnostic[0]) && !empty($ourDiagnostic[0]->pointers)
                                 ? json_decode($ourDiagnostic[0]->pointers)
                                 : [];
                                 @endphp
+                                <div class="mb-3">
+                                    <h5>Add Extra Pointers</h5>
+                                    <div id="pointerFields">
+                                        @if(!empty($pointers) && is_array($pointers))
+                                        @foreach ($pointers as $index => $details)
+                                        <div class="pointer-field mb-3" data-pointer-id="{{ $index }}">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="pointerTitle{{ $index }}">Pointer Title</label>
+                                                    <input type="text" id="pointerTitle{{ $index }}" class="form-control mb-2" name="pointerTitle[]" placeholder="Enter pointer title" value="{{ $details->pointerTitle }}">
 
+                                                    <label for="pointerDescription{{ $index }}">Pointer Description</label>
+                                                    <input type="text" id="pointerDescription{{ $index }}" class="form-control mb-2" name="pointerDescription[]" placeholder="Enter pointer description" value="{{ $details->pointerDescription }}">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="button1Text{{ $index }}">Button 1 Text</label>
+                                                    <input type="text" id="button1Text{{ $index }}" class="form-control mb-2" name="button1Text[]" placeholder="Enter Button 1 Text" value="{{ $details->button1Text }}">
 
-                                <!-- Pointers Section -->
-                                <label for="">Add Extra Pointers</label>
-                                <div id="Pointers-container">
+                                                    <label for="button1Link{{ $index }}">Button 1 Link</label>
+                                                    <input type="text" id="button1Link{{ $index }}" class="form-control mb-2" name="button1Link[]" placeholder="Enter Button 1 Link" value="{{ $details->button1Link }}">
 
-                                    @if(!empty($pointers) && is_array($pointers))
-                                    <!-- Loop through each pointer and display -->
-                                    @foreach($pointers as $index => $pointer)
-                                    <div class="form-group url-group">
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label>Sub Title</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter sub title">
-                                                @error('button_link_2')
-                                                <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
+                                                    <label for="button2Text{{ $index }}">Button 2 Text</label>
+                                                    <input type="text" id="button2Text{{ $index }}" class="form-control mb-2" name="button2Text[]" placeholder="Enter Button 2 Text" value="{{ $details->button2Text }}">
 
+                                                    <label for="button2Link{{ $index }}">Button 2 Link</label>
+                                                    <input type="text" id="button2Link{{ $index }}" class="form-control mb-2" name="button2Link[]" placeholder="Enter Button 2 Link" value="{{ $details->button2Link }}">
 
-                                            <div class="form-group col-md-6">
-                                                <label>Sub Description</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter sub description">
-                                                @error('button_link_2')
-                                                <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
+                                                    <label for="image{{ $index }}">Upload Image</label>
+                                                    <input type="file" id="image{{ $index }}" class="form-control mb-2" name="image[]" accept="image/*">
 
-                                            <div class="form-group col-md-6">
-                                                <label for="title">Button 1 Text</label>
-                                                <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
-                                                <input type="text" class="form-control" name="button_content_1[]" id="button_content_1" placeholder="Enter Button Text" value="{{old('button_content_1',$pointer->button_content_1 ?? '')}}">
-                                                @error('button_content_1')
-                                                <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
+                                                    <div class="sub-pointer-area">
+                                                        @foreach ($details->sub_pointer as $subIndex => $subPointer)
+                                                        <div class="sub-pointer mb-3" data-sub-pointer-id="{{ $subIndex }}">
+                                                            <label for="pointerSubTitle{{ $index }}_{{ $subIndex }}">Pointer Sub Title</label>
+                                                            <input type="text" id="pointerSubTitle{{ $index }}_{{ $subIndex }}" class="form-control mb-2" name="pointerSubTitle[{{ $index }}][{{ $subIndex }}]" placeholder="Enter pointer sub title" value="{{ $subPointer->pointerSubTitle1 ?? '' }}">
 
-                                            <div class="form-group col-md-6">
-                                                <label for="title">Button 1 Link</label>
-                                                <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
-                                                <input type="text" class="form-control" name="button_link_1[]" id="button_link_1" placeholder="Enter Button Link" value="{{old('button_link_1[]',$pointer->button_link_1 ?? '')}}">
-                                                @error('button_link_1')
-                                                <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="title">Button 2 Text</label>
-                                                <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
-                                                <input type="text" class="form-control" name="button_content_2[]" id="button_content_2" placeholder="Enter Button Text" value="{{old('button_content_2[]',$pointer->button_content_2 ?? '')}}">
-                                                @error('button_content_2')
-                                                <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="title">Button 2 Link</label>
-                                                <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
-                                                <input type="text" class="form-control" name="button_link_2[]" id="button_link_2" placeholder="Enter Button Link" value="{{old('button_link_2[]',$pointer->button_link_2 ?? '')}}">
-                                                @error('button_link_2')
-                                                <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
+                                                            <label for="pointerSubDescription{{ $index }}_{{ $subIndex }}">Pointer Sub Description</label>
+                                                            <textarea id="pointerSubDescription{{ $index }}_{{ $subIndex }}" class="form-control mb-2" name="pointerSubDescription[{{ $index }}][{{ $subIndex }}]" placeholder="Enter pointer sub description">{{ $subPointer->pointerSubDescription1 ?? '' }}</textarea>
 
-                                            <div class="form-group col-md-6">
-                                                <label>Image</label>
-                                                <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                                <img id="blah" src="{{asset($pointer->sub_image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
-                                                <input type="file" class="form-control" name="image[]" accept="image/*">
-                                                @error('image')
-                                                <div class="text-danger">{{ $message }}</div>
-                                                @enderror
+                                                            <button type="button" class="btn btn-danger btn-sm remove-sub-pointer">Remove Sub Pointer</button>
+                                                        </div>
+                                                        @endforeach
+                                                    </div>
+                                                    <button type="button" class="btn btn-success add-sub-pointer">Add Sub Pointer</button>
+                                                </div>
+                                                <button type="button" class="btn btn-danger btn-sm remove-pointer">Remove Pointer</button>
                                             </div>
                                         </div>
+                                        @endforeach
+                                        @else
+                                        <!-- Empty Pointer Fields -->
+                                        <div class="pointer-field mb-3" data-pointer-id="0">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="pointerTitle0">Pointer Title</label>
+                                                    <input type="text" id="pointerTitle0" class="form-control mb-2" name="pointerTitle[]" placeholder="Enter pointer title">
 
-                                        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
-                                    </div>
-                                    @endforeach
-                                    @else
+                                                    <label for="pointerDescription0">Pointer Description</label>
+                                                    <input type="text" id="pointerDescription0" class="form-control mb-2" name="pointerDescription[]" placeholder="Enter pointer description">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="button1Text0">Button 1 Text</label>
+                                                    <input type="text" id="button1Text0" class="form-control mb-2" name="button1Text[]" placeholder="Enter Button 1 Text">
 
-                                    <!-- Default empty field when no pointers exist -->
-                                    <div class="form-group url-group">
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label>Sub Title</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
-                                                @error('button_link_2')
-                                                <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
+                                                    <label for="button1Link0">Button 1 Link</label>
+                                                    <input type="text" id="button1Link0" class="form-control mb-2" name="button1Link[]" placeholder="Enter Button 1 Link">
 
+                                                    <label for="button2Text0">Button 2 Text</label>
+                                                    <input type="text" id="button2Text0" class="form-control mb-2" name="button2Text[]" placeholder="Enter Button 2 Text">
 
-                                            <div class="form-group col-md-6">
-                                                <label>Sub Description</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
-                                                @error('button_link_2')
-                                                <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
+                                                    <label for="button2Link0">Button 2 Link</label>
+                                                    <input type="text" id="button2Link0" class="form-control mb-2" name="button2Link[]" placeholder="Enter Button 2 Link">
 
-                                            <div class="form-group col-md-6">
-                                                <label for="title">Button 1 Text</label>
-                                                <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
-                                                <input type="text" class="form-control" name="button_content_1[]" id="button_content_1" placeholder="Enter Button Text" value="">
-                                                @error('button_content_1')
-                                                <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
+                                                    <label for="image0">Upload Image</label>
+                                                    <input type="file" id="image0" class="form-control mb-2" name="image[]" accept="image/*">
 
-                                            <div class="form-group col-md-6">
-                                                <label for="title">Button 1 Link</label>
-                                                <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
-                                                <input type="text" class="form-control" name="button_link_1[]" id="button_link_1" placeholder="Enter Button Link" value="">
-                                                @error('button_link_1')
-                                                <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="title">Button 2 Text</label>
-                                                <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
-                                                <input type="text" class="form-control" name="button_content_2[]" id="button_content_2" placeholder="Enter Button Text" value="">
-                                                @error('button_content_2')
-                                                <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="title">Button 2 Link</label>
-                                                <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
-                                                <input type="text" class="form-control" name="button_link_2[]" id="button_link_2" placeholder="Enter Button Link" value="">
-                                                @error('button_link_2')
-                                                <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
+                                                    <div class="sub-pointer-area">
+                                                        <div class="sub-pointer mb-3" data-sub-pointer-id="0">
+                                                            <label for="pointerSubTitle0_0">Pointer Sub Title</label>
+                                                            <input type="text" id="pointerSubTitle0_0" class="form-control mb-2" name="pointerSubTitle[0][]" placeholder="Enter pointer sub title">
 
-                                            <div class="form-group col-md-6">
-                                                <label>Image</label>
-                                                <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                                <img id="blah" src="#" alt="Image Preview" style="width: 130px; display:none" />
-                                                <input type="file" class="form-control" name="image[]" accept="image/*">
-                                                @error('image')
-                                                <div class="text-danger">{{ $message }}</div>
-                                                @enderror
+                                                            <label for="pointerSubDescription0_0">Pointer Sub Description</label>
+                                                            <textarea id="pointerSubDescription0_0" class="form-control mb-2" name="pointerSubDescription[0][]" placeholder="Enter pointer sub description"></textarea>
+
+                                                            <button type="button" class="btn btn-danger btn-sm remove-sub-pointer">Remove Sub Pointer</button>
+                                                        </div>
+                                                    </div>
+                                                    <button type="button" class="btn btn-success add-sub-pointer">Add Sub Pointer</button>
+                                                </div>
+                                                <button type="button" class="btn btn-danger btn-sm remove-pointer">Remove Pointer</button>
                                             </div>
                                         </div>
-
-                                        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                                        @endif
                                     </div>
-                                    @endif
+
+                                    <button type="button" id="addPointer" class="btn btn-success">Add Pointer</button>
                                 </div>
-                                <!-- Add Pointer Button -->
-                                <button type="button" class="btn btn-success" id="add-Pointers">Add Pointer</button>
                             </div>
 
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
+
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    function updateRemoveButtonVisibility() {
-        const urlGroups = document.querySelectorAll('.url-group');
-        urlGroups.forEach((group) => {
-            const removeButton = group.querySelector('.remove-Pointers');
-            removeButton.style.display = urlGroups.length > 1 ? 'inline-block' : 'none';
-        });
-    }
+    document.getElementById('addPointer').addEventListener('click', function() {
+        let pointerCount = document.querySelectorAll('.pointer-field').length;
 
-    document.getElementById('add-Pointers').addEventListener('click', function() {
-        const container = document.getElementById('Pointers-container');
-        const newInputGroup = document.createElement('div');
-        newInputGroup.classList.add('form-group', 'url-group');
-        newInputGroup.innerHTML = `
-            <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label>Sub Title</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
-                                           
-                                            </div>
+        // Create a new div for the pointer field
+        let newDiv = document.createElement('div');
+        newDiv.classList.add('pointer-field', 'mb-3');
+        newDiv.setAttribute('data-pointer-id', pointerCount);
 
+        // Set the innerHTML for the pointer field with labels
+        newDiv.innerHTML = `
+        <div class="row">
+            <div class="col-md-6">
+                <label for="pointerTitle${pointerCount}" class="form-label">Pointer Title</label>
+                <input type="text" class="form-control mb-2" name="pointerTitle[]" id="pointerTitle${pointerCount}" placeholder="Enter pointer title" required>
 
-                                            <div class="form-group col-md-6">
-                                                <label>Sub Description</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
-                                        
-                                            </div>
+                <label for="pointerDescription${pointerCount}" class="form-label">Pointer Description</label>
+                <input type="text" class="form-control mb-2" name="pointerDescription[]" id="pointerDescription${pointerCount}" placeholder="Enter pointer description" required>
+            </div>
+            <div class="col-md-6">
+                <label for="button1Text${pointerCount}" class="form-label">Button 1 Text</label>
+                <input type="text" class="form-control mb-2" name="button1Text[]" id="button1Text${pointerCount}" placeholder="Enter Button 1 Text" required>
 
-                                            <div class="form-group col-md-6">
-                                                <label for="title">Button 1 Text</label>
-                                                <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
-                                                <input type="text" class="form-control" name="button_content_1[]" id="button_content_1" placeholder="Enter Button Text" value="">
-                                          
-                                            </div>
+                <label for="button1Link${pointerCount}" class="form-label">Button 1 Link</label>
+                <input type="text" class="form-control mb-2" name="button1Link[]" id="button1Link${pointerCount}" placeholder="Enter Button 1 Link" required>
 
-                                            <div class="form-group col-md-6">
-                                                <label for="title">Button 1 Link</label>
-                                                <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
-                                                <input type="text" class="form-control" name="button_link_1[]" id="button_link_1" placeholder="Enter Button Link" value="">
-                                            
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="title">Button 2 Text</label>
-                                                <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
-                                                <input type="text" class="form-control" name="button_content_2[]" id="button_content_2" placeholder="Enter Button Text" value="">
-                                         
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="title">Button 2 Link</label>
-                                                <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
-                                                <input type="text" class="form-control" name="button_link_2[]" id="button_link_2" placeholder="Enter Button Link" value="">
-                                        
-                                            </div>
+                <label for="button2Text${pointerCount}" class="form-label">Button 2 Text</label>
+                <input type="text" class="form-control mb-2" name="button2Text[]" id="button2Text${pointerCount}" placeholder="Enter Button 2 Text" required>
 
-                                            <div class="form-group col-md-6">
-                                                <label>Image</label>
-                                                <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                                <img id="blah" src="#" alt="Image Preview" style="width: 130px; display:none" />
-                                                <input type="file" class="form-control" name="image[]" accept="image/*">
-                                         
-                                            </div>
-                                        </div>
+                <label for="button2Link${pointerCount}" class="form-label">Button 2 Link</label>
+                <input type="text" class="form-control mb-2" name="button2Link[]" id="button2Link${pointerCount}" placeholder="Enter Button 2 Link" required>
 
-        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                <label for="image${pointerCount}" class="form-label">Image</label>
+                <input type="file" class="form-control mb-2" name="image[]" id="image${pointerCount}" accept="image/*">
+
+                <div class="sub-pointer-area">
+                    <div class="sub-pointer mb-3" data-sub-pointer-id="0">
+                        <label for="pointerSubTitle${pointerCount}_0" class="form-label">Sub Pointer Title</label>
+                        <input type="text" class="form-control mb-2" name="pointerSubTitle[${pointerCount}][]" id="pointerSubTitle${pointerCount}_0" placeholder="Enter pointer sub title">
+
+                        <label for="pointerSubDescription${pointerCount}_0" class="form-label">Sub Pointer Description</label>
+                        <textarea class="form-control mb-2" name="pointerSubDescription[${pointerCount}][]" id="pointerSubDescription${pointerCount}_0" placeholder="Enter pointer sub description"></textarea>
+                        
+                        <button type="button" class="btn btn-danger btn-sm remove-sub-pointer">Remove Sub Pointer</button>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-success add-sub-pointer">Add Sub Pointer</button>
+            </div>
+            <button type="button" class="btn btn-danger btn-sm remove-pointer">Remove Pointer</button>
+        </div>
     `;
-        container.appendChild(newInputGroup);
-        updateRemoveButtonVisibility(); // Update "Remove" buttons visibility
+
+        // Append the new pointer field to the container
+        document.getElementById('pointerFields').appendChild(newDiv);
     });
 
-    document.getElementById('Pointers-container').addEventListener('click', function(event) {
-        if (event.target.classList.contains('remove-Pointers')) {
-            event.target.closest('.url-group').remove();
-            updateRemoveButtonVisibility(); // Update "Remove" buttons visibility
+    // Event delegation for remove/add sub-pointers and pointers
+    document.getElementById('pointerFields').addEventListener('click', function(e) {
+        // Remove Pointer
+        if (e.target.classList.contains('remove-pointer')) {
+            e.target.closest('.pointer-field').remove();
+        }
+
+        // Remove Sub Pointer
+        if (e.target.classList.contains('remove-sub-pointer')) {
+            e.target.closest('.sub-pointer').remove();
+        }
+
+        // Add Sub Pointer
+        if (e.target.classList.contains('add-sub-pointer')) {
+            let pointerField = e.target.closest('.pointer-field');
+            let subPointerCount = pointerField.querySelectorAll('.sub-pointer').length;
+            let subPointer = document.createElement('div');
+            subPointer.classList.add('sub-pointer', 'mb-3');
+            subPointer.setAttribute('data-sub-pointer-id', subPointerCount);
+            subPointer.innerHTML = `
+            <label for="pointerSubTitle${pointerField.getAttribute('data-pointer-id')}_${subPointerCount}" class="form-label">Sub Pointer Title</label>
+            <input type="text" class="form-control mb-2" name="pointerSubTitle[${pointerField.getAttribute('data-pointer-id')}][${subPointerCount}]" id="pointerSubTitle${pointerField.getAttribute('data-pointer-id')}_${subPointerCount}" placeholder="Enter pointer sub title">
+
+            <label for="pointerSubDescription${pointerField.getAttribute('data-pointer-id')}_${subPointerCount}" class="form-label">Sub Pointer Description</label>
+            <textarea class="form-control mb-2" name="pointerSubDescription[${pointerField.getAttribute('data-pointer-id')}][${subPointerCount}]" id="pointerSubDescription${pointerField.getAttribute('data-pointer-id')}_${subPointerCount}" placeholder="Enter pointer sub description"></textarea>
+            
+            <button type="button" class="btn btn-danger btn-sm remove-sub-pointer">Remove Sub Pointer</button>
+        `;
+            pointerField.querySelector('.sub-pointer-area').appendChild(subPointer);
         }
     });
-
-    // Initial visibility check when the page loads
-    document.addEventListener('DOMContentLoaded', function() {
-        updateRemoveButtonVisibility();
-    });
-
-
-    // Initial visibility check when the page loads
-    document.addEventListener('DOMContentLoaded', function() {
-        updateRemoveButtonVisibility();
-    });
-
-
-    imgInp.onchange = evt => {
-        const [file] = imgInp.files;
-        if (file) {
-            blah.src = URL.createObjectURL(file);
-            blah.style.display = "block"; // Show the image
-        } else {
-            blah.style.display = "none"; // Hide the image if no file is selected
-            blah.src = "#"; // Reset the src
-        }
-    };
 </script>
+
 
 @endsection

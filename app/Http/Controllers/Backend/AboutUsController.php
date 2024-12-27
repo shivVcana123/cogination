@@ -80,10 +80,11 @@ class AboutUsController extends Controller
 
         // Handle first image upload
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
+            $imageName = time().'_'.uniqid().'_'.$request->file('image')->getClientOriginalName();
             $imagePath = $request->file('image')->storeAs('about', $imageName, 'public');
-            $autismSection->image = 'storage/' . $imagePath;
+            $autismSection->image = 'storage/'.$imagePath;
         }
+        
 
 
         // Assign data

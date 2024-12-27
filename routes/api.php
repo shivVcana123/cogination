@@ -13,6 +13,9 @@ Route::get('hero-section', [ApiController::class, 'fetchHomeData']); // Fetch al
 Route::get('adhd-section', [ApiController::class, 'fetchAdhdSectionData']); // Fetch all header data
 Route::get('autism-section', [ApiController::class, 'fetchAutismSectionData']); // Fetch all header data
 Route::get('assessment-section', [ApiController::class, 'fetchAssessmentSectionData']); // Fetch all header data
+Route::get('fees-section', [ApiController::class, 'fetchFeesSectionData']); // Fetch all website-style data
 Route::get('website-style', [ApiController::class, 'fetchWebsiteStyle']); // Fetch all website-style data
-Route::post('save-contact', [ApiController::class, 'saveContactData']); // Fetch all website-style data
-Route::get('about-us', [ApiController::class, 'fetchAboutData']); // Fetch all header data
+Route::get('about-us-section', [ApiController::class, 'fetchAboutData']); // Fetch all header data
+Route::get('our-approach-section', [ApiController::class, 'fetchOurApproachSectionData']); // Fetch all header data
+Route::get('accreditation-section', [ApiController::class, 'fetchAccreditationSectionData']); // Fetch all header data
+

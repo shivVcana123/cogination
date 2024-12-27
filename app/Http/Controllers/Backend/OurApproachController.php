@@ -91,12 +91,12 @@ class OurApproachController extends Controller
                 }
             }
 
-            // Handle image upload
-            if ($request->hasFile('image') && $request->file('image')->isValid()) {
-                $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
-                $imagePath = $request->file('image')->storeAs('about', $imageName, 'public');
-                $autismSection->image = asset('storage/' . $imagePath); // Use asset helper for generating the full path
-            }
+           // Handle first image upload
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $imageName = time().'_'.uniqid().'_'.$request->file('image')->getClientOriginalName();
+            $imagePath = $request->file('image')->storeAs('about', $imageName, 'public');
+            $autismSection->image = 'storage/'.$imagePath;
+        }
 
             // Assign data to the model
             $autismSection->title = $validated['title'];

@@ -4,6 +4,12 @@ namespace App\Http\Controllers\ApiController;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AboutResource;
+use App\Http\Resources\AboutUsJoinCommunityResource;
+use App\Http\Resources\AboutUsOurMissionResource;
+use App\Http\Resources\AccreditationAccreditationResource;
+use App\Http\Resources\AccreditationCertificationResource;
+use App\Http\Resources\AccreditationOurCommitmentResource;
+use App\Http\Resources\AccreditationSpecializedCertificationResource;
 use App\Http\Resources\AdhdBenefitResource;
 use App\Http\Resources\AdhdSectionResource;
 use App\Http\Resources\AssessmentOurDiagnosticServiceResource;
@@ -14,6 +20,7 @@ use App\Http\Resources\AutismsBookResource;
 use App\Http\Resources\AutismsProcessResource;
 use App\Http\Resources\AutismsScreeningResource;
 use App\Http\Resources\AutismsSectionResource;
+use App\Http\Resources\FeesOurPricingResource;
 use App\Http\Resources\HeaderResource;
 use App\Http\Resources\HomeAppointmentResource;
 use App\Http\Resources\HomeBringingHealthcareResource;
@@ -22,11 +29,18 @@ use App\Http\Resources\HomeOurServicesResource;
 use App\Http\Resources\HomeResource;
 use App\Http\Resources\HomeWhyChooseUsResource;
 use App\Http\Resources\NewsResource;
+use App\Http\Resources\OurApproachHowItWorkResource;
+use App\Http\Resources\OurApproachResource;
 use App\Http\Resources\WebsiteStyleResource;
 use App\Models\AboutUs;
 use App\Models\AboutUsJoinCommunity;
 use App\Models\AboutUsOurMission;
 use App\Models\AboutUsOurStory;
+use App\Models\AccreditationAccreditation;
+use App\Models\AccreditationCertification;
+use App\Models\AccreditationOurCommitment;
+use App\Models\AccreditationOurTeamContinuous;
+use App\Models\AccreditationSpecializedCertification;
 use App\Models\AdhdBenefit;
 use App\Models\AdhdSection;
 use App\Models\Assessment;
@@ -45,11 +59,14 @@ use App\Models\PageDesign;
 use Illuminate\Http\Request;
 use Str;
 use App\Models\Contact;
+use App\Models\FeesOurPricing;
 use App\Models\Footer;
 use App\Models\HomeAppointment;
 use App\Models\HomeChooseUs;
 use App\Models\HomeFaq;
 use App\Models\HomeOurService;
+use App\Models\OurApproach;
+use App\Models\OurApproachHowItWork;
 
 class ApiController extends Controller
 {
@@ -97,7 +114,6 @@ class ApiController extends Controller
     }
     public function fetchAboutData()
     {
-        $aboutUsData = AboutUs::latest()->first();
         $ourStoryData = AboutUsOurStory::latest()->first();
         $ourMissionData = AboutUsOurMission::latest()->first();
         $joinCommunityData = AboutUsJoinCommunity::latest()->first();
@@ -105,8 +121,49 @@ class ApiController extends Controller
         $data = [
             // 'aboutUsData' => $aboutUsData ? new AboutResource($aboutUsData) : null,
             'ourStoryData' => $ourStoryData ? new AboutResource($ourStoryData) : null,
-            'ourMissionData' => $ourMissionData ? new AboutResource($ourMissionData) : null,
-            // 'joinCommunityData' => $joinCommunityData ? new AboutResource($joinCommunityData) : null,
+            'ourMissionData' => $ourMissionData ? new AboutUsOurMissionResource($ourMissionData) : null,
+            'joinCommunityData' => $joinCommunityData ? new AboutUsJoinCommunityResource($joinCommunityData) : null,
+        ];
+    
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data fetched successfully',
+            'data' => $data,
+        ], 200);
+    }
+
+    public function fetchOurApproachSectionData()
+    {
+        $ourApproachData = OurApproach::latest()->first();
+        $ourApproachHowItWorkData = OurApproachHowItWork::latest()->first();
+    
+        $data = [
+            // 'aboutUsData' => $aboutUsData ? new AboutResource($aboutUsData) : null,
+            'ourApproach' => $ourApproachData ? new OurApproachResource($ourApproachData) : null,
+            'ourApproachHowItWork' => $ourApproachHowItWorkData ? new OurApproachHowItWorkResource($ourApproachHowItWorkData) : null,
+        ];
+    
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data fetched successfully',
+            'data' => $data,
+        ], 200);
+    }
+
+    public function fetchAccreditationSectionData()
+    {
+        $accreditationOurCommitmentData = AccreditationOurCommitment::latest()->first();
+        $accreditationCertificationDate = AccreditationCertification::latest()->first();
+        $accreditationAccreditationData = AccreditationAccreditation::latest()->first();
+        $accreditationSpecializedCertificationDate = AccreditationSpecializedCertification::latest()->first();
+        $accreditationOurTeamContinuousDate = AccreditationOurTeamContinuous::latest()->first();
+    
+        $data = [
+            'accreditationOurCommitment' => $accreditationOurCommitmentData ? new AccreditationOurCommitmentResource($accreditationOurCommitmentData) : null,
+            'accreditationCertification' => $accreditationCertificationDate ? new AccreditationCertificationResource($accreditationCertificationDate) : null,
+            'accreditationAccreditation' => $accreditationAccreditationData ? new AccreditationAccreditationResource($accreditationAccreditationData) : null,
+            'accreditationSpecializedCertification' => $accreditationSpecializedCertificationDate ? new AccreditationSpecializedCertificationResource($accreditationSpecializedCertificationDate) : null,
+            'accreditationOurTeamContinuous' => $accreditationOurTeamContinuousDate ? new AccreditationOurCommitmentResource($accreditationOurTeamContinuousDate) : null,
         ];
     
         return response()->json([
@@ -180,6 +237,19 @@ class ApiController extends Controller
     }
 
 
+    public function fetchFeesSectionData(Request $request)
+{
+    $feesOurPricingSectionData = FeesOurPricing::get();
+    $data =[
+        'feesOurPricingSection' => FeesOurPricingResource::collection($feesOurPricingSectionData),
+    ];
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Data fetched successfully',
+        'data' => $data,
+    ], 200);
+}
+
 public function fetchWebsiteStyle()
 {
     $pageDesign = PageDesign::all();
@@ -191,19 +261,6 @@ public function fetchWebsiteStyle()
 }
 
 
-public function addContacts(Request $request)
-{
-    $pageDesign = new Contact();
-    $pageDesign->email = $request->pageDesign;
-    $pageDesign->name = $request->name;
-    $pageDesign->subject = $request->subject;
-    $pageDesign->message = $request->message;
-    $pageDesign->save();
-    return response()->json([
-        'status' => 'success',
-        'message' => 'Contact saved successfully',
-        'data' => $pageDesign,
-    ], 200);
-}
+
 
 }

@@ -14,7 +14,7 @@
     <!-- /.control-sidebar -->
     <!-- Footer -->
     <footer class="main-footer">
-        <strong>&copy; <span id="currentYear"></span>-<span id="nextYear"></span> <a href="https://guardianread.com">https://guardianread.com</a>.</strong>
+        <strong>&copy; <span id="currentYear"></span>-<span id="nextYear"></span> <a href="https://cognition-demo.vercel.app/">https://cognition-demo.vercel.app/</a></strong>
     </footer>
 </div>
 <!-- ./wrapper -->
