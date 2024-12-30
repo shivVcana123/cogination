@@ -28,11 +28,9 @@ use App\Http\Resources\HomeFaqResource;
 use App\Http\Resources\HomeOurServicesResource;
 use App\Http\Resources\HomeResource;
 use App\Http\Resources\HomeWhyChooseUsResource;
-use App\Http\Resources\NewsResource;
 use App\Http\Resources\OurApproachHowItWorkResource;
 use App\Http\Resources\OurApproachResource;
 use App\Http\Resources\WebsiteStyleResource;
-use App\Models\AboutUs;
 use App\Models\AboutUsJoinCommunity;
 use App\Models\AboutUsOurMission;
 use App\Models\AboutUsOurStory;
@@ -54,11 +52,9 @@ use App\Models\AutismsSection;
 use App\Models\HomeBringingHealthcare;
 use App\Models\Header;
 use App\Models\Home;
-use App\Models\News;
 use App\Models\PageDesign;
+use App\Traits\jsonResponse;
 use Illuminate\Http\Request;
-use Str;
-use App\Models\Contact;
 use App\Models\FeesOurPricing;
 use App\Models\Footer;
 use App\Models\HomeAppointment;
@@ -70,6 +66,7 @@ use App\Models\OurApproachHowItWork;
 
 class ApiController extends Controller
 {
+    use jsonResponse;
     public function fetchHeaderData()
     {
         $headerData = Header::with('children')->whereNull('parent_id')->get();
@@ -79,75 +76,81 @@ class ApiController extends Controller
             'data' => HeaderResource::collection($headerData),
             'footerData' => $footerData,
         ];
-        
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Data fetched successfully',
-            'data' => $data,
-        ], 200);
+
+        return $this->jsonResponse($data);
+
+
+        // return response()->json([
+        //     'status' => 'success',
+        //     'message' => 'Data fetched successfully',
+        //     'data' => $data,
+        // ], 200);
     }
     public function fetchHomeData()
     {
         $homeData = Home::all();
-        $homeAppointmentData = HomeAppointment::all();
-        $homeChooseUsData = HomeChooseUs::all();
-        $homeOurServiceData = HomeOurService::all();
-        $homeBringingHealthcareData = HomeBringingHealthcare::all();
-        $footerData = Footer::get();
-        $homeFaqData = HomeFaq::all();
+        $homeAppointmentData = HomeAppointment::latest()->first();
+        $homeChooseUsData = HomeChooseUs::latest()->first();
+        $homeOurServiceData = HomeOurService::latest()->first();
+        $homeBringingHealthcareData = HomeBringingHealthcare::latest()->first();
+        $footerData = Footer::latest()->first();
+        $homeFaqData = HomeFaq::latest()->first();
 
         $data = [
             'heroSection' => HomeResource::collection($homeData),
-            'appointmentSection' => HomeAppointmentResource::collection($homeAppointmentData),
-            'whyChooseUs' => HomeWhyChooseUsResource::collection($homeChooseUsData),
-            'ourService' => HomeOurServicesResource::collection($homeOurServiceData),
-            'bringingHealthcare' => HomeBringingHealthcareResource::collection($homeBringingHealthcareData),
-            'footerData' =>$footerData,
-            'homeFaq' => HomeFaqResource::collection($homeFaqData),
+            'appointmentSection' => $homeAppointmentData ? new HomeAppointmentResource($homeAppointmentData) : null,
+            'whyChooseUs' => $homeChooseUsData ? new HomeWhyChooseUsResource($homeChooseUsData) : null,
+            'ourService' => $homeOurServiceData ? new HomeOurServicesResource($homeOurServiceData) : null,
+            'bringingHealthcare' => $homeBringingHealthcareData ? new HomeBringingHealthcareResource($homeBringingHealthcareData) : null,
+            'footerData' => $footerData,
+            'homeFaq' => $homeFaqData ? new HomeFaqResource($homeFaqData) : null,
         ];
-        
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Data fetched successfully',
-            'data' => $data,
-        ], 200);
+
+        return $this->jsonResponse($data);
+        // return response()->json([
+        //     'status' => 'success',
+        //     'message' => 'Data fetched successfully',
+        //     'data' => $data,
+        // ], 200);
     }
     public function fetchAboutData()
     {
         $ourStoryData = AboutUsOurStory::latest()->first();
         $ourMissionData = AboutUsOurMission::latest()->first();
         $joinCommunityData = AboutUsJoinCommunity::latest()->first();
-    
+
         $data = [
             // 'aboutUsData' => $aboutUsData ? new AboutResource($aboutUsData) : null,
             'ourStoryData' => $ourStoryData ? new AboutResource($ourStoryData) : null,
             'ourMissionData' => $ourMissionData ? new AboutUsOurMissionResource($ourMissionData) : null,
             'joinCommunityData' => $joinCommunityData ? new AboutUsJoinCommunityResource($joinCommunityData) : null,
         ];
-    
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Data fetched successfully',
-            'data' => $data,
-        ], 200);
+
+        return $this->jsonResponse($data);
+        // return response()->json([
+        //     'status' => 'success',
+        //     'message' => 'Data fetched successfully',
+        //     'data' => $data,
+        // ], 200);
     }
 
     public function fetchOurApproachSectionData()
     {
         $ourApproachData = OurApproach::latest()->first();
         $ourApproachHowItWorkData = OurApproachHowItWork::latest()->first();
-    
+
         $data = [
             // 'aboutUsData' => $aboutUsData ? new AboutResource($aboutUsData) : null,
             'ourApproach' => $ourApproachData ? new OurApproachResource($ourApproachData) : null,
             'ourApproachHowItWork' => $ourApproachHowItWorkData ? new OurApproachHowItWorkResource($ourApproachHowItWorkData) : null,
         ];
-    
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Data fetched successfully',
-            'data' => $data,
-        ], 200);
+
+        return $this->jsonResponse($data);
+        // return response()->json([
+        //     'status' => 'success',
+        //     'message' => 'Data fetched successfully',
+        //     'data' => $data,
+        // ], 200);
     }
 
     public function fetchAccreditationSectionData()
@@ -157,7 +160,7 @@ class ApiController extends Controller
         $accreditationAccreditationData = AccreditationAccreditation::latest()->first();
         $accreditationSpecializedCertificationDate = AccreditationSpecializedCertification::latest()->first();
         $accreditationOurTeamContinuousDate = AccreditationOurTeamContinuous::latest()->first();
-    
+
         $data = [
             'accreditationOurCommitment' => $accreditationOurCommitmentData ? new AccreditationOurCommitmentResource($accreditationOurCommitmentData) : null,
             'accreditationCertification' => $accreditationCertificationDate ? new AccreditationCertificationResource($accreditationCertificationDate) : null,
@@ -165,14 +168,15 @@ class ApiController extends Controller
             'accreditationSpecializedCertification' => $accreditationSpecializedCertificationDate ? new AccreditationSpecializedCertificationResource($accreditationSpecializedCertificationDate) : null,
             'accreditationOurTeamContinuous' => $accreditationOurTeamContinuousDate ? new AccreditationOurCommitmentResource($accreditationOurTeamContinuousDate) : null,
         ];
-    
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Data fetched successfully',
-            'data' => $data,
-        ], 200);
+
+        return $this->jsonResponse($data);
+        // return response()->json([
+        //     'status' => 'success',
+        //     'message' => 'Data fetched successfully',
+        //     'data' => $data,
+        // ], 200);
     }
-    
+
     public function fetchAdhdSectionData()
     {
         $adhdSection = AdhdSection::all();
@@ -182,15 +186,14 @@ class ApiController extends Controller
             'adhdSection' => AdhdSectionResource::collection($adhdSection),
             'adhdBenefit' => AdhdBenefitResource::collection($adhdBenefit),
         ];
-    
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Data fetched successfully',
-            'data' => $data,
-        ], 200);
+
+        return $this->jsonResponse($data);
+        // return response()->json([
+        //     'status' => 'success',
+        //     'message' => 'Data fetched successfully',
+        //     'data' => $data,
+        // ], 200);
     }
-    
-    
 
     public function fetchAutismSectionData()
     {
@@ -205,62 +208,60 @@ class ApiController extends Controller
             'screeningSection' => AutismsScreeningResource::collection($screeningSectionData),
             'bookSection' => AutismsBookResource::collection($bookSectionData),
         ];
-        
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Data fetched successfully',
-            'data' => $data,
-        ], 200);
-    }
 
+        return $this->jsonResponse($data);
+        // return response()->json([
+        //     'status' => 'success',
+        //     'message' => 'Data fetched successfully',
+        //     'data' => $data,
+        // ], 200);
+    }
 
     public function fetchAssessmentSectionData()
     {
-        $assessmentSectionData = Assessment::all();
-        $diagnosticServiceSectionData = AssessmentOurDiagnosticService::all();
-        $whyChooseSectionData = AssessmentWhyChoose::all();
-        $understandingConditionSectionData = AssessmentUnderstandingCondition::all();
+        $assessmentSectionData = Assessment::latest()->first();
+        $diagnosticServiceSectionData = AssessmentOurDiagnosticService::latest()->first();
+        $whyChooseSectionData = AssessmentWhyChoose::latest()->first();
+        $understandingConditionSectionData = AssessmentUnderstandingCondition::latest()->first();
 
 
         $data = [
-            'assessmentSection' => AssessmentResource::collection($assessmentSectionData),
-            'diagnosticServiceSection' => AssessmentOurDiagnosticServiceResource::collection($diagnosticServiceSectionData),
-            'whyChooseSection' => AssessmentWhyChooseResource::collection($whyChooseSectionData),
-            'understandingConditionSection' => AssessmentUnderstandingConditionResource::collection($understandingConditionSectionData),
+            'assessmentSection' => $assessmentSectionData ? new AssessmentResource($assessmentSectionData) : null,
+            'diagnosticServiceSection' => $diagnosticServiceSectionData? new AssessmentOurDiagnosticServiceResource($diagnosticServiceSectionData) : null,
+            'whyChooseSection' => $whyChooseSectionData ? new AssessmentWhyChooseResource($whyChooseSectionData) : null,
+            'understandingConditionSection' => $understandingConditionSectionData ? new AssessmentUnderstandingConditionResource($understandingConditionSectionData) : null,
         ];
-        
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Data fetched successfully',
-            'data' =>$data, 
-        ], 200);
+
+        return $this->jsonResponse($data);
+        // return response()->json([
+        //     'status' => 'success',
+        //     'message' => 'Data fetched successfully',
+        //     'data' => $data,
+        // ], 200);
     }
 
-
     public function fetchFeesSectionData(Request $request)
-{
-    $feesOurPricingSectionData = FeesOurPricing::get();
-    $data =[
-        'feesOurPricingSection' => FeesOurPricingResource::collection($feesOurPricingSectionData),
-    ];
-    return response()->json([
-        'status' => 'success',
-        'message' => 'Data fetched successfully',
-        'data' => $data,
-    ], 200);
-}
+    {
+        $feesOurPricingSectionData = FeesOurPricing::latest()->first();
+        $data = [
+            'feesOurPricingSection' => $feesOurPricingSectionData ? new FeesOurPricingResource($feesOurPricingSectionData) : null,
+        ];
+        return $this->jsonResponse($data);
 
-public function fetchWebsiteStyle()
-{
-    $pageDesign = PageDesign::all();
-    return response()->json([
-        'status' => 'success',
-        'message' => 'CSS styles fetched successfully',
-        'data' => WebsiteStyleResource::collection($pageDesign),
-    ], 200);
-}
+        // return response()->json([
+        //     'status' => 'success',
+        //     'message' => 'Data fetched successfully',
+        //     'data' => $data,
+        // ], 200);
+    }
 
-
-
-
+    public function fetchWebsiteStyle()
+    {
+        $pageDesign = PageDesign::all();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'CSS styles fetched successfully',
+            'data' => WebsiteStyleResource::collection($pageDesign),
+        ], 200);
+    }
 }
