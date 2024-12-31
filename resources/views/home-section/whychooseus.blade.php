@@ -150,7 +150,10 @@
     </section>
 </div>
 
+@endsection
+@section('java_script')
 <script>
+    CKEDITOR.replace('description_1');
     function updateRemoveButtonVisibility() {
         const urlGroups = document.querySelectorAll('.url-group');
         urlGroups.forEach((group) => {

@@ -169,9 +169,10 @@
         </div>
     </section>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+@endsection
+@section('java_script')
 <script>
+    CKEDITOR.replace('description');
     function updateRemoveButtonVisibility() {
         const urlGroups = document.querySelectorAll('.url-group');
         urlGroups.forEach((group) => {

@@ -22,6 +22,7 @@ use App\Http\Resources\AutismsScreeningResource;
 use App\Http\Resources\AutismsSectionResource;
 use App\Http\Resources\FeesOurPricingResource;
 use App\Http\Resources\HeaderResource;
+use App\Http\Resources\HomeAboutUsDataResource;
 use App\Http\Resources\HomeAppointmentResource;
 use App\Http\Resources\HomeBringingHealthcareResource;
 use App\Http\Resources\HomeFaqResource;
@@ -57,6 +58,7 @@ use App\Traits\jsonResponse;
 use Illuminate\Http\Request;
 use App\Models\FeesOurPricing;
 use App\Models\Footer;
+use App\Models\HomeAboutUsData;
 use App\Models\HomeAppointment;
 use App\Models\HomeChooseUs;
 use App\Models\HomeFaq;
@@ -89,6 +91,7 @@ class ApiController extends Controller
     public function fetchHomeData()
     {
         $homeData = Home::all();
+        $homeAboutUsData = HomeAboutUsData::latest()->first();
         $homeAppointmentData = HomeAppointment::latest()->first();
         $homeChooseUsData = HomeChooseUs::latest()->first();
         $homeOurServiceData = HomeOurService::latest()->first();
@@ -98,6 +101,7 @@ class ApiController extends Controller
 
         $data = [
             'heroSection' => HomeResource::collection($homeData),
+            'homeAboutUsData' => $homeAboutUsData ? new HomeAboutUsDataResource($homeAboutUsData) : null,
             'appointmentSection' => $homeAppointmentData ? new HomeAppointmentResource($homeAppointmentData) : null,
             'whyChooseUs' => $homeChooseUsData ? new HomeWhyChooseUsResource($homeChooseUsData) : null,
             'ourService' => $homeOurServiceData ? new HomeOurServicesResource($homeOurServiceData) : null,

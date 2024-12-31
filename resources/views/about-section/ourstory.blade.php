@@ -111,7 +111,11 @@
     </section>
 </div>
 
+@endsection
+@section('java_script')
 <script>
+    CKEDITOR.replace('description');
+  
     imgInp.onchange = evt => {
         const [file] = imgInp.files;
         if (file) {

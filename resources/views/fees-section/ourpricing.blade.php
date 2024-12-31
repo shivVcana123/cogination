@@ -138,9 +138,10 @@
         </div>
     </section>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+@endsection
+@section('java_script')
 <script>
+    CKEDITOR.replace('description');
   document.addEventListener('DOMContentLoaded', function() {
     const container = document.getElementById('Pointers-container');
 

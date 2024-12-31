@@ -20,6 +20,7 @@
 <!-- ./wrapper -->
 <!-- jQuery -->
 @include('includes.footer')
+@yield('java_script')
 </body>
 </html>
 
