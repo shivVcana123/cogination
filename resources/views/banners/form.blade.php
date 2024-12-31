@@ -27,7 +27,7 @@
                             <h3 class="card-title">Add Banner Detail</h3>
                         </div>
                         <form action="{{ isset($banner->id) ? route('banner.update', $banner->id) : route('banner.store') }}" method="POST">
-
+                            <input type="hidden" name="hidden_id"  value="{{ $banner->id }}">
                             @csrf
                             @if(isset($banner->id))
                                 @method('PUT') <!-- For update requests -->
@@ -42,7 +42,7 @@
                                             
                                         @endforeach
                                     </select>
-                                    @error('page')
+                                    @error('type')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -50,8 +50,8 @@
 
                                 <div class="form-group">
                                     <label for="title">Title</label><i class="fas fa-info-circle" title="Enter a title for Banner Section ."></i>
-                                    <input type="text" class="form-control" name="heading" id="title" placeholder="Enter title" value="{{ old('title', $banner->title) }}">
-                                    @error('title')
+                                    <input type="text" class="form-control" name="heading" id="heading" placeholder="Enter title" value="{{ old('heading', $banner->heading) }}">
+                                    @error('heading')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>

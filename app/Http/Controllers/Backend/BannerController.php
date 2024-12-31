@@ -23,8 +23,8 @@ class BannerController extends Controller
      */
     public function create()
     {
-        $headerData = Header::with('children')->whereNull('parent_id')->get();
-       $banner = new BannerSection();
+        $headerData = Header::with('children')->where('category','!=','Home')->whereNotNull('link')->get();
+        $banner = new BannerSection();
        return view('banners.form',compact('banner','headerData'));
     }
 
@@ -33,7 +33,9 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-
+        $request->validate([
+            'type' => 'required|unique:banner_sections,type,',
+            ]);
         try {
             $banner = new BannerSection();
             $banner->heading = $request->heading;
@@ -69,7 +71,7 @@ class BannerController extends Controller
      */
     public function edit(string $id)
     {
-        $headerData = Header::with('children')->whereNull('parent_id')->get();
+        $headerData = Header::with('children')->where('category','!=','Home')->whereNotNull('link')->get();
         $banner = BannerSection::find($id);
         return view('banners.form',compact('banner','headerData'));
     }
@@ -77,11 +79,35 @@ class BannerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        $banner = BannerSection::findOrFail($id);
-        $banner->update($request->all());
-        return redirect()->route('banner.index')->with('success', 'Banner updated successfully.');
+        $request->validate([
+            'type' => 'required|unique:banner_sections,type,' . $request->hidden_id,
+            ]);
+            $banner = BannerSection::findOrFail($request->hidden_id);
+            if(!$banner)
+            {
+                $banner = new BannerSection();
+            }
+            try {
+                $banner->heading = $request->heading;
+                $banner->type = $request->type;
+                $banner->description = $request->description;
+                $banner->button_text = $request->button_text;
+                $banner->button_link = $request->button_link;
+                if ($request->hasFile('image')) {
+                    $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+                    $imagePath = $request->file('image')->storeAs('banner', $imageName, 'public');
+                    $banner->image = 'storage/app/public/' . $imagePath;
+                }
+                $banner->save();
+    
+                return redirect()->route('banner.index')->with('success', 'Record created successfully!');
+    
+            } catch (\Exception $e) {
+                dd($e->getMessage());
+                return redirect()->back()->with('error', 'Failed to create record: ' . $e->getMessage());
+            }
     }
 
     /**

@@ -5,12 +5,12 @@
     <!-- Content footer (Page footer) -->
     <div class="col-md-12">
         <div class="card">
-        @if(!$banners->count())
+        {{-- @if(!$banners->count()) --}}
             <div class="card-footer" >
                 <h3 class="card-title">Banners</h3>
                 <button class="btn btn-primary" ><a style="color:white" href="{{ route('banner.create') }}">+ Banner</a></button>
             </div>
-            @endif
+            {{-- @endif --}}
             <!-- /.card-footer -->
             <div class="card-body">
                 <table class="table table-bordered">
