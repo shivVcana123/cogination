@@ -76,7 +76,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('save-faq', [HomeSectionControoler::class, 'saveFaqs'])->name('save-faq');
 
     
-    Route::get('home-about', [HomeSectionControoler::class, 'homeAbout'])->name('homeAbout');
+    Route::get('about-us', [HomeSectionControoler::class, 'homeAbout'])->name('homeAbout');
     Route::post('save-home-about', [HomeSectionControoler::class, 'saveHomeAbout'])->name('saveHomeAbout');
 
     // ADHD section Route
