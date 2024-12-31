@@ -25,7 +25,7 @@ class OurApproachController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
         ]);
 
         // Fetch or create a new section
@@ -67,7 +67,7 @@ class OurApproachController extends Controller
         // Validate the request data
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
             'sub_title' => 'nullable|array',
             'sub_title.*' => 'string|max:255', // Validate each sub_title
             'sub_description' => 'nullable|array',
@@ -91,12 +91,12 @@ class OurApproachController extends Controller
                 }
             }
 
-            // Handle image upload
-            if ($request->hasFile('image') && $request->file('image')->isValid()) {
-                $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
-                $imagePath = $request->file('image')->storeAs('about', $imageName, 'public');
-                $autismSection->image = asset('storage/' . $imagePath); // Use asset helper for generating the full path
-            }
+           // Handle first image upload
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $imageName = time().'_'.uniqid().'_'.$request->file('image')->getClientOriginalName();
+            $imagePath = $request->file('image')->storeAs('about', $imageName, 'public');
+            $autismSection->image = 'storage/'.$imagePath;
+        }
 
             // Assign data to the model
             $autismSection->title = $validated['title'];

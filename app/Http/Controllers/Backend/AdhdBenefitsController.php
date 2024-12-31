@@ -16,108 +16,97 @@ class AdhdBenefitsController extends Controller
         return view('adhd-section.adhdbenefits', compact('adhdBenefit'));
     }
 
+    public function fetchAdhdBenefitSectionByType(Request $request)
+    {
+        $type = $request->type;
+
+        // Validate the type
+        if (!in_array($type, ['Child', 'Adult'])) {
+            return response()->json(['error' => 'Invalid type provided.'], 400);
+        }
+
+        $adhdSection = AdhdBenefit::where('type', $type)->get();
+
+        return response()->json(['data' => $adhdSection]);
+    }
+
     public function saveAdhdBenefits(Request $request)
     {
-        
+        // dd($request->all());
         // Validate the request data
         $validated = $request->validate(
             [
+                'type' => 'required|string',
                 'title' => 'required|string|max:255',
                 'subtitle' => 'nullable|string|max:255',
                 'description_1' => 'nullable|string',
                 'sub_title.*' => 'nullable|string|max:255',
                 'sub_description.*' => 'nullable|string|max:255',
-                'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
             ],
             [
+                // Custom validation messages
                 'title.required' => 'The title is required.',
                 'title.string' => 'The title must be a valid string.',
                 'title.max' => 'The title may not exceed 255 characters.',
-                'subtitle.required' => 'The subtitle is required.',
-                'subtitle.string' => 'The subtitle must be a valid string.',
-                'subtitle.max' => 'The subtitle may not exceed 255 characters.',
-                'description_1.required' => 'The description is required.',
-                'description_1.string' => 'The description must be a valid string.',
-                'sub_title.required' => 'At least one sub-title is required.',
-                'sub_title.array' => 'The sub-title field must be an array.',
-                'sub_title.*.required' => 'Each sub-title is required.',
-                'sub_title.*.string' => 'Each sub-title must be a valid string.',
-                'sub_title.*.max' => 'Each sub-title may not exceed 255 characters.',
-                'sub_description.required' => 'At least one sub-description is required.',
-                'sub_description.array' => 'The sub-description field must be an array.',
-                'sub_description.*.required' => 'Each sub-description is required.',
-                'sub_description.*.string' => 'Each sub-description must be a valid string.',
-                'sub_description.*.max' => 'Each sub-description may not exceed 500 characters.',
-                'image.image' => 'The uploaded file must be an image.',
-                'image.max' => 'The image may not exceed 2MB in size.',
+                // Add other messages here...
             ]
         );
+        try {
+            // Fetch existing record or create a new one
+            $adhdBenefit = $request->id
+                ? AdhdBenefit::find($request->id)
+                : new AdhdBenefit();
 
-        // Initialize pointers array
-        $pointers = [];
+            // Initialize pointers array
+            $pointers = [];
 
-        // Fetch existing record if updating
-        // Fetch existing record if updating
-        $adhdBenefit = $request->id ? AdhdBenefit::findOrFail($request->id) : null;
-        $existingPointers = $adhdBenefit && $adhdBenefit->pointers
-            ? json_decode($adhdBenefit->pointers, true)
-            : [];
+            // Process pointers if present
+            if (!empty($validated['sub_title'])) {
+                foreach ($validated['sub_title'] as $index => $subTitle) {
+                    $subImagePath = null;
 
-
-        // Handle multiple pointers if any
-        if (!empty($validated['sub_title'])) {
-            foreach ($validated['sub_title'] as $index => $subTitle) {
-                $subImagePath = null;
-
-                // Check if image exists for this pointer
-                if (isset($request->file('image')[$index]) && $request->file('image')[$index]->isValid()) {
-                    // Delete old image if it exists
-                    if (isset($existingPointers[$index]['sub_image']) && \Storage::exists($existingPointers[$index]['sub_image'])) {
-                        \Storage::delete($existingPointers[$index]['sub_image']);
+                    // Handle image upload if provided
+                    if (isset($request->file('image')[$index]) && $request->file('image')[$index]->isValid()) {
+                        $imageName = time() . '_' . $request->file('image')[$index]->getClientOriginalName();
+                        $subImagePath = $request->file('image')[$index]->storeAs('adhd', $imageName, 'public');
+                        $subImagePath = 'storage/' . $subImagePath;
+                    } elseif (isset($adhdBenefit->pointers)) {
+                        $existingPointers = json_decode($adhdBenefit->pointers, true);
+                        $subImagePath = $existingPointers[$index]['sub_image'] ?? null;
                     }
 
-                    // Store the new image in the 'adhd' folder
-                    $imageName = time() . '_' . $request->file('image')[$index]->getClientOriginalName();
-                    $subImagePath = $request->file('image')[$index]->storeAs('adhd', $imageName, 'public');
-                    $subImagePath = 'storage/' . $subImagePath; // Ensure proper path format
-                } else {
-                    // Retain existing image if no new upload
-                    $subImagePath = $existingPointers[$index]['sub_image'] ?? null;
+                    // Append pointer data
+                    $pointers[] = [
+                        'sub_title' => $subTitle,
+                        'sub_description' => $validated['sub_description'][$index] ?? null,
+                        'sub_image' => $subImagePath,
+                    ];
                 }
-
-                // Append pointer data
-                $pointers[] = [
-                    'sub_title' => $subTitle,
-                    'sub_description' => $validated['sub_description'][$index] ?? null,
-                    'sub_image' => $subImagePath,
-                ];
             }
-        }
 
+            // dd($pointers);
 
-        // Save or update the record
-        if ($adhdBenefit) {
-            // Update existing record
+            // Populate and save the model
+            $adhdBenefit->type = $validated['type'];
             $adhdBenefit->title = $validated['title'];
             $adhdBenefit->subtitle = $validated['subtitle'];
             $adhdBenefit->description_1 = $validated['description_1'];
             $adhdBenefit->pointers = json_encode($pointers);
             $adhdBenefit->save();
-            $message = 'Our Services details updated successfully.';
-        } else {
-            // Create a new record
-            $adhdBenefit = new AdhdBenefit();
-            $adhdBenefit->title = $validated['title'];
-            $adhdBenefit->subtitle = $validated['subtitle'];
-            $adhdBenefit->description_1 = $validated['description_1'];
-            $adhdBenefit->pointers = json_encode($pointers);
-            $adhdBenefit->save();
-            $message = 'Our Services details saved successfully.';
-        }
 
-        // Redirect with a success message
-        return redirect()->route('adhd-benefits')->with('success', $message);
+            // Success message
+            $message = $request->id
+                ? 'adhdBenefit details updated successfully.'
+                : 'adhdBenefit details saved successfully.';
+
+            // Redirect with success message
+            return redirect()->route('adhd-benefits')->with('success', $message);
+        } catch (\Exception $e) {
+            dd($e);
+        }
     }
+
 
     public function adhdSection()
     {
@@ -138,6 +127,8 @@ class AdhdBenefitsController extends Controller
         return response()->json(['data' => $adhdSection]);
     }
 
+
+
     public function saveAdhdSection(Request $request)
     {
         // dd($request->all());
@@ -156,8 +147,8 @@ class AdhdBenefitsController extends Controller
             'second_sub_title.*' => 'nullable|string|max:255',
             'second_sub_description' => 'array',
             'second_sub_description.*' => 'nullable|string',
-            'first_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'first_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
+            'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
         ]);
 
         // Fetch or create a new section

@@ -178,26 +178,30 @@
         const target = event.target;
 
         // Add new Sub Description
-        if (target.classList.contains('add-description')) {
-            const subDescriptionContainer = target.closest('.sub-group');
-            const index = [...container.children].indexOf(subDescriptionContainer.closest('.url-group'));
-            const newRow = document.createElement('div');
-            newRow.classList.add('row');
-            newRow.innerHTML = `
-                <div class="col-md-10">
-                    <label>Sub Description</label>
-                    <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-                    <input type="text" name="sub_description[${index}][]" class="form-control" placeholder="Enter sub description">
-                </div>
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-danger remove-description">Remove</button>
-                </div>
-            `;
-            subDescriptionContainer.appendChild(newRow);
+       // Add new Sub Description
+if (target.classList.contains('add-description')) {
+    const subDescriptionContainer = target.closest('.sub-group'); // Find the nearest .sub-group
+    const index = [...container.querySelectorAll('.url-group')].indexOf(subDescriptionContainer.closest('.url-group')); // Get index of parent group
+    const newRow = document.createElement('div');
+    newRow.classList.add('row');
+    newRow.innerHTML = `
+        <div class="col-md-10">
+            <label>Sub Description</label>
+            <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
+            <input type="text" name="sub_description[${index}][]" class="form-control" placeholder="Enter sub description">
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-danger remove-description">Remove</button>
+        </div>
+    `;
 
-            updateIndexes();
-            updateRemoveButtonVisibility();
-        }
+    // Append the new row to the .sub-group container
+    subDescriptionContainer.insertBefore(newRow, subDescriptionContainer.querySelector('.add-description'));
+
+    updateIndexes();
+    updateRemoveButtonVisibility();
+}
+
 
         // Remove a Pointer group
         if (target.classList.contains('remove-Pointers')) {

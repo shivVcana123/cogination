@@ -31,11 +31,22 @@
 
                         <form action="{{ route('save-adhd-benefits') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <input type="hidden" name="id" value="{{ old('id', $adhdBenefit[0]->id ?? '') }}">
+                            <input type="hidden" name="id" id="id" value="{{ $adhdBenefit[0]->id ?? '' }}">
 
                             <div class="card-body">
+                                <div class="form-group">
+                                    <label for="title">Select Type</label>
+                                    <i class="fas fa-info-circle" title="Choose the appropriate type for this section."></i>
+                                    <select name="type" class="form-control" id="type">
+                                        <option disabled selected>Please Select Type</option>
+                                        <option value="Child" {{ isset($adhdBenefit[0]) && $adhdBenefit[0]->type === 'Child' ? 'selected' : '' }}>Child</option>
+                                        <option value="Adult" {{ isset($adhdBenefit[0]) && $adhdBenefit[0]->type === 'Adult' ? 'selected' : ''}}>Adult</option>
+                                    </select>
+                                    @error('type')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
                                 <div class="row">
-
                                     <!-- Title Field -->
                                     <div class="form-group col-md-6">
                                         <label for="title">Title</label>
@@ -74,7 +85,7 @@
                                 <hr>
 
                                 @php
-                                // Check if the $adhdBenefit exists and contains data before attempting to decode
+                                // Check if the $adhdBenefit[0] exists and contains data before attempting to decode
                                 $pointers = isset($adhdBenefit[0]) && !empty($adhdBenefit[0]->pointers)
                                 ? json_decode($adhdBenefit[0]->pointers)
                                 : [];
@@ -93,12 +104,12 @@
                                             <div class="form-group col-md-6">
                                                 <label>Sub Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter sub title">
+                                                <input type="text" name="sub_title[]" id="sub_title" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter sub title">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Sub Description</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter sub description">
+                                                <input type="text" name="sub_description[]" id="sub_description" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter sub description">
                                             </div>
 
                                             <div class="form-group col-md-6">
@@ -120,29 +131,16 @@
 
                                     <!-- Default empty field when no pointers exist -->
                                     <div class="form-group url-group">
-                                        <!-- <label>Sub Title</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
-
-                                        <label>Sub Description</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
-
-                                        <label>Image</label>
-                                        <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                        <img id="blah" src="{{asset($pointer->sub_image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
-                                        <input type="file" class="form-control" name="image[]" accept="image/*"> -->
-
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label>Sub Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+                                                <input type="text" name="sub_title[]" id="sub_title" class="form-control" value="" placeholder="Enter sub title">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Sub Description</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+                                                <input type="text" name="sub_description[]" id="sub_description" class="form-control" value="" placeholder="Enter sub description">
                                             </div>
 
                                             <div class="form-group col-md-6">
@@ -175,7 +173,7 @@
         </div>
     </section>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     function updateRemoveButtonVisibility() {
         const urlGroups = document.querySelectorAll('.url-group');
@@ -247,6 +245,64 @@
             blah.src = "#"; // Reset the src
         }
     };
+
+     // Handle change event on the #type dropdown
+     $('#type').on('change', function() {
+    const selectedType = $(this).val();
+
+    if (selectedType) {
+        $.ajax({
+            url: "{{ route('fetch-adhd-benefits-section-by-type') }}",
+            type: "GET",
+            data: { type: selectedType },
+
+            success: function(response) {
+                const section = response.data[0] || {};
+                $('#id').val(section.id || '');
+                $('#title').val(section.title || '');
+                $('#subtitle').val(section.subtitle || '');
+                $('#description_1').val(section.description_1 || '');
+
+                // Clear existing pointers
+                $('#Pointers-container').empty();
+               const pointers = JSON.parse(section.pointers)
+                console.log('sdsad',pointers);
+
+                // Add new pointers
+              
+                    pointers.forEach(pointer => {
+                        const newPointer = `
+                            <div class="form-group url-group">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label>Sub Title</label>
+                                        <input type="text" name="sub_title[]" class="form-control" value="${pointer.sub_title || ''}" placeholder="Enter sub title">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Sub Description</label>
+                                        <input type="text" name="sub_description[]" class="form-control" value="${pointer.sub_description || ''}" placeholder="Enter sub description">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="image">Image</label>
+                                        <img src="${pointer.sub_image}" alt="Image Preview" style="width: 130px; display:none;" />
+                                        <input type="file" class="form-control" name="image[]" accept="image/*">
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                            </div>`;
+                        $('#Pointers-container').append(newPointer);
+                    });
+               
+                updateRemoveButtonVisibility(); // Ensure buttons are updated
+            },
+            error: function() {
+                $('#loading-spinner').hide();
+                alert('Failed to fetch data. Please try again.');
+            }
+        });
+    }
+});
+
 </script>
 
 @endsection

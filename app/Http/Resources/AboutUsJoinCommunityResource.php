@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class HomeAppointmentResource extends JsonResource
+class AboutUsJoinCommunityResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,8 +18,8 @@ class HomeAppointmentResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'subtitle' => $this->subtitle,
-            'button_content' => $this->button_content,
-            'button_link' => $this->button_link,
+            'description' => $this->description,
+            'pointers' => $this->pointers,
             'image' => $this->image,
         ];
     }

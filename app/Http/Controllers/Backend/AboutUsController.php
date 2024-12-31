@@ -55,7 +55,7 @@ class AboutUsController extends Controller
         // Validate the request data
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
         ]);
 
         // Fetch or create a new section
@@ -65,10 +65,11 @@ class AboutUsController extends Controller
 
         // Handle first image upload
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
+            $imageName = time().'_'.uniqid().'_'.$request->file('image')->getClientOriginalName();
             $imagePath = $request->file('image')->storeAs('about', $imageName, 'public');
-            $autismSection->image = 'storage/' . $imagePath;
+            $autismSection->image = 'storage/'.$imagePath;
         }
+        
 
 
         // Assign data
