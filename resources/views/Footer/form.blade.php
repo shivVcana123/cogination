@@ -195,7 +195,10 @@
 
 
 
+@endsection
+@section('java_script')
 <script>
+    CKEDITOR.replace('description');
     // background_image.onchange = evt => {
     //     const [file] = background_image.files;
 
