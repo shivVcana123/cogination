@@ -5,9 +5,42 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\FeesOurPricing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FeesController extends Controller
 {
+
+    public function financialResponsibilities()
+    {
+        $finance = DB::table('financial_responsibilities')->first();
+        return view('fees-section.financial-responsibility',compact('finance'));
+
+    }
+    public function financialSaveResponsibilities(Request $request)
+    {
+        $data = [
+            'title' => $request->title,
+            'description' => $request->description,
+        ];
+    
+        if ($request->id) {
+            // Update existing record
+            DB::table('financial_responsibilities')
+                ->where('id', $request->id)
+                ->update($data);
+        } else {
+           DB::table('financial_responsibilities')->insertGetId($data);
+        }
+    
+        // Fetch the record
+        $finance = DB::table('financial_responsibilities')->first();
+    
+        // Return view with data
+        return view('fees-section.financial-responsibility', compact('finance'));
+
+    }
+   
+
     public function ourPricingSection(){
         $ourPricing = FeesOurPricing::get();
         return view('fees-section.ourpricing',compact('ourPricing'));

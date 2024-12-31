@@ -165,6 +165,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('our-team-continuous-section', [AccreditationController::class, 'ourTeamContinuousSection'])->name('our-team-continuous-section');
     Route::post('save-our-team-continuous', [AccreditationController::class, 'saveOurTeamContinuousSection'])->name('save-our-team-continuous-section');
 
+
+     // footer section Route
+     Route::get('financial-responsibilities', [FeesController::class,'financialResponsibilities'])->name('financialResponsibilities');
+     Route::post('save-financial-responsibilities', [FeesController::class,'financialSaveResponsibilities'])->name('financialSaveResponsibilities');
+
 });
 
 
