@@ -24,10 +24,7 @@ class AccreditationController extends Controller
         // Validate the request data
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'button_content' => 'required|string|max:255',
-            'button_link' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         // Fetch or create a new section
@@ -41,16 +38,12 @@ class AccreditationController extends Controller
             $imagePath = $request->file('image')->storeAs('about', $imageName, 'public');
             $autismSection->image = 'storage/' . $imagePath;
         }
-
-
         // Assign data
-        $autismSection->title = $validated['title'];
-        $autismSection->description = $validated['description'];
-        $autismSection->button_content = $validated['button_content'];
-        $autismSection->button_link = $validated['button_link'];
-
+        $autismSection->title = $request->title;
+        $autismSection->description = $request->description;
+        $autismSection->button_content = $request->button_content;
+        $autismSection->button_link = $request->button_link;
         $autismSection->save();
-   
 
         return redirect()->route('our-commitment-section')->with('success', 'Adhd details saved successfully.');
     }
@@ -65,7 +58,7 @@ class AccreditationController extends Controller
         // dd($request->all());
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'subtitle' => 'required|string|max:255',
+            'subtitle' => 'nullable|string|max:255',
             'description' => 'nullable|string|max:255',
             'sub_title' => 'required|array',
             'sub_title.*' => 'nullable|string|max:255',
@@ -91,9 +84,9 @@ class AccreditationController extends Controller
         }
         
     
-        $adhdfirstSection->title = $validated['title'];
-        $adhdfirstSection->subtitle = $validated['subtitle'];
-        $adhdfirstSection->description = $validated['description']; // Handle nullable description
+        $adhdfirstSection->title = $request->title;
+        $adhdfirstSection->subtitle = $request->subtitle;
+        $adhdfirstSection->description =$request->description; // Handle nullable description
         $adhdfirstSection->pointers = json_encode($pointers);
         
     
@@ -217,6 +210,9 @@ class AccreditationController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
         ]);
 
+
+
+        
         // Fetch or create a new section
         $autismSection = $request->id
             ? AccreditationOurTeamContinuous::find($request->id)

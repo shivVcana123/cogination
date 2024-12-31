@@ -14,8 +14,8 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $users = User::all();
-        $services = Service::all();
-        $news = News::all();
+        $services = User::all();
+        $news = User::all();
         $categories = Header::all();
 
         return view("dashboard.dashboard",compact('users','services','news','categories'));

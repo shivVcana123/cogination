@@ -35,7 +35,12 @@
           <a href="{{ route('changePassword') }}" class="dropdown-item">
             <i class="fas fa-envelope mr-2"></i>Change Password
           </a>
+          <div class="dropdown-divider"></div>
+          <a href="{{ route('changeLogo') }}" class="dropdown-item">
+            <i class="fas fa-envelope mr-2"></i>Change Logo
+          </a>
         </div>
+        
       </li>
     
     </ul>

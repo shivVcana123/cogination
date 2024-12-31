@@ -393,12 +393,23 @@
                 </div>
               </div>
             </div>
+              
             <div class="col-md-12 col-sm-12 col-lg-6 col-xl-5 second-colm">
               <div class="inner-colm">
                 <div class="heading-colm">
                   <h4>Hello!</h4>
                   <h6>Sign In To Your Account</h6>
                 </div>
+                  @if (session('error'))
+                    <div class="">
+                      <div class="alert  alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                        {{-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button> --}}
+                      </div>
+                    </div>
+                  @endif
                 <form class="form-container" method="post" action="{{ route('login') }}">
                 @csrf
                   <div class="mb-3">

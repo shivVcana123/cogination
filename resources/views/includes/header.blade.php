@@ -2,6 +2,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cognition Care</title>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -32,21 +33,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
 
 
-
-  <!-- iCheck for checkboxes and radio inputs -->
-  {{-- <link rel="stylesheet" href="{{asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
-  <!-- Bootstrap Color Picker -->
-  <link rel="stylesheet" href="{{asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}">
-  <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="{{asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
-  <!-- Select2 -->
- 
-  <!-- Bootstrap4 Duallistbox -->
-  <!-- BS Stepper -->
-  <link rel="stylesheet" href="{{asset('plugins/bs-stepper/css/bs-stepper.min.css')}}">
-  <!-- dropzonejs -->
-  <link rel="stylesheet" href="{{asset('plugins/dropzone/min/dropzone.min.css')}}"> --}}
-
 </head>
 <style>
 button.btn.btn-primary {
@@ -59,5 +45,10 @@ button.btn.btn-primary {
 button.btn.btn-primary {
     float: inline-end!important;
     
+}
+.cke_notification_warning {
+    background: #c83939;
+    border: 1px solid #902b2b;
+    display: none;
 }
 </style>

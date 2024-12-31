@@ -1,13 +1,10 @@
 <?php
-
 namespace App\Http\Controllers\Backend;
-
 use App\Http\Controllers\Controller;
 use App\Models\AboutUsJoinCommunity;
 use App\Models\AboutUsOurMission;
 use App\Models\AboutUsOurStory;
 use Illuminate\Http\Request;
-
 class AboutUsController extends Controller
 {
     public function ourStorySection(){
@@ -17,16 +14,8 @@ class AboutUsController extends Controller
 
     public function saveOurStorySection(Request $request)
     {
-        // dd($request->all());
-        // Validate the request data
-        $validated = $request->validate([
+        $request->validate([
             'title' => 'required|string|max:255',
-            'subtitle' => 'required|string|max:255',
-            'description' => 'required|string',
-            'button_content' => 'required|string|max:255',
-            'button_link' => 'required|string|max:255',
-            'first_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
-            'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
         ]);
 
         // Fetch or create a new section
@@ -45,17 +34,13 @@ class AboutUsController extends Controller
             $imagePath = $request->file('second_image')->storeAs('about', $imageName, 'public');
             $autismSection->second_image = 'storage/' . $imagePath;
         }
-
         // Assign data
-        $autismSection->title = $validated['title'];
-        $autismSection->subtitle = $validated['subtitle'];
-        $autismSection->description = $validated['description'];
-        $autismSection->button_content = $validated['button_content'];
-        $autismSection->button_link = $validated['button_link'];
-
+        $autismSection->title = $request->title;
+        $autismSection->subtitle = $request->subtitle;
+        $autismSection->description =$request->description;
+        $autismSection->button_content = $request->button_content;
+        $autismSection->button_link = $request->button_link;
         $autismSection->save();
-   
-
         return redirect()->route('our-story-section')->with('success', 'Adhd details saved successfully.');
     }
 
@@ -109,9 +94,7 @@ class AboutUsController extends Controller
         // Validate the request data
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'subtitle' => 'required|string|max:255',
-            'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'sub_title' => 'nullable|array',
             'sub_title.*' => 'string|max:255', // Validate each sub_title
             'sub_description' => 'nullable|array',
@@ -143,8 +126,8 @@ class AboutUsController extends Controller
     
         // Assign data to the model
         $autismSection->title = $validated['title'];
-        $autismSection->subtitle = $validated['subtitle'];
-        $autismSection->description = $validated['description'];
+        $autismSection->subtitle = $request->subtitle;
+        $autismSection->description = $request->description;
         $autismSection->pointers = json_encode($pointers, JSON_THROW_ON_ERROR);
     
         // Save the model
