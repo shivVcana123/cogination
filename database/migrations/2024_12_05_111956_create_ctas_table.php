@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('button_link')->nullable();
             $table->string('background_color')->nullable();
             $table->string('background_image')->nullable();
+            $table->text('description')->nullable();
 
+            
             $table->timestamps();
         });
     }

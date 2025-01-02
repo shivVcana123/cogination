@@ -31,7 +31,7 @@ class CtaController extends Controller
     public function create()
     {
       	$cta= new Cta();
-              $links = Header::where('link','!=',null)->get();
+        $links = Header::where('link','!=',null)->get();
         $headerChild = Header::with('children')->whereNull('parent_id')->where('category','Services')->get();
          $headerChild = HeaderResource::collection($headerChild);
 
@@ -50,7 +50,8 @@ class CtaController extends Controller
             $cta->button_content = $request->button_content;
             $cta->button_link = $request->button_link;
 			$cta->type = $request->type;
-
+            $cta->description = $request->description;
+            
             if($cta->type == 'image')
             {
                 $cta->background_color = '';
@@ -100,7 +101,7 @@ class CtaController extends Controller
             $cta->button_content = $request->button_content;
             $cta->button_link = $request->button_link;
 			$cta->type = $request->type;
-
+            $cta->description = $request->description;
             if($cta->type == 'image')
             {
                 $cta->background_color = '';

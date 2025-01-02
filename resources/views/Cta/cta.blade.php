@@ -84,7 +84,11 @@
                                    
                                 </div>
 
-                              
+                                <div class="form-group col-md-12">
+                                        <label for="email">Description</label><i class="fas fa-info-circle" title="Enter a description for Footer Section."></i>
+                                        <textarea class="form-control" name="description" id="description" placeholder="Enter Text">{{ $cta->title}}</textarea>
+                                    </div>
+
 
                                
 
