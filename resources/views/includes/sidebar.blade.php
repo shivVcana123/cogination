@@ -42,7 +42,7 @@
                                 <p style="color:black">Hero Section</p>
                             </a>
                         </li>
-                         <li class="nav-item">
+                        <li class="nav-item">
                             <a href="{{route('homeAbout')}}" class="nav-link {{ request()->is('about-us*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
                                 <p style="color:black">About Us</p>
@@ -216,7 +216,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-certificate" style="color:black"></i>
                         <p style="color:black">
-                        Accreditation Section
+                            Accreditation Section
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -313,7 +313,7 @@
                         </li>
                     </ul>
 
-                     <ul class="nav nav-treeview">
+                    <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('financialResponsibilities') }}" class="nav-link {{ request()->is('financialResponsibilities*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
@@ -323,38 +323,37 @@
                     </ul>
                 </li>
 
+                <!-- Banner -->
                 <li class="nav-item">
-                    <a href="{{route('banner.index')}}" class="nav-link {{request()->is('banner*') ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-info" style="color:black"></i>
+                    <a href="{{ route('banner.index') }}" class="nav-link {{ request()->is('banner*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-image" style="color:black"></i> <!-- Banner icon -->
                         <p style="color:black">Banner</p>
                     </a>
                 </li>
 
                 <!-- Footer -->
                 <li class="nav-item">
-                    <a href="{{route('footer')}}" class="nav-link {{request()->is('footer*') ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-info" style="color:black"></i>
+                    <a href="{{ route('footer') }}" class="nav-link {{ request()->is('footer*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-cogs" style="color:black"></i> <!-- Footer icon -->
                         <p style="color:black">Footer</p>
                     </a>
                 </li>
- <li class="nav-item">
-                    <a href="{{route('page.index')}}" class="nav-link {{request()->is('page*') ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-info" style="color:black"></i>
-                        <p style="color:black">Design Styles </p>
+
+                <!-- Design Styles -->
+                <li class="nav-item">
+                    <a href="{{ route('page.index') }}" class="nav-link {{ request()->is('page*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-paint-brush" style="color:black"></i> <!-- Design Styles icon -->
+                        <p style="color:black">Design Styles</p>
                     </a>
                 </li>
 
-
-  
-                 <li class="nav-item">
-                      <a href="{{route('cta.index')}}" class="nav-link {{request()->is('cta*') ? 'active' : ''}}">
-                          <i class="nav-icon fas fa-bullhorn" style="color:black"></i>
-                          <p style="color:black">
-                              CTA
-                          </p>
-                      </a>
-                    </li>
-                
+                <!-- CTA -->
+                <li class="nav-item">
+                    <a href="{{ route('cta.index') }}" class="nav-link {{ request()->is('cta*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-bullhorn" style="color:black"></i> <!-- CTA icon -->
+                        <p style="color:black">CTA</p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

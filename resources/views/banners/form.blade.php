@@ -26,27 +26,33 @@
                         <div class="card-header" style="background-color:#0377ce">
                             <h3 class="card-title">Add Banner Detail</h3>
                         </div>
-                        <form action="{{ isset($banner->id) ? route('banner.update', $banner->id) : route('banner.store') }}" method="POST">
-                            <input type="hidden" name="hidden_id"  value="{{ $banner->id }}">
+                        <form action="{{ isset($banner->id) ? route('banner.update', $banner->id) : route('banner.store') }}" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="hidden_id" value="{{ $banner->id }}">
                             @csrf
                             @if(isset($banner->id))
-                                @method('PUT') <!-- For update requests -->
+                            @method('PUT') <!-- For update requests -->
                             @endif
                             <div class="card-body">
-
                                 <div class="form-group">
-                                    <label for="title">Chose Page For Entering data</label><i class="fas fa-info-circle" title="Enter a title for Banner Section ."></i>
-                                    <select class="form-control" style="width: 100%;" name="type">
+                                    <label for="title">Choose Page For Entering Data</label>
+                                    <i class="fas fa-info-circle" title="Enter a title for Banner Section."></i>
+                                    <select class="form-control" style="width: 100%;" name="type" id="page_type">
                                         @foreach ($headerData as $header)
-                                        <option value="{{ $header->category }}">{{ $header->category }}</option>
-                                            
+                                        <option value="{{ $header->category }}" {{ $header->category == $banner->type ? 'selected' : '' }}>
+                                            {{ $header->category }}
+                                        </option>
                                         @endforeach
                                     </select>
-                                    @error('type')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
                                 </div>
-
+                                <div class="form-group type-area">
+                                    <label for="title">Choose Type</label>
+                                    <i class="fas fa-info-circle" title="Enter a title for Banner Section."></i>
+                                    <select class="form-control" style="width: 100%;" name="section_type" id="section_type">
+                                        <option selected disabled>Please Select Type</option>
+                                        <option value="Child" {{ ( $banner->section_type == 'Child') ? 'selected' : '' }}>Child</option>
+                                        <option value="Adult" {{ ( $banner->section_type == 'Adult') ? 'selected' : '' }}>Adult</option>
+                                    </select>
+                                </div>
 
                                 <div class="form-group">
                                     <label for="title">Title</label><i class="fas fa-info-circle" title="Enter a title for Banner Section ."></i>
@@ -56,7 +62,6 @@
                                     @enderror
                                 </div>
 
-
                                 <div class="form-group">
                                     <label for="description_1">Description</label><i class="fas fa-info-circle" title="Enter a Description for Banner Section."></i>
                                     <textarea class="form-control" name="description" id="description_1">{{ old('description', $banner->description) }}</textarea>
@@ -64,7 +69,6 @@
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-
 
                                 <div class="form-group">
                                     <label for="button_content">Button Text</label><i class="fas fa-info-circle" title="Enter a Button text for Banner Section."></i>
@@ -82,19 +86,15 @@
                                     @enderror
                                 </div>
 
-
-
-
-                                <div class="form-group"><i class="fas fa-info-circle" title="Select image for Banner section background."></i>
-                                <label for="image">Image</label>
-                               @if($banner->image)
-                                <img id="blah" src="{{ asset($banner->image) }}" alt="Image Preview" style="width: 130px;" />
-                                @endif
-                                <input type="file" class="form-control" name="image" id="imgInp" accept="image/*">
-                                @error('image')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
+                                <div class="form-group">
+                                    <label for="image">Image</label>
+                                    <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+                                    <img id="blah" src="{{asset($banner->image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                    <input type="file" class="form-control" name="image" id="imgInp" accept="image/*">
+                                    @error('image')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
 
                             <div class="card-footer">
@@ -112,7 +112,7 @@
 @section('java_script')
 <script>
     CKEDITOR.replace('description_1');
-     imgInp.onchange = evt => {
+    imgInp.onchange = evt => {
         const [file] = imgInp.files;
         if (file) {
             blah.src = URL.createObjectURL(file);
@@ -123,17 +123,26 @@
         }
     };
 
-    background_image.onchange = evt => {
-        const [file] = background_image.files;
-        if (file) {
-            bg_image.src = URL.createObjectURL(file);
-            bg_image.style.display = "block"; // Show the image
-        } else {
-            bg_image.style.display = "none"; // Hide the image if no file is selected
-            bg_image.src = "#"; // Reset the src
-        }
-    };
- 
+    $(document).ready(function() {
+        $('.type-area').hide();
+        var getValue = $("#page_type").val();
+        if (getValue === "Autism") {
+            $('.type-area').show();
+            } else {
+                $('.type-area').hide();
+                
+            }
+        // Show the type-area if the page type is "Autism"
+        $("#page_type").change(function() {
+            if (this.value === "Autism") {
+                $('.type-area').show();
+            } else {
+                $('.type-area').hide();
+                
+            }
+        });
+
+    });
 </script>
 
 @endsection

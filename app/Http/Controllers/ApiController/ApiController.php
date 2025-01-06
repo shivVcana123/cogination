@@ -21,6 +21,7 @@ use App\Http\Resources\AutismsProcessResource;
 use App\Http\Resources\AutismsScreeningResource;
 use App\Http\Resources\AutismsSectionResource;
 use App\Http\Resources\FeesOurPricingResource;
+use App\Http\Resources\FinancialResponsibilityResource;
 use App\Http\Resources\HeaderResource;
 use App\Http\Resources\HomeAboutUsDataResource;
 use App\Http\Resources\HomeAppointmentResource;
@@ -50,6 +51,8 @@ use App\Models\AutismsBook;
 use App\Models\AutismsProcess;
 use App\Models\AutismsScreening;
 use App\Models\AutismsSection;
+use App\Models\BannerSection;
+use App\Models\Cta;
 use App\Models\HomeBringingHealthcare;
 use App\Models\Header;
 use App\Models\Home;
@@ -57,6 +60,7 @@ use App\Models\PageDesign;
 use App\Traits\jsonResponse;
 use Illuminate\Http\Request;
 use App\Models\FeesOurPricing;
+use App\Models\FinancialResponsibility;
 use App\Models\Footer;
 use App\Models\HomeAboutUsData;
 use App\Models\HomeAppointment;
@@ -72,11 +76,13 @@ class ApiController extends Controller
     public function fetchHeaderData()
     {
         $headerData = Header::with('children')->whereNull('parent_id')->get();
-        $footerData = Footer::get();
+        $footerData = Footer::latest()->first();
+        $ctaData = Cta::get();
 
         $data = [
             'data' => HeaderResource::collection($headerData),
             'footerData' => $footerData,
+            'ctaData' => $ctaData,
         ];
 
         return $this->jsonResponse($data);
@@ -189,6 +195,7 @@ class ApiController extends Controller
         $data = [
             'adhdSection' => AdhdSectionResource::collection($adhdSection),
             'adhdBenefit' => AdhdBenefitResource::collection($adhdBenefit),
+           
         ];
 
         return $this->jsonResponse($data);
@@ -247,8 +254,11 @@ class ApiController extends Controller
     public function fetchFeesSectionData(Request $request)
     {
         $feesOurPricingSectionData = FeesOurPricing::latest()->first();
+        $financialResponsibilityData = FinancialResponsibility::latest()->first();
         $data = [
             'feesOurPricingSection' => $feesOurPricingSectionData ? new FeesOurPricingResource($feesOurPricingSectionData) : null,
+            'financialResponsibility' => $financialResponsibilityData ? new FinancialResponsibilityResource($financialResponsibilityData) : null,
+
         ];
         return $this->jsonResponse($data);
 
@@ -259,6 +269,17 @@ class ApiController extends Controller
         // ], 200);
     }
 
+
+    public function fetchCtaSectionData()
+    {
+        $ctaData = Cta::get();
+        return $this->jsonResponse($ctaData);
+    }
+    public function fetchBannerSectionData()
+    {
+        $bannerSection = BannerSection::get();
+        return $this->jsonResponse($bannerSection);
+    }
     public function fetchWebsiteStyle()
     {
         $pageDesign = PageDesign::all();

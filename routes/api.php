@@ -18,4 +18,7 @@ Route::get('about-us-section', [ApiController::class, 'fetchAboutData']); // Fet
 Route::get('our-approach-section', [ApiController::class, 'fetchOurApproachSectionData']); // Fetch all header data
 Route::get('accreditation-section', [ApiController::class, 'fetchAccreditationSectionData']); // Fetch all header data
 Route::get('website-style', [ApiController::class, 'fetchWebsiteStyle']); // Fetch all website-style data
+Route::get('cta-section', [ApiController::class, 'fetchCtaSectionData']); // Fetch all website-style data
+Route::get('banner-section', [ApiController::class, 'fetchBannerSectionData']); // Fetch all website-style data
+
 

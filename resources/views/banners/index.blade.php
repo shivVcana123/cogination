@@ -28,7 +28,11 @@
                         <tr>
                          @if($banner->parent_id === null)
                             <td>{{ $key + 1 }}</td>
-                                <td>{{ $banner->type }}</td>
+                                <td>{{ $banner->type }} 
+                                    @if($banner->section_type) 
+                                        ({{ $banner->section_type }})
+                                    @endif
+                                </td>
                            
                                 <td>{{ $banner->heading }}</td>
                                 <td>{{ $banner->button_text }}</td>
