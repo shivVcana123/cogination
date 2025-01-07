@@ -21,6 +21,7 @@ class HomeWhyChooseUsResource extends JsonResource
             'description_1' => $this->description_1,
             'pointers' => $this->pointers,
             'image' => $this->image,
+            'status' => $this->status,
         ];
     }
 }

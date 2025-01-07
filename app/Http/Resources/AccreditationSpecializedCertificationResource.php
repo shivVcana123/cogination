@@ -19,6 +19,7 @@ class AccreditationSpecializedCertificationResource extends JsonResource
             'title' => $this->title,
             'subtitle' => $this->subtitle,
             'pointers' => $this->pointers,
+            'status' => $this->status,
         ];
     }
 }

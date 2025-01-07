@@ -92,6 +92,7 @@ class AdhdBenefitsController extends Controller
             $adhdBenefit->title = $validated['title'];
             $adhdBenefit->subtitle = $validated['subtitle'];
             $adhdBenefit->description_1 = $validated['description_1'];
+            $adhdBenefit->status = $request->status ?? "off";
             $adhdBenefit->pointers = json_encode($pointers);
             $adhdBenefit->save();
 
@@ -177,6 +178,7 @@ class AdhdBenefitsController extends Controller
         $adhdfirstSection->second_title = $validated['second_title'];
         $adhdfirstSection->second_subtitle = $validated['second_subtitle'];
         $adhdfirstSection->second_description = $validated['second_description'];
+        $adhdfirstSection->status = $request->status ?? "off";
         $adhdfirstSection->pointers = json_encode($pointers);
 
         // Handle first image upload

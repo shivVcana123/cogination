@@ -19,6 +19,7 @@ class FeesOurPricingResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'pointers' => $this->pointers,
+            'status' => $this->status,
         ];
     }
 }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->string('image')->nullable();
+            $table->enum('status', ['on', 'off'])->default('on')->comment('on = show, off = hide');
             $table->timestamps();
         });
     }

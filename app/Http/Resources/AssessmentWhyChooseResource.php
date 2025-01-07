@@ -25,6 +25,7 @@ class AssessmentWhyChooseResource extends JsonResource
             'second_button_link' => $this->second_button_link,
             'image' => $this->image,
             'pointers' => $this->pointers,
+            'status' => $this->status,
         ];
     }
 }

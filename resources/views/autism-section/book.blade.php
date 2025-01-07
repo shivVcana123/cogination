@@ -94,6 +94,8 @@
 
 
                                 <div class="card-footer">
+                                <input type="checkbox" id="status" name="status" {{ ($autismBook[0]->status ?? '') === 'on' ? 'checked' : '' }}>
+                                <label for="status">Show On Website</label>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                         </form>
@@ -126,6 +128,7 @@
                             $('#description').val(section.description || '');
                             $('#button_content').val(section.button_content || '');
                             $('#button_link').val(section.button_link || '');
+                            $('#status').prop('checked', section.status === 'on');
                         }
                     } else {
                         // Clear fields if no data is found
@@ -135,6 +138,7 @@
                         $('#description').val('');
                         $('#button_content').val('');
                         $('#button_link').val('');
+                        $('#status').val('');
                     }
                 },
                 error: function() {

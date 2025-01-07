@@ -27,6 +27,7 @@ class HomeSectionControoler extends Controller
     }
     public function saveHomeAbout(Request $request)
     {
+        // dd($request->all());
         $validated = $request->validate(
             [
                 'title' => 'required|string|max:255',
@@ -43,6 +44,7 @@ class HomeSectionControoler extends Controller
         $about->description =$request->description;
         $about->button_content = $request->button_content;
         $about->button_link = $request->button_link;
+        $about->status = $request->status ?? "off";
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             if ($about->image) {
                 Storage::disk('public')->delete(str_replace('storage/', '', $about->image));
@@ -77,6 +79,7 @@ class HomeSectionControoler extends Controller
          $healthcare->subtitle = $request->subtitle ?? null;
          $healthcare->button_content = $request->button_content ?? null;
          $healthcare->button_link = $request->button_link ?? null;
+         $healthcare->status = $request->status ?? "off";
          if ($request->hasFile('image') && $request->file('image')->isValid()) {
              $directory = 'home';
              $oldImage = str_replace('storage/', '', $healthcare->image);
@@ -117,6 +120,7 @@ class HomeSectionControoler extends Controller
         $chooseus->title = $request->title;
         $chooseus->subtitle = $request->subtitle ?? null;
         $chooseus->description_1 = $request->description_1 ?? null;
+        $chooseus->status = $request->status ?? "off";
         $chooseus->pointers = json_encode($pointers);
     
         // Handle image upload
@@ -167,6 +171,7 @@ class HomeSectionControoler extends Controller
         $healthcare->button_link1 = $request->button_link1 ?? null;
         $healthcare->button_content2 = $request->button_content2 ?? null;
         $healthcare->button_link2 = $request->button_link2 ?? null;
+        $healthcare->status = $request->status ?? "off";
     
         // Handle image upload
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
@@ -254,6 +259,7 @@ class HomeSectionControoler extends Controller
         // Assign validated fields
         $saveFaqs->title = $validated['title'];
         $saveFaqs->subtitle = $validated['subtitle'] ?? null;
+        $saveFaqs->status = $request->status ?? "off";
         $saveFaqs->pointers = json_encode($pointers);
     
         // Save the record
@@ -336,6 +342,7 @@ class HomeSectionControoler extends Controller
         $ourservice->title = $validated['title'];
         $ourservice->subtitle = $validated['subtitle'];
         $ourservice->description_1 = $validated['description_1'];
+        $ourservice->status = $request->status ?? "off";
         $ourservice->pointers = json_encode($pointers);  // Store updated pointers data
     
         // Save the model (create or update)

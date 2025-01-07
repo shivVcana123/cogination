@@ -73,7 +73,7 @@
                                 </div>
                                 <hr>
 
-                               <div class="row">
+                                <div class="row">
                                     <!-- Title Field -->
                                     <div class="form-group col-md-6">
                                         <label for="title">Button Text</label>
@@ -109,9 +109,11 @@
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                            </div>
 
+                            </div>
                             <div class="card-footer">
+                            <input type="checkbox" id="status" name="status" {{ ($chooseusData->status ?? '') === 'on' ? 'checked' : '' }}>
+                            <label for="status">Show On Website</label>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
@@ -125,7 +127,7 @@
 @section('java_script')
 <script>
     CKEDITOR.replace('description');
-  
+
 
     imgInp.onchange = evt => {
         const [file] = imgInp.files;

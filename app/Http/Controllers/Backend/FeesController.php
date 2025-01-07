@@ -21,6 +21,7 @@ class FeesController extends Controller
         $data = [
             'title' => $request->title,
             'description' => $request->description,
+            'status' => $request->status ?? "off",
         ];
     
         if ($request->id) {
@@ -89,6 +90,7 @@ class FeesController extends Controller
             // Assign validated data to the model
             $autismSection->title = $validated['title'];
             $autismSection->description = $validated['description'];
+            $autismSection->status = $request->status ?? "off";
             $autismSection->pointers = json_encode($pointers);
     
             // Save the record

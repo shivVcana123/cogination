@@ -45,6 +45,7 @@ class OurApproachController extends Controller
         // Assign data to the model
         $autismSection->title = $validated['title'];
         $autismSection->description = $validated['description'];
+        $autismSection->status = $request->status ?? "off";
         // Save the model
         $autismSection->save();
 
@@ -100,6 +101,7 @@ class OurApproachController extends Controller
 
             // Assign data to the model
             $autismSection->title = $validated['title'];
+            $autismSection->status = $request->status ?? "off";
             $autismSection->pointers = json_encode($pointers);
 
             // Save the model

@@ -19,6 +19,7 @@ class OurApproachResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'image' => $this->image,
+            'status' => $this->status,
         ];
     }
 }

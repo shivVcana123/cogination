@@ -51,7 +51,7 @@ class CtaController extends Controller
             $cta->button_link = $request->button_link;
 			$cta->type = $request->type;
             $cta->description = $request->description;
-            
+            $cta->status = $request->status ?? "off";
             if($cta->type == 'image')
             {
                 $cta->background_color = '';
@@ -102,6 +102,7 @@ class CtaController extends Controller
             $cta->button_link = $request->button_link;
 			$cta->type = $request->type;
             $cta->description = $request->description;
+            $cta->status = $request->status ?? "off";
             if($cta->type == 'image')
             {
                 $cta->background_color = '';

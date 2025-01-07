@@ -213,6 +213,8 @@
                                 </div>
 
                                 <div class="card-footer">
+                                <input type="checkbox" id="status" name="status" {{ ($autismSection[0]->status ?? '') === 'on' ? 'checked' : '' }}>
+                                <label for="status">Show On Website</label>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                         </form>
@@ -327,6 +329,7 @@
                                 $('#second_description').val(section.second_description || '');
                                 $('#second_button_content').val(section.second_button_content || '');
                                 $('#second_button_link').val(section.second_button_link || '');
+                                $('#status').prop('checked', section.status === 'on');
 
                                 // Update pointers dynamically
                                 const pointers = section.pointers ? JSON.parse(section.pointers) : [];
@@ -372,6 +375,7 @@
                             $('#second_subtitle').val('');
                             $('#second_button_content').val('');
                             $('#second_button_link').val('');
+                            $('#status').val('');
 
                             // Clear pointers and add a single empty group
                             const container = $('#Pointers-container');

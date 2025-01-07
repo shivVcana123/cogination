@@ -22,6 +22,7 @@ class AssessmentResource extends JsonResource
             'button_content' => $this->button_content,
             'button_link' => $this->button_link,
             'image' => $this->image,
+            'status' => $this->status,
         ];
     }
 }

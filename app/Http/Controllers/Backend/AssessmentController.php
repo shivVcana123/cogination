@@ -42,6 +42,7 @@ class AssessmentController extends Controller
         $assessmentSection->description = $validated['description'];
         $assessmentSection->button_content = $validated['button_content'];
         $assessmentSection->button_link = $validated['button_link'];
+        $assessmentSection->status = $request->status ?? "off";
         
         // Handle first image upload
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
@@ -97,6 +98,7 @@ class AssessmentController extends Controller
         $assessmentWhyChoose->first_button_link = $validated['first_button_link'];
         $assessmentWhyChoose->second_button_content = $validated['second_button_content'];
         $assessmentWhyChoose->second_button_link = $validated['second_button_link'];
+        $assessmentWhyChoose->status = $request->status ?? "off";
         $assessmentWhyChoose->pointers = json_encode($pointers);
     
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
@@ -322,6 +324,7 @@ public function saveOurDiagnosticServices(Request $request)
         $adhdfirstSection->title = $request->title;
         $adhdfirstSection->description = $request->description ?? null;
         $adhdfirstSection->pointers = json_encode($pointers); // Save pointers as JSON
+        $adhdfirstSection->status = $request->status ?? "off";
         $adhdfirstSection->save();
 
         return redirect()->route('assessment-our-diagnostic-services-section')->with('success', 'Details saved successfully.');
@@ -380,6 +383,7 @@ public function understandingConditionsSection(){
         $adhdfirstSection->title = $validated['title'];
         $adhdfirstSection->subtitle = $validated['subtitle'];
         $adhdfirstSection->description = $validated['description']; // Handle nullable description
+        $adhdfirstSection->status = $request->status ?? "off";
         $adhdfirstSection->pointers = json_encode($pointers);
         
     

@@ -21,6 +21,7 @@ class AboutUsJoinCommunityResource extends JsonResource
             'description' => $this->description,
             'pointers' => $this->pointers,
             'image' => $this->image,
+            'status' => $this->status,
         ];
     }
 }

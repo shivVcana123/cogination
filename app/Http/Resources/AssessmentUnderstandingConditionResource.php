@@ -22,6 +22,7 @@ class AssessmentUnderstandingConditionResource extends JsonResource
             'button_content' => $this->button_content,
             'button_link' => $this->button_link,
             'pointers' => $this->pointers,
+            'status' => $this->status,
         ];
     }
 }

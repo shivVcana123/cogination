@@ -296,7 +296,7 @@
                 </li>
 
                 <!-- Fees -->
-                <li class="nav-item {{ request()->is('our-pricing-section*') || request()->is('assessment-whychoose*') || request()->is('our-diagnostic-services*') || request()->is('understanding-conditions*') ? 'menu-open' : '' }}">
+                <li class="nav-item {{ request()->is('our-pricing-section*') || request()->is('financial-responsibilities*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-dollar-sign" style="color:black"></i>
                         <p style="color:black">
@@ -315,7 +315,7 @@
 
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('financialResponsibilities') }}" class="nav-link {{ request()->is('financialResponsibilities*') ? 'active' : '' }}">
+                            <a href="{{ route('financialResponsibilities') }}" class="nav-link {{ request()->is('financial-responsibilities*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
                                 <p style="color:black">Responsibility</p>
                             </a>
@@ -331,6 +331,14 @@
                     </a>
                 </li>
 
+                <!-- CTA -->
+                <li class="nav-item">
+                    <a href="{{ route('cta.index') }}" class="nav-link {{ request()->is('cta*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-bullhorn" style="color:black"></i> <!-- CTA icon -->
+                        <p style="color:black">CTA</p>
+                    </a>
+                </li>
+
                 <!-- Footer -->
                 <li class="nav-item">
                     <a href="{{ route('footer') }}" class="nav-link {{ request()->is('footer*') ? 'active' : '' }}">
@@ -340,20 +348,14 @@
                 </li>
 
                 <!-- Design Styles -->
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="{{ route('page.index') }}" class="nav-link {{ request()->is('page*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-paint-brush" style="color:black"></i> <!-- Design Styles icon -->
+                        <i class="nav-icon fas fa-paint-brush" style="color:black"></i> 
                         <p style="color:black">Design Styles</p>
                     </a>
-                </li>
+                </li> -->
 
-                <!-- CTA -->
-                <li class="nav-item">
-                    <a href="{{ route('cta.index') }}" class="nav-link {{ request()->is('cta*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-bullhorn" style="color:black"></i> <!-- CTA icon -->
-                        <p style="color:black">CTA</p>
-                    </a>
-                </li>
+                
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

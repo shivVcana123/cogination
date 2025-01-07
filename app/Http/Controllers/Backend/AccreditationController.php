@@ -43,6 +43,7 @@ class AccreditationController extends Controller
         $autismSection->description = $request->description;
         $autismSection->button_content = $request->button_content;
         $autismSection->button_link = $request->button_link;
+        $autismSection->status = $request->status ?? "off";
         $autismSection->save();
 
         return redirect()->route('our-commitment-section')->with('success', 'Adhd details saved successfully.');
@@ -87,6 +88,7 @@ class AccreditationController extends Controller
         $adhdfirstSection->title = $request->title;
         $adhdfirstSection->subtitle = $request->subtitle;
         $adhdfirstSection->description =$request->description; // Handle nullable description
+        $adhdfirstSection->status = $request->status ?? "off";
         $adhdfirstSection->pointers = json_encode($pointers);
         
     
@@ -136,6 +138,7 @@ class AccreditationController extends Controller
         $adhdfirstSection->title = $validated['title'];
         $adhdfirstSection->subtitle = $validated['subtitle'];
         $adhdfirstSection->description = $validated['description']; // Handle nullable description
+        $adhdfirstSection->status = $request->status ?? "off";
         $adhdfirstSection->pointers = json_encode($pointers);
         
     
@@ -183,6 +186,7 @@ class AccreditationController extends Controller
     
         $adhdfirstSection->title = $validated['title'];
         $adhdfirstSection->subtitle = $validated['subtitle'];
+        $adhdfirstSection->status = $request->status ?? "off";
         $adhdfirstSection->pointers = json_encode($pointers);
         
     
@@ -231,6 +235,7 @@ class AccreditationController extends Controller
         $autismSection->description = $validated['description'];
         $autismSection->button_content = $validated['button_content'];
         $autismSection->button_link = $validated['button_link'];
+        $autismSection->status = $request->status ?? "off";
 
         $autismSection->save();
    

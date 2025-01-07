@@ -68,6 +68,7 @@ class AutismsSectionController extends Controller
         $autismSection->second_button_content = $validated['second_button_content'];
         $autismSection->second_button_link = $validated['second_button_link'];
         $autismSection->second_description = $validated['second_description'];
+        $autismSection->status = $request->status ?? "off";
         $autismSection->pointers = json_encode($pointers);
 
         // Handle first image upload
@@ -145,6 +146,7 @@ class AutismsSectionController extends Controller
         $autismSection->title = $validated['title'];
         $autismSection->subtitle = $validated['subtitle'];
         $autismSection->description = $validated['description'];
+        $autismSection->status = $request->status ?? "off";
         $autismSection->pointers = json_encode($pointers);
 
         $autismSection->save();
@@ -204,7 +206,7 @@ class AutismsSectionController extends Controller
         $autismSection->description = $validated['description'];
         $autismSection->button_content = $validated['button_content'];
         $autismSection->button_link = $validated['button_link'];
-
+        $autismSection->status = $request->status ?? "off";
         $autismSection->save();
    
 
@@ -262,7 +264,7 @@ class AutismsSectionController extends Controller
         $autismBook->description = $validated['description'];
         $autismBook->button_content = $validated['button_content'];
         $autismBook->button_link = $validated['button_link'];
-
+        $autismBook->status = $request->status ?? "off";
         $autismBook->save();
    
 

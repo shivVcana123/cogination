@@ -99,6 +99,8 @@
                                 <button type="button" id="add-Pointers" class="btn btn-success">Add Pointer</button>
 
                                 <div class="card-footer">
+                                <input type="checkbox" id="status" name="status" {{ ($autismProcess[0]->status ?? '') === 'on' ? 'checked' : '' }}>
+                                <label for="status">Show On Website</label>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                         </form>
@@ -166,6 +168,7 @@
                             $('#id').val(section.id || '');
                             $('#title').val(section.title || '');
                             $('#subtitle').val(section.subtitle || '');
+                            $('#status').prop('checked', section.status === 'on');
                             $('#description').val(section.description || '');
 
                             // Update pointers dynamically
@@ -213,6 +216,7 @@
                         $('#title').val('');
                         $('#subtitle').val('');
                         $('#description').val('');
+                        $('#status').val('');
 
                         // Clear pointers and add a single empty group
                         const container = $('#Pointers-container');

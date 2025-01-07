@@ -174,6 +174,8 @@
                               
                                 <!-- Submit Button -->
                                 <div class="card-footer">
+                                <input type="checkbox" id="status" name="status" {{ ($cta->status ?? '') === 'on' ? 'checked' : '' }}>
+                                <label for="status">Show On Website</label>
                                     <button type="submit" class="btn btn-primary">{{ isset($cta->id) ? 'Update' : 'Submit' }}</button>
                                 </div>
                             </div>

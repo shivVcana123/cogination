@@ -40,6 +40,7 @@ class AboutUsController extends Controller
         $autismSection->description =$request->description;
         $autismSection->button_content = $request->button_content;
         $autismSection->button_link = $request->button_link;
+        $autismSection->status = $request->status ?? "off";
         $autismSection->save();
         return redirect()->route('our-story-section')->with('success', 'Adhd details saved successfully.');
     }
@@ -74,6 +75,7 @@ class AboutUsController extends Controller
 
         // Assign data
         $autismSection->title = $validated['title'];
+        $autismSection->status = $request->status ?? "off";
 
         $autismSection->save();
    
@@ -128,6 +130,7 @@ class AboutUsController extends Controller
         $autismSection->title = $validated['title'];
         $autismSection->subtitle = $request->subtitle;
         $autismSection->description = $request->description;
+        $autismSection->status = $request->status ?? "off";
         $autismSection->pointers = json_encode($pointers, JSON_THROW_ON_ERROR);
     
         // Save the model

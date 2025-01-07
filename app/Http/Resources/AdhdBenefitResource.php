@@ -21,6 +21,7 @@ class AdhdBenefitResource extends JsonResource
             'subtitle' => $this->subtitle,
             'description_1' => $this->description_1,
             'pointers' => json_decode($this->pointers),
+            'status' => $this->status,
         ];
     }
 }

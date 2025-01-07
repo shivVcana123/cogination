@@ -22,6 +22,7 @@ class HomeAboutUsDataResource extends JsonResource
             'image' => $this->image,
             'button_content' => $this->button_content,
             'button_link' => $this->button_link,
+            'status' => $this->status,
         ];
     }
 }

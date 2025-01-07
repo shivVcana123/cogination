@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('button_link')->nullable();
             $table->string('first_image')->nullable();
             $table->string('second_image')->nullable();
+            $table->enum('status', ['on', 'off'])->default('on')->comment('on = show, off = hide');
             $table->timestamps();
         });
     }

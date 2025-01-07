@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('background_color')->nullable();
             $table->string('background_image')->nullable();
             $table->text('description')->nullable();
-
+            $table->enum('status', ['on', 'off'])->default('on')->comment('on = show, off = hide');
             
             $table->timestamps();
         });

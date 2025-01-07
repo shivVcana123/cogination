@@ -52,6 +52,8 @@
                                 </div>
                             </div>
                             <div class="card-footer">
+                            <input type="checkbox" id="status" name="status" {{ ($ourMissionSection[0]->status ?? '') === 'on' ? 'checked' : '' }}>
+                            <label for="status">Show On Website</label>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
