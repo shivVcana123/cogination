@@ -9,6 +9,7 @@ use App\Http\Requests\StorePageDesignRequest;
 use App\Http\Requests\UpdatePageDesignRequest;
 use Illuminate\Http\Request;
 use App\Models\Header;
+use Illuminate\Support\Facades\Storage;
 
 class PageDesignController extends Controller
 {
