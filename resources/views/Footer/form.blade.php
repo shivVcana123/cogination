@@ -97,9 +97,45 @@
                                         <label for="title">Title 1</label><i class="fas fa-info-circle" title="Enter a first title for Footer Section ."></i>
                                         <input type="text" class="form-control" name="title1" id="title1" value="{{$footerData[0]->title1 ?? ''}}" placeholder="Enter title1">
                                     </div>
-
-
                                     <div class="row">
+                                        <div class="col-12">
+                                            <label for="headers">Select Display Data</label>
+                                            <i class="fas fa-info-circle" title="Select the values you want to show in the footer."></i>
+                                        </div>
+
+                                        @php
+                                        // Decode display_data into an array of objects
+                                        $footerValue = isset($footerData[0]) && !empty($footerData[0]->display_data)
+                                        ? json_decode($footerData[0]->display_data, true)
+                                        : [];
+                                        @endphp
+
+                                        @foreach ($headers as $header)
+                                        @php
+                                        // Check if $header->category exists in $footerValue as 'name'
+                                        $isChecked = collect($footerValue)->contains('name', $header->category);
+                                        @endphp
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="form-check">
+                                                    <input
+                                                        type="checkbox"
+                                                        class="form-check-input"
+                                                        name="dats_display[{{ $header->category }}]"
+                                                        id="header_{{ $header->id }}"
+                                                        value="{{ $header->link }}"
+                                                        {{ $isChecked ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="header_{{ $header->id }}">
+                                                        {{ $header->category }}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </div>
+
+
+                                    <!-- <div class="row">
                                         <div class="col-12">
                                             <label for="headers">Select Display Data</label><i class="fas fa-info-circle" title="Select the values you want to show in the footer."></i>
                                         </div>
@@ -114,7 +150,6 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <div class="form-check">
-                                                    <!-- Checkbox Input -->
                                                     <input
                                                         type="checkbox"
                                                         class="form-check-input"
@@ -122,7 +157,6 @@
                                                         id="header_{{ $header->id }}"
                                                         value="{{ $header->category }}"
                                                         {{ in_array($header->category, $footerValue ?? []) ? 'checked' : '' }}>
-                                                    <!-- Label for the Checkbox -->
                                                     <label class="form-check-label" for="header_{{ $header->id }}">
                                                         {{ $header->category }}
                                                     </label>
@@ -131,10 +165,10 @@
                                         </div>
                                         @endforeach
 
-                                    </div>
+                                    </div> -->
                                 </div>
 
-                                <hr>
+                                <!-- <hr>
                                 <div class="row">
                                     <div class="form-group col-md-12">
                                         <label for="title">Title 2</label><i class="fas fa-info-circle" title="Enter a second title for Footer Section."></i>
@@ -142,45 +176,48 @@
                                     </div>
 
                                     @php
-    $linkValues = isset($footerData[0]) && !empty($footerData[0]->link)
-        ? json_decode($footerData[0]->link)
-        : [];
-@endphp
+                                    $linkValues = isset($footerData[0]) && !empty($footerData[0]->link)
+                                    ? json_decode($footerData[0]->link)
+                                    : [];
+                                    @endphp
 
-<div class="form-group col-md-12">
-    <label for="link_name">Link Name</label>
-    <div id="link-url-container">
-        @if (!empty($linkValues))
-            @foreach ($linkValues as $value)
-                <div class="link-url-row">
-                    <div class="row">
-                        <input type="text" class="form-control col-md-6 mb-2" name="name[]" placeholder="Enter Link Name" value="{{ $value->name ?? '' }}">
-                        <input type="text" class="form-control col-md-6 mb-2" name="link[]" placeholder="Enter URL" value="{{ $value->link ?? '' }}">
-                        <button type="button" class="btn btn-danger btn-sm remove-link-url">Remove</button>
-                    </div>
-                </div>
-            @endforeach
-        @else
-            <div class="link-url-row">
-                <div class="row">
-                    <input type="text" class="form-control col-md-6 mb-2" name="name[]" placeholder="Enter Link Name">
-                    <input type="text" class="form-control col-md-6 mb-2" name="link[]" placeholder="Enter URL">
-                    <button type="button" class="btn btn-danger btn-sm remove-link-url">Remove</button>
-                </div>
-            </div>
-        @endif
-    </div>
-    <!-- Add More Button outside the container -->
-    <button type="button" class="btn btn-success btn-sm mt-2" id="add-more-link-url">Add More</button>
-</div>
-
-
-
+                                    <div class="form-group col-md-12">
+                                        <label for="link_name">Link Name</label>
+                                        <div id="link-url-container">
+                                            @if (!empty($linkValues))
+                                            @foreach ($linkValues as $value)
+                                            <div class="link-url-row">
+                                                <div class="row">
+                                                    <input type="text" class="form-control col-md-6 mb-2" name="name[]" placeholder="Enter Link Name" value="{{ $value->name ?? '' }}">
+                                                    <input type="text" class="form-control col-md-6 mb-2" name="link[]" placeholder="Enter URL" value="{{ $value->link ?? '' }}">
+                                                    <button type="button" class="btn btn-danger btn-sm remove-link-url">Remove</button>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                            @else
+                                            <div class="link-url-row">
+                                                <div class="row">
+                                                    <input type="text" class="form-control col-md-6 mb-2" name="name[]" placeholder="Enter Link Name">
+                                                    <input type="text" class="form-control col-md-6 mb-2" name="link[]" placeholder="Enter URL">
+                                                    <button type="button" class="btn btn-danger btn-sm remove-link-url">Remove</button>
+                                                </div>
+                                            </div>
+                                            @endif
+                                        </div>
+                                        <button type="button" class="btn btn-success btn-sm mt-2" id="add-more-link-url">Add More</button>
+                                    </div>
+                                </div> -->
+                                <hr>
+                                <div class="form-group">
+                                    <label for="image">WebSite Logo</label>
+                                    <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+                                    <img id="blah" src="{{asset($footerData[0]->image ?? '')}}" alt="Image Preview"  style="width: 130px; display: {{ empty($footerData[0]->image) ? 'none' : 'block' }};" />
+                                    <input type="file" class="form-control" name="image" id="imgInp" accept="image/*">
+                                    @error('image')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
-
-
                             </div>
-
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
@@ -190,7 +227,7 @@
             </div>
         </div>
     </section>
-    
+
 </div>
 
 
@@ -199,70 +236,67 @@
 @section('java_script')
 <script>
     CKEDITOR.replace('description');
-    // background_image.onchange = evt => {
-    //     const [file] = background_image.files;
+    imgInp.onchange = evt => {
+        const [file] = imgInp.files;
+        if (file) {
+            blah.src = URL.createObjectURL(file);
+            blah.style.display = "block"; // Show the image
+        } else {
+            blah.style.display = "none"; // Hide the image if no file is selected
+            blah.src = "#"; // Reset the src
+        }
+    };
 
-    //     if (file) {
-    //         bg_image.src = URL.createObjectURL(file);
-    //         bg_image.style.display = "block"; // Show the image
-    //     } else {
-    //         bg_image.style.display = "none"; // Hide the image if no file is selected
-    //         bg_image.src = "#"; // Reset the src
-    //     }
-    // };
+    document.addEventListener("DOMContentLoaded", function() {
+        const container = document.querySelector("#link-url-container");
+        const addMoreButton = document.querySelector("#add-more-link-url");
 
-    document.addEventListener("DOMContentLoaded", function () {
-    const container = document.querySelector("#link-url-container");
-    const addMoreButton = document.querySelector("#add-more-link-url");
-
-    // Add More Button Functionality
-    addMoreButton.addEventListener("click", function () {
-        const newRow = document.createElement("div");
-        newRow.classList.add("link-url-row");
-        newRow.innerHTML = `
+        // Add More Button Functionality
+        addMoreButton.addEventListener("click", function() {
+            const newRow = document.createElement("div");
+            newRow.classList.add("link-url-row");
+            newRow.innerHTML = `
             <div class="row">
                 <input type="text" class="form-control col-md-6 mb-2" name="name[]" placeholder="Enter Link Name">
                 <input type="text" class="form-control col-md-6 mb-2" name="link[]" placeholder="Enter URL">
                 <button type="button" class="btn btn-danger btn-sm remove-link-url">Remove</button>
             </div>
         `;
-        container.appendChild(newRow);
-
-        // Update Remove Button Visibility
-        toggleRemoveButtonVisibility();
-    });
-
-    // Event Delegation for Remove Buttons
-    container.addEventListener("click", function (e) {
-        if (e.target && e.target.classList.contains("remove-link-url")) {
-            // Remove the closest row
-            const rowToRemove = e.target.closest(".link-url-row");
-            if (rowToRemove) {
-                rowToRemove.remove();
-            }
+            container.appendChild(newRow);
 
             // Update Remove Button Visibility
             toggleRemoveButtonVisibility();
-        }
-    });
+        });
 
-    // Function to Toggle Remove Button Visibility
-    function toggleRemoveButtonVisibility() {
-        const rows = container.querySelectorAll(".link-url-row");
-        const showRemoveButton = rows.length > 1;
+        // Event Delegation for Remove Buttons
+        container.addEventListener("click", function(e) {
+            if (e.target && e.target.classList.contains("remove-link-url")) {
+                // Remove the closest row
+                const rowToRemove = e.target.closest(".link-url-row");
+                if (rowToRemove) {
+                    rowToRemove.remove();
+                }
 
-        rows.forEach(row => {
-            const removeButton = row.querySelector(".remove-link-url");
-            if (removeButton) {
-                removeButton.style.display = showRemoveButton ? "inline-block" : "none";
+                // Update Remove Button Visibility
+                toggleRemoveButtonVisibility();
             }
         });
-    }
 
-    // Initialize Remove Button Visibility on Page Load
-    toggleRemoveButtonVisibility();
-});
+        // Function to Toggle Remove Button Visibility
+        function toggleRemoveButtonVisibility() {
+            const rows = container.querySelectorAll(".link-url-row");
+            const showRemoveButton = rows.length > 1;
 
+            rows.forEach(row => {
+                const removeButton = row.querySelector(".remove-link-url");
+                if (removeButton) {
+                    removeButton.style.display = showRemoveButton ? "inline-block" : "none";
+                }
+            });
+        }
 
+        // Initialize Remove Button Visibility on Page Load
+        toggleRemoveButtonVisibility();
+    });
 </script>
 @endsection

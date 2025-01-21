@@ -137,7 +137,7 @@
                             <div class="card-footer">
                             <input type="checkbox" id="status" name="status" {{ ($saveFaqs[0]->status ?? '') === 'on' ? 'checked' : '' }}>
                             <label for="status">Show On Website</label>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -149,58 +149,152 @@
 
 <script>
     function updateRemoveButtonVisibility() {
-        const urlGroups = document.querySelectorAll('.url-group');
-        urlGroups.forEach((group) => {
-            const removeButton = group.querySelector('.remove-Pointers');
-            if (urlGroups.length > 1) {
-                removeButton.style.display = 'inline-block';
-            } else {
-                removeButton.style.display = 'none';
-            }
-        });
-    }
-
-    document.getElementById('add-Pointers').addEventListener('click', function() {
-        const container = document.getElementById('Pointers-container');
-        const newInputGroup = document.createElement('div');
-        newInputGroup.classList.add('form-group', 'url-group');
-        newInputGroup.innerHTML = `
-        <div class="row">
-                                            <!-- Title Field -->
-                                            <div class="form-group col-md-6">
-                                                <label for="question">Question</label>
-                                                <i class="fas fa-info-circle" title="Enter a meaningful question that summarizes the purpose of this section."></i>
-                                                <input type="text" class="form-control" name="question[]" id="question"
-                                                    placeholder="Enter question" value="">
-                                            </div>
-
-
-                                            <!-- answer Field -->
-                                            <div class="form-group col-md-6">
-                                                <label for="answer">Answer</label>
-                                                <i class="fas fa-info-circle" title="Provide a brief answer that complements the main title of this section."></i>
-                                                <input type="text" class="form-control" name="answer[]" id="answer"
-                                                    placeholder="Enter answer" value="">
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
-                                    </div>
-    `;
-        container.appendChild(newInputGroup);
-        updateRemoveButtonVisibility(); // Ensure the visibility of "Remove" buttons is updated
+    const urlGroups = document.querySelectorAll('.url-group');
+    urlGroups.forEach((group) => {
+        const removeButton = group.querySelector('.remove-Pointers');
+        if (urlGroups.length > 1) {
+            removeButton.style.display = 'inline-block';
+        } else {
+            removeButton.style.display = 'none';
+        }
     });
+}
 
-    document.getElementById('Pointers-container').addEventListener('click', function(event) {
-        if (event.target.classList.contains('remove-Pointers')) {
-            event.target.closest('.url-group').remove();
-            updateRemoveButtonVisibility(); // Ensure the visibility of "Remove" buttons is updated
+document.getElementById('add-Pointers').addEventListener('click', function () {
+    const container = document.getElementById('Pointers-container');
+    const newInputGroup = document.createElement('div');
+    newInputGroup.classList.add('form-group', 'url-group');
+    newInputGroup.innerHTML = `
+        <div class="row">
+            <!-- Question Field -->
+            <div class="form-group col-md-6">
+                <label for="question">Question</label>
+                <i class="fas fa-info-circle" title="Enter a meaningful question that summarizes the purpose of this section."></i>
+                <input type="text" class="form-control" name="question[]" id="question" placeholder="Enter question" value="">
+                <div class="text-danger question-error" style="display: none;">This field is required.</div>
+            </div>
+
+            <!-- Answer Field -->
+            <div class="form-group col-md-6">
+                <label for="answer">Answer</label>
+                <i class="fas fa-info-circle" title="Provide a brief answer that complements the main title of this section."></i>
+                <input type="text" class="form-control" name="answer[]" id="answer" placeholder="Enter answer" value="">
+                <div class="text-danger answer-error" style="display: none;">This field is required.</div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+    `;
+    container.appendChild(newInputGroup);
+    updateRemoveButtonVisibility(); // Ensure the visibility of "Remove" buttons is updated
+});
+
+document.getElementById('Pointers-container').addEventListener('click', function (event) {
+    if (event.target.classList.contains('remove-Pointers')) {
+        event.target.closest('.url-group').remove();
+        updateRemoveButtonVisibility(); // Ensure the visibility of "Remove" buttons is updated
+    }
+});
+
+// Validation function
+function validateFields() {
+    const urlGroups = document.querySelectorAll('.url-group');
+    let isValid = true;
+
+    urlGroups.forEach((group) => {
+        const questionInput = group.querySelector('input[name="question[]"]');
+        const answerInput = group.querySelector('input[name="answer[]"]');
+        const questionError = group.querySelector('.question-error');
+        const answerError = group.querySelector('.answer-error');
+
+        // Reset error messages
+        if (questionError) questionError.style.display = 'none';
+        if (answerError) answerError.style.display = 'none';
+
+        // Validate question
+        if (!questionInput.value.trim()) {
+            if (questionError) questionError.style.display = 'block';
+            isValid = false;
+        }
+
+        // Validate answer
+        if (!answerInput.value.trim()) {
+            if (answerError) answerError.style.display = 'block';
+            isValid = false;
         }
     });
 
-    // Initial visibility check when the page loads
-    document.addEventListener('DOMContentLoaded', function() {
-        updateRemoveButtonVisibility();
-    });
+    // if (!isValid) {
+    //     alert('Please fill out all required fields.');
+    // }
+
+    return isValid;
+}
+
+// Add submit listener for validation
+document.getElementById('form-submit-button').addEventListener('click', function (event) {
+    if (!validateFields()) {
+        event.preventDefault(); // Prevent form submission if validation fails
+    }
+});
+
+// Initial visibility check when the page loads
+document.addEventListener('DOMContentLoaded', function () {
+    updateRemoveButtonVisibility();
+});
+
+    // function updateRemoveButtonVisibility() {
+    //     const urlGroups = document.querySelectorAll('.url-group');
+    //     urlGroups.forEach((group) => {
+    //         const removeButton = group.querySelector('.remove-Pointers');
+    //         if (urlGroups.length > 1) {
+    //             removeButton.style.display = 'inline-block';
+    //         } else {
+    //             removeButton.style.display = 'none';
+    //         }
+    //     });
+    // }
+
+    // document.getElementById('add-Pointers').addEventListener('click', function() {
+    //     const container = document.getElementById('Pointers-container');
+    //     const newInputGroup = document.createElement('div');
+    //     newInputGroup.classList.add('form-group', 'url-group');
+    //     newInputGroup.innerHTML = `
+    //     <div class="row">
+    //                                         <!-- Title Field -->
+    //                                         <div class="form-group col-md-6">
+    //                                             <label for="question">Question</label>
+    //                                             <i class="fas fa-info-circle" title="Enter a meaningful question that summarizes the purpose of this section."></i>
+    //                                             <input type="text" class="form-control" name="question[]" id="question"
+    //                                                 placeholder="Enter question" value="">
+    //                                         </div>
+
+
+    //                                         <!-- answer Field -->
+    //                                         <div class="form-group col-md-6">
+    //                                             <label for="answer">Answer</label>
+    //                                             <i class="fas fa-info-circle" title="Provide a brief answer that complements the main title of this section."></i>
+    //                                             <input type="text" class="form-control" name="answer[]" id="answer"
+    //                                                 placeholder="Enter answer" value="">
+    //                                         </div>
+    //                                     </div>
+    //                                     <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+    //                                 </div>
+    // `;
+    //     container.appendChild(newInputGroup);
+    //     updateRemoveButtonVisibility(); // Ensure the visibility of "Remove" buttons is updated
+    // });
+
+    // document.getElementById('Pointers-container').addEventListener('click', function(event) {
+    //     if (event.target.classList.contains('remove-Pointers')) {
+    //         event.target.closest('.url-group').remove();
+    //         updateRemoveButtonVisibility(); // Ensure the visibility of "Remove" buttons is updated
+    //     }
+    // });
+
+    // // Initial visibility check when the page loads
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     updateRemoveButtonVisibility();
+    // });
 
 </script>
 

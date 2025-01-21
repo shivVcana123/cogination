@@ -30,7 +30,7 @@
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="title">Password</label>
+                                    <label for="title">New Password</label>
                                     <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="title" placeholder="Enter password">
                                     @error('password')
                                     <div class="text-danger">{{ $message }}</div>

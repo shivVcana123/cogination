@@ -85,43 +85,96 @@ class HeaderController extends Controller
      * Update the specified resource in storage.
      */
 
-     public function update(Request $request, string $id)
-     {
+    //  public function update(Request $request, string $id)
+    //  {
+    //         dd($request->all());
+    //      try {
+    //          // Validate the request
+    //          $validated = $request->validate([
+    //              'category' => 'required',
+    //              'link' => 'required',
+    //          ]);
+     
+    //          // Find the existing header by ID
+    //          $headerData = Header::findOrFail($id);
+     
+    //          // Update the main category
+    //          $headerData->update([
+    //              'category' => $request->category,
+    //              'link' => $request->link,
+    //          ]);
+     
+    //          // Handle subcategories
+    //          if ($request->has('subcategories')) {
+    //              $headerData->children()->delete(); // Remove old subcategories
+    //              foreach ($request->subcategories as $subCategory) {
+    //                  if (!empty($subCategory)) {
+    //                      $headerData->children()->create([
+    //                          'category' => $subCategory,
+    //                          'parent_id' => $headerData->id,
+    //                      ]);
+    //                  }
+    //              }
+    //          }
+     
+    //          return redirect()->route('header.index')->with('success', 'Record updated successfully!');
+    //      } catch (\Exception $e) {
+    //          // Log the error for debugging
+    //          \Log::error('Header update failed: ' . $e->getMessage());
+    //          return redirect()->back()->with('error', 'Failed to update record: ' . $e->getMessage());
+    //      }
+    //  }
 
-         try {
-             // Validate the request
-             $validated = $request->validate([
-                 'category' => 'required',
-             ]);
-     
-             // Find the existing header by ID
-             $headerData = Header::findOrFail($id);
-     
-             // Update the main category
-             $headerData->update([
-                 'category' => $request->category,
-             ]);
-     
-             // Handle subcategories
-             if ($request->has('subcategories')) {
-                 $headerData->children()->delete(); // Remove old subcategories
-                 foreach ($request->subcategories as $subCategory) {
-                     if (!empty($subCategory)) {
-                         $headerData->children()->create([
-                             'category' => $subCategory,
-                             'parent_id' => $headerData->id,
-                         ]);
-                     }
-                 }
-             }
-     
-             return redirect()->route('header.index')->with('success', 'Record updated successfully!');
-         } catch (\Exception $e) {
-             // Log the error for debugging
-             \Log::error('Header update failed: ' . $e->getMessage());
-             return redirect()->back()->with('error', 'Failed to update record: ' . $e->getMessage());
-         }
-     }
+    public function update(Request $request, string $id)
+{
+    // dd($request->all()); // Debugging the request data
+
+    try {
+        // Validate the request
+        $validated = $request->validate([
+            'category' => 'required',
+            // 'link' => 'required',
+            'subcategories' => 'array',
+            'subcategorieslink' => 'array',
+        ]);
+
+        // Find the existing header by ID
+        $headerData = Header::findOrFail($id);
+
+        // Update the main category
+        $headerData->update([
+            'category' => $request->category,
+            'link' => $request->link,
+        ]);
+
+        // Handle subcategories and their corresponding links
+        if ($request->has('subcategories') && $request->has('subcategorieslink')) {
+            $headerData->children()->delete(); // Remove old subcategories
+
+            // Loop through subcategories and links
+            foreach ($request->subcategories as $index => $subCategory) {
+                if (!empty($subCategory)) {
+                    $link = $request->subcategorieslink[$index] ?? null; // Get the corresponding link
+
+                    // Create new subcategory with the corresponding link
+                    $headerData->children()->create([
+                        'category' => $subCategory,
+                        'link' => $link,  // Store the link along with the subcategory
+                        'parent_id' => $headerData->id,
+                    ]);
+                }
+            }
+        }
+
+        return redirect()->route('header.index')->with('success', 'Record updated successfully!');
+    } catch (\Exception $e) {
+        dd($e);
+        // Log the error for debugging
+        \Log::error('Header update failed: ' . $e->getMessage());
+        return redirect()->back()->with('error', 'Failed to update record: ' . $e->getMessage());
+    }
+}
+
      
      
 

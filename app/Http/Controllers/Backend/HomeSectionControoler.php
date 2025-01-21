@@ -25,21 +25,11 @@ class HomeSectionControoler extends Controller
         $chooseusData = HomeAboutUsData::first();
         return view('home-section.homeAbout', compact('chooseusData'));
     }
-    public function saveHomeAbout(Request $request)
+    public function saveHomeAbout(TitleRequest $request)
     {
         // dd($request->all());
-        $validated = $request->validate(
-            [
-                'title' => 'required|string|max:255',
-            ],
-            [
-                'title.required' => 'The title is required.',
-                'title.string' => 'The title must be a valid string.',
-                'title.max' => 'The title may not exceed 255 characters.',
-            ]
-        );
         $about = $request->id ? HomeAboutUsData::find($request->id) : new HomeAboutUsData();
-        $about->title = $validated['title'];
+        $about->title =  $request->title;
         $about->subtitle = $request->subtitle;
         $about->description =$request->description;
         $about->button_content = $request->button_content;
@@ -71,6 +61,7 @@ class HomeSectionControoler extends Controller
      }
      public function saveappointment(TitleRequest $request)
      {
+    
          $healthcare = $request->id ? HomeAppointment::find($request->id) : new HomeAppointment();
          if (!$healthcare) {
              return redirect()->route('whyhealthcare')->withErrors('Record not found.');
@@ -97,8 +88,7 @@ class HomeSectionControoler extends Controller
     
     public function savewhychooseus(TitleRequest $request)
     {
-        // Validate incoming request
-        // Combine `sub_title` and `sub_description` into JSON
+       
         $pointers = [];
         if (!empty($request->sub_title)) {
             foreach ($request->sub_title as $index => $subTitle) {
@@ -275,32 +265,8 @@ class HomeSectionControoler extends Controller
         return view('home-section.ourservices', compact('chooseusData'));
     }
     
-    public function saveOurServices(Request $request)
+    public function saveOurServices(TitleRequest $request)
     {
-        // Validate the request data
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'subtitle' => 'nullable|string|max:255',
-            'description_1' => 'nullable|string',
-            'sub_title.*' => 'nullable|string|max:255',
-            'sub_description.*' => 'nullable',
-            'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
-        ], [
-            'title.required' => 'The title is required.',
-            'title.string' => 'The title must be a valid string.',
-            'title.max' => 'The title may not exceed 255 characters.',
-            'subtitle.string' => 'The subtitle must be a valid string.',
-            // 'subtitle.max' => 'The subtitle may not exceed 255 characters.',
-            'description_1.string' => 'The description must be a valid string.',
-            'sub_title.*.string' => 'Each sub-title must be a valid string.',
-            'sub_title.*.max' => 'Each sub-title may not exceed 255 characters.',
-            'sub_description.*.string' => 'Each sub-description must be a valid string.',
-            'sub_description.*.max' => 'Each sub-description may not exceed 255 characters.',
-            'image.*.image' => 'The uploaded file must be an image.',
-            'image.*.mimes' => 'The image must be of type jpeg, png, jpg, gif, or svg.',
-            'image.*.max' => 'The image may not exceed 2MB in size.',
-        ]);
-    
         // Initialize pointers array
         $pointers = [];
     
@@ -311,8 +277,8 @@ class HomeSectionControoler extends Controller
         $existingPointers = $ourservice->id ? json_decode($ourservice->pointers, true) : [];
     
         // Handle multiple pointers if any
-        if (!empty($validated['sub_title'])) {
-            foreach ($validated['sub_title'] as $index => $subTitle) {
+        if (!empty($request->sub_title)) {
+            foreach ($request->sub_title as $index => $subTitle) {
                 // Upload image if provided for each pointer
                 $subImagePath = null;
     
@@ -332,16 +298,16 @@ class HomeSectionControoler extends Controller
                 // Add pointer data to the pointers array
                 $pointers[] = [
                     'sub_title' => $subTitle,
-                    'sub_description' => $validated['sub_description'][$index] ?? null,
+                    'sub_description' => $request->sub_description[$index] ?? null,
                     'sub_image' => $subImagePath ? 'storage/' . $subImagePath : ($existingPointers[$index]['sub_image'] ?? null),
                 ];
             }
         }
     
         // Assign the validated data to the ourservice model
-        $ourservice->title = $validated['title'];
-        $ourservice->subtitle = $validated['subtitle'];
-        $ourservice->description_1 = $validated['description_1'];
+        $ourservice->title = $request->title;
+        $ourservice->subtitle = $request->subtitle;
+        $ourservice->description_1 = $request->description_1;
         $ourservice->status = $request->status ?? "off";
         $ourservice->pointers = json_encode($pointers);  // Store updated pointers data
     

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TitleRequest;
 use App\Models\OurApproach;
 use App\Models\OurApproachHowItWork;
 use Illuminate\Http\Request;
@@ -16,18 +17,9 @@ class OurApproachController extends Controller
         return view('our-approach-section.ourapproach', compact('ourApproachSection'));
     }
 
-    public function saveOurApproachSection(Request $request)
+    public function saveOurApproachSection(TitleRequest $request)
     {
-        // Dump and Die for Debugging (optional)
         // dd($request->all());
-
-        // Validate the request data
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
-        ]);
-
         // Fetch or create a new section
         $autismSection = $request->id
             ? OurApproach::find($request->id)
@@ -43,8 +35,8 @@ class OurApproachController extends Controller
         }
 
         // Assign data to the model
-        $autismSection->title = $validated['title'];
-        $autismSection->description = $validated['description'];
+        $autismSection->title = $request->title;
+        $autismSection->description = $request->description;
         $autismSection->status = $request->status ?? "off";
         // Save the model
         $autismSection->save();
@@ -60,21 +52,10 @@ class OurApproachController extends Controller
         return view('our-approach-section.howitworks', compact('howItWorkSection'));
     }
 
-    public function savehowItWorksSection(Request $request)
+    public function savehowItWorksSection(TitleRequest $request)
     {
         // Debugging (optional)
         // dd($request->all());
-
-        // Validate the request data
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
-            'sub_title' => 'nullable|array',
-            'sub_title.*' => 'string|max:255', // Validate each sub_title
-            'sub_description' => 'nullable|array',
-            'sub_description.*' => 'string|nullable', // Validate each sub_description
-        ]);
-   
         try {
             // Fetch or create a new section
             $autismSection = $request->id
@@ -100,7 +81,7 @@ class OurApproachController extends Controller
         }
 
             // Assign data to the model
-            $autismSection->title = $validated['title'];
+            $autismSection->title = $request->title;
             $autismSection->status = $request->status ?? "off";
             $autismSection->pointers = json_encode($pointers);
 

@@ -33,7 +33,7 @@ class TitleRequest extends FormRequest
     {
         return [
        
-            'title.required' => 'Please enter your title.',
+            'title.required' => 'The title is required.',
         
         ];
     }

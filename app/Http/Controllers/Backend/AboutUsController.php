@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TitleRequest;
 use App\Models\AboutUsJoinCommunity;
 use App\Models\AboutUsOurMission;
 use App\Models\AboutUsOurStory;
@@ -12,11 +13,8 @@ class AboutUsController extends Controller
         return view('about-section.ourstory',compact('ourStorySection'));
     }
 
-    public function saveOurStorySection(Request $request)
+    public function saveOurStorySection(TitleRequest $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-        ]);
 
         // Fetch or create a new section
         $autismSection = $request->id
@@ -50,14 +48,9 @@ class AboutUsController extends Controller
         return view('about-section.ourmission',compact('ourMissionSection'));
     }
 
-    public function saveOurMissionSection(Request $request)
+    public function saveOurMissionSection(TitleRequest $request)
     {
         // dd($request->all());
-        // Validate the request data
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
-        ]);
 
         // Fetch or create a new section
         $autismSection = $request->id
@@ -74,7 +67,7 @@ class AboutUsController extends Controller
 
 
         // Assign data
-        $autismSection->title = $validated['title'];
+        $autismSection->title = $request->title;
         $autismSection->status = $request->status ?? "off";
 
         $autismSection->save();
@@ -88,21 +81,9 @@ class AboutUsController extends Controller
         return view('about-section.joincommunity',compact('joinCommunitySection'));
     }
 
-    public function savejoinCommunitySection(Request $request)
-    {
-        // Dump and Die for Debugging (optional)
+    public function savejoinCommunitySection(TitleRequest $request)
+    {        
         // dd($request->all());
-        
-        // Validate the request data
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'sub_title' => 'nullable|array',
-            'sub_title.*' => 'string|max:255', // Validate each sub_title
-            'sub_description' => 'nullable|array',
-            'sub_description.*' => 'string|nullable', // Validate each sub_description
-        ]);
-    
         // Fetch or create a new section
         $autismSection = $request->id
             ? AboutUsJoinCommunity::find($request->id)
@@ -110,11 +91,11 @@ class AboutUsController extends Controller
     
         // Prepare pointers
         $pointers = [];
-        if (!empty($validated['sub_title'])) {
-            foreach ($validated['sub_title'] as $index => $subTitle) {
+        if (!empty($request->sub_title)) {
+            foreach ($request->sub_title as $index => $subTitle) {
                 $pointers[] = [
                     'sub_title' => $subTitle,
-                    'sub_description' => $validated['sub_description'][$index] ?? null,
+                    'sub_description' => $request->sub_description[$index] ?? null,
                 ];
             }
         }
@@ -127,7 +108,7 @@ class AboutUsController extends Controller
         }
     
         // Assign data to the model
-        $autismSection->title = $validated['title'];
+        $autismSection->title = $request->title;
         $autismSection->subtitle = $request->subtitle;
         $autismSection->description = $request->description;
         $autismSection->status = $request->status ?? "off";

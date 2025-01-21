@@ -124,7 +124,7 @@
                             <div class="card-footer">
                             <input type="checkbox" id="status" name="status" {{ ($certificationsSection[0]->status ?? '') === 'on' ? 'checked' : '' }}>
                             <label for="status">Show On Website</label>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -136,7 +136,10 @@
 @endsection
 @section('java_script')
 <script>
+    // Initialize CKEditor
     CKEDITOR.replace('description');
+
+    // Function to update the visibility of the "Remove" button
     function updateRemoveButtonVisibility() {
         const urlGroups = document.querySelectorAll('.url-group');
         urlGroups.forEach((group) => {
@@ -145,31 +148,33 @@
         });
     }
 
+    // Add a new URL group when the button is clicked
     document.getElementById('add-Pointers').addEventListener('click', function() {
         const container = document.getElementById('Pointers-container');
         const newInputGroup = document.createElement('div');
         newInputGroup.classList.add('form-group', 'url-group');
         newInputGroup.innerHTML = `
-         <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label>Sub Title</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label>Sub Description</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
-                                            </div>
-                                         
-                                        </div>
-
-        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
-    `;
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Sub Title</label>
+                    <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                    <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+                    <div class="text-danger sub-title-error" style="display: none;">This field is required.</div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Sub Description</label>
+                    <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
+                    <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+                    <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+        `;
         container.appendChild(newInputGroup);
         updateRemoveButtonVisibility(); // Update "Remove" buttons visibility
     });
 
+    // Remove a URL group when the "Remove" button is clicked
     document.getElementById('Pointers-container').addEventListener('click', function(event) {
         if (event.target.classList.contains('remove-Pointers')) {
             event.target.closest('.url-group').remove();
@@ -177,26 +182,52 @@
         }
     });
 
-    // Initial visibility check when the page loads
-    document.addEventListener('DOMContentLoaded', function() {
-        updateRemoveButtonVisibility();
-    });
+    // Validate the form before submission
+    function validateForm() {
+        const subTitles = document.querySelectorAll('input[name="sub_title[]"]');
+        const subDescriptions = document.querySelectorAll('input[name="sub_description[]"]');
+        let isValid = true;
 
+        // Validate Sub Title fields
+        subTitles.forEach(input => {
+            const errorDiv = input.closest('.form-group').querySelector('.sub-title-error');
+            if (errorDiv) {  // Ensure the error div exists before accessing it
+                if (!input.value.trim()) {
+                    isValid = false;
+                    errorDiv.style.display = 'block'; // Show error message
+                } else {
+                    errorDiv.style.display = 'none'; // Hide error message
+                }
+            }
+        });
 
-    // Initial visibility check when the page loads
-    document.addEventListener('DOMContentLoaded', function() {
-        updateRemoveButtonVisibility();
-    });
-    imgInp.onchange = evt => {
-        const [file] = imgInp.files;
-        if (file) {
-            blah.src = URL.createObjectURL(file);
-            blah.style.display = "block"; // Show the image
-        } else {
-            blah.style.display = "none"; // Hide the image if no file is selected
-            blah.src = "#"; // Reset the src
+        // Validate Sub Description fields
+        subDescriptions.forEach(input => {
+            const errorDiv = input.closest('.form-group').querySelector('.sub-description-error');
+            if (errorDiv) {  // Ensure the error div exists before accessing it
+                if (!input.value.trim()) {
+                    isValid = false;
+                    errorDiv.style.display = 'block'; // Show error message
+                } else {
+                    errorDiv.style.display = 'none'; // Hide error message
+                }
+            }
+        });
+
+        return isValid;
+    }
+
+    // Handle form submission
+    document.getElementById('form-submit-button').addEventListener('click', function(event) {
+        const isValid = validateForm();
+        if (!isValid) {
+            event.preventDefault(); // Prevent form submission if validation fails
         }
-    };
-</script>
+    });
 
+    // Initial visibility check when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        updateRemoveButtonVisibility();
+    });
+</script>
 @endsection

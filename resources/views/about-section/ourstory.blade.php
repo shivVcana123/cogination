@@ -72,7 +72,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="first_image">Left Image</label>
                                         <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                        <img id="blah" src="{{asset($ourStorySection[0]->first_image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                        <img id="blah" src="{{asset($ourStorySection[0]->first_image ?? '')}}" alt="Image Preview" style="width: 130px; display:{{empty($ourStorySection[0]->first_image) ? 'none' : 'block'}}" />
                                         <input type="file" class="form-control" name="first_image" id="imgInp" accept="image/*">
                                         @error('first_image')
                                         <div class="text-danger">{{ $message }}</div>
@@ -82,7 +82,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="image">Right Image</label>
                                         <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                        <img id="second_img" src="{{asset($ourStorySection[0]->second_image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                        <img id="second_img" src="{{asset($ourStorySection[0]->second_image ?? '')}}" alt="Image Preview" style="width: 130px; display:{{empty($ourStorySection[0]->second_image) ? 'none' : 'block'}}" />
                                         <input type="file" class="form-control" name="second_image" id="second_image" accept="image/*">
                                         @error('image')
                                         <div class="text-danger">{{ $message }}</div>

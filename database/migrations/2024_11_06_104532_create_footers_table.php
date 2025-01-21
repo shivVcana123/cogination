@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('start_time')->nullable();
             $table->string('end_time')->nullable();
             $table->string('days')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

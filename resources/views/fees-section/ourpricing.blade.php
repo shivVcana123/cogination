@@ -33,12 +33,11 @@
                                     <label for="title">Title</label>
                                     <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
                                     <input type="text" class="form-control" name="title" id="title"
-                                        placeholder="Enter title" value="{{ old('title',$ourPricing[0]->title ?? '') }}">
+                                        placeholder="Enter title" value="{{ old('title', $ourPricing[0]->title ?? '') }}">
                                     @error('title')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-
 
                                 <!-- Description Field -->
                                 <div class="form-group">
@@ -60,26 +59,49 @@
                                 <label for="">Add Extra Pointers</label>
                                 <div id="Pointers-container">
                                     @forelse($pointers as $index => $pointer)
-
-
-                                @php
-                                    $descriptions = explode(',',$pointer->sub_description)
-                                @endphp
                                     <div class="form-group url-group">
                                         <!-- Sub Title -->
                                         <label>Sub Title</label>
                                         <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_title[]" class="form-control" value="{{ $pointer->sub_title ?? '' }}" placeholder="Enter sub title">
-
+                                        <input type="text" name="sub_title[]" class="form-control" value="{{ old('sub_title.' . $index, $pointer->sub_title ?? '') }}" placeholder="Enter sub title">
+                                        @error('sub_title.' . $index)
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                         <!-- Sub Descriptions -->
                                         <div class="form-group sub-group" id="add-sub-description-{{ $index }}">
-                                            @foreach ($descriptions as $description)
-                                            
+                                            @php
+                                            // Explode the strings into arrays for sub_descriptions and prices
+                                            $descriptions = explode(',', $pointer->sub_description);
+                                            $prices = explode(',', $pointer->price);
+                                            @endphp
+
+                                            @foreach ($descriptions as $key => $description)
                                             <div class="row">
-                                                <div class="col-md-10">
+                                                <div class="col-md-6">
                                                     <label>Sub Description</label>
                                                     <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-                                                    <input type="text" name="sub_description[{{ $index }}][]" class="form-control" value="{{$description}}" placeholder="Enter sub description">
+                                                    <input
+                                                        type="text"
+                                                        name="sub_description[{{ $index }}][]"
+                                                        class="form-control"
+                                                        value="{{ old('sub_description.' . $index . '.' . $key, $description) }}"
+                                                        placeholder="Enter sub description">
+                                                    @error('sub_description.' . $index . '.' . $key)
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label>Price</label>
+                                                    <i class="fas fa-info-circle" title="Provide a meaningful price for this section."></i>
+                                                    <input
+                                                        type="number" step="0.01"
+                                                        name="price[{{ $index }}][]"
+                                                        class="form-control"
+                                                        value="{{ old('price.' . $index . '.' . $key, $prices[$key] ?? '') }}"
+                                                        placeholder="Enter price">
+                                                    @error('price.' . $index . '.' . $key)
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                                 <div class="col-md-2">
                                                     <button type="button" class="btn btn-danger remove-description">Remove</button>
@@ -87,50 +109,62 @@
                                             </div>
                                             @endforeach
 
-
                                             <button type="button" class="btn btn-success add-description">Add</button>
                                         </div>
 
                                         <!-- Remove Pointer Button -->
-                                        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                                        <button type="button" class="btn btn-danger remove-Pointers">Remove Pointer</button>
                                     </div>
                                     @empty
                                     <div class="form-group url-group">
                                         <!-- Sub Title -->
                                         <label>Sub Title</label>
                                         <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+                                        <input type="text" name="sub_title[]" class="form-control" value="{{ old('sub_title.0') }}" placeholder="Enter sub title">
+                                        @error('sub_title.*')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
 
                                         <!-- Sub Description -->
                                         <div class="form-group sub-group">
                                             <div class="row">
-                                                <div class="col-md-10">
+                                                <div class="col-md-6">
                                                     <label>Sub Description</label>
                                                     <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-                                                    <input type="text" name="sub_description[0][]" class="form-control" value="" placeholder="Enter sub description">
+                                                    <input type="text" name="sub_description[0][]" class="form-control" value="{{ old('sub_description.0.0') }}" placeholder="Enter sub description">
+                                                    @error('sub_description.0.*')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label>Price</label>
+                                                    <i class="fas fa-info-circle" title="Provide a meaningful price for this section."></i>
+                                                    <input type="number" step="0.01" name="price[0][]" class="form-control" value="{{ old('price.0.0') }}" placeholder="Enter price">
+                                                    @error('price.0.*')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <button type="button" class="btn btn-success add-description">Add</button>
-                                                    <button type="button" class="btn btn-danger remove-description">Remove</button>
+                                                    <button type="button" class="btn btn-danger remove-description">Remove Description</button>
                                                 </div>
                                             </div>
+
+                                            <button type="button" class="btn btn-success add-description">Add</button>
                                         </div>
 
                                         <!-- Remove Pointer Button -->
-                                        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                                        <button type="button" class="btn btn-danger remove-Pointers">Remove Pointer</button>
                                     </div>
                                     @endforelse
                                 </div>
 
                                 <!-- Add Pointer Button -->
                                 <button type="button" class="btn btn-success" id="add-Pointers">Add Pointer</button>
-
-
                             </div>
 
                             <div class="card-footer">
-                            <input type="checkbox" id="status" name="status" {{ ($ourPricing[0]->status ?? '') === 'on' ? 'checked' : '' }}>
-                            <label for="status">Show On Website</label>
+                                <input type="checkbox" id="status" name="status" {{ old('status', $ourPricing[0]->status ?? '') === 'on' ? 'checked' : '' }}>
+                                <label for="status">Show On Website</label>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
@@ -142,118 +176,263 @@
 </div>
 @endsection
 @section('java_script')
-<script>
+<!-- <script>
     CKEDITOR.replace('description');
-  document.addEventListener('DOMContentLoaded', function() {
-    const container = document.getElementById('Pointers-container');
 
-    // Add new Pointer group
-    document.getElementById('add-Pointers').addEventListener('click', function() {
-        const newInputGroup = document.createElement('div');
-        newInputGroup.classList.add('form-group', 'url-group');
-        newInputGroup.innerHTML = `
+    document.addEventListener('DOMContentLoaded', function() {
+        const container = document.getElementById('Pointers-container');
+
+        // Add new Pointer group
+        document.getElementById('add-Pointers').addEventListener('click', function() {
+            const newInputGroup = document.createElement('div');
+            newInputGroup.classList.add('form-group', 'url-group');
+            newInputGroup.innerHTML = `
             <label>Sub Title</label>
             <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
             <input type="text" name="sub_title[]" class="form-control" placeholder="Enter sub title">
+            <div class="text-danger sub-title-error" style="display: none;">This field is required.</div>
             <div class="form-group sub-group">
                 <div class="row">
-                    <div class="col-md-10">
+                    <div class="col-md-6">
                         <label>Sub Description</label>
                         <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-                        <input type="text" class="form-control" placeholder="Enter sub description">
+                        <input type="text" name="sub_description[0][]" class="form-control" placeholder="Enter sub description">
+                        <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Price</label>
+                        <i class="fas fa-info-circle" title="Provide a meaningful price for this section."></i>
+                        <input type="number" step="0.01" name="price[0][]" class="form-control" placeholder="Enter price">
+                        <div class="text-danger price-error" style="display: none;">This field is required.</div>
                     </div>
                     <div class="col-md-2">
-                        <button type="button" class="btn btn-danger remove-description" style="display: none;">Remove</button>
+                        <button type="button" class="btn btn-danger remove-description">Remove</button>
                     </div>
                 </div>
                 <button type="button" class="btn btn-success add-description">Add</button>
             </div>
-            <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
-        `;
-        container.appendChild(newInputGroup);
+            <button type="button" class="btn btn-danger remove-Pointers">Remove Pointer</button>`;
+            container.appendChild(newInputGroup);
+        });
+        // Delegate events inside Pointers container
+        container.addEventListener('click', function(event) {
+            const target = event.target;
 
+            // Add new Sub Description
+            if (target.classList.contains('add-description')) {
+                const subDescriptionContainer = target.closest('.sub-group');
+                const index = [...container.querySelectorAll('.url-group')].indexOf(subDescriptionContainer.closest('.url-group'));
+                const newRow = document.createElement('div');
+                newRow.classList.add('row');
+                newRow.innerHTML = `
+                <div class="col-md-6">
+                    <label>Sub Description</label>
+                    <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
+                    <input type="text" name="sub_description[${index}][]" class="form-control" placeholder="Enter sub description">
+                    <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
+                    </div>
+                <div class="col-md-6">
+                    <label>Price</label>
+                    <i class="fas fa-info-circle" title="Provide a meaningful price for this section."></i>
+                    <input type="number" step="0.01" name="price[${index}][]" class="form-control" placeholder="Enter price">
+                    <div class="text-danger price-error" style="display: none;">This field is required.</div>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-danger remove-description">Remove Description</button>
+                </div>
+            `;
+
+                // Append the new row above the Add button
+                const addButton = subDescriptionContainer.querySelector('.add-description');
+                subDescriptionContainer.insertBefore(newRow, addButton);
+
+                updateIndexes();
+                updateRemoveButtonVisibility();
+            }
+
+            // Remove a Pointer group
+            if (target.classList.contains('remove-Pointers')) {
+                target.closest('.url-group').remove();
+                updateIndexes();
+                updateRemoveButtonVisibility();
+            }
+
+            // Remove a Sub Description
+            if (target.classList.contains('remove-description')) {
+                const subGroup = target.closest('.sub-group');
+                target.closest('.row').remove();
+                updateIndexes();
+                updateRemoveButtonVisibility();
+            }
+        });
+
+        // Update indexes for all groups and sub-descriptions
+        function updateIndexes() {
+            const groups = container.querySelectorAll('.url-group');
+            groups.forEach((group, groupIndex) => {
+                const subDescriptions = group.querySelectorAll('.sub-group .row input');
+                subDescriptions.forEach((input) => {
+                    const nameParts = input.name.split('[');
+                    if (nameParts[0] === 'sub_description' || nameParts[0] === 'price') {
+                        input.name = `${nameParts[0]}[${groupIndex}][]`;
+                    }
+                });
+            });
+        }
+
+        // Update Remove Button Visibility
+        function updateRemoveButtonVisibility() {
+            const groups = container.querySelectorAll('.url-group');
+            groups.forEach((group) => {
+                const removeButton = group.querySelector('.remove-Pointers');
+                removeButton.style.display = groups.length > 1 ? 'inline-block' : 'none';
+            });
+
+            const allRows = container.querySelectorAll('.sub-group');
+            allRows.forEach((subGroup) => {
+                const rows = subGroup.querySelectorAll('.row');
+                rows.forEach((row) => {
+                    const removeButton = row.querySelector('.remove-description');
+                    removeButton.style.display = rows.length > 1 ? 'inline-block' : 'none';
+                });
+            });
+        }
+
+        // Initial setup
         updateIndexes();
         updateRemoveButtonVisibility();
     });
+</script> -->
+<script>
+    CKEDITOR.replace('description');
 
-    // Delegate events inside Pointers container
-    container.addEventListener('click', function(event) {
-        const target = event.target;
+    document.addEventListener('DOMContentLoaded', function() {
+        const container = document.getElementById('Pointers-container');
 
-        // Add new Sub Description
-       // Add new Sub Description
-if (target.classList.contains('add-description')) {
-    const subDescriptionContainer = target.closest('.sub-group'); // Find the nearest .sub-group
-    const index = [...container.querySelectorAll('.url-group')].indexOf(subDescriptionContainer.closest('.url-group')); // Get index of parent group
-    const newRow = document.createElement('div');
-    newRow.classList.add('row');
-    newRow.innerHTML = `
-        <div class="col-md-10">
-            <label>Sub Description</label>
-            <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-            <input type="text" name="sub_description[${index}][]" class="form-control" placeholder="Enter sub description">
-        </div>
-        <div class="col-md-2">
-            <button type="button" class="btn btn-danger remove-description">Remove</button>
-        </div>
-    `;
+        // Add new Pointer group
+        document.getElementById('add-Pointers').addEventListener('click', function() {
+            const newInputGroup = document.createElement('div');
+            newInputGroup.classList.add('form-group', 'url-group');
+            newInputGroup.innerHTML = `
+            <label>Sub Title</label>
+            <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+            <input type="text" name="sub_title[]" class="form-control" placeholder="Enter sub title">
+            <div class="text-danger sub-title-error" style="display: none;">This field is required.</div>
+            <div class="form-group sub-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Sub Description</label>
+                        <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
+                        <input type="text" name="sub_description[0][]" class="form-control" placeholder="Enter sub description">
+                        <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Price</label>
+                        <i class="fas fa-info-circle" title="Provide a meaningful price for this section."></i>
+                        <input type="number" step="0.01" name="price[0][]" class="form-control" placeholder="Enter price">
+                        <div class="text-danger price-error" style="display: none;">This field is required.</div>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-danger remove-description">Remove</button>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-success add-description">Add</button>
+            </div>
+            <button type="button" class="btn btn-danger remove-Pointers">Remove Pointer</button>`;
+            container.appendChild(newInputGroup);
 
-    // Append the new row to the .sub-group container
-    subDescriptionContainer.insertBefore(newRow, subDescriptionContainer.querySelector('.add-description'));
+            updateIndexes(); // Ensure new inputs have the correct index.
+            updateRemoveButtonVisibility(); // Update remove button visibility
+        });
 
-    updateIndexes();
-    updateRemoveButtonVisibility();
-}
+        // Delegate events inside Pointers container
+        container.addEventListener('click', function(event) {
+            const target = event.target;
 
+            // Add new Sub Description
+            if (target.classList.contains('add-description')) {
+                const subDescriptionContainer = target.closest('.sub-group');
+                const index = [...container.querySelectorAll('.url-group')].indexOf(subDescriptionContainer.closest('.url-group'));
+                const newRow = document.createElement('div');
+                newRow.classList.add('row');
+                newRow.innerHTML = `
+                <div class="col-md-6">
+                    <label>Sub Description</label>
+                    <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
+                    <input type="text" name="sub_description[${index}][]" class="form-control" placeholder="Enter sub description">
+                    <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
+                </div>
+                <div class="col-md-6">
+                    <label>Price</label>
+                    <i class="fas fa-info-circle" title="Provide a meaningful price for this section."></i>
+                    <input type="number" step="0.01" name="price[${index}][]" class="form-control" placeholder="Enter price">
+                    <div class="text-danger price-error" style="display: none;">This field is required.</div>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-danger remove-description">Remove Description</button>
+                </div>`;
 
-        // Remove a Pointer group
-        if (target.classList.contains('remove-Pointers')) {
-            target.closest('.url-group').remove();
-            updateIndexes();
-            updateRemoveButtonVisibility();
-        }
+                // Append the new row above the Add button
+                const addButton = subDescriptionContainer.querySelector('.add-description');
+                subDescriptionContainer.insertBefore(newRow, addButton);
 
-        // Remove a Sub Description
-        if (target.classList.contains('remove-description')) {
-            target.closest('.row').remove();
-            updateIndexes();
-            updateRemoveButtonVisibility();
-        }
-    });
+                updateIndexes(); // Update indexes after adding a new row
+                updateRemoveButtonVisibility(); // Update remove button visibility
+            }
 
-    // Update indexes for all groups and sub-descriptions
-    function updateIndexes() {
-        const groups = container.querySelectorAll('.url-group');
-        groups.forEach((group, groupIndex) => {
-            const subDescriptions = group.querySelectorAll('.sub-group .row input');
-            subDescriptions.forEach(input => {
-                input.name = `sub_description[${groupIndex}][]`;
-            });
+            // Remove a Pointer group
+            if (target.classList.contains('remove-Pointers')) {
+                target.closest('.url-group').remove();
+                updateIndexes(); // Update indexes after removing a group
+                updateRemoveButtonVisibility(); // Update remove button visibility
+            }
 
-            // Update visibility of the remove button for sub-description inputs
-            const removeButtons = group.querySelectorAll('.remove-description');
-            if (subDescriptions.length > 1) {
-                removeButtons.forEach(button => button.style.display = 'inline-block');
-            } else {
-                removeButtons.forEach(button => button.style.display = 'none');
+            // Remove a Sub Description
+            if (target.classList.contains('remove-description')) {
+                const subGroup = target.closest('.sub-group');
+                target.closest('.row').remove();
+                updateIndexes(); // Update indexes after removing a sub description
+                updateRemoveButtonVisibility(); // Update remove button visibility
             }
         });
-    }
 
-    // Update Remove Button Visibility
-    function updateRemoveButtonVisibility() {
-        const groups = container.querySelectorAll('.url-group');
-        groups.forEach(group => {
-            const removeButton = group.querySelector('.remove-Pointers');
-            removeButton.style.display = groups.length > 1 ? 'inline-block' : 'none';
-        });
-    }
+        // Update indexes for all groups and sub-descriptions
+        function updateIndexes() {
+            const groups = container.querySelectorAll('.url-group');
+            groups.forEach((group, groupIndex) => {
+                const subDescriptions = group.querySelectorAll('.sub-group .row input');
+                subDescriptions.forEach((input) => {
+                    const nameParts = input.name.split('[');
+                    if (nameParts[0] === 'sub_description' || nameParts[0] === 'price') {
+                        input.name = `${nameParts[0]}[${groupIndex}][]`; // Update name to reflect correct index
+                    }
+                });
+            });
+        }
 
-    // Initial setup
-    updateIndexes();
-    updateRemoveButtonVisibility();
-});
+        // Update Remove Button Visibility
+        function updateRemoveButtonVisibility() {
+            const groups = container.querySelectorAll('.url-group');
+            groups.forEach((group) => {
+                const removeButton = group.querySelector('.remove-Pointers');
+                removeButton.style.display = groups.length > 1 ? 'inline-block' : 'none';
+            });
 
+            const allRows = container.querySelectorAll('.sub-group');
+            allRows.forEach((subGroup) => {
+                const rows = subGroup.querySelectorAll('.row');
+                rows.forEach((row) => {
+                    const removeButton = row.querySelector('.remove-description');
+                    removeButton.style.display = rows.length > 1 ? 'inline-block' : 'none';
+                });
+            });
+        }
+
+        // Initial setup
+        updateIndexes();
+        updateRemoveButtonVisibility();
+    });
 </script>
+
 
 @endsection

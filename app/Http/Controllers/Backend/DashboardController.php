@@ -11,8 +11,13 @@ use App\Models\Header;
 
 class DashboardController extends Controller
 {
-    public function dashboard()
+    public function dashboard(Request $request)
     {
+        // if($request->query('success')){
+        //     $purchase = Auth::user();
+        //     $priceId = $request->query($priceId);
+        //     $purchase->save();
+        // }
         $users = User::all();
         $services = User::all();
         $news = User::all();

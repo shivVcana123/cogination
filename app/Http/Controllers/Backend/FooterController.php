@@ -24,7 +24,8 @@ class FooterController extends Controller
     public function footer()
     {
        $footerData = Footer::get();
-       $headers = Header::all();
+       $headers = Header::where('link', '!=', '')->get();
+    //    dd($headers);
        return view('Footer.form',compact('footerData','headers'));
     }
 
@@ -33,13 +34,13 @@ class FooterController extends Controller
      */
     public function saveFooter(Request $request)
     {
-
+        // dd($request->all());
         $linkPointers = [];
-        if ($request->has('name')) {
-            foreach ($request->name as $index => $nameData) {
+        if ($request->has('dats_display')) {
+            foreach ($request->dats_display as $index => $nameData) {
                 $linkPointers[] = [
-                    'name' => $nameData,
-                    'link' => $request->link [$index] ?? null,
+                    'name' => $index, // Key of the associative array (e.g., "Home", "ADHD")
+                    'link' => $nameData, // Value of the associative array (e.g., "/", "adhd")
                 ];
             }
         }
@@ -52,10 +53,15 @@ class FooterController extends Controller
         $footer->phone_no = $request->phone_no;
         $footer->email = $request->email;
         $footer->start_time = $request->start_time;
-        $footer->display_data = json_encode($request->dats_display);
-        $footer->link = json_encode($linkPointers);
+        $footer->display_data = json_encode($linkPointers);
+        // $footer->link = json_encode($linkPointers);
         $footer->end_time = $request->end_time;
         $footer->days = $request->days;
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
+            $imagePath = $request->file('image')->storeAs('logo', $imageName, 'public');
+            $footer->image = 'storage/' . $imagePath;
+        }
         $footer->save();
         return redirect()->route('footer');
     }
@@ -73,9 +79,11 @@ class FooterController extends Controller
      */
     public function edit(string $id)
     {
+       
         $footer =  new Footer();
        $headers = Header::all();
        $footer = Footer::find($id);
+       
        return view('Footer.form',compact('footer','headers','footer'));
     }
 

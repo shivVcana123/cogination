@@ -43,14 +43,23 @@
     
                                     <!-- Subtitle Field -->
                                     <div class="form-group col-md-6">
-                                        <label for="subtitle">Subtitle</label>
+                                    <label for="image">Image</label>
+                                    <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+                                    <img id="blah" src="{{asset($appointment->image ?? '')}}" alt="Image Preview"  style="width: 130px; display: {{ empty($appointment->image) ? 'none' : 'block' }};" />
+                                    <input type="file" class="form-control" name="image" id="imgInp" accept="image/*">
+                                    @error('image')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                    <!-- <div class="form-group col-md-6">
+                                        <label for="subtitle">Description</label>
                                         <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
                                         <input type="text" class="form-control" name="subtitle" id="subtitle"
                                             placeholder="Enter subtitle" value="{{ old('subtitle',$appointment->subtitle ?? '') }}">
                                         @error('subtitle')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
-                                    </div>
+                                    </div> -->
                                 
 
                                 <div class="form-group col-md-6">
@@ -70,16 +79,26 @@
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    </div>
-                                <div class="form-group">
+                                    
+                                <!-- <div class="form-group">
                                     <label for="image">Image</label>
                                     <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                    <img id="blah" src="{{asset($appointment->image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                    <img id="blah" src="{{asset($appointment->image ?? '')}}" alt="Image Preview"  style="width: 130px; display: {{ empty($appointment->image) ? 'none' : 'block' }};" />
                                     <input type="file" class="form-control" name="image" id="imgInp" accept="image/*">
                                     @error('image')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
-                                </div>
+                                </div> -->
+                                <div class="form-group col-md-12">
+                                        <label for="subtitle">Description</label>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
+                                        <textarea type="text" class="form-control" name="subtitle" id="subtitle"
+                                            placeholder="Enter subtitle">{{ old('subtitle',$appointment->subtitle ?? '') }}</textarea>
+                                        @error('subtitle')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    </div>
                             </div>
 
                             <div class="card-footer">
@@ -95,7 +114,10 @@
     </section>
 </div>
 
+@endsection
+@section('java_script')
 <script>
+    CKEDITOR.replace('subtitle');
     imgInp.onchange = evt => {
         const [file] = imgInp.files;
         if (file) {

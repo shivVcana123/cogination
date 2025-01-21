@@ -16,7 +16,7 @@
                         <tr>
                             <th>#</th>
                             <th>Category</th>
-                            <th>Link</th>
+                            <th>Slug</th>
                             <th>Sub Category</th>
                             <th>Action</th>
                         </tr>

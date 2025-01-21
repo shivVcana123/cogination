@@ -1,6 +1,8 @@
 <?php
 use App\Http\Controllers\ApiController\ApiController;
+use App\Http\Controllers\Backend\FeesController;
 use App\Http\Controllers\Backend\PageDesignController;
+use App\Http\Controllers\Backend\StripePaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +22,7 @@ Route::get('accreditation-section', [ApiController::class, 'fetchAccreditationSe
 Route::get('website-style', [ApiController::class, 'fetchWebsiteStyle']); // Fetch all website-style data
 Route::get('cta-section', [ApiController::class, 'fetchCtaSectionData']); // Fetch all website-style data
 Route::get('banner-section', [ApiController::class, 'fetchBannerSectionData']); // Fetch all website-style data
+Route::get('search-content', [ApiController::class, 'searchContent']);
+Route::post('/create-checkout-session', [StripePaymentController::class, 'createCheckoutSession']);
 
 

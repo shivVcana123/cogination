@@ -115,7 +115,7 @@
                                             <div class="form-group col-md-6">
                                                 <label for="image">Image</label>
                                                 <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                                <img id="blah" src="{{asset($pointer->sub_image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                                <img id="blah" src="{{asset($pointer->sub_image ?? '')}}" alt="Image Preview" style="width: 130px; display:{{empty($pointer->sub_image) ? 'none' : 'block'}}" />
                                                 <input type="file" class="form-control" name="image[]" id="imgInp" accept="image/*">
                                                 @error('image')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -166,7 +166,7 @@
                             <div class="card-footer">
                             <input type="checkbox" id="status" name="status" {{ ($adhdBenefit[0]->status ?? '') === 'on' ? 'checked' : '' }}>
                             <label for="status">Show On Website</label>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -179,64 +179,170 @@
 @section('java_script')
 <script>
     CKEDITOR.replace('description_1');
-    function updateRemoveButtonVisibility() {
-        const urlGroups = document.querySelectorAll('.url-group');
-        urlGroups.forEach((group) => {
-            const removeButton = group.querySelector('.remove-Pointers');
-            removeButton.style.display = urlGroups.length > 1 ? 'inline-block' : 'none';
-        });
-    }
+    // function updateRemoveButtonVisibility() {
+    //     const urlGroups = document.querySelectorAll('.url-group');
+    //     urlGroups.forEach((group) => {
+    //         const removeButton = group.querySelector('.remove-Pointers');
+    //         removeButton.style.display = urlGroups.length > 1 ? 'inline-block' : 'none';
+    //     });
+    // }
 
-    document.getElementById('add-Pointers').addEventListener('click', function() {
-        const container = document.getElementById('Pointers-container');
-        const newInputGroup = document.createElement('div');
-        newInputGroup.classList.add('form-group', 'url-group');
-        newInputGroup.innerHTML = `
-            <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label>Sub Title</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label>Sub Description</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
-                                            </div>
+    // document.getElementById('add-Pointers').addEventListener('click', function() {
+    //     const container = document.getElementById('Pointers-container');
+    //     const newInputGroup = document.createElement('div');
+    //     newInputGroup.classList.add('form-group', 'url-group');
+    //     newInputGroup.innerHTML = `
+    //         <div class="row">
+    //                                         <div class="form-group col-md-6">
+    //                                             <label>Sub Title</label>
+    //                                             <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+    //                                             <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+    //                                         </div>
+    //                                         <div class="form-group col-md-6">
+    //                                             <label>Sub Description</label>
+    //                                             <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+    //                                             <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+    //                                         </div>
 
-                                            <div class="form-group col-md-6">
-                                        <label for="image">Image</label>
-                                        <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                        <img id="blah" src="#" alt="Image Preview" style="width: 130px; display:none" />
-                                        <input type="file" class="form-control" name="image[]" id="imgInp" accept="image/*">
+    //                                         <div class="form-group col-md-6">
+    //                                     <label for="image">Image</label>
+    //                                     <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+    //                                     <img id="blah" src="#" alt="Image Preview" style="width: 130px; display:none" />
+    //                                     <input type="file" class="form-control" name="image[]" id="imgInp" accept="image/*">
                                   
-                                    </div>
+    //                                 </div>
                                          
-                                        </div>
+    //                                     </div>
 
+    //     <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+    // `;
+    //     container.appendChild(newInputGroup);
+    //     updateRemoveButtonVisibility(); // Update "Remove" buttons visibility
+    // });
+
+    // document.getElementById('Pointers-container').addEventListener('click', function(event) {
+    //     if (event.target.classList.contains('remove-Pointers')) {
+    //         event.target.closest('.url-group').remove();
+    //         updateRemoveButtonVisibility(); // Update "Remove" buttons visibility
+    //     }
+    // });
+
+    // // Initial visibility check when the page loads
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     updateRemoveButtonVisibility();
+    // });
+
+
+    // // Initial visibility check when the page loads
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     updateRemoveButtonVisibility();
+    // });
+
+    function updateRemoveButtonVisibility() {
+    const urlGroups = document.querySelectorAll('.url-group');
+    urlGroups.forEach((group) => {
+        const removeButton = group.querySelector('.remove-Pointers');
+        if (removeButton) {
+            removeButton.style.display = urlGroups.length > 1 ? 'inline-block' : 'none';
+        }
+    });
+}
+
+document.getElementById('add-Pointers').addEventListener('click', function () {
+    const container = document.getElementById('Pointers-container');
+    const newInputGroup = document.createElement('div');
+    newInputGroup.classList.add('form-group', 'url-group');
+    newInputGroup.innerHTML = `
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label>Sub Title</label>
+                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                <input type="text" name="sub_title[]" class="form-control" placeholder="Enter sub title">
+                <div class="text-danger title-error" style="display: none;">Sub title is required.</div>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Sub Description</label>
+                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                <input type="text" name="sub_description[]" class="form-control" placeholder="Enter sub description">
+                <div class="text-danger description-error" style="display: none;">Sub description is required.</div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="image">Image</label>
+                <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+                <input type="file" class="form-control image-input" name="image[]" accept="image/*">
+                <div class="text-danger image-error" style="display: none;">Image is required.</div>
+            </div>
+        </div>
         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
     `;
-        container.appendChild(newInputGroup);
-        updateRemoveButtonVisibility(); // Update "Remove" buttons visibility
-    });
+    container.appendChild(newInputGroup);
+    updateRemoveButtonVisibility();
+});
 
-    document.getElementById('Pointers-container').addEventListener('click', function(event) {
-        if (event.target.classList.contains('remove-Pointers')) {
-            event.target.closest('.url-group').remove();
-            updateRemoveButtonVisibility(); // Update "Remove" buttons visibility
+document.getElementById('Pointers-container').addEventListener('click', function (event) {
+    if (event.target.classList.contains('remove-Pointers')) {
+        const group = event.target.closest('.url-group');
+        if (group) {
+            group.remove();
+        }
+        updateRemoveButtonVisibility();
+    }
+});
+
+// Validate all fields
+function validateFields() {
+    const urlGroups = document.querySelectorAll('.url-group');
+    let isValid = true;
+
+    urlGroups.forEach((group) => {
+        const titleInput = group.querySelector('input[name="sub_title[]"]');
+        const descriptionInput = group.querySelector('input[name="sub_description[]"]');
+        const imageInput = group.querySelector('.image-input');
+
+        const titleError = group.querySelector('.title-error');
+        const descriptionError = group.querySelector('.description-error');
+        const imageError = group.querySelector('.image-error');
+
+        // Reset error messages
+        if (titleError) titleError.style.display = 'none';
+        if (descriptionError) descriptionError.style.display = 'none';
+        if (imageError) imageError.style.display = 'none';
+
+        // Validate title
+        if (titleInput && !titleInput.value.trim()) {
+            if (titleError) titleError.style.display = 'block';
+            isValid = false;
+        }
+
+        // Validate description
+        if (descriptionInput && !descriptionInput.value.trim()) {
+            if (descriptionError) descriptionError.style.display = 'block';
+            isValid = false;
+        }
+
+        // Validate image file
+        if (imageInput && !imageInput.files.length) {
+            if (imageError) imageError.style.display = 'block';
+            isValid = false;
         }
     });
 
-    // Initial visibility check when the page loads
-    document.addEventListener('DOMContentLoaded', function() {
-        updateRemoveButtonVisibility();
-    });
+    return isValid;
+}
 
+// Add submit listener for validation
+document.getElementById('form-submit-button').addEventListener('click', function (event) {
+    if (!validateFields()) {
+        event.preventDefault(); // Prevent form submission if validation fails
+        // alert('Please fill out all required fields.');
+    }
+});
 
-    // Initial visibility check when the page loads
-    document.addEventListener('DOMContentLoaded', function() {
-        updateRemoveButtonVisibility();
-    });
+// Initial visibility check when the page loads
+document.addEventListener('DOMContentLoaded', function () {
+    updateRemoveButtonVisibility();
+});
+
 
 
     imgInp.onchange = evt => {
@@ -265,7 +371,8 @@
                 $('#id').val(section.id || '');
                 $('#title').val(section.title || '');
                 $('#subtitle').val(section.subtitle || '');
-                $('#description_1').val(section.description_1 || '');
+                // $('#description_1').val(section.description_1 || '');
+                CKEDITOR.instances.description_1.setData(section.description_1 || '');
                 $('#status').prop('checked', section.status === 'on');
 
                 // Clear existing pointers

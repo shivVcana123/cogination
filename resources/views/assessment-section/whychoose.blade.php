@@ -151,7 +151,7 @@
                                 <div class="form-group">
                                     <label for="image">Image</label>
                                     <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                    <img id="blah" src="{{asset($assessmentWhyChoose[0]->image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                    <img id="blah" src="{{asset($assessmentWhyChoose[0]->image ?? '')}}" alt="Image Preview" style="width: 130px; display:{{empty($assessmentWhyChoose[0]->image) ? 'none' : 'block'}}" />
                                     <input type="file" class="form-control" name="image" id="imgInp" accept="image/*">
                                     @error('image')
                                     <div class="text-danger">{{ $message }}</div>
@@ -162,7 +162,7 @@
                             <div class="card-footer">
                             <input type="checkbox" id="status" name="status" {{ ($assessmentWhyChoose[0]->status ?? '') === 'on' ? 'checked' : '' }}>
                             <label for="status">Show On Website</label>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -193,11 +193,13 @@
                                                 <label>Sub Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
                                                 <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
-                                            </div>
+                                                <div class="text-danger sub-title-error" style="display: none;">This field is required.</div>
+                                                </div>
                                             <div class="form-group col-md-6">
                                                 <label>Sub Description</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
                                                 <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+                                                <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
                                             </div>
                                          
                                         </div>
@@ -225,6 +227,51 @@
     document.addEventListener('DOMContentLoaded', function() {
         updateRemoveButtonVisibility();
     });
+
+       // Validate the form before submission
+       function validateForm() {
+        const subTitles = document.querySelectorAll('input[name="sub_title[]"]');
+        const subDescriptions = document.querySelectorAll('input[name="sub_description[]"]');
+        let isValid = true;
+
+        // Validate Sub Title fields
+        subTitles.forEach(input => {
+            const errorDiv = input.closest('.form-group').querySelector('.sub-title-error');
+            if (errorDiv) {  // Ensure the error div exists before accessing it
+                if (!input.value.trim()) {
+                    isValid = false;
+                    errorDiv.style.display = 'block'; // Show error message
+                } else {
+                    errorDiv.style.display = 'none'; // Hide error message
+                }
+            }
+        });
+
+        // Validate Sub Description fields
+        subDescriptions.forEach(input => {
+            const errorDiv = input.closest('.form-group').querySelector('.sub-description-error');
+            if (errorDiv) {  // Ensure the error div exists before accessing it
+                if (!input.value.trim()) {
+                    isValid = false;
+                    errorDiv.style.display = 'block'; // Show error message
+                } else {
+                    errorDiv.style.display = 'none'; // Hide error message
+                }
+            }
+        });
+
+        return isValid;
+    }
+
+    // Handle form submission
+    document.getElementById('form-submit-button').addEventListener('click', function(event) {
+        const isValid = validateForm();
+        if (!isValid) {
+            event.preventDefault(); // Prevent form submission if validation fails
+        }
+    });
+    
+    
     imgInp.onchange = evt => {
         const [file] = imgInp.files;
         if (file) {

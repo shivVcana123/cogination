@@ -1,11 +1,33 @@
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar elevation-4">
+ <?php 
+  use App\Models\Logo;
+  $logo = Logo::first();
+ ?>
+ <style>
+    .logos img{
+        width: 90%;
+    }
+    .logos{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .bg-clss{
+        background-color: #fff;
+    }
+ </style>
+<aside class="main-sidebar elevation-4 bg-clss">
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Brand Logo -->
-        <div class="image">
-            <img src="{{ asset('assets/images/New-logo.png') }}" alt="User Image" style="width: 188px;">
+        <div class="image logos">
+            @if (!empty($logo->logo))
+            <img src="{{ asset($logo->logo) }}" alt="User Image">
+            @else
+            <img src="{{ asset('assets/images/New-logo.png') }}" alt="User Image">
+            @endif
         </div>
+        <!-- <img src="{{ asset('assets/images/smallLogo.png') }}" alt="User Image" style="width: 188px;"> -->
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -26,12 +48,20 @@
                     </a>
                 </li>
 
+                 <!-- Banner -->
+                 <li class="nav-item">
+                    <a href="{{ route('banner.index') }}" class="nav-link {{ request()->is('banner*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-image" style="color:black"></i> <!-- Banner icon -->
+                        <p style="color:black">Banner</p>
+                    </a>
+                </li>
+
                 <!-- Home Section -->
                 <li class="nav-item {{ request()->is('home*') || request()->is('whychooseus*') || request()->is('bringinghealthcare*') || request()->is('faqs*') || request()->is('appointment*') || request()->is('about-us*') || request()->is('our-services*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-home" style="color:black"></i>
                         <p style="color:black">
-                            Home Section
+                            Home Page
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -86,7 +116,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-brain" style="color:black"></i>
                         <p style="color:black">
-                            ADHD Section
+                            ADHD Page
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -111,7 +141,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-puzzle-piece" style="color:black"></i>
                         <p style="color:black">
-                            Autism Section
+                            Autism Page
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -160,7 +190,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-info-circle" style="color:black"></i>
                         <p style="color:black">
-                            About Us Section
+                            About Us Page
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -191,7 +221,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-hand-holding-heart" style="color:black"></i>
                         <p style="color:black">
-                            Our Approach Section
+                            Our Approach Page
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -216,7 +246,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-certificate" style="color:black"></i>
                         <p style="color:black">
-                            Accreditation Section
+                            Accreditation Page
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -262,7 +292,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-clipboard-list" style="color:black"></i>
                         <p style="color:black">
-                            Assessments Section
+                            Assessments Page
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -300,7 +330,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-dollar-sign" style="color:black"></i>
                         <p style="color:black">
-                            Fees Section
+                            Fees Page
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -323,13 +353,7 @@
                     </ul>
                 </li>
 
-                <!-- Banner -->
-                <li class="nav-item">
-                    <a href="{{ route('banner.index') }}" class="nav-link {{ request()->is('banner*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-image" style="color:black"></i> <!-- Banner icon -->
-                        <p style="color:black">Banner</p>
-                    </a>
-                </li>
+               
 
                 <!-- CTA -->
                 <li class="nav-item">

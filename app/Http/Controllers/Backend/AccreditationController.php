@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TitleRequest;
 use App\Models\AccreditationAccreditation;
 use App\Models\AccreditationCertification;
 use App\Models\AccreditationOurCommitment;
@@ -18,15 +19,9 @@ class AccreditationController extends Controller
     }
 
     
-    public function saveOurCommitmentSection(Request $request)
+    public function saveOurCommitmentSection(TitleRequest $request)
     {
         // dd($request->all());
-        // Validate the request data
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
         // Fetch or create a new section
         $autismSection = $request->id
             ? AccreditationOurCommitment::find($request->id)
@@ -54,32 +49,21 @@ class AccreditationController extends Controller
         return view('accreditation-section.certifications',compact('certificationsSection'));
     }
 
-    public function saveCertificationsSection(Request $request)
+    public function saveCertificationsSection(TitleRequest $request)
     {
         // dd($request->all());
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'subtitle' => 'nullable|string|max:255',
-            'description' => 'nullable|string|max:255',
-            'sub_title' => 'required|array',
-            'sub_title.*' => 'nullable|string|max:255',
-            'sub_description' => 'nullable|array',
-            'sub_description.*' => 'nullable|string',
-  
-        ]);
-    
         $adhdfirstSection = $request->id
             ? AccreditationCertification::find($request->id)
             : new AccreditationCertification();
     
         $pointers = [];
-        if (!empty($validated['sub_title'])) {
-            foreach ($validated['sub_title'] as $index => $subTitle) {
+        if (!empty($request->sub_title)) {
+            foreach ($request->sub_title as $index => $subTitle) {
     
                 // Append pointer data, including all buttons
                 $pointers[] = [
                     'sub_title' => $subTitle,
-                    'sub_description' => $validated['sub_description'][$index] ?? null,
+                    'sub_description' => $request->sub_description[$index] ?? null,
                 ];
             }
         }
@@ -104,40 +88,29 @@ class AccreditationController extends Controller
         return view('accreditation-section.accreditations',compact('accreditationsSection'));
     }
 
-    public function saveAccreditationsSection(Request $request)
+    public function saveAccreditationsSection(TitleRequest $request)
     {
         // dd($request->all());
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'subtitle' => 'required|string|max:255',
-            'description' => 'nullable|string|max:255',
-            'sub_title' => 'required|array',
-            'sub_title.*' => 'nullable|string|max:255',
-            'sub_description' => 'nullable|array',
-            'sub_description.*' => 'nullable|string',
-  
-        ]);
-    
         $adhdfirstSection = $request->id
             ? AccreditationAccreditation::find($request->id)
             : new AccreditationAccreditation();
     
         $pointers = [];
-        if (!empty($validated['sub_title'])) {
-            foreach ($validated['sub_title'] as $index => $subTitle) {
+        if (!empty($request->sub_title)) {
+            foreach ($request->sub_title as $index => $subTitle) {
     
                 // Append pointer data, including all buttons
                 $pointers[] = [
                     'sub_title' => $subTitle,
-                    'sub_description' => $validated['sub_description'][$index] ?? null,
+                    'sub_description' => $request->sub_description[$index] ?? null,
                 ];
             }
         }
         
     
-        $adhdfirstSection->title = $validated['title'];
-        $adhdfirstSection->subtitle = $validated['subtitle'];
-        $adhdfirstSection->description = $validated['description']; // Handle nullable description
+        $adhdfirstSection->title = $request->title;
+        $adhdfirstSection->subtitle = $request->subtitle;
+        $adhdfirstSection->description = $request->description; // Handle nullable description
         $adhdfirstSection->status = $request->status ?? "off";
         $adhdfirstSection->pointers = json_encode($pointers);
         
@@ -154,38 +127,28 @@ class AccreditationController extends Controller
         return view('accreditation-section.specializedcertifications',compact('accreditationsSection'));
     }
 
-    public function saveSpecializedCertifications(Request $request)
+    public function saveSpecializedCertifications(TitleRequest $request)
     {
         // dd($request->all());
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'subtitle' => 'required|string|max:255',
-            'sub_title' => 'required|array',
-            'sub_title.*' => 'nullable|string|max:255',
-            'sub_description' => 'nullable|array',
-            'sub_description.*' => 'nullable|string',
-  
-        ]);
-    
         $adhdfirstSection = $request->id
             ? AccreditationSpecializedCertification::find($request->id)
             : new AccreditationSpecializedCertification();
     
         $pointers = [];
-        if (!empty($validated['sub_title'])) {
-            foreach ($validated['sub_title'] as $index => $subTitle) {
+        if (!empty($request->sub_title)) {
+            foreach ($request->sub_title as $index => $subTitle) {
     
                 // Append pointer data, including all buttons
                 $pointers[] = [
                     'sub_title' => $subTitle,
-                    'sub_description' => $validated['sub_description'][$index] ?? null,
+                    'sub_description' => $request->sub_description[$index] ?? null,
                 ];
             }
         }
         
     
-        $adhdfirstSection->title = $validated['title'];
-        $adhdfirstSection->subtitle = $validated['subtitle'];
+        $adhdfirstSection->title = $request->title;
+        $adhdfirstSection->subtitle = $request->subtitle;
         $adhdfirstSection->status = $request->status ?? "off";
         $adhdfirstSection->pointers = json_encode($pointers);
         
@@ -202,21 +165,9 @@ class AccreditationController extends Controller
         return view('accreditation-section.ourteamcontinuous',compact('ourTeamContinuousSection'));
     }
 
-    public function saveOurTeamContinuousSection(Request $request)
+    public function saveOurTeamContinuousSection(TitleRequest $request)
     {
-        // dd($request->all());
-        // Validate the request data
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'button_content' => 'required|string|max:255',
-            'button_link' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
-        ]);
-
-
-
-        
+        // dd($request->all()); 
         // Fetch or create a new section
         $autismSection = $request->id
             ? AccreditationOurTeamContinuous::find($request->id)
@@ -231,10 +182,10 @@ class AccreditationController extends Controller
   
 
         // Assign data
-        $autismSection->title = $validated['title'];
-        $autismSection->description = $validated['description'];
-        $autismSection->button_content = $validated['button_content'];
-        $autismSection->button_link = $validated['button_link'];
+        $autismSection->title = $request->title;
+        $autismSection->description = $request->description;
+        $autismSection->button_content = $request->button_content;
+        $autismSection->button_link = $request->button_link;
         $autismSection->status = $request->status ?? "off";
 
         $autismSection->save();

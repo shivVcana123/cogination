@@ -86,11 +86,12 @@
                                 <div class="form-group">
                                     <label for="image">Image</label>
                                     <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                    <img id="img" src="{{asset($autismScreening[0]->image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                    <img id="img" src="{{asset($autismScreening[0]->image ?? '')}}" alt="Image Preview" style="width: 130px; display:{{empty($autismScreening[0]->image) ? 'none' : 'block'}}" />
                                     <input type="file" class="form-control" name="image" id="image" accept="image/*">
                                     @error('image')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
+
                                 </div>
 
 
@@ -126,7 +127,8 @@
                             $('#id').val(section.id || '');
                             $('#title').val(section.title || '');
                             $('#subtitle').val(section.subtitle || '');
-                            $('#description').val(section.description || '');
+                            // $('#description').val(section.description || '');
+                            CKEDITOR.instances.description.setData(section.description || '');
                             $('#button_content').val(section.button_content || '');
                             $('#button_link').val(section.button_link || '');
                             $('#status').prop('checked', section.status === 'on');
@@ -136,7 +138,8 @@
                         $('#id').val('');
                         $('#title').val('');
                         $('#subtitle').val('');
-                        $('#description').val('');
+                        // $('#description').val('');
+                        CKEDITOR.instances.description.setData('')
                         $('#button_content').val('');
                         $('#button_link').val('');
                         $('#status').val('');

@@ -74,34 +74,44 @@
                                     @if(!empty($pointers) && is_array($pointers))
                                     @foreach ($pointers as $index => $pointer)
                                     <div class="form-group url-group">
-                                        <label>Sub Title</label>
-                                        <input type="text" name="sub_title[]" class="form-control" value="{{ $pointer->sub_title }}" placeholder="Enter sub title">
-                                        <label>Sub Description</label>
-                                        <textarea name="sub_description[]" class="form-control">{{ $pointer->sub_description }}</textarea>
-                                        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Sub Title</label>
+                                                <input type="text" name="sub_title[]" class="form-control" value="{{ $pointer->sub_title }}" placeholder="Enter sub title">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Sub Description</label>
+                                                <textarea name="sub_description[]" class="form-control">{{ $pointer->sub_description }}</textarea>
+                                            </div>
+                                            <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                                        </div>
                                     </div>
                                     @endforeach
                                     @else
                                     <div class="form-group url-group">
-                                        <label>Sub Title</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Sub Title</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Sub Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
 
-                                        <label>Sub Description</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-
-                                        <textarea name="sub_description[]" class="form-control"></textarea>
-
-                                        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                                                <textarea name="sub_description[]" class="form-control"></textarea>
+                                            </div>
+                                            <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                                        </div>
                                     </div>
                                     @endif
                                 </div>
                                 <button type="button" id="add-Pointers" class="btn btn-success">Add Pointer</button>
 
                                 <div class="card-footer">
-                                <input type="checkbox" id="status" name="status" {{ ($autismProcess[0]->status ?? '') === 'on' ? 'checked' : '' }}>
-                                <label for="status">Show On Website</label>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <input type="checkbox" id="status" name="status" {{ ($autismProcess[0]->status ?? '') === 'on' ? 'checked' : '' }}>
+                                    <label for="status">Show On Website</label>
+                                    <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
                                 </div>
                         </form>
                     </div>
@@ -112,7 +122,7 @@
 </div>
 @endsection
 @section('java_script')
-<script>
+<!-- <script>
     CKEDITOR.replace('description');
     document.getElementById('add-Pointers').addEventListener('click', function() {
         const container = document.getElementById('Pointers-container');
@@ -148,6 +158,7 @@
             removeButton.style.display = pointers.length > 1 ? 'inline-block' : 'none';
         });
     }
+    
 
     // Initial check on page load
     toggleRemoveButtons();
@@ -243,8 +254,155 @@
             });
         }
     });
-</script>
+</script> -->
+<script>
+    CKEDITOR.replace('description');
 
+    document.getElementById('add-Pointers').addEventListener('click', function() {
+        const container = document.getElementById('Pointers-container');
+        const div = document.createElement('div');
+        div.classList.add('form-group', 'url-group');
+        div.innerHTML = `
+        <div class="row">
+            <div class="col-md-6">
+                <label>Sub Title</label>
+                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter sub title">
+                </div>
+            <div class="col-md-6">
+                <label>Sub Description</label>
+                <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
+                <textarea name="sub_description[]" class="form-control"></textarea>
+                </div>
+            </div>
+            <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+        </div>
+            
+        `;
+        container.appendChild(div);
+        toggleRemoveButtons();
+    });
+
+    document.getElementById('Pointers-container').addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-Pointers')) {
+            e.target.closest('.url-group').remove();
+            toggleRemoveButtons();
+        }
+    });
+
+    function toggleRemoveButtons() {
+        const pointers = document.querySelectorAll('.url-group');
+        pointers.forEach((pointer) => {
+            const removeButton = pointer.querySelector('.remove-Pointers');
+            removeButton.style.display = pointers.length > 1 ? 'inline-block' : 'none';
+        });
+    }
+
+    // Initial check on page load
+    toggleRemoveButtons();
+
+    // Validation logic
+    document.getElementById('form-submit-button').addEventListener('click', function(event) {
+        const subTitles = document.querySelectorAll('.sub-title-input');
+        let isValid = true;
+
+        // Remove existing error messages
+        document.querySelectorAll('.validation-error').forEach(error => error.remove());
+
+        subTitles.forEach(input => {
+            if (!input.value.trim()) {
+                isValid = false;
+
+                // Display error message
+                const errorMessage = document.createElement('div');
+                errorMessage.classList.add('validation-error');
+                errorMessage.style.color = 'red';
+                errorMessage.textContent = 'Sub Title is required.';
+                input.parentElement.appendChild(errorMessage);
+            }
+        });
+
+        if (!isValid) {
+            event.preventDefault(); // Prevent form submission
+        }
+    });
+
+    $('#type').on('change', function() {
+        const selectedType = $(this).val();
+        if (selectedType) {
+            $.ajax({
+                url: "{{ route('fetch-process-section-by-type') }}",
+                type: "GET",
+                data: {
+                    type: selectedType
+                },
+                success: function(response) {
+                    if (response && response.data && response.data.length > 0) {
+                        const section = response.data[0]; // Assuming a single record
+                        if (section) {
+                            $('#id').val(section.id || '');
+                            $('#title').val(section.title || '');
+                            $('#subtitle').val(section.subtitle || '');
+                            $('#status').prop('checked', section.status === 'on');
+                            // $('#description').val(section.description || '');
+                            CKEDITOR.instances.description.setData(section.description || '')
+
+                            const pointers = section.pointers ? JSON.parse(section.pointers) : [];
+                            const container = $('#Pointers-container');
+                            container.empty();
+
+                            if (pointers.length > 0) {
+                                pointers.forEach(pointer => {
+                                    const pointerHtml = `
+                                        <div class="form-group url-group">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Sub Title</label>
+                                                    <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                    <input type="text" name="sub_title[]" class="form-control sub-title-input" value="${pointer.sub_title || ''}" placeholder="Enter sub title">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label>Sub Description</label>
+                                                    <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
+                                                    <textarea name="sub_description[]" class="form-control">${pointer.sub_description || ''}</textarea>
+                                                </div>
+                                                <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                                            </div>
+                                        </div>
+                                    `;
+                                    container.append(pointerHtml);
+                                });
+                            } else {
+                                container.append(`
+                                    <div class="form-group url-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Sub Title</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter sub title">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Sub Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
+                                                <textarea name="sub_description[]" class="form-control"></textarea>
+                                            </div>
+                                            <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                                        </div>
+                                    </div>
+                                `);
+                            }
+
+                            toggleRemoveButtons();
+                        }
+                    }
+                },
+                error: function() {
+                    alert('An error occurred while fetching data.');
+                }
+            });
+        }
+    });
+</script>
 
 
 @endsection

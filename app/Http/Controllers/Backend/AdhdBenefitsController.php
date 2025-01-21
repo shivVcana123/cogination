@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TitleRequest;
 use App\Models\AdhdBenefit;
 use App\Models\AdhdChildSection;
 use App\Models\AdhdSection;
@@ -30,28 +31,9 @@ class AdhdBenefitsController extends Controller
         return response()->json(['data' => $adhdSection]);
     }
 
-    public function saveAdhdBenefits(Request $request)
+    public function saveAdhdBenefits(TitleRequest $request)
     {
         // dd($request->all());
-        // Validate the request data
-        $validated = $request->validate(
-            [
-                'type' => 'required|string',
-                'title' => 'required|string|max:255',
-                'subtitle' => 'nullable|string|max:255',
-                'description_1' => 'nullable|string',
-                'sub_title.*' => 'nullable|string|max:255',
-                'sub_description.*' => 'nullable|string|max:255',
-                'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
-            ],
-            [
-                // Custom validation messages
-                'title.required' => 'The title is required.',
-                'title.string' => 'The title must be a valid string.',
-                'title.max' => 'The title may not exceed 255 characters.',
-                // Add other messages here...
-            ]
-        );
         try {
             // Fetch existing record or create a new one
             $adhdBenefit = $request->id
@@ -62,8 +44,8 @@ class AdhdBenefitsController extends Controller
             $pointers = [];
 
             // Process pointers if present
-            if (!empty($validated['sub_title'])) {
-                foreach ($validated['sub_title'] as $index => $subTitle) {
+            if (!empty($request->sub_title)) {
+                foreach ($request->sub_title as $index => $subTitle) {
                     $subImagePath = null;
 
                     // Handle image upload if provided
@@ -79,7 +61,7 @@ class AdhdBenefitsController extends Controller
                     // Append pointer data
                     $pointers[] = [
                         'sub_title' => $subTitle,
-                        'sub_description' => $validated['sub_description'][$index] ?? null,
+                        'sub_description' => $request->sub_description[$index] ?? null,
                         'sub_image' => $subImagePath,
                     ];
                 }
@@ -88,10 +70,10 @@ class AdhdBenefitsController extends Controller
             // dd($pointers);
 
             // Populate and save the model
-            $adhdBenefit->type = $validated['type'];
-            $adhdBenefit->title = $validated['title'];
-            $adhdBenefit->subtitle = $validated['subtitle'];
-            $adhdBenefit->description_1 = $validated['description_1'];
+            $adhdBenefit->type = $request->type;
+            $adhdBenefit->title = $request->title;
+            $adhdBenefit->subtitle = $request->subtitle;
+            $adhdBenefit->description_1 = $request->description_1;
             $adhdBenefit->status = $request->status ?? "off";
             $adhdBenefit->pointers = json_encode($pointers);
             $adhdBenefit->save();
@@ -130,28 +112,9 @@ class AdhdBenefitsController extends Controller
 
 
 
-    public function saveAdhdSection(Request $request)
+    public function saveAdhdSection(TitleRequest $request)
     {
         // dd($request->all());
-        // Validate the request data
-        $validated = $request->validate([
-            'type' => 'required|string',
-            'first_title' => 'required|string|max:255',
-            'first_subtitle' => 'required|string|max:255',
-            'first_description' => 'required|string',
-            'first_button_content' => 'nullable|string|max:255',
-            'first_button_link' => 'nullable|string|max:255',
-            'second_title' => 'required|string|max:255',
-            'second_subtitle' => 'required|string|max:255',
-            'second_description' => 'required|string',
-            'second_sub_title' => 'array',
-            'second_sub_title.*' => 'nullable|string|max:255',
-            'second_sub_description' => 'array',
-            'second_sub_description.*' => 'nullable|string',
-            'first_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
-            'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
-        ]);
-
         // Fetch or create a new section
         $adhdfirstSection = $request->id
             ? AdhdSection::find($request->id)
@@ -160,24 +123,24 @@ class AdhdBenefitsController extends Controller
         // Handle pointers
         $pointers = [];
         if ($request->has('second_sub_title')) {
-            foreach ($validated['second_sub_title'] as $index => $subTitle) {
+            foreach ($request->second_sub_title as $index => $subTitle) {
                 $pointers[] = [
                     'second_sub_title' => $subTitle,
-                    'second_sub_description' => $validated['second_sub_description'][$index] ?? null,
+                    'second_sub_description' => $request->second_sub_description[$index] ?? null,
                 ];
             }
         }
 
         // Assign data
-        $adhdfirstSection->type = $validated['type'];
-        $adhdfirstSection->first_title = $validated['first_title'];
-        $adhdfirstSection->first_subtitle = $validated['first_subtitle'];
-        $adhdfirstSection->first_description = $validated['first_description'];
-        $adhdfirstSection->first_button_content = $validated['first_button_content'];
-        $adhdfirstSection->first_button_link = $validated['first_button_link'];
-        $adhdfirstSection->second_title = $validated['second_title'];
-        $adhdfirstSection->second_subtitle = $validated['second_subtitle'];
-        $adhdfirstSection->second_description = $validated['second_description'];
+        $adhdfirstSection->type = $request->type;
+        $adhdfirstSection->first_title = $request->first_title;
+        $adhdfirstSection->first_subtitle = $request->first_subtitle;
+        $adhdfirstSection->first_description = $request->first_description;
+        $adhdfirstSection->first_button_content = $request->first_button_content;
+        $adhdfirstSection->first_button_link = $request->first_button_link;
+        $adhdfirstSection->second_title = $request->second_title;
+        $adhdfirstSection->second_subtitle = $request->second_subtitle;
+        $adhdfirstSection->second_description = $request->second_description;
         $adhdfirstSection->status = $request->status ?? "off";
         $adhdfirstSection->pointers = json_encode($pointers);
 

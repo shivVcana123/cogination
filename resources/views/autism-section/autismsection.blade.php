@@ -47,7 +47,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="title">Title</label>
                                         <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-                                        <input type="text" class="form-control" name="first_title" id="title"
+                                        <input type="text" class="form-control" name="first_title" id="first_title"
                                             placeholder="Enter first title" value="{{ old('first_title',$autismSection[0]->first_title ?? '') }}">
                                         @error('first_title')
                                         <div class="text-danger">{{ $message }}</div>
@@ -69,7 +69,7 @@
                                         <label for="title">Button Text</label>
                                         <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
 
-                                        <input type="text" class="form-control" name="first_button_content" id="button_content" placeholder="Enter Button Text" value="{{old('first_button_content',$autismSection[0]->first_button_content ?? '')}}">
+                                        <input type="text" class="form-control" name="first_button_content" id="first_button_content" placeholder="Enter Button Text" value="{{old('first_button_content',$autismSection[0]->first_button_content ?? '')}}">
                                         @error('first_button_content')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -78,7 +78,7 @@
                                         <label for="title">Button Link</label>
                                         <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
 
-                                        <input type="text" class="form-control" name="first_button_link" id="button_link" placeholder="Enter Button Link" value="{{old('first_button_link',$autismSection[0]->first_button_link ?? '')}}">
+                                        <input type="text" class="form-control" name="first_button_link" id="first_button_link" placeholder="Enter Button Link" value="{{old('first_button_link',$autismSection[0]->first_button_link ?? '')}}">
                                         @error('first_button_link')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -88,7 +88,7 @@
                                 <div class="form-group">
                                     <label for="description_1">Description</label>
                                     <i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
-                                    <textarea class="form-control" name="first_description" id="description">{{ old('first_description', $autismSection[0]->first_description ?? '') }}</textarea>
+                                    <textarea class="form-control" name="first_description" id="first_description">{{ old('first_description', $autismSection[0]->first_description ?? '') }}</textarea>
                                     @error('first_description')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -98,7 +98,7 @@
                                     <div class="form-group">
                                         <label for="image">Image</label>
                                         <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                        <img id="blah" src="{{asset($autismSection[0]->first_image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                        <img id="blah" src="{{asset($autismSection[0]->first_image ?? '')}}" alt="Image Preview" style="width: 130px; display:{{empty($autismSection[0]->first_image) ? 'none' : 'block'}}" />
                                         <input type="file" class="form-control" name="first_image" id="imgInp" accept="image/*">
                                         @error('first_image')
                                         <div class="text-danger">{{ $message }}</div>
@@ -203,7 +203,7 @@
                                     <div class="form-group">
                                         <label for="image">Image</label>
                                         <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                        <img id="second_img" src="{{asset($autismSection[0]->second_image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                        <img id="second_img" src="{{asset($autismSection[0]->second_image ?? '')}}" alt="Image Preview" style="width: 130px; display:{{empty($autismSection[0]->second_image) ? 'none' : 'block'}}" />
                                         <input type="file" class="form-control" name="second_image" id="second_image" accept="image/*">
                                         @error('second_image')
                                         <div class="text-danger">{{ $message }}</div>
@@ -213,9 +213,9 @@
                                 </div>
 
                                 <div class="card-footer">
-                                <input type="checkbox" id="status" name="status" {{ ($autismSection[0]->status ?? '') === 'on' ? 'checked' : '' }}>
-                                <label for="status">Show On Website</label>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <input type="checkbox" id="status" name="status" {{ ($autismSection[0]->status ?? '') === 'on' ? 'checked' : '' }}>
+                                    <label for="status">Show On Website</label>
+                                    <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
                                 </div>
                         </form>
                     </div>
@@ -227,14 +227,58 @@
 @endsection
 @section('java_script')
 <script>
-    CKEDITOR.replace('description');
+    CKEDITOR.replace('first_description');
     CKEDITOR.replace('second_description');
-    
+
+    // function updateRemoveButtonVisibility() {
+    //     const urlGroups = document.querySelectorAll('.url-group');
+    //     urlGroups.forEach((group) => {
+    //         const removeButton = group.querySelector('.remove-Pointers');
+    //         removeButton.style.display = urlGroups.length > 1 ? 'inline-block' : 'none';
+    //     });
+    // }
+
+    // document.getElementById('add-Pointers').addEventListener('click', function() {
+    //     const container = document.getElementById('Pointers-container');
+    //     const newInputGroup = document.createElement('div');
+    //     newInputGroup.classList.add('form-group', 'url-group');
+    //     newInputGroup.innerHTML = `
+    //     <label>Sub Title</label>
+    //     <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+    //     <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+
+
+    //     <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+    // `;
+    //     container.appendChild(newInputGroup);
+    //     updateRemoveButtonVisibility(); // Update "Remove" buttons visibility
+    // });
+
+    // document.getElementById('Pointers-container').addEventListener('click', function(event) {
+    //     if (event.target.classList.contains('remove-Pointers')) {
+    //         event.target.closest('.url-group').remove();
+    //         updateRemoveButtonVisibility(); // Update "Remove" buttons visibility
+    //     }
+    // });
+
+    // // Initial visibility check when the page loads
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     updateRemoveButtonVisibility();
+    // });
+
+
+    // // Initial visibility check when the page loads
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     updateRemoveButtonVisibility();
+    // });
+
     function updateRemoveButtonVisibility() {
         const urlGroups = document.querySelectorAll('.url-group');
         urlGroups.forEach((group) => {
             const removeButton = group.querySelector('.remove-Pointers');
-            removeButton.style.display = urlGroups.length > 1 ? 'inline-block' : 'none';
+            if (removeButton) {
+                removeButton.style.display = urlGroups.length > 1 ? 'inline-block' : 'none';
+            }
         });
     }
 
@@ -245,8 +289,8 @@
         newInputGroup.innerHTML = `
         <label>Sub Title</label>
         <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-        <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter sub title">
-
+        <input type="text" name="second_sub_title[]" class="form-control" placeholder="Enter sub title">
+        <div class="text-danger error-message" style="display: none;">Sub Title is required.</div>
 
         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
     `;
@@ -256,8 +300,43 @@
 
     document.getElementById('Pointers-container').addEventListener('click', function(event) {
         if (event.target.classList.contains('remove-Pointers')) {
-            event.target.closest('.url-group').remove();
+            const group = event.target.closest('.url-group');
+            if (group) {
+                group.remove();
+            }
             updateRemoveButtonVisibility(); // Update "Remove" buttons visibility
+        }
+    });
+
+    // Validate input fields
+    function validateFields() {
+        const urlGroups = document.querySelectorAll('.url-group');
+        let isValid = true;
+
+        urlGroups.forEach((group) => {
+            const input = group.querySelector('input[name="second_sub_title[]"]');
+            const errorMessage = group.querySelector('.error-message');
+
+            if (errorMessage) {
+                errorMessage.style.display = 'none'; // Reset error message
+            }
+
+            if (input && !input.value.trim()) {
+                if (errorMessage) {
+                    errorMessage.style.display = 'block';
+                }
+                isValid = false;
+            }
+        });
+
+        return isValid;
+    }
+
+    // Submit button handler
+    document.getElementById('form-submit-button').addEventListener('click', function(event) {
+        if (!validateFields()) {
+            event.preventDefault(); // Prevent form submission if validation fails
+            // alert('Please fill in all required fields.');
         }
     });
 
@@ -267,10 +346,6 @@
     });
 
 
-    // Initial visibility check when the page loads
-    document.addEventListener('DOMContentLoaded', function() {
-        updateRemoveButtonVisibility();
-    });
     imgInp.onchange = evt => {
         const [file] = imgInp.files;
         if (file) {
@@ -318,15 +393,17 @@
                             const section = response.data[0]; // Assuming a single record
                             if (section) {
                                 $('#id').val(section.id || '');
-                                $('#title').val(section.first_title || '');
+                                $('#first_title').val(section.first_title || '');
                                 $('#subtitle').val(section.first_subtitle || '');
-                                $('#description').val(section.first_description || '');
-                                $('#button_content').val(section.first_button_content || '');
-                                $('#button_link').val(section.first_button_link || '');
-
+                                // $('#first_description').val(section.first_description || '');
+                                $('#first_button_content').val(section.first_button_content || '');
+                                $('#first_button_link').val(section.first_button_link || '');
+                                // Update CKEditor content
+                                CKEDITOR.instances.first_description.setData(section.first_description || '');
+                                CKEDITOR.instances.second_description.setData(section.second_description || '');
                                 $('#second_title').val(section.second_title || '');
                                 $('#second_subtitle').val(section.second_subtitle || '');
-                                $('#second_description').val(section.second_description || '');
+                                // $('#second_description').val(section.second_description || '');
                                 $('#second_button_content').val(section.second_button_content || '');
                                 $('#second_button_link').val(section.second_button_link || '');
                                 $('#status').prop('checked', section.status === 'on');
@@ -366,13 +443,17 @@
                         } else {
                             // Clear fields if no data is found
                             $('#id').val('');
-                            $('#title').val('');
-                            $('#subtitle').val('');
-                            $('#description').val('');
-                            $('#button_content').val('');
-                            $('#button_link').val('');
+                            $('#first_title').val('');
+                            $('#first_subtitle').val('');
+                            // $('#first_description').val('');
+                            $('#first_button_content').val('');
+                            $('#first_button_link').val('');
+                            // Clear CKEditor content
+                            CKEDITOR.instances.first_description.setData('');
+                            CKEDITOR.instances.second_description.setData('');
                             $('#second_title').val('');
                             $('#second_subtitle').val('');
+                            // $('#second_description').val('');
                             $('#second_button_content').val('');
                             $('#second_button_link').val('');
                             $('#status').val('');

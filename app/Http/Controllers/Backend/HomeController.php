@@ -78,6 +78,7 @@ class HomeController extends Controller
      */
     public function update(HomeRequest $request, string $id)
     {
+        // dd($request->all());
         try {
             $homeData = Home::findOrFail($id);
 
@@ -89,16 +90,28 @@ class HomeController extends Controller
             $homeData->background_color = $request->background_color;
 
             // Handle image upload
+            // if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            //     if ($homeData->image) {
+            //         Storage::disk('public')->delete(str_replace('storage/', '', $homeData->image));
+            //     }
+            //     $originalName = $request->file('image')->getClientOriginalName();
+            //     $cleanedName = str_replace(' ', '_', $originalName); // Replace spaces with underscores
+            //     $imageName = uniqid() . '_' . $cleanedName;
+            //     $imagePath = $request->file('image')->storeAs('home', $imageName, 'public');
+            //     $homeData->image = 'storage/' . $imagePath;
+            // }
+
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
                 if ($homeData->image) {
                     Storage::disk('public')->delete(str_replace('storage/', '', $homeData->image));
                 }
                 $originalName = $request->file('image')->getClientOriginalName();
-                $cleanedName = str_replace(' ', '_', $originalName); // Replace spaces with underscores
+                $cleanedName = preg_replace('/\s+/', '', $originalName); // Remove all whitespace
                 $imageName = uniqid() . '_' . $cleanedName;
                 $imagePath = $request->file('image')->storeAs('home', $imageName, 'public');
                 $homeData->image = 'storage/' . $imagePath;
             }
+            
 
 
 

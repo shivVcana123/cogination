@@ -4,7 +4,7 @@ use App\Http\Controllers\ApiController\HomeController;
 use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\AboutUsController;
 use App\Http\Controllers\Backend\AccreditationController;
-use App\Http\Controllers\backend\AdhdBenefitsController;
+use App\Http\Controllers\Backend\AdhdBenefitsController;
 use App\Http\Controllers\Backend\AssessmentController;
 use App\Http\Controllers\Backend\NewsController;
 use Illuminate\Support\Facades\Route;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\BannerController;
 // use App\Http\Controllers\Backend\AutismSectionController;
-use App\Http\Controllers\backend\AutismsSectionController;
+use App\Http\Controllers\Backend\AutismsSectionController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\FeesController;
 use App\Http\Controllers\Backend\HeaderController;
@@ -100,9 +100,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('save-screening-section', [AutismsSectionController::class, 'saveScreeningSection'])->name('save-screening-section');
     Route::get('/fetch-screening-section-by-type', [AutismsSectionController::class, 'fetchAutismsScreeningSectionByType'])->name('fetch-screening-section-by-type');
 
-    Route::get('autism', action: [AutismsSectionController::class, 'autism'])->name('autism');
-    Route::get('form', action: [AutismsSectionController::class, 'form'])->name('form');
-    Route::post('save-form', action: [AutismsSectionController::class, 'saveform'])->name('save-form');
+    Route::get('autism',  [AutismsSectionController::class, 'autism'])->name('autism');
+    Route::get('form',  [AutismsSectionController::class, 'form'])->name('form');
+    Route::post('save-form', [AutismsSectionController::class, 'saveform'])->name('save-form');
     Route::get('autism-index', [AutismsSectionController::class, 'autismIndex'])->name('autism-index');
 
 
@@ -130,7 +130,6 @@ Route::middleware(['auth'])->group(function () {
     // Fees section Route
     Route::get('our-pricing-section', [FeesController::class, 'ourPricingSection'])->name('our-pricing-section');
     Route::post('save-our-pricing-section', [FeesController::class, 'saveOurPricingSection'])->name('save-our-pricing-section');
-
 
      // About Us section Route
      Route::get('our-story-section', [AboutUsController::class, 'ourStorySection'])->name('our-story-section');

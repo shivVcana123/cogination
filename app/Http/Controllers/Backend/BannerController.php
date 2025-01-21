@@ -91,7 +91,7 @@ class BannerController extends Controller
         //     'type' => 'required|unique:banner_sections,type,' . $request->hidden_id,
         //     ]);
         $request->validate([
-           'type' => 'required',
+           'heading' => 'required',
         ]);
         $banner = BannerSection::findOrFail($request->hidden_id);
         if(!$banner)

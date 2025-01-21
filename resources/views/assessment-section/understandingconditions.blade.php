@@ -50,7 +50,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="subtitle">Subtitle</label>
                                         <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
-                                        <input type="text" class="form-control" name="subtitle" id="subtitle"
+                                        <input type="text" class="form-control" name="subtitle"
                                             placeholder="Enter first subtitle" value="{{ old('subtitle',$ourDiagnostic[0]->subtitle ?? '') }}">
                                         @error('subtitle')
                                         <div class="text-danger">{{ $message }}</div>
@@ -107,7 +107,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="form-group col-md-6">
+                                            <!-- <div class="form-group col-md-6">
                                                 <label for="title">Button 1 Text</label>
                                                 <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
                                                 <input type="text" class="form-control" name="button_content[]" id="button_content" placeholder="Enter Button Text" value="{{old('button_content',$pointer->button_content ?? '')}}">
@@ -123,7 +123,7 @@
                                                 @error('button_link')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
-                                            </div>
+                                            </div> -->
                                         </div>
 
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
@@ -153,7 +153,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="form-group col-md-6">
+                                            <!-- <div class="form-group col-md-6">
                                                 <label for="title">Button 1 Text</label>
                                                 <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
                                                 <input type="text" class="form-control" name="button_content[]" id="button_content" placeholder="Enter Button Text" value="">
@@ -169,7 +169,7 @@
                                                 @error('button_link')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
-                                            </div>
+                                            </div> -->
 
                                         </div>
 
@@ -184,7 +184,7 @@
                             <div class="card-footer">
                             <input type="checkbox" id="status" name="status" {{ ($ourDiagnostic[0]->status ?? '') === 'on' ? 'checked' : '' }}>
                             <label for="status">Show On Website</label>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -216,7 +216,7 @@
                                                 <label>Sub Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
                                                 <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
-                                          
+                                          <div class="text-danger sub-title-error" style="display: none;">This field is required.</div>
                                             </div>
 
 
@@ -226,21 +226,6 @@
                                                 <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
                                           
                                             </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label for="title">Button 1 Text</label>
-                                                <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
-                                                <input type="text" class="form-control" name="button_content[]" id="button_content" placeholder="Enter Button Text" value="">
-                                         
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label for="title">Button 1 Link</label>
-                                                <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
-                                                <input type="text" class="form-control" name="button_link[]" id="button_link" placeholder="Enter Button Link" value="">
-                                            
-                                            </div>
-                                          
                                         </div>
                                
 
@@ -267,6 +252,50 @@
     document.addEventListener('DOMContentLoaded', function() {
         updateRemoveButtonVisibility();
     });
+
+           // Validate the form before submission
+           function validateForm() {
+        const subTitles = document.querySelectorAll('input[name="sub_title[]"]');
+        const subDescriptions = document.querySelectorAll('input[name="sub_description[]"]');
+        let isValid = true;
+
+        // Validate Sub Title fields
+        subTitles.forEach(input => {
+            const errorDiv = input.closest('.form-group').querySelector('.sub-title-error');
+            if (errorDiv) {  // Ensure the error div exists before accessing it
+                if (!input.value.trim()) {
+                    isValid = false;
+                    errorDiv.style.display = 'block'; // Show error message
+                } else {
+                    errorDiv.style.display = 'none'; // Hide error message
+                }
+            }
+        });
+
+        // Validate Sub Description fields
+        subDescriptions.forEach(input => {
+            const errorDiv = input.closest('.form-group').querySelector('.sub-description-error');
+            if (errorDiv) {  // Ensure the error div exists before accessing it
+                if (!input.value.trim()) {
+                    isValid = false;
+                    errorDiv.style.display = 'block'; // Show error message
+                } else {
+                    errorDiv.style.display = 'none'; // Hide error message
+                }
+            }
+        });
+
+        return isValid;
+    }
+
+    // Handle form submission
+    document.getElementById('form-submit-button').addEventListener('click', function(event) {
+        const isValid = validateForm();
+        if (!isValid) {
+            event.preventDefault(); // Prevent form submission if validation fails
+        }
+    });
+    
 </script>
 
 @endsection

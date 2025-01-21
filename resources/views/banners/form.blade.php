@@ -32,7 +32,9 @@
                             @if(isset($banner->id))
                             @method('PUT') <!-- For update requests -->
                             @endif
+                          
                             <div class="card-body">
+                                @if (empty($banner->id))
                                 <div class="form-group">
                                     <label for="title">Choose Page For Entering Data</label>
                                     <i class="fas fa-info-circle" title="Enter a title for Banner Section."></i>
@@ -44,6 +46,10 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                @else
+                                <label for="title"> Page For Entering Data</label>
+                                <input type="text" class="form-control" name="type" id="button_text" placeholder="Enter Button Text" value="{{ old('type', $banner->type) }}" readonly>
+                                @endif
                                 <div class="form-group type-area">
                                     <label for="title">Choose Type</label>
                                     <i class="fas fa-info-circle" title="Enter a title for Banner Section."></i>
@@ -55,7 +61,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="title">Title</label><i class="fas fa-info-circle" title="Enter a title for Banner Section ."></i>
+                                    <label for="title">Heading</label><i class="fas fa-info-circle" title="Enter a title for Banner Section ."></i>
                                     <input type="text" class="form-control" name="heading" id="heading" placeholder="Enter title" value="{{ old('heading', $banner->heading) }}">
                                     @error('heading')
                                     <div class="text-danger">{{ $message }}</div>
@@ -89,7 +95,7 @@
                                 <div class="form-group">
                                     <label for="image">Image</label>
                                     <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                    <img id="blah" src="{{asset($banner->image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                    <img id="blah" src="{{asset($banner->image ?? '')}}" alt="Image Preview" style="width: 130px; display: {{ empty($banner->image) ? 'none' : 'block' }};"  />
                                     <input type="file" class="form-control" name="image" id="imgInp" accept="image/*">
                                     @error('image')
                                     <div class="text-danger">{{ $message }}</div>

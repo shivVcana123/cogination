@@ -42,38 +42,62 @@ class CtaController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        try {
-            $cta = new Cta();
-            $cta->title = $request->title;
-            $cta->cta_type = $request->cta_type;
-            $cta->button_content = $request->button_content;
-            $cta->button_link = $request->button_link;
-			$cta->type = $request->type;
-            $cta->description = $request->description;
-            $cta->status = $request->status ?? "off";
-            if($cta->type == 'image')
-            {
-                $cta->background_color = '';
-    
-                if ($request->hasFile('background_image')) {
-                    $backgroundImageName = time() . '_' . $request->file('background_image')->getClientOriginalName();
-                    $backgroundImagePath = $request->file('background_image')->storeAs('news', $backgroundImageName, 'public');
-                    $cta->background_image = 'storage/app/public/' . $backgroundImagePath;
-                }
-            }else{
-                $cta->background_color = $request->background_color;
-                $cta->background_image = '';
-            }
-    
-            
-            $cta->save();
+{
+    try {
+        $validated = $request->validate([
+            'cta_type' => 'required',
+            'title' => 'required',
+            'description' => 'required', // Update to 'required' instead of 'required|string'
+        ], [
+            'cta_type.required' => 'The service type is required.',
+            'title.required' => 'The title is required.',
+            'description.required' => 'The description is required.', // Correct validation error message
+        ]);
+        
+        $cta = new Cta();
+        $cta->title = $request->title;
+        $cta->cta_type = $request->cta_type;
+        $cta->button_content = $request->button_content;
+        $cta->button_link = $request->button_link;
+        $cta->description = $request->description;
+        $cta->status = $request->status ?? "off";
+        $cta->save();
 
-            return redirect()->route('cta.index')->with('success', 'Record created successfully!');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to create record: ' . $e->getMessage());
-        }
+        return redirect()->route('cta.index')->with('success', 'Record created successfully!');
+    } catch (\Exception $e) {
+        // Log the exception to debug further if needed
+        return redirect()->back()->with('error', 'Failed to create record: ' . $e->getMessage());
     }
+}
+
+    // public function store(Request $request)
+    // {
+    //     try {
+    //         $validated = $request->validate([
+    //             'cta_type' => 'required',
+    //             'title' => 'required',
+    //             'description' => 'required',
+    //         ], [
+    //             'cta_type.required' => 'The service type is required.',
+    //             'title.required' => 'The title is required.',
+    //             'description.string' => 'The description is required.',
+    //         ]);
+            
+    //         $cta = new Cta();
+    //         $cta->title = $request->title;
+    //         $cta->cta_type = $request->cta_type;
+    //         $cta->button_content = $request->button_content;
+    //         $cta->button_link = $request->button_link;
+    //         $cta->description = $request->description;
+    //         $cta->status = $request->status ?? "off";
+    //         $cta->save();
+
+    //         return redirect()->route('cta.index')->with('success', 'Record created successfully!');
+    //     } catch (\Exception $e) {
+    //         // dd($e);
+    //         return redirect()->back()->with('error', 'Failed to create record: ' . $e->getMessage());
+    //     }
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -93,29 +117,25 @@ class CtaController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // dd($request->all());
         try {
+            $validated = $request->validate([
+                'title' => 'required',
+                'description' => 'required', // Update to 'required' instead of 'required|string'
+            ], [
+                'title.required' => 'The title is required.',
+                'description.required' => 'The description is required.', // Correct validation error message
+            ]);
+
             $cta = Cta::findOrFail($request->hidden_id);
 
              $cta->title = $request->title;
             $cta->cta_type = $request->cta_type;
             $cta->button_content = $request->button_content;
             $cta->button_link = $request->button_link;
-			$cta->type = $request->type;
             $cta->description = $request->description;
             $cta->status = $request->status ?? "off";
-            if($cta->type == 'image')
-            {
-                $cta->background_color = '';
-    
-                if ($request->hasFile('background_image')) {
-                    $backgroundImageName = time() . '_' . $request->file('background_image')->getClientOriginalName();
-                    $backgroundImagePath = $request->file('background_image')->storeAs('news', $backgroundImageName, 'public');
-                    $cta->background_image = 'storage/app/public/' . $backgroundImagePath;
-                }
-            }else{
-                $cta->background_color = $request->background_color;
-                $cta->background_image = '';
-           }
+            
    			 $cta->save();
             return redirect()->route('cta.index')->with('success', 'Record updated successfully!');
         } catch (\Exception $e) {
