@@ -17,11 +17,11 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\FeesController;
 use App\Http\Controllers\Backend\HeaderController;
 use App\Http\Controllers\Backend\HomeController as BackendHomeController;
-use App\Http\Controllers\Backend\ServiceController;
 use App\Http\Controllers\Backend\CtaController;
 use App\Http\Controllers\Backend\PageDesignController;
 use App\Http\Controllers\Backend\FooterController;
 use App\Http\Controllers\Backend\HomeSectionControoler;
+use App\Http\Controllers\Backend\NewsLetterSubscriptionController;
 use App\Http\Controllers\Backend\OurApproachController;
 use Illuminate\Support\Facades\Artisan;
 
@@ -168,6 +168,9 @@ Route::middleware(['auth'])->group(function () {
      // footer section Route
      Route::get('financial-responsibilities', [FeesController::class,'financialResponsibilities'])->name('financialResponsibilities');
      Route::post('save-financial-responsibilities', [FeesController::class,'financialSaveResponsibilities'])->name('financialSaveResponsibilities');
+
+    // Newsletter Email section Route
+     Route::get('news-letter-email', [NewsLetterSubscriptionController::class,'subscribeNewsletter'])->name('news-letter-email');
 
 });
 

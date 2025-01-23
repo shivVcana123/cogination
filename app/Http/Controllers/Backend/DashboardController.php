@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\FeesOurPricing;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Service;
@@ -13,16 +14,16 @@ class DashboardController extends Controller
 {
     public function dashboard(Request $request)
     {
-        // if($request->query('success')){
-        //     $purchase = Auth::user();
-        //     $priceId = $request->query($priceId);
-        //     $purchase->save();
-        // }
-        $users = User::all();
-        $services = User::all();
-        $news = User::all();
-        $categories = Header::all();
+        $totalServicesCount  = 0;
+        $fees = FeesOurPricing::first();
+        $services = json_decode($fees->pointers);
+        foreach($services as $value){
+            $sub_description = explode(',',$value->sub_description);
+            $totalServicesCount += count($sub_description);
+        }
 
-        return view("dashboard.dashboard",compact('users','services','news','categories'));
+        $pageCount = Header::where('link','!=','')->count();
+        // dd($categories);
+        return view("dashboard.dashboard",compact('totalServicesCount','pageCount'));
     }
 }

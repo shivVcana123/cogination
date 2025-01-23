@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Hero Section</h1>
+                    <h1>Header Section</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -35,7 +35,7 @@
                                     <input type="text"  class="form-control" name="link" id="link"  value=""    placeholder="Page Link" readonly>
                                 </div> -->
                                 <div class="form-group">
-                                    <label for="category">Category</label>
+                                    <label for="category">Category (Edit)</label>
                                     <input type="text" oninput="categorySlug(this)" class="form-control" name="category" id="category" placeholder="Enter Category" value="{{ old('category', $headerData[0]->category) }}">
                                     @error('category')
                                     <div class="text-danger">{{ $message }}</div>
@@ -43,7 +43,7 @@
                                 </div>
                                 @if ($headerData[0]->children->isEmpty())
                                 <div class="form-group">
-                                    <label for="link">Link</label>
+                                    <label for="link">Slug</label>
                                     <input type="text" class="form-control" name="link" id="link" placeholder="Enter link" value="{{ old('link', $headerData[0]->link) }}" readonly>
                                     @error('link')
                                     <div class="text-danger">{{ $message }}</div>
@@ -65,12 +65,19 @@
                                         @endphp
 
                                         @foreach ($subcategories as $value)
-                                        <div class="input-group mb-2">
-                                            <input type="text" name="subcategories[]" class="form-control" placeholder="Enter Subcategory" value="{{ $value['category'] }}">
-                                        </div>
-
-                                        <div class="input-group mb-2">
-                                            <input type="text" name="subcategorieslink[]" class="form-control" placeholder="Enter SubcategoryLink" value="{{ $value['link'] }}" readonly>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label for="category">Sub Category (Edit)</label>
+                                                <div class="input-group">
+                                                    <input type="text" name="subcategories[]" class="form-control" placeholder="Enter Subcategory" value="{{ $value['category'] }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="link">Slug</label>
+                                                <div class="input-group form-group">
+                                                    <input type="text" name="subcategorieslink[]" class="form-control" placeholder="Enter SubcategoryLink" value="{{ $value['link'] }}" readonly>
+                                                </div>
+                                            </div>
                                         </div>
                                         @endforeach
                                     </div>
@@ -81,7 +88,7 @@
                             </div>
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </form>
                     </div>
@@ -99,7 +106,7 @@
     //     newInputGroup.innerHTML = `
     //         <input type="text" name="subcategories[]" class="form-control" placeholder="Enter Subcategory">
     //         <div class="input-group-append">
-                
+
     //         </div>
     //     `;
     //     // <button class="btn btn-danger remove-subcategory" type="button">Remove</button>

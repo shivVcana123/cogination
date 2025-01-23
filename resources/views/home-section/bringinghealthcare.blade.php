@@ -94,7 +94,10 @@
                                 <div class="form-group">
                                     <label for="image">Image</label>
                                     <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                    <img id="blah" src="{{asset($healthcare[0]->image ?? '')}}" alt="Image Preview" style="width: 130px; display: {{empty($healthcare[0]->image ? 'none' : 'block')}}" />
+                                    <img id="blah" 
+     src="{{ asset($healthcare[0]->image ?? '') }}" 
+     alt="Image Preview" 
+     style="width: 130px; display: {{ !empty($healthcare) && isset($healthcare[0]) && $healthcare[0]->image ? 'block' : 'none' }};" />
                                     <input type="file" class="form-control" name="image" id="imgInp" accept="image/*">
                                     @error('image')
                                     <div class="text-danger">{{ $message }}</div>

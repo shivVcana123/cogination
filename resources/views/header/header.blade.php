@@ -13,11 +13,11 @@
             <div class="card-body">
                 <table class="table table-bordered">
                     <thead>
-                        <tr>
+                        <tr style="font-weight:800">
                             <th>#</th>
                             <th>Category</th>
                             <th>Slug</th>
-                            <th>Sub Category</th>
+                            <!-- <th>Sub Category</th> -->
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -27,15 +27,36 @@
                          @if($header->parent_id === null)
                             <td>{{ $key + 1 }}</td>
                            
-                                <td>{{ $header->category }}</td>
-                                <td>{{ $header->link }}</td>
-                                <td>
+                                <td style="font-weight: 600; font-size:14px;">{{ $header->category }}
+                                 
+                                @if($header->children->isNotEmpty())
+                                        @foreach ($header->children as $child)
+                                        
+                                        <p style="font-size:12px; font-weight:500; margin-bottom:0px; padding-top:8px;"> 
+                                        <i style="font-size: 7px; padding-right: 3px; " class="fa fa-circle" aria-hidden="true"></i> {{ $child->category ?? '' }}
+                                        </p>
+                                        @endforeach
+                                    @endif
+                                </td>
+
+                                <td>{{ $header->link }}
+
+                                     @if($header->children->isNotEmpty())
+                                        @foreach ($header->children as $child)
+                                        <p style="font-size:13px; font-weight:500; margin-bottom:0px; padding-top:8px;"> 
+                                        <i style="font-size: 7px; padding-right: 3px; " class="fa fa-circle" aria-hidden="true"></i> {{ $child->link ?? '' }}
+                                        </p>
+                                        @endforeach
+                                    @endif
+                                
+                                </td>
+                                <!-- <td>
                                     @if($header->children->isNotEmpty())
                                         @foreach ($header->children as $child)
                                         <button class="btn btn-info">{{ $child->category ?? '' }}</button>
                                         @endforeach
                                     @endif
-                                </td>
+                                </td> -->
                                 <td>
                                     <a href="{{route('header.edit',$header->id)}}"><i class="fa fa-edit"></i></a>
                                     <!-- <form action="{{ route('header.destroy', $header->id) }}" method="POST" style="display:inline;">

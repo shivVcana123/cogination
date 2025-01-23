@@ -33,6 +33,7 @@ use App\Http\Resources\HomeWhyChooseUsResource;
 use App\Http\Resources\OurApproachHowItWorkResource;
 use App\Http\Resources\OurApproachResource;
 use App\Http\Resources\WebsiteStyleResource;
+use App\Mail\NewsletterThankYou;
 use App\Models\AboutUsJoinCommunity;
 use App\Models\AboutUsOurMission;
 use App\Models\AboutUsOurStory;
@@ -67,8 +68,11 @@ use App\Models\HomeAppointment;
 use App\Models\HomeChooseUs;
 use App\Models\HomeFaq;
 use App\Models\HomeOurService;
+use App\Models\NewsletterSubscription;
 use App\Models\OurApproach;
 use App\Models\OurApproachHowItWork;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class ApiController extends Controller
 {
@@ -143,7 +147,6 @@ class ApiController extends Controller
         //     'data' => $data,
         // ], 200);
     }
-
     public function fetchOurApproachSectionData()
     {
         $ourApproachData = OurApproach::latest()->first();
@@ -162,7 +165,6 @@ class ApiController extends Controller
         //     'data' => $data,
         // ], 200);
     }
-
     public function fetchAccreditationSectionData()
     {
         $accreditationOurCommitmentData = AccreditationOurCommitment::latest()->first();
@@ -186,7 +188,6 @@ class ApiController extends Controller
         //     'data' => $data,
         // ], 200);
     }
-
     public function fetchAdhdSectionData()
     {
         $adhdSection = AdhdSection::all();
@@ -205,7 +206,6 @@ class ApiController extends Controller
         //     'data' => $data,
         // ], 200);
     }
-
     public function fetchAutismSectionData()
     {
         $autismsSectionData = AutismsSection::all();
@@ -227,7 +227,6 @@ class ApiController extends Controller
         //     'data' => $data,
         // ], 200);
     }
-
     public function fetchAssessmentSectionData()
     {
         $assessmentSectionData = Assessment::latest()->first();
@@ -250,7 +249,6 @@ class ApiController extends Controller
         //     'data' => $data,
         // ], 200);
     }
-
     public function fetchFeesSectionData(Request $request)
     {
         $feesOurPricingSectionData = FeesOurPricing::latest()->first();
@@ -268,8 +266,6 @@ class ApiController extends Controller
         //     'data' => $data,
         // ], 200);
     }
-
-
     public function fetchCtaSectionData()
     {
         $ctaData = Cta::get();
@@ -289,289 +285,17 @@ class ApiController extends Controller
             'data' => WebsiteStyleResource::collection($pageDesign),
         ], 200);
     }
-
-    // public function searchContent(Request $request)
-    // {
-    //     try {
-    //         $searchTerm = $request->search_;
-    
-    //         // Define model configurations with fields to search
-    //         $models = [
-    //             'HomeAboutUsData' => ['title', 'description'],
-    //             'HomeAppointment' => ['title', 'subtitle'],
-    //             'HomeChooseUs' => ['title', 'description_1'],
-    //             'HomeOurService' => ['title', 'description_1'],
-    //             'AdhdSection' => ['first_title', 'first_description'],
-    //             'AdhdBenefit' => ['title', 'description_1'],
-    //             'AutismsSection' => ['first_title', 'first_description'],
-    //             'AutismsProcess' => ['title', 'description'],
-    //             'AutismsScreening' => ['title', 'description'],
-    //             'AutismsBook' => ['title', 'description'],
-    //             'Assessment' => ['title', 'description'],
-    //             'AssessmentOurDiagnosticService' => ['title', 'description'],
-    //             'AssessmentWhyChoose' => ['title', 'description'],
-    //             'AssessmentUnderstandingCondition' => ['title', 'description'],
-    //             'FeesOurPricing' => ['title', 'description'],
-    //             'FinancialResponsibility' => ['title', 'description'],
-    //             'Cta' => ['title', 'description'],
-    //         ];
-    
-    //         $results = [];
-    
-    //         // Search through each model
-    //         foreach ($models as $model => $fields) {
-    //             $query = app("App\\Models\\{$model}")->query()->select(['id', ...$fields]);
-    
-    //             foreach ($fields as $field) {
-    //                 $query->orWhere($field, 'LIKE', "%{$searchTerm}%");
-    //             }
-    
-    //             $modelResults = $query->get();
-    
-    //             if ($modelResults->isNotEmpty()) {
-    //                 $results[$model] = $modelResults;
-    //             }
-    //         }
-    
-    //         // if (empty($results)) {
-    //         //     return response()->json([
-    //         //         'message' => 'No content found matching your search.',
-    //         //     ], 404);
-    //         // }
-    
-    //         return response()->json([
-    //             'message' => 'Search results retrieved successfully.',
-    //             'data' => $results,
-    //         ], 200);
-    //     } catch (\Exception $e) {
-    //         return response()->json([
-    //             'message' => 'An error occurred while processing the search. Please try again later.',
-    //             'error' => $e->getMessage(),
-    //         ], 500);
-    //     }
-    // }
-    
-    // public function searchContent(Request $request)
-    // {
-    //     try {
-    //         $searchTerm = $request->search_;
-
-    //         // Perform the search with grouped conditions for multiple models
-    //         $homeAboutUsDataResults = HomeAboutUsData::query()
-    //             ->select(['id', 'title', 'description'])
-    //             ->where('title', 'LIKE', "%" . $searchTerm . "%")
-    //             ->orWhere('description', 'LIKE', "%" . $searchTerm . "%")
-    //             ->get();
-
-    //         $homeAppointmentResults = HomeAppointment::query()
-    //             ->select(['id', 'title', 'subtitle'])
-    //             ->where('title', 'LIKE', "%" . $searchTerm . "%")
-    //             ->orWhere('subtitle', 'LIKE', "%" . $searchTerm . "%")
-    //             ->get();
-
-    //         $homeChooseUsResults = HomeChooseUs::query()
-    //             ->select(['id', 'title', 'description_1'])
-    //             ->where('title', 'LIKE', "%" . $searchTerm . "%")
-    //             ->orWhere('description_1', 'LIKE', "%" . $searchTerm . "%")
-    //             ->get();
-
-    //         $homeOurServiceResults = HomeOurService::query()
-    //             ->select(['id', 'title', 'description_1'])
-    //             ->where('title', 'LIKE', "%" . $searchTerm . "%")
-    //             ->orWhere('description_1', 'LIKE', "%" . $searchTerm . "%")
-    //             ->get();
-
-    //         // Add additional models here
-    //         $adhdSectionResults = AdhdSection::query()
-    //             ->select(['id', 'first_title', 'first_description'])
-    //             ->where('first_title', 'LIKE', "%" . $searchTerm . "%")
-    //             ->orWhere('first_description', 'LIKE', "%" . $searchTerm . "%")
-    //             ->get();
-
-    //         $adhdBenefitResults = AdhdBenefit::query()
-    //             ->select(['id', 'title', 'description_1'])
-    //             ->where('title', 'LIKE', "%" . $searchTerm . "%")
-    //             ->orWhere('description_1', 'LIKE', "%" . $searchTerm . "%")
-    //             ->get();
-
-    //         $autismsSectionResults = AutismsSection::query()
-    //             ->select(['id', 'first_title', 'first_description'])
-    //             ->where('first_title', 'LIKE', "%" . $searchTerm . "%")
-    //             ->orWhere('first_description', 'LIKE', "%" . $searchTerm . "%")
-    //             ->get();
-
-    //         $autismsProcessResults = AutismsProcess::query()
-    //             ->select(['id', 'title', 'description'])
-    //             ->where('title', 'LIKE', "%" . $searchTerm . "%")
-    //             ->orWhere('description', 'LIKE', "%" . $searchTerm . "%")
-    //             ->get();
-
-    //         $autismsScreeningResults = AutismsScreening::query()
-    //             ->select(['id', 'title', 'description'])
-    //             ->where('title', 'LIKE', "%" . $searchTerm . "%")
-    //             ->orWhere('description', 'LIKE', "%" . $searchTerm . "%")
-    //             ->get();
-
-    //         $autismsBookResults = AutismsBook::query()
-    //             ->select(['id', 'title', 'description'])
-    //             ->where('title', 'LIKE', "%" . $searchTerm . "%")
-    //             ->orWhere('description', 'LIKE', "%" . $searchTerm . "%")
-    //             ->get();
-
-    //         $assessmentResults = Assessment::query()
-    //             ->select(['id', 'title', 'description'])
-    //             ->where('title', 'LIKE', "%" . $searchTerm . "%")
-    //             ->orWhere('description', 'LIKE', "%" . $searchTerm . "%")
-    //             ->get();
-
-    //         $assessmentOurDiagnosticServiceResults = AssessmentOurDiagnosticService::query()
-    //             ->select(['id', 'title', 'description'])
-    //             ->where('title', 'LIKE', "%" . $searchTerm . "%")
-    //             ->orWhere('description', 'LIKE', "%" . $searchTerm . "%")
-    //             ->get();
-
-    //         $assessmentWhyChooseResults = AssessmentWhyChoose::query()
-    //             ->select(['id', 'title', 'description'])
-    //             ->where('title', 'LIKE', "%" . $searchTerm . "%")
-    //             ->orWhere('description', 'LIKE', "%" . $searchTerm . "%")
-    //             ->get();
-
-    //         $assessmentUnderstandingConditionResults = AssessmentUnderstandingCondition::query()
-    //             ->select(['id', 'title', 'description'])
-    //             ->where('title', 'LIKE', "%" . $searchTerm . "%")
-    //             ->orWhere('description', 'LIKE', "%" . $searchTerm . "%")
-    //             ->get();
-
-    //         $feesOurPricingResults = FeesOurPricing::query()
-    //             ->select(['id', 'title', 'description'])
-    //             ->where('title', 'LIKE', "%" . $searchTerm . "%")
-    //             ->orWhere('description', 'LIKE', "%" . $searchTerm . "%")
-    //             ->get();
-
-    //         $financialResponsibilityResults = FinancialResponsibility::query()
-    //             ->select(['id', 'title', 'description'])
-    //             ->where('title', 'LIKE', "%" . $searchTerm . "%")
-    //             ->orWhere('description', 'LIKE', "%" . $searchTerm . "%")
-    //             ->get();
-
-    //         $ctaResults = Cta::query()
-    //             ->select(['id', 'title', 'description'])
-    //             ->where('title', 'LIKE', "%" . $searchTerm . "%")
-    //             ->orWhere('description', 'LIKE', "%" . $searchTerm . "%")
-    //             ->get();
-
-    //         // Combine all results into a single collection
-    //         $combinedResults = $homeAboutUsDataResults
-    //             ->merge($homeAppointmentResults)
-    //             ->merge($homeChooseUsResults)
-    //             ->merge($homeOurServiceResults)
-    //             ->merge($adhdSectionResults)
-    //             ->merge($adhdBenefitResults)
-    //             ->merge($autismsSectionResults)
-    //             ->merge($autismsProcessResults)
-    //             ->merge($autismsScreeningResults)
-    //             ->merge($autismsBookResults)
-    //             ->merge($assessmentResults)
-    //             ->merge($assessmentOurDiagnosticServiceResults)
-    //             ->merge($assessmentWhyChooseResults)
-    //             ->merge($assessmentUnderstandingConditionResults)
-    //             ->merge($feesOurPricingResults)
-    //             ->merge($financialResponsibilityResults)
-    //             ->merge($ctaResults);
-
-    //         // Check if combined results are empty
-    //         if ($combinedResults->isEmpty()) {
-    //             return response()->json([
-    //                 'message' => 'No content found matching your search.',
-    //             ], 404);
-    //         }
-
-    //         // Return the search results
-    //         return response()->json([
-    //             'message' => 'Search results retrieved successfully.',
-    //             'data' => $combinedResults,
-    //         ], 200);
-    //     } catch (\Exception $e) {
-    //         dd($e);
-
-    //         return response()->json([
-    //             'message' => 'An error occurred while processing the search. Please try again later.',
-    //         ], 500);
-    //     }
-    // }
-
-    // public function searchContent(Request $request)
-    // {
-    //     try {
-    //         $query = $request->search_;
-    
-    //         if (!$query) {
-    //             return response()->json([]);
-    //         }
-    
-    //         $models = [
-    //             HomeAboutUsData::class => ['title', 'description'],
-    //             HomeAppointment::class => ['title', 'subtitle'],
-    //             HomeChooseUs::class => ['title', 'description_1'],
-    //             HomeOurService::class => ['title', 'description_1'],
-    //             AdhdSection::class => ['first_title', 'first_description'],
-    //             AdhdBenefit::class => ['title', 'description_1'],
-    //             AutismsSection::class => ['first_title', 'first_description'],
-    //             AutismsProcess::class => ['title', 'description'],
-    //             AutismsScreening::class => ['title', 'description'],
-    //             AutismsBook::class => ['title', 'description'],
-    //             Assessment::class => ['title', 'description'],
-    //             AssessmentOurDiagnosticService::class => ['title', 'description'],
-    //             AssessmentWhyChoose::class => ['title', 'description'],
-    //             AssessmentUnderstandingCondition::class => ['title', 'description'],
-    //             FeesOurPricing::class => ['title', 'description'],
-    //             FinancialResponsibility::class => ['title', 'description'],
-    //             Cta::class => ['title', 'description'],
-    //         ];
-    
-    //         $results = [];
-    
-    //         foreach ($models as $model => $columns) {
-    //             $modelResults = $model::query()
-    //                 ->where(function ($queryBuilder) use ($columns, $query) {
-    //                     foreach ($columns as $column) {
-    //                         $queryBuilder->orWhere($column, 'LIKE', '%' . $query . '%')
-    //                                      ->whereNotNull($column);
-    //                     }
-    //                 })
-    //                 ->get(['id', ...$columns])
-    //                 ->toArray();
-    
-    //             \Log::info("Model: {$model}, Query: {$query}, Results: " . json_encode($modelResults));
-    //             $filteredResult = array_filter($result, function ($value) {
-    //                 return !is_null($value) && $value !== 'undefined';
-    //             });
-    //             foreach ($modelResults as $result) {
-    //                 $results[] = array_merge($result, ['model' => class_basename($model)]);
-    //             }
-    //         }
-    
-    //         return response()->json($results ?: ['message' => 'No matches found'], 200);
-    //     } catch (\Exception $e) {
-    //         \Log::error("Search error: " . $e->getMessage());
-    //         return response()->json([
-    //             'message' => 'An error occurred while processing the search. Please try again later.',
-    //             'error' => $e->getMessage(),
-    //         ], 500);
-    //     }
-    // }
-    
     public function searchContent(Request $request)
     {
         try {
             // Get the search query from the request
             $query = $request->query('search_');
-        
+
             // If no query is provided, return an empty result
             if (!$query) {
                 return response()->json([]);
             }
-        
+
             // Define the models and their searchable columns
             $models = [
                 HomeAboutUsData::class => ['title', 'description'],
@@ -592,9 +316,9 @@ class ApiController extends Controller
                 FinancialResponsibility::class => ['title', 'description'],
                 Cta::class => ['title', 'description'],
             ];
-        
+
             $results = [];
-        
+
             // Loop through the models and search each one
             foreach ($models as $model => $columns) {
                 // Perform the search query on each model
@@ -602,27 +326,27 @@ class ApiController extends Controller
                     ->where(function ($queryBuilder) use ($columns, $query) {
                         foreach ($columns as $column) {
                             $queryBuilder->orWhere($column, 'LIKE', '%' . $query . '%')
-                                         ->whereNotNull($column);  // Ensure columns are not null
+                                ->whereNotNull($column);  // Ensure columns are not null
                         }
                     })
                     ->get(['id', ...$columns])  // Fetch columns with id
                     ->toArray();
-    
-    
+
+
                 // Filter out any rows where values are null or 'undefined' (string)
                 foreach ($modelResults as $result) {
                     $filteredResult = array_filter($result, function ($value) {
                         // Only include values that are not null or 'undefined' (string)
                         return !(is_null($value) || $value === 'undefined');
                     });
-    
+
                     // Only add non-empty results to the final list
                     if (!empty($filteredResult)) {
                         $results[] = array_merge($filteredResult, ['model' => class_basename($model)]);
                     }
                 }
             }
-        
+
             // Return the results or a message if no matches are found
             return response()->json($results ?: ['message' => 'No matches found'], 200);
         } catch (\Exception $e) {
@@ -634,4 +358,28 @@ class ApiController extends Controller
         }
     }
     
+    public function subscribeNewsletter(Request $request)
+    {
+        // dd($request->all());
+        try {
+            // Store the subscription in the database
+            NewsletterSubscription::create([
+                'email' => $request->email,
+            ]);
+
+            Mail::to($request->email)->send(new NewsletterThankYou($request->email));
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Thank you for subscribing to our newsletter!',
+            ], 200);
+        } catch (\Exception $e) {
+            // Handle unexpected errors
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while processing your request.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
 }

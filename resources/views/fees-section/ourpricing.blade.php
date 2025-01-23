@@ -76,7 +76,7 @@
                                             @endphp
 
                                             @foreach ($descriptions as $key => $description)
-                                            <div class="row">
+                                            <div class="row mb-2">
                                                 <div class="col-md-6">
                                                     <label>Sub Description</label>
                                                     <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
@@ -90,7 +90,7 @@
                                                     <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6 mb-2">
                                                     <label>Price</label>
                                                     <i class="fas fa-info-circle" title="Provide a meaningful price for this section."></i>
                                                     <input
@@ -127,7 +127,7 @@
 
                                         <!-- Sub Description -->
                                         <div class="form-group sub-group">
-                                            <div class="row">
+                                            <div class="row mb-2">
                                                 <div class="col-md-6">
                                                     <label>Sub Description</label>
                                                     <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
@@ -136,7 +136,7 @@
                                                     <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6 mb-2">
                                                     <label>Price</label>
                                                     <i class="fas fa-info-circle" title="Provide a meaningful price for this section."></i>
                                                     <input type="number" step="0.01" name="price[0][]" class="form-control" value="{{ old('price.0.0') }}" placeholder="Enter price">
@@ -314,19 +314,21 @@
             const newInputGroup = document.createElement('div');
             newInputGroup.classList.add('form-group', 'url-group');
             newInputGroup.innerHTML = `
-            <label>Sub Title</label>
-            <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-            <input type="text" name="sub_title[]" class="form-control" placeholder="Enter sub title">
-            <div class="text-danger sub-title-error" style="display: none;">This field is required.</div>
+            <div class="col-md-12">
+                <label>Sub Title</label>
+                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                <input type="text" name="sub_title[]" class="form-control" placeholder="Enter sub title">
+                <div class="text-danger sub-title-error" style="display: none;">This field is required.</div>
+            </div>
             <div class="form-group sub-group">
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col-md-6">
                         <label>Sub Description</label>
                         <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
                         <input type="text" name="sub_description[0][]" class="form-control" placeholder="Enter sub description">
                         <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-2">
                         <label>Price</label>
                         <i class="fas fa-info-circle" title="Provide a meaningful price for this section."></i>
                         <input type="number" step="0.01" name="price[0][]" class="form-control" placeholder="Enter price">
@@ -362,14 +364,14 @@
                     <input type="text" name="sub_description[${index}][]" class="form-control" placeholder="Enter sub description">
                     <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 mb-2">
                     <label>Price</label>
                     <i class="fas fa-info-circle" title="Provide a meaningful price for this section."></i>
                     <input type="number" step="0.01" name="price[${index}][]" class="form-control" placeholder="Enter price">
                     <div class="text-danger price-error" style="display: none;">This field is required.</div>
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-danger remove-description">Remove Description</button>
+                    <button type="button" class="btn btn-danger remove-description mb-2">Remove Description</button>
                 </div>`;
 
                 // Append the new row above the Add button

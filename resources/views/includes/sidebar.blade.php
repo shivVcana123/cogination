@@ -15,6 +15,14 @@
     .bg-clss{
         background-color: #fff;
     }
+    .sidenab .fa-circle:before {
+    font-size: 11px;
+    margin-right: 0;
+}
+
+.sidenab .nav-icon{
+    margin-right: 0 !important;
+}
  </style>
 <aside class="main-sidebar elevation-4 bg-clss">
     <!-- Sidebar -->
@@ -30,7 +38,7 @@
         <!-- <img src="{{ asset('assets/images/smallLogo.png') }}" alt="User Image" style="width: 188px;"> -->
 
         <!-- Sidebar Menu -->
-        <nav class="mt-2">
+        <nav class="mt-2 sidenab">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Dashboard -->
                 <li class="nav-item">
@@ -362,6 +370,15 @@
                         <p style="color:black">CTA</p>
                     </a>
                 </li>
+
+                <!-- Subscribe To Our Newsletter -->
+                <li class="nav-item">
+                    <a href="{{ route('news-letter-email') }}" class="nav-link {{ request()->is('news-letter-email*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-envelope" style="color:black"></i> <!-- Envelope icon -->
+                        <p style="color:black">Subscribe Emails</p>
+                    </a>
+                </li>
+
 
                 <!-- Footer -->
                 <li class="nav-item">

@@ -24,8 +24,8 @@ class StripePaymentController extends Controller
                     'quantity' => 1,
                 ]],
                 'mode' => 'payment',
-                'success_url' => url('/success'),
-                'cancel_url' => url('/cancel'),
+                'success_url' => 'https://cognition-demo.vercel.app/success',
+                'cancel_url' => 'https://cognition-demo.vercel.app/cancel',
             ]);
 
             return response()->json(['checkout_url' => $session->url], 200);
