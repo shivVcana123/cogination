@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('banner_sections', function (Blueprint $table) {
             $table->id();
             $table->string('heading')->nullable();
+            $table->text('subtitle')->nullable();
             $table->string('type')->nullable();
             $table->string('section_type')->nullable();
             $table->text('description')->nullable();

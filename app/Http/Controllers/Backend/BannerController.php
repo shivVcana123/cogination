@@ -15,7 +15,7 @@ class BannerController extends Controller
     public function index()
     {
         $banners = BannerSection::all();
-        return view('banners.index',compact('banners'));
+        return view('banners.index', compact('banners'));
     }
 
     /**
@@ -23,9 +23,9 @@ class BannerController extends Controller
      */
     public function create()
     {
-        $headerData = Header::with('children')->where('category','!=','Home')->whereNotNull('link')->get();
+        $headerData = Header::with('children')->whereNotNull('link')->get();
         $banner = new BannerSection();
-       return view('banners.form',compact('banner','headerData'));
+        return view('banners.form', compact('banner', 'headerData'));
     }
 
     /**
@@ -36,6 +36,8 @@ class BannerController extends Controller
         // $request->validate([
         //     'type' => 'required|unique:banner_sections,type,',
         //     ]);
+
+        // dd($request->all());
         $request->validate([
             'type' =>  'required',
         ]);
@@ -43,8 +45,10 @@ class BannerController extends Controller
         try {
             $banner = new BannerSection();
             $banner->heading = $request->heading;
+            $banner->subtitle = $request->subtitle;
             $banner->type = $request->type;
             $banner->section_type = $request->section_type;
+            $banner->section_type = $request->section_banner;
             $banner->description = $request->description;
             $banner->button_text = $request->button_text;
             $banner->button_link = $request->button_link;
@@ -56,7 +60,6 @@ class BannerController extends Controller
 
             $banner->save();
             return redirect()->route('banner.index')->with('success', 'Record created successfully!');
-
         } catch (\Exception $e) {
             dd($e->getMessage());
             return redirect()->back()->with('error', 'Failed to create record: ' . $e->getMessage());
@@ -76,9 +79,9 @@ class BannerController extends Controller
      */
     public function edit(string $id)
     {
-        $headerData = Header::with('children')->where('category','!=','Home')->whereNotNull('link')->get();
+        $headerData = Header::with('children')->whereNotNull('link')->get();
         $banner = BannerSection::find($id);
-        return view('banners.form',compact('banner','headerData'));
+        return view('banners.form', compact('banner', 'headerData'));
     }
 
     /**
@@ -91,17 +94,18 @@ class BannerController extends Controller
         //     'type' => 'required|unique:banner_sections,type,' . $request->hidden_id,
         //     ]);
         $request->validate([
-           'heading' => 'required',
+            'heading' => 'required',
         ]);
         $banner = BannerSection::findOrFail($request->hidden_id);
-        if(!$banner)
-        {
+        if (!$banner) {
             $banner = new BannerSection();
         }
         try {
             $banner->heading = $request->heading;
+            $banner->subtitle = $request->subtitle;
             $banner->type = $request->type;
-                $banner->section_type = $request->section_type;
+            $banner->section_type = $request->section_type;
+            $banner->section_type = $request->section_banner;
             $banner->description = $request->description;
             $banner->button_text = $request->button_text;
             $banner->button_link = $request->button_link;
@@ -110,7 +114,7 @@ class BannerController extends Controller
             //     $imagePath = $request->file('image')->storeAs('banner', $imageName, 'public');
             //     $banner->image = 'storage/app/public/' . $imagePath;
             // }
-                // Handle first image upload
+            // Handle first image upload
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
                 $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
                 $imagePath = $request->file('image')->storeAs('banner', $imageName, 'public');
@@ -120,7 +124,6 @@ class BannerController extends Controller
             $banner->save();
 
             return redirect()->route('banner.index')->with('success', 'Record created successfully!');
-
         } catch (\Exception $e) {
             dd($e->getMessage());
             return redirect()->back()->with('error', 'Failed to create record: ' . $e->getMessage());
@@ -132,7 +135,9 @@ class BannerController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $banner = BannerSection::findOrFail($id);
+        $banner->delete();
+        return redirect()->back()->with('success', 'Record deleted successfully.');
+
     }
 }
-

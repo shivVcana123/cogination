@@ -56,14 +56,14 @@
                                 @endphp
 
                                 <!-- Pointers Section -->
-                                <label for="">Add Extra Pointers</label>
+                                <label for="">Card Details</label>
                                 <div id="Pointers-container">
                                     @forelse($pointers as $index => $pointer)
                                     <div class="form-group url-group">
                                         <!-- Sub Title -->
-                                        <label>Sub Title</label>
+                                        <label> Title</label>
                                         <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_title[]" class="form-control" value="{{ old('sub_title.' . $index, $pointer->sub_title ?? '') }}" placeholder="Enter sub title">
+                                        <input type="text" name="sub_title[]" class="form-control" value="{{ old('sub_title.' . $index, $pointer->sub_title ?? '') }}" placeholder="Enter title">
                                         @error('sub_title.' . $index)
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -78,14 +78,14 @@
                                             @foreach ($descriptions as $key => $description)
                                             <div class="row mb-2">
                                                 <div class="col-md-6">
-                                                    <label>Sub Description</label>
+                                                    <label> Description</label>
                                                     <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
                                                     <input
                                                         type="text"
                                                         name="sub_description[{{ $index }}][]"
                                                         class="form-control"
                                                         value="{{ old('sub_description.' . $index . '.' . $key, $description) }}"
-                                                        placeholder="Enter sub description">
+                                                        placeholder="Enter description">
                                                     @error('sub_description.' . $index . '.' . $key)
                                                     <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -113,14 +113,14 @@
                                         </div>
 
                                         <!-- Remove Pointer Button -->
-                                        <button type="button" class="btn btn-danger remove-Pointers">Remove Pointer</button>
+                                        <button type="button" class="btn btn-danger remove-Pointers">Remove Card</button>
                                     </div>
                                     @empty
                                     <div class="form-group url-group">
                                         <!-- Sub Title -->
-                                        <label>Sub Title</label>
+                                        <label> Title</label>
                                         <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_title[]" class="form-control" value="{{ old('sub_title.0') }}" placeholder="Enter sub title">
+                                        <input type="text" name="sub_title[]" class="form-control" value="{{ old('sub_title.0') }}" placeholder="Enter title">
                                         @error('sub_title.*')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -129,9 +129,9 @@
                                         <div class="form-group sub-group">
                                             <div class="row mb-2">
                                                 <div class="col-md-6">
-                                                    <label>Sub Description</label>
+                                                    <label> Description</label>
                                                     <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-                                                    <input type="text" name="sub_description[0][]" class="form-control" value="{{ old('sub_description.0.0') }}" placeholder="Enter sub description">
+                                                    <input type="text" name="sub_description[0][]" class="form-control" value="{{ old('sub_description.0.0') }}" placeholder="Enter description">
                                                     @error('sub_description.0.*')
                                                     <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -153,13 +153,13 @@
                                         </div>
 
                                         <!-- Remove Pointer Button -->
-                                        <button type="button" class="btn btn-danger remove-Pointers">Remove Pointer</button>
+                                        <button type="button" class="btn btn-danger remove-Pointers">Remove Card</button>
                                     </div>
                                     @endforelse
                                 </div>
 
                                 <!-- Add Pointer Button -->
-                                <button type="button" class="btn btn-success" id="add-Pointers">Add Pointer</button>
+                                <button type="button" class="btn btn-success" id="add-Pointers">Add Card</button>
                             </div>
 
                             <div class="card-footer">
@@ -315,17 +315,17 @@
             newInputGroup.classList.add('form-group', 'url-group');
             newInputGroup.innerHTML = `
             <div class="col-md-12">
-                <label>Sub Title</label>
+                <label> Title</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                <input type="text" name="sub_title[]" class="form-control" placeholder="Enter sub title">
+                <input type="text" name="sub_title[]" class="form-control" placeholder="Enter title">
                 <div class="text-danger sub-title-error" style="display: none;">This field is required.</div>
             </div>
             <div class="form-group sub-group">
                 <div class="row mb-2">
                     <div class="col-md-6">
-                        <label>Sub Description</label>
+                        <label> Description</label>
                         <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-                        <input type="text" name="sub_description[0][]" class="form-control" placeholder="Enter sub description">
+                        <input type="text" name="sub_description[0][]" class="form-control" placeholder="Enter description">
                         <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
                     </div>
                     <div class="col-md-6 mb-2">
@@ -340,7 +340,7 @@
                 </div>
                 <button type="button" class="btn btn-success add-description">Add</button>
             </div>
-            <button type="button" class="btn btn-danger remove-Pointers">Remove Pointer</button>`;
+            <button type="button" class="btn btn-danger remove-Pointers">Remove Card</button>`;
             container.appendChild(newInputGroup);
 
             updateIndexes(); // Ensure new inputs have the correct index.
@@ -359,9 +359,9 @@
                 newRow.classList.add('row');
                 newRow.innerHTML = `
                 <div class="col-md-6">
-                    <label>Sub Description</label>
+                    <label> Description</label>
                     <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-                    <input type="text" name="sub_description[${index}][]" class="form-control" placeholder="Enter sub description">
+                    <input type="text" name="sub_description[${index}][]" class="form-control" placeholder="Enter description">
                     <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
                 </div>
                 <div class="col-md-6 mb-2">

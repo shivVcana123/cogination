@@ -114,21 +114,21 @@ class HomeSectionControoler extends Controller
         $chooseus->pointers = json_encode($pointers);
     
         // Handle image upload
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $directory = 'home';
-            $oldImage = str_replace('storage/', '', $chooseus->image);
-            $chooseus->image = 'storage/' . $this->uploadImages($request->file('image'), $directory, $oldImage);
-        }
         // if ($request->hasFile('image') && $request->file('image')->isValid()) {
-        //     if ($chooseus->image) {
-        //         Storage::disk('public')->delete(str_replace('storage/', '', $chooseus->image));
-        //     }
-        //     $originalName = $request->file('image')->getClientOriginalName();
-        //     $cleanedName = str_replace(' ', '_', $originalName); // Replace spaces with underscores
-        //     $imageName = uniqid() . '_' . $cleanedName;
-        //     $imagePath = $request->file('image')->storeAs('home', $imageName, 'public');
-        //     $chooseus->image = 'storage/' . $imagePath;
+        //     $directory = 'home';
+        //     $oldImage = str_replace('storage/', '', $chooseus->image);
+        //     $chooseus->image = 'storage/' . $this->uploadImages($request->file('image'), $directory, $oldImage);
         // }
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            if ($chooseus->image) {
+                Storage::disk('public')->delete(str_replace('storage/', '', $chooseus->image));
+            }
+            $originalName = $request->file('image')->getClientOriginalName();
+            $cleanedName = str_replace(' ', '_', $originalName); // Replace spaces with underscores
+            $imageName = uniqid() . '_' . $cleanedName;
+            $imagePath = $request->file('image')->storeAs('home', $imageName, 'public');
+            $chooseus->image = 'storage/' . $imagePath;
+        }
     
         // Save the record
         $chooseus->save();

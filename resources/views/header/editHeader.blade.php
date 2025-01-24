@@ -42,6 +42,15 @@
                                     @enderror
                                 </div>
                                 @if ($headerData[0]->children->isEmpty())
+                                @if($headerData[0]->link == '/')
+                                <div class="form-group">
+                                    <label for="link">Slug</label>
+                                    <input type="text" class="form-control" name="link" id="link" placeholder="Enter link" value="http://localhost:5173/" readonly>
+                                    @error('link')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                @else
                                 <div class="form-group">
                                     <label for="link">Slug</label>
                                     <input type="text" class="form-control" name="link" id="link" placeholder="Enter link" value="{{ old('link', $headerData[0]->link) }}" readonly>
@@ -49,6 +58,7 @@
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                @endif
                                 @endif
                                 <!-- @if($headerData[0]->children->isNotEmpty()) -->
                                 <div class="form-group">

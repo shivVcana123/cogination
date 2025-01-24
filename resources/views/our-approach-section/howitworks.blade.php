@@ -68,7 +68,7 @@
 
 
                                 <!-- Pointers Section -->
-                                <label for="">Add Extra Pointers</label>
+                                <label for="">Card Details</label>
                                 <div id="Pointers-container">
 
                                     @if(!empty($pointers) && is_array($pointers))
@@ -77,14 +77,14 @@
                                     <div class="form-group url-group">
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <label>Sub Title</label>
+                                                <label> Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter sub title">
+                                                <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter title">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label>Sub Description</label>
+                                                <label> Description</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter sub description">
+                                                <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter description">
                                             </div>
 
                                         </div>
@@ -97,14 +97,14 @@
                                     <div class="form-group url-group">
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <label>Sub Title</label>
+                                                <label> Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter title">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label>Sub Description</label>
+                                                <label> Description</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter description">
                                             </div>
 
                                         </div>
@@ -113,7 +113,7 @@
                                     @endif
                                 </div>
                                 <!-- Add Pointer Button -->
-                                <button type="button" class="btn btn-success" id="add-Pointers">Add Pointer</button>
+                                <button type="button" class="btn btn-success" id="add-Pointers">Add Card</button>
 
 
                             </div>
@@ -147,15 +147,15 @@
         newInputGroup.innerHTML = `
             <div class="row">
                 <div class="form-group col-md-6">
-                    <label>Sub Title</label>
+                    <label> Title</label>
                     <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                    <input type="text" name="sub_title[]" class="form-control" placeholder="Enter sub title">
+                    <input type="text" name="sub_title[]" class="form-control" placeholder="Enter title">
                     <div class="text-danger sub-title-error" style="display: none;">This field is required.</div>
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Sub Description</label>
+                    <label> Description</label>
                     <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-                    <input type="text" name="sub_description[]" class="form-control" placeholder="Enter sub description">
+                    <input type="text" name="sub_description[]" class="form-control" placeholder="Enter description">
                     <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
                 </div>
             </div>

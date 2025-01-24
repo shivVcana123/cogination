@@ -17,8 +17,8 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Banner</th>
-                            <th>Title</th>
+                            <th>Page</th>
+                            <th>Heading</th>
                             <th>Button Text</th>
                             <th>Action</th>
                         </tr>
@@ -38,12 +38,12 @@
                                 <td>{{ $banner->button_text }}</td>
                                 <td>
                                     <a href="{{route('banner.edit',$banner->id)}}"><i class="fa fa-edit"></i></a>
-                                    {{-- <form action="{{ route('banner.destroy', $banner->id) }}" method="POST" style="display:inline;">
+                                    <form action="{{ route('banner.destroy', $banner->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-link p-0" onclick="return confirm('Are you sure you want to delete this record?')">
                                         <i class="fa fa-trash text-danger"></i>
-                                    </button> --}}
+                                    </button>
                                 </form>
                                 </td>
                              @endif

@@ -170,8 +170,10 @@ Route::middleware(['auth'])->group(function () {
      Route::post('save-financial-responsibilities', [FeesController::class,'financialSaveResponsibilities'])->name('financialSaveResponsibilities');
 
     // Newsletter Email section Route
-     Route::get('news-letter-email', [NewsLetterSubscriptionController::class,'subscribeNewsletter'])->name('news-letter-email');
-
+     Route::get('news-letter-form', [NewsLetterSubscriptionController::class,'newsLetterForm'])->name('news-letter-form');
+     Route::post('news-letter-save', [NewsLetterSubscriptionController::class,'newsLetterSave'])->name('news-letter-save');
+     Route::get('news-letter-list', [NewsLetterSubscriptionController::class,'subscribeNewsletter'])->name('news-letter-list');
+     Route::get('/newsletter-subscriptions/recent', [DashboardController::class, 'getRecentNewsletterSubscriptions']);
 });
 
 

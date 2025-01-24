@@ -1,29 +1,34 @@
 <!-- Main Sidebar Container -->
- <?php 
-  use App\Models\Logo;
-  $logo = Logo::first();
- ?>
- <style>
-    .logos img{
+<?php
+
+use App\Models\Logo;
+
+$logo = Logo::first();
+?>
+<style>
+    .logos img {
         width: 90%;
     }
-    .logos{
+
+    .logos {
         display: flex;
         align-items: center;
         justify-content: center;
     }
-    .bg-clss{
+
+    .bg-clss {
         background-color: #fff;
     }
-    .sidenab .fa-circle:before {
-    font-size: 11px;
-    margin-right: 0;
-}
 
-.sidenab .nav-icon{
-    margin-right: 0 !important;
-}
- </style>
+    .sidenab .fa-circle:before {
+        font-size: 11px;
+        margin-right: 0;
+    }
+
+    .sidenab .nav-icon {
+        margin-right: 0 !important;
+    }
+</style>
 <aside class="main-sidebar elevation-4 bg-clss">
     <!-- Sidebar -->
     <div class="sidebar">
@@ -56,8 +61,8 @@
                     </a>
                 </li>
 
-                 <!-- Banner -->
-                 <li class="nav-item">
+                <!-- Banner -->
+                <li class="nav-item">
                     <a href="{{ route('banner.index') }}" class="nav-link {{ request()->is('banner*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-image" style="color:black"></i> <!-- Banner icon -->
                         <p style="color:black">Banner</p>
@@ -74,12 +79,12 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="{{route('home.index')}}" class="nav-link {{request()->is('home*') ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
                                 <p style="color:black">Hero Section</p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="{{route('homeAbout')}}" class="nav-link {{ request()->is('about-us*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
@@ -361,8 +366,34 @@
                     </ul>
                 </li>
 
-               
+                <!-- Subscribe To Our Newsletter -->
+                <li class="nav-item {{ request()->is('news-letter-form*') || request()->is('news-letter-list*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-envelope" style="color:black"></i>
+                        <p style="color:black">
+                        Newsletter Section
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                        <a href="{{ route('news-letter-form') }}" class="nav-link {{ request()->is('news-letter-form*') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon" style="color:black"></i>
+                        <p style="color:black">Form</p>
+                        </a>
+                        </li>
+                    </ul>
 
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('news-letter-list') }}" class="nav-link {{ request()->is('news-letter-list*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon" style="color:black"></i>
+                                <p style="color:black">Index</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            
                 <!-- CTA -->
                 <li class="nav-item">
                     <a href="{{ route('cta.index') }}" class="nav-link {{ request()->is('cta*') ? 'active' : '' }}">
@@ -371,13 +402,7 @@
                     </a>
                 </li>
 
-                <!-- Subscribe To Our Newsletter -->
-                <li class="nav-item">
-                    <a href="{{ route('news-letter-email') }}" class="nav-link {{ request()->is('news-letter-email*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-envelope" style="color:black"></i> <!-- Envelope icon -->
-                        <p style="color:black">Subscribe Emails</p>
-                    </a>
-                </li>
+
 
 
                 <!-- Footer -->
@@ -396,7 +421,7 @@
                     </a>
                 </li> -->
 
-                
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

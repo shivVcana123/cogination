@@ -80,7 +80,7 @@
 
 
                                 <!-- Pointers Section -->
-                                <label for="">Add Extra Pointers</label>
+                                <label for="">Card Details</label>
                                 <div id="Pointers-container">
 
                                     @if(!empty($pointers) && is_array($pointers))
@@ -89,19 +89,19 @@
                                     <div class="form-group url-group">
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <label>Sub Title</label>
+                                                <label> Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter sub title">
+                                                <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter title">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label>Sub Description</label>
+                                                <label> Description</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter sub description">
+                                                <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter description">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Image</label>
                                                 <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                                <img id="blah" src="{{asset($pointer->sub_image ?? '')}}" alt="Image Preview" style="width: 130px; display: {{ empty($pointer->sub_image) ? 'none' : 'block' }};"/>
+                                                <img id="blah" src="{{asset($pointer->sub_image ?? '')}}" alt="Image Preview" style="width: 130px; display: {{ empty($pointer->sub_image) ? 'none' : 'block' }};" />
                                                 <input type="file" class="form-control" name="image[]" accept="image/*">
                                             </div>
                                         </div>
@@ -115,14 +115,14 @@
                                     <div class="form-group url-group">
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <label>Sub Title</label>
+                                                <label> Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter title">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label>Sub Description</label>
+                                                <label> Description</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter description">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Image</label>
@@ -136,12 +136,12 @@
                                     @endif
                                 </div>
                                 <!-- Add Pointer Button -->
-                                <button type="button" class="btn btn-success" id="add-Pointers">Add Pointer</button>
+                                <button type="button" class="btn btn-success" id="add-Pointers">Add Card</button>
                             </div>
 
                             <div class="card-footer">
-                            <input type="checkbox" id="status" name="status" {{ ($chooseusData[0]->status ?? '') === 'on' ? 'checked' : '' }}>
-                            <label for="status">Show On Website</label>
+                                <input type="checkbox" id="status" name="status" {{ ($chooseusData[0]->status ?? '') === 'on' ? 'checked' : '' }}>
+                                <label for="status">Show On Website</label>
                                 <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
@@ -156,88 +156,32 @@
 @section('java_script')
 <script>
     CKEDITOR.replace('description_1');
-    // function updateRemoveButtonVisibility() {
-    //     const urlGroups = document.querySelectorAll('.url-group');
-    //     urlGroups.forEach((group) => {
-    //         const removeButton = group.querySelector('.remove-Pointers');
-    //         removeButton.style.display = urlGroups.length > 1 ? 'inline-block' : 'none';
-    //     });
-    // }
 
-    // document.getElementById('add-Pointers').addEventListener('click', function() {
-    //     const container = document.getElementById('Pointers-container');
-    //     const newInputGroup = document.createElement('div');
-    //     newInputGroup.classList.add('form-group', 'url-group');
-    //     newInputGroup.innerHTML = `
-    //     <div class="row">
-    //                                         <div class="form-group col-md-6">
-    //                                             <label>Sub Title</label>
-    //                                             <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-    //                                             <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
-    //                                              <div class="text-danger sub-title-error" style="display: none;">Please fill at least one field.</div>
-    //                                             </div>
-    //                                         <div class="form-group col-md-6">
-    //                                             <label>Sub Description</label>
-    //                                             <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-    //                                             <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
-    //                                              <div class="text-danger sub-description-error" style="display: none;">Please fill at least one field.</div>
-    //                                             </div>
-    //                                         <div class="form-group col-md-6">
-    //                                             <label>Image</label>
-    //                                             <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-    //                                             <img id="blah" src="#" alt="Image Preview" style="width: 130px; display:none" />
-    //                                             <input type="file" class="form-control" name="image[]" accept="image/*">
-    //                                         </div>
-    //                                     </div>
-
-    //     <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
-    // `;
-    //     container.appendChild(newInputGroup);
-    //     updateRemoveButtonVisibility(); // Update "Remove" buttons visibility
-    // });
-
-    // document.getElementById('Pointers-container').addEventListener('click', function(event) {
-    //     if (event.target.classList.contains('remove-Pointers')) {
-    //         event.target.closest('.url-group').remove();
-    //         updateRemoveButtonVisibility(); // Update "Remove" buttons visibility
-    //     }
-    // });
-
-    // // Initial visibility check when the page loads
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     updateRemoveButtonVisibility();
-    // });
-
-
-    // // Initial visibility check when the page loads
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     updateRemoveButtonVisibility();
-    // });
 
     function updateRemoveButtonVisibility() {
-    const urlGroups = document.querySelectorAll('.url-group');
-    urlGroups.forEach((group) => {
-        const removeButton = group.querySelector('.remove-Pointers');
-        removeButton.style.display = urlGroups.length > 1 ? 'inline-block' : 'none';
-    });
-}
+        const urlGroups = document.querySelectorAll('.url-group');
+        urlGroups.forEach((group) => {
+            const removeButton = group.querySelector('.remove-Pointers');
+            removeButton.style.display = urlGroups.length > 1 ? 'inline-block' : 'none';
+        });
+    }
 
-document.getElementById('add-Pointers').addEventListener('click', function () {
-    const container = document.getElementById('Pointers-container');
-    const newInputGroup = document.createElement('div');
-    newInputGroup.classList.add('form-group', 'url-group');
-    newInputGroup.innerHTML = `
+    document.getElementById('add-Pointers').addEventListener('click', function() {
+        const container = document.getElementById('Pointers-container');
+        const newInputGroup = document.createElement('div');
+        newInputGroup.classList.add('form-group', 'url-group');
+        newInputGroup.innerHTML = `
         <div class="row">
             <div class="form-group col-md-6">
-                <label>Sub Title</label>
+                <label> Title</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
+                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter title">
                 <div class="text-danger sub-title-error" style="display: none;">Please fill at least one field.</div>
             </div>
             <div class="form-group col-md-6">
-                <label>Sub Description</label>
+                <label> Description</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
+                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter description">
                 <div class="text-danger sub-description-error" style="display: none;">Please fill at least one field.</div>
             </div>
             <div class="form-group col-md-6">
@@ -249,58 +193,58 @@ document.getElementById('add-Pointers').addEventListener('click', function () {
         </div>
         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
     `;
-    container.appendChild(newInputGroup);
-    updateRemoveButtonVisibility(); // Update "Remove" buttons visibility
-});
-
-document.getElementById('Pointers-container').addEventListener('click', function (event) {
-    if (event.target.classList.contains('remove-Pointers')) {
-        event.target.closest('.url-group').remove();
+        container.appendChild(newInputGroup);
         updateRemoveButtonVisibility(); // Update "Remove" buttons visibility
-    }
-});
+    });
 
-// Validation function
-function validateFields() {
-    const urlGroups = document.querySelectorAll('.url-group');
-    let isValid = true;
-
-    urlGroups.forEach((group) => {
-        const subTitleInput = group.querySelector('input[name="sub_title[]"]');
-        const subDescriptionInput = group.querySelector('input[name="sub_description[]"]');
-        const titleError = group.querySelector('.sub-title-error');
-        const descriptionError = group.querySelector('.sub-description-error');
-
-        // Reset error visibility
-        if (titleError) titleError.style.display = 'none';
-        if (descriptionError) descriptionError.style.display = 'none';
-
-        // Check if both fields are empty
-        if (!subTitleInput.value.trim() && !subDescriptionInput.value.trim()) {
-            if (titleError) titleError.style.display = 'block';
-            if (descriptionError) descriptionError.style.display = 'block';
-            isValid = false;
+    document.getElementById('Pointers-container').addEventListener('click', function(event) {
+        if (event.target.classList.contains('remove-Pointers')) {
+            event.target.closest('.url-group').remove();
+            updateRemoveButtonVisibility(); // Update "Remove" buttons visibility
         }
     });
 
-    // if (!isValid) {
-    //     alert('Please ensure at least one field in each group is filled.');
-    // }
+    // Validation function
+    function validateFields() {
+        const urlGroups = document.querySelectorAll('.url-group');
+        let isValid = true;
 
-    return isValid;
-}
+        urlGroups.forEach((group) => {
+            const subTitleInput = group.querySelector('input[name="sub_title[]"]');
+            const subDescriptionInput = group.querySelector('input[name="sub_description[]"]');
+            const titleError = group.querySelector('.sub-title-error');
+            const descriptionError = group.querySelector('.sub-description-error');
 
-// Add submit listener for validation
-document.getElementById('form-submit-button').addEventListener('click', function (event) {
-    if (!validateFields()) {
-        event.preventDefault(); // Prevent form submission if validation fails
+            // Reset error visibility
+            if (titleError) titleError.style.display = 'none';
+            if (descriptionError) descriptionError.style.display = 'none';
+
+            // Check if both fields are empty
+            if (!subTitleInput.value.trim() && !subDescriptionInput.value.trim()) {
+                if (titleError) titleError.style.display = 'block';
+                if (descriptionError) descriptionError.style.display = 'block';
+                isValid = false;
+            }
+        });
+
+        // if (!isValid) {
+        //     alert('Please ensure at least one field in each group is filled.');
+        // }
+
+        return isValid;
     }
-});
 
-// Initial visibility check when the page loads
-document.addEventListener('DOMContentLoaded', function () {
-    updateRemoveButtonVisibility();
-});
+    // Add submit listener for validation
+    document.getElementById('form-submit-button').addEventListener('click', function(event) {
+        if (!validateFields()) {
+            event.preventDefault(); // Prevent form submission if validation fails
+        }
+    });
+
+    // Initial visibility check when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        updateRemoveButtonVisibility();
+    });
 
     imgInp.onchange = evt => {
         const [file] = imgInp.files;

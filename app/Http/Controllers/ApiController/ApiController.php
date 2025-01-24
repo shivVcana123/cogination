@@ -68,6 +68,7 @@ use App\Models\HomeAppointment;
 use App\Models\HomeChooseUs;
 use App\Models\HomeFaq;
 use App\Models\HomeOurService;
+use App\Models\NewsLetterSection;
 use App\Models\NewsletterSubscription;
 use App\Models\OurApproach;
 use App\Models\OurApproachHowItWork;
@@ -81,12 +82,14 @@ class ApiController extends Controller
     {
         $headerData = Header::with('children')->whereNull('parent_id')->get();
         $footerData = Footer::latest()->first();
+        $newslatter =NewsLetterSection::latest()->first();
         $ctaData = Cta::get();
 
         $data = [
             'data' => HeaderResource::collection($headerData),
             'footerData' => $footerData,
             'ctaData' => $ctaData,
+            'newslatter' => $newslatter,
         ];
 
         return $this->jsonResponse($data);
@@ -276,15 +279,15 @@ class ApiController extends Controller
         $bannerSection = BannerSection::get();
         return $this->jsonResponse($bannerSection);
     }
-    public function fetchWebsiteStyle()
-    {
-        $pageDesign = PageDesign::all();
-        return response()->json([
-            'status' => 'success',
-            'message' => 'CSS styles fetched successfully',
-            'data' => WebsiteStyleResource::collection($pageDesign),
-        ], 200);
-    }
+    // public function fetchWebsiteStyle()
+    // {
+    //     $pageDesign = PageDesign::all();
+    //     return response()->json([
+    //         'status' => 'success',
+    //         'message' => 'CSS styles fetched successfully',
+    //         'data' => WebsiteStyleResource::collection($pageDesign),
+    //     ], 200);
+    // }
     public function searchContent(Request $request)
     {
         try {
