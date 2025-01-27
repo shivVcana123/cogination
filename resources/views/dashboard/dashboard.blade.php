@@ -54,7 +54,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-12 mb-3">
+        <div class="col-md-12 mt-3">
           <div class="d-flex align-items-center">
             <label for="filterType" class="mr-2">Filter by:</label>
             <select id="filterType" class="form-control" style="width: 150px;">
