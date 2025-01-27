@@ -84,13 +84,20 @@ Route::middleware(['auth'])->group(function () {
     Route::post('save-adhd-benefits', [AdhdBenefitsController::class, 'saveAdhdBenefits'])->name('save-adhd-benefits');
     Route::get('/fetch-adhd-benefits-section-by-type', [AdhdBenefitsController::class, 'fetchAdhdBenefitSectionByType'])->name('fetch-adhd-benefits-section-by-type');
 
-    Route::get('adhd-section', [AdhdBenefitsController::class, 'adhdSection'])->name('adhd-section');
     Route::get('/fetch-adhd-section-by-type', [AdhdBenefitsController::class, 'fetchAdhdSectionByType'])->name('fetch-adhd-section-by-type');
+    Route::get('/fetch-adhd-second-section-by-type', [AdhdBenefitsController::class, 'fetchAdhdSecondSectionByType'])->name('fetch-adhd-second-section-by-type');
+    Route::get('adhd-section', [AdhdBenefitsController::class, 'adhdSection'])->name('adhd-section');
     Route::post('save-adhd-section', [AdhdBenefitsController::class, 'saveAdhdSection'])->name('save-adhd-section');
+    Route::get('adhd-second-section', [AdhdBenefitsController::class, 'adhdSecondSection'])->name('adhd-second-section');
+    Route::post('save-adhd-second', [AdhdBenefitsController::class, 'saveAdhdSecond'])->name('save-adhd-second');
+
 
     // Autism section Route
     Route::get('autism-section', [AutismsSectionController::class, 'autismSection'])->name('autism-section');
     Route::post('save-autism-section', [AutismsSectionController::class, 'saveAutismSection'])->name('save-autism-section');
+    Route::get('autism-second-section', [AutismsSectionController::class, 'autismSecondSection'])->name('autism-second-section');
+    Route::post('save-autism-second-section', [AutismsSectionController::class, 'saveAutismSecondSection'])->name('save-autism-second-section');
+    Route::get('/fetch-autism-second-section-by-type', [AutismsSectionController::class, 'fetchAutismsSecondSectionByType'])->name('fetch-autism-second-section-by-type');
     Route::get('/fetch-autism-section-by-type', [AutismsSectionController::class, 'fetchAutismsSectionByType'])->name('fetch-autism-section-by-type');
     Route::get('autism-process', [AutismsSectionController::class, 'autismProcessSection'])->name('autism-process-section');
     Route::post('save-process-section', [AutismsSectionController::class, 'saveProcessSection'])->name('save-process-section');

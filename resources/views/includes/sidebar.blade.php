@@ -125,7 +125,7 @@ $logo = Logo::first();
                 </li>
 
                 <!-- ADHD Section -->
-                <li class="nav-item {{ request()->is('adhd-benefits*') || request()->is('adhd-section*') ? 'menu-open' : '' }}">
+                <li class="nav-item {{ request()->is('adhd-benefits*') || request()->is('adhd-section*') || request()->is('adhd-second-section*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-brain" style="color:black"></i>
                         <p style="color:black">
@@ -137,7 +137,13 @@ $logo = Logo::first();
                         <li class="nav-item">
                             <a href="{{route('adhd-section')}}" class="nav-link {{ request()->is('adhd-section*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">ADHD Section</p>
+                                <p style="color:black">ADHD 1st Section</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('adhd-second-section')}}" class="nav-link {{ request()->is('adhd-second-section*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon" style="color:black"></i>
+                                <p style="color:black">ADHD 2nd Section</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -150,7 +156,7 @@ $logo = Logo::first();
                 </li>
 
                 <!-- Autism  Section -->
-                <li class="nav-item {{ request()->is('autism-process*') || request()->is('autism-screening*') || request()->is('autism-book*') || request()->is('autism-index*') || request()->is('autism-section*') ? 'menu-open' : '' }}">
+                <li class="nav-item {{ request()->is('autism-process*') || request()->is('autism-screening*') || request()->is('autism-book*') || request()->is('autism-index*') || request()->is('autism-section*') || request()->is('autism-second-section*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-puzzle-piece" style="color:black"></i>
                         <p style="color:black">
@@ -162,9 +168,17 @@ $logo = Logo::first();
                         <li class="nav-item">
                             <a href="{{route('autism-section')}}" class="nav-link {{ request()->is('autism-section*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Autism Section</p>
+                                <p style="color:black">Autism 1st Section</p>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('autism-second-section')}}" class="nav-link {{ request()->is('autism-second-section*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon" style="color:black"></i>
+                                <p style="color:black">Autism 2nd Section</p>
+                            </a>
+                        </li>
+
                         <li class="nav-item">
                             <a href="{{route('autism-process-section')}}" class="nav-link {{ request()->is('autism-process*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>

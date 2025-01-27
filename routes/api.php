@@ -3,6 +3,7 @@ use App\Http\Controllers\ApiController\ApiController;
 use App\Http\Controllers\Backend\FeesController;
 use App\Http\Controllers\Backend\PageDesignController;
 use App\Http\Controllers\Backend\StripePaymentController;
+use App\Http\Controllers\WebhookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,5 +26,5 @@ Route::get('banner-section', [ApiController::class, 'fetchBannerSectionData']); 
 Route::get('search-content', [ApiController::class, 'searchContent']);
 Route::post('/create-checkout-session', [StripePaymentController::class, 'createCheckoutSession']);
 Route::post('/subscribe-newsletter', [ApiController::class, 'subscribeNewsletter']);
-
+Route::post('/checkout', [WebhookController::class,'handleWebhook']);
 

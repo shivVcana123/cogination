@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TitleRequest;
 use App\Models\AdhdBenefit;
 use App\Models\AdhdChildSection;
+use App\Models\AdhdSecondSection;
 use App\Models\AdhdSection;
 use Illuminate\Http\Request;
 
@@ -110,9 +111,7 @@ class AdhdBenefitsController extends Controller
         return response()->json(['data' => $adhdSection]);
     }
 
-
-
-    public function saveAdhdSection(TitleRequest $request)
+    public function saveAdhdSection(Request $request)
     {
         // dd($request->all());
         // Fetch or create a new section
@@ -138,11 +137,11 @@ class AdhdBenefitsController extends Controller
         $adhdfirstSection->first_description = $request->first_description;
         $adhdfirstSection->first_button_content = $request->first_button_content;
         $adhdfirstSection->first_button_link = $request->first_button_link;
-        $adhdfirstSection->second_title = $request->second_title;
-        $adhdfirstSection->second_subtitle = $request->second_subtitle;
-        $adhdfirstSection->second_description = $request->second_description;
-        $adhdfirstSection->status = $request->status ?? "off";
-        $adhdfirstSection->pointers = json_encode($pointers);
+        // $adhdfirstSection->second_title = $request->second_title;
+        // $adhdfirstSection->second_subtitle = $request->second_subtitle;
+        // $adhdfirstSection->second_description = $request->second_description;
+        // $adhdfirstSection->status = $request->status ?? "off";
+        // $adhdfirstSection->pointers = json_encode($pointers);
 
         // Handle first image upload
         if ($request->hasFile('first_image') && $request->file('first_image')->isValid()) {
@@ -165,4 +164,158 @@ class AdhdBenefitsController extends Controller
 
         return redirect()->route('adhd-section')->with('success', 'Adhd details saved successfully.');
     }
+
+    public function adhdSecondSection ()
+    {
+        $adhdSection = AdhdSecondSection::get();
+        return view('adhd-section.adhdsecond', compact('adhdSection'));
+    }
+
+    // public function saveAdhdSecond(Request $request)
+    // {
+    //     // Define validation rules
+    //     dd($request->all());
+    //     $validated = $request->validate([
+    //         'type' => 'required|string|max:255',
+    //         'second_title' => 'required|string|max:255',
+    //         'second_subtitle' => 'nullable|string|max:255',
+    //         'second_description' => 'nullable|string|max:1000',
+    //         'second_sub_title.*' => 'required_with:second_sub_description.*|string|max:255',
+    //         'second_sub_description.*' => 'nullable|string|max:255',
+    //         'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
+    //     ], [
+    //         'type.required' => 'The type field is required.',
+    //         'type.string' => 'The type must be a valid string.',
+    //         'second_title.required' => 'The second title field is required.',
+    //         'second_title.string' => 'The second title must be a valid string.',
+    //         'second_sub_title.*.required_with' => 'Each subtitle must be provided if a sub-description is given.',
+    //         'second_image.image' => 'The second image must be an image file.',
+    //         'second_image.mimes' => 'The second image must be a file of type: jpeg, png, jpg, gif, webp.',
+    //         // 'second_image.max' => 'The second image size must not exceed 2MB.',
+    //     ]);
+    
+    //     // Fetch or create a new section
+    //     $adhdSecondSection = $request->id
+    //         ? AdhdSecondSection::find($request->id)
+    //         : new AdhdSecondSection();
+    
+    //     if (!$adhdSecondSection) {
+    //         return redirect()->back()->withErrors(['error' => 'Invalid ID provided.']);
+    //     }
+    
+    //     // Handle pointers
+    //     $pointers = [];
+    //     if ($request->has('second_sub_title')) {
+    //         foreach ($request->second_sub_title as $index => $subTitle) {
+    //             $pointers[] = [
+    //                 'second_sub_title' => $subTitle,
+    //                 'second_sub_description' => $request->second_sub_description[$index] ?? null,
+    //             ];
+    //         }
+    //     }
+    
+    //     // Assign data
+    //     $adhdSecondSection->type = $validated['type'];
+    //     $adhdSecondSection->second_title = $validated['second_title'];
+    //     $adhdSecondSection->second_subtitle = $validated['second_subtitle'] ?? null;
+    //     $adhdSecondSection->second_description = $validated['second_description'] ?? null;
+    //     $adhdSecondSection->status = $request->status ?? "off";
+    //     $adhdSecondSection->pointers = json_encode($pointers);
+    
+    //     // Handle second image upload
+    //     if ($request->hasFile('second_image') && $request->file('second_image')->isValid()) {
+    //         $imageName = time() . '_' . uniqid() . '_' . $request->file('second_image')->getClientOriginalName();
+    //         $imagePath = $request->file('second_image')->storeAs('adhd', $imageName, 'public');
+    //         $adhdSecondSection->second_image = 'storage/' . $imagePath;
+    //     }
+    
+    //     // Save the record
+    //     if (!$adhdSecondSection->save()) {
+    //         return redirect()->back()->withErrors(['error' => 'Failed to save the record.']);
+    //     }
+    
+    //     return redirect()->route('adhd-second-section')->with('success', 'Adhd details saved successfully.');
+    // }
+    
+    public function saveAdhdSecond(Request $request)
+    {
+        try {
+            // dd($request->all());
+            // Validate the request
+            $validated = $request->validate([
+                'type' => 'required|string|max:255',
+                'second_title' => 'required|string|max:255',
+                'second_subtitle' => 'nullable|string|max:255',
+                'second_description' => 'nullable|string|max:1000',
+                'second_sub_title.*' => 'required_with:second_sub_description.*|string|max:255',
+                'second_sub_description.*' => 'nullable|string|max:255',
+                'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
+            ], [
+                'type.required' => 'The type field is required.',
+                'type.string' => 'The type must be a valid string.',
+                'second_title.required' => 'The second title field is required.',
+                'second_title.string' => 'The second title must be a valid string.',
+                'second_sub_title.*.required_with' => 'Each subtitle must be provided if a sub-description is given.',
+                'second_image.image' => 'The second image must be an image file.',
+                'second_image.mimes' => 'The second image must be a file of type: jpeg, png, jpg, gif, webp.',
+            ]);
+    
+            // Fetch or create a new section
+            $adhdSecondSection = $request->id
+                ? AdhdSecondSection::find($request->id)
+                : new AdhdSecondSection();
+    
+            // Handle pointers
+            $pointers = [];
+            if ($request->has('second_sub_title')) {
+                foreach ($request->second_sub_title as $index => $subTitle) {
+                    $pointers[] = [
+                        'second_sub_title' => $subTitle,
+                        'second_sub_description' => $request->second_sub_description[$index] ?? null,
+                    ];
+                }
+            }
+    
+            // Assign data
+            $adhdSecondSection->type = $validated['type'];
+            $adhdSecondSection->second_title = $validated['second_title'];
+            $adhdSecondSection->second_subtitle = $validated['second_subtitle'] ?? null;
+            $adhdSecondSection->second_description = $validated['second_description'] ?? null;
+            $adhdSecondSection->status = $request->status ?? "off";
+            $adhdSecondSection->pointers = json_encode($pointers);
+    
+            // Handle second image upload
+            if ($request->hasFile('second_image') && $request->file('second_image')->isValid()) {
+                $imageName = time() . '_' . uniqid() . '_' . $request->file('second_image')->getClientOriginalName();
+                $imagePath = $request->file('second_image')->storeAs('adhd', $imageName, 'public');
+                $adhdSecondSection->second_image = 'storage/' . $imagePath;
+            }
+    
+            // Save the record
+            $adhdSecondSection->save();
+    
+            return redirect()->route('adhd-second-section')->with('success', 'Adhd details saved successfully.');
+    
+        } catch (\Exception $e) {
+            // dd($e);
+            // Handle other exceptions
+            return redirect()->back()->withErrors(['error' => $e->getMessage()])->withInput();
+        }
+    }
+    
+
+    public function fetchAdhdSecondSectionByType(Request $request)
+    {
+        $type = $request->type;
+
+        // Validate the type
+        if (!in_array($type, ['Child', 'Adult'])) {
+            return response()->json(['error' => 'Invalid type provided.'], 400);
+        }
+
+        $adhdSection = AdhdSecondSection::where('type', $type)->get();
+
+        return response()->json(['data' => $adhdSection]);
+    }
+
 }

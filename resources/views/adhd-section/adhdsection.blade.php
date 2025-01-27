@@ -104,111 +104,7 @@
                                     @enderror
                                 </div>
 
-                                <hr>
-                                <h3> Second Section Details</h3>
-                                <hr>
-
-                                <div class="row">
-
-                                    <!-- Title Field -->
-                                    <div class="form-group col-md-6">
-                                        <label for="title">Title</label>
-                                        <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-                                        <input type="text" class="form-control" name="second_title" id="second_title"
-                                            placeholder="Enter second title" value="{{ old('second_title',$adhdSection[0]->second_title ?? '') }}">
-                                        @error('second_title')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <!-- Subtitle Field -->
-                                    <div class="form-group col-md-6">
-                                        <label for="subtitle">Subtitle</label>
-                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
-                                        <input type="text" class="form-control" name="second_subtitle" id="second_subtitle"
-                                            placeholder="Enter second subtitle" value="{{ old('second_subtitle',$adhdSection[0]->second_subtitle ?? '') }}">
-                                        @error('second_subtitle')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <!-- Description Field -->
-                                <div class="form-group">
-                                    <label for="description_1">Description</label>
-                                    <i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
-                                    <textarea class="form-control" name="second_description" id="second_description">{{ old('second_description', $adhdSection[0]->second_description ?? '') }}</textarea>
-                                    @error('second_description')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-
-                                @php
-                                // Check if the $adhdSection exists and contains data before attempting to decode
-                                $pointers = isset($adhdSection[0]) && !empty($adhdSection[0]->pointers)
-                                ? json_decode($adhdSection[0]->pointers)
-                                : [];
-                                @endphp
-
-
-                                <!-- Pointers Section -->
-                                <label for="">Add Extra Pointers</label>
-                                <div id="Pointers-container">
-
-                                    @if(!empty($pointers) && is_array($pointers))
-                                    <!-- Loop through each pointer and display -->
-                                    @foreach($pointers as $index => $pointer)
-                                    <div class="form-group url-group">
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label>Sub Title</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="second_sub_title[]" class="form-control" value="{{$pointer->second_sub_title}}" placeholder="Enter sub title">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label>Sub Description</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="second_sub_description[]" class="form-control" value="{{$pointer->second_sub_description}}" placeholder="Enter sub description">
-                                            </div>
-
-                                        </div>
-                                        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
-                                    </div>
-                                    @endforeach
-                                    @else
-
-                                    <!-- Default empty field when no pointers exist -->
-                                    <div class="form-group url-group">
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label>Sub Title</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful sub title for this section."></i>
-                                                <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter sub title">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label>Sub Description</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful sub description for this section."></i>
-                                                <input type="text" name="second_sub_description[]" class="form-control" value="" placeholder="Enter sub description">
-                                            </div>
-
-                                        </div>
-
-                                        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
-                                    </div>
-                                    @endif
-                                </div>
-                                <!-- Add Pointer Button -->
-                                <button type="button" class="btn btn-success" id="add-Pointers">Add Pointer</button>
-
-                                <div class="form-group">
-                                    <label for="image">Image</label>
-                                    <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                    <img id="second_img" src="{{asset($adhdSection[0]->second_image ?? '')}}" alt="Image Preview" style="width: 130px; display:{{empty($adhdSection[0]->second_image ? 'none' : 'block')}}" />
-                                    <input type="file" class="form-control" name="second_image" id="second_image" accept="image/*">
-                                    @error('image')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                
 
                             </div>
 
@@ -228,142 +124,6 @@
 @section('java_script')
 <script>
     CKEDITOR.replace('first_description');
-    CKEDITOR.replace('second_description');
-    function updateRemoveButtonVisibility() {
-    const urlGroups = document.querySelectorAll('.url-group');
-    console.log("Current URL Groups Count:", urlGroups.length); // Log count
-    urlGroups.forEach((group) => {
-        const removeButton = group.querySelector('.remove-Pointers');
-        removeButton.style.display = urlGroups.length > 1 ? 'inline-block' : 'none';
-    });
-}
-
-document.getElementById('add-Pointers').addEventListener('click', function () {
-    const container = document.getElementById('Pointers-container');
-    const newInputGroup = document.createElement('div');
-    newInputGroup.classList.add('form-group', 'url-group');
-    newInputGroup.innerHTML = `
-       <div class="row">
-            <div class="form-group col-md-6">
-                <label>Sub Title</label>
-                <i class="fas fa-info-circle" title="Provide a meaningful sub title for this section."></i>
-                <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter sub title">
-                <div class="text-danger title-error" style="display: none;">At least one field is required.</div>
-            </div>
-            <div class="form-group col-md-6">
-                <label>Sub Description</label>
-                <i class="fas fa-info-circle" title="Provide a meaningful sub description for this section."></i>
-                <input type="text" name="second_sub_description[]" class="form-control" value="" placeholder="Enter sub description">
-                <div class="text-danger description-error" style="display: none;">At least one field is required.</div>
-            </div>
-        </div>
-        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
-    `;
-    container.appendChild(newInputGroup);
-    console.log("Pointer added:", newInputGroup); // Log new pointer
-    updateRemoveButtonVisibility();
-});
-
-document.getElementById('Pointers-container').addEventListener('click', function (event) {
-    if (event.target.classList.contains('remove-Pointers')) {
-        const groupToRemove = event.target.closest('.url-group');
-        console.log("Pointer removed:", groupToRemove); // Log removed pointer
-        groupToRemove.remove();
-        updateRemoveButtonVisibility();
-    }
-});
-
-// Validation function
-function validateFields() {
-    const urlGroups = document.querySelectorAll('.url-group');
-    let isValid = true;
-
-    urlGroups.forEach((group) => {
-        const titleInput = group.querySelector('input[name="second_sub_title[]"]');
-        const descriptionInput = group.querySelector('input[name="second_sub_description[]"]');
-        const titleError = group.querySelector('.title-error');
-        const descriptionError = group.querySelector('.description-error');
-
-        // Reset error messages
-        if (titleError) titleError.style.display = 'none';
-        if (descriptionError) descriptionError.style.display = 'none';
-
-        // Validate at least one field is filled
-        if (!titleInput.value.trim() && !descriptionInput.value.trim()) {
-            if (titleError) titleError.style.display = 'block';
-            if (descriptionError) descriptionError.style.display = 'block';
-            isValid = false;
-        }
-    });
-
-    // if (!isValid) {
-    //     alert('Please fill out at least one field in each group.');
-    // }
-
-    return isValid;
-}
-
-// Add submit listener for validation
-document.getElementById('form-submit-button').addEventListener('click', function (event) {
-    if (!validateFields()) {
-        event.preventDefault(); // Prevent form submission if validation fails
-    }
-});
-
-// Initial visibility check when the page loads
-document.addEventListener('DOMContentLoaded', function () {
-    console.log("Page Loaded - Initial Check");
-    updateRemoveButtonVisibility();
-});
-
-    // function updateRemoveButtonVisibility() {
-    //     const urlGroups = document.querySelectorAll('.url-group');
-    //     console.log("Current URL Groups Count:", urlGroups.length); // Log count
-    //     urlGroups.forEach((group) => {
-    //         const removeButton = group.querySelector('.remove-Pointers');
-    //         removeButton.style.display = urlGroups.length > 1 ? 'inline-block' : 'none';
-    //     });
-    // }
-
-    // document.getElementById('add-Pointers').addEventListener('click', function() {
-    //     const container = document.getElementById('Pointers-container');
-    //     const newInputGroup = document.createElement('div');
-    //     newInputGroup.classList.add('form-group', 'url-group');
-    //     newInputGroup.innerHTML = `
-    //    <div class="row">
-    //                                         <div class="form-group col-md-6">
-    //                                         <label>Sub Title</label>
-    //                                         <i class="fas fa-info-circle" title="Provide a meaningful sub title for this section."></i>
-    //                                             <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter sub title">
-    //                                         </div>
-    //                                         <div class="form-group col-md-6">
-    //                                         <label>Sub Description</label>
-    //                                         <i class="fas fa-info-circle" title="Provide a meaningful sub description for this section."></i>
-    //                                             <input type="text" name="second_sub_description[]" class="form-control" value="" placeholder="Enter sub description">
-    //                                         </div>
-                                         
-    //                                     </div>
-
-    //     <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
-    // `;
-    //     container.appendChild(newInputGroup);
-    //     console.log("Pointer added:", newInputGroup); // Log new pointer
-    //     updateRemoveButtonVisibility();
-    // });
-
-    // document.getElementById('Pointers-container').addEventListener('click', function(event) {
-    //     if (event.target.classList.contains('remove-Pointers')) {
-    //         const groupToRemove = event.target.closest('.url-group');
-    //         console.log("Pointer removed:", groupToRemove); // Log removed pointer
-    //         groupToRemove.remove();
-    //         updateRemoveButtonVisibility();
-    //     }
-    // });
-
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     console.log("Page Loaded - Initial Check");
-    //     updateRemoveButtonVisibility();
-    // });
 
     imgInp.onchange = evt => {
         const [file] = imgInp.files;
@@ -375,48 +135,10 @@ document.addEventListener('DOMContentLoaded', function () {
             blah.src = "#"; // Reset the src
         }
     };
-    second_image.onchange = evt => {
-        const [file] = second_image.files;
-        if (file) {
-            second_img.src = URL.createObjectURL(file);
-            second_img.style.display = "block"; // Show the image
-        } else {
-            second_img.style.display = "none"; // Hide the image if no file is selected
-            second_img.src = "#"; // Reset the src
-        }
-    };
 
 
     $(document).ready(function() {
-        // Function to toggle the "Remove" button visibility
-        function toggleRemoveButton() {
-            const pointerCount = $('#Pointers-container .url-group').length;
-            $('.remove-Pointers').toggle(pointerCount > 1);
-        }
-
-        // Function to append a pointer
-        function appendPointer(container, data = {
-            second_sub_title: '',
-            second_sub_description: ''
-        }) {
-            const pointerHtml = `
-            <div class="form-group url-group">
-                <div class="row">
-                    <div class="form-group col-md-6">
-                    <label>Sub Title</label>
-                    <i class="fas fa-info-circle" title="Provide a meaningful sub title for this section."></i>
-                        <input type="text" name="second_sub_title[]" class="form-control" value="${data.second_sub_title}" placeholder="Enter sub title">
-                    </div>
-                    <div class="form-group col-md-6">
-                    <label>Sub Description</label>
-                    <i class="fas fa-info-circle" title="Provide a meaningful sub description for this section."></i>
-                        <input type="text" name="second_sub_description[]" class="form-control" value="${data.second_sub_description}" placeholder="Enter sub description">
-                    </div>
-                    <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
-                </div>
-            </div>`;
-            container.append(pointerHtml);
-        }
+       
 
         // Handle change event on the #type dropdown
         $('#type').on('change', function() {
@@ -440,34 +162,21 @@ document.addEventListener('DOMContentLoaded', function () {
                             $('#id').val(section.id || '');
                             $('#title').val(section.first_title || '');
                             $('#subtitle').val(section.first_subtitle || '');
-                            // $('#first_description').val(section.first_description || '');
-                            CKEDITOR.instances.first_description.setData(section.first_description || '');
-                            CKEDITOR.instances.second_description.setData(section.second_description || '');
                             $('#button_content').val(section.first_button_content || '');
                             $('#button_link').val(section.first_button_link || '');
-                            $('#second_title').val(section.second_title || '');
-                            $('#second_subtitle').val(section.second_subtitle || '');
-                            // $('#second_description').val(section.second_description || '');
+                            CKEDITOR.instances.first_description.setData(section.first_description || '');
+                            const imageUrl = section.first_image || '';
+                            $('#blah').attr('src', imageUrl ? imageUrl : '#'); // Use the image URL or reset
                             $('#status').prop('checked', section.status === 'on');
 
-                            // Populate pointers
-                            const container = $('#Pointers-container');
-                            container.empty();
-                            const pointers = section.pointers ? JSON.parse(section.pointers) : [];
-                            if (pointers.length > 0) {
-                                pointers.forEach(pointer => appendPointer(container, pointer));
-                            } else {
-                                appendPointer(container); // Add an empty group if no pointers
-                            }
+                           
                         } else {
                             // Reset form fields if no data is found
-                            $('#id, #title, #subtitle, #description, #button_content, #button_link, #second_title, #second_subtitle, #second_description').val('');
-                            const container = $('#Pointers-container');
-                            container.empty();
-                            appendPointer(container); // Add a single empty group
+                            $('#id, #title, #subtitle, #description, #button_content, #button_link').val('');
+                            
                         }
 
-                        toggleRemoveButton(); // Re-evaluate "Remove" button visibility
+                       
                     },
                     error: function() {
                         alert('An error occurred while fetching data.');
@@ -480,19 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         // Handle click event to dynamically add pointers
-        $('#add-pointer-btn').on('click', function() {
-            appendPointer($('#Pointers-container'));
-            toggleRemoveButton();
-        });
-
-        // Handle click event to remove pointers
-        $(document).on('click', '.remove-Pointers', function() {
-            $(this).closest('.url-group').remove();
-            toggleRemoveButton();
-        });
-
-        // Initial setup
-        toggleRemoveButton();
+    
     });
 </script>
 

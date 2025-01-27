@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('adhd_sections', function (Blueprint $table) {
+        Schema::create('autisms_second_sections', function (Blueprint $table) {
             $table->id();
-            $table->string('first_title')->nullable();
             $table->string('type')->nullable();
-            $table->text('first_subtitle')->nullable();
-            $table->text('first_description')->nullable();
-            $table->string('first_button_content')->nullable();
-            $table->string('first_button_link')->nullable();
-            $table->string('first_image')->nullable();
+            $table->string('second_title')->nullable();
+            $table->text('second_subtitle')->nullable();
+            $table->text('second_description')->nullable();
+            $table->string('second_button_content')->nullable();
+            $table->string('second_button_link')->nullable();
+            $table->string('second_image')->nullable();
+            $table->json('pointers')->nullable();
             $table->enum('status', ['on', 'off'])->default('on')->comment('on = show, off = hide');
             $table->timestamps();
         });
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('adhd_child_sections');
+        Schema::dropIfExists('autisms_second_sections');
     }
 };
