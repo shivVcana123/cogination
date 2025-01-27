@@ -16,44 +16,51 @@ class HeaderSeeder extends Seeder
         DB::table('headers')->insert([
             [
                 'category' => 'Home',
-                'link' => '',
                 'parent_id' => null,
+                'link' => '/',
+            ],
+            
+            [
+                'category' => 'ADHD',
+                'parent_id' => null,
+                'link' => 'adhd',
+            ],
+            [
+                'category' => 'Autism',
+                'parent_id' => null,
+                'link' => 'autism',
+            ],
+            [
+                'category' => 'Assessment',
+                'parent_id' => null,
+                'link' => 'assessment',
+            ],
+            [
+                'category' => 'About Us +',
+                'parent_id' => null,
+                'link' => null,
             ],
             [
                 'category' => 'About Us',
-                'link' => 'about-us',
+                'parent_id' => 5,
+                'link' => 'about',
+            ],
+            [
+                'category' => 'Our Approach',
+                'parent_id' => 5,
+                'link' => 'our-approach',
+            ],
+            [
+                'category' => 'Accreditation & Certifications',
+                'parent_id' => 5,
+                'link' => 'accreditation',
+            ],
+            [
+                'category' => 'Fees',
                 'parent_id' => null,
+                'link' => 'fee',
             ],
-            [
-                'category' => 'Services',
-                'link' => '',
-                'parent_id' => null,
-            ],
-            [
-                'category' => 'Real Estate Consulting Service',
-                'link' => 'service/1',
-                'parent_id' => 3,
-            ],
-            [
-                'category' => 'Development',
-                'link' => 'service/2',
-                'parent_id' => 3,
-            ],
-            [
-                'category' => 'Latest News',
-                'link' => 'latest-news',
-                'parent_id' => null,
-            ],
-            [
-                'category' => 'Useful Links',
-                'link' => 'useful-links',
-                'parent_id' => null,
-            ],
-            [
-                'category' => 'Contact us',
-                'link' => 'contact',
-                'parent_id' => null,
-            ],
+           
 
             // Add more entries as needed
         ]);

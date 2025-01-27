@@ -946,7 +946,8 @@ readers do not read off random characters that represent icons */
   content: "\f51d"; }
 
 .fa-circle:before {
-  content: "\f111"; }
+  content: "\f111";
+ }
 
 .fa-circle-notch:before {
   content: "\f1ce"; }

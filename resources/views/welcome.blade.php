@@ -1,219 +1,98 @@
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Login Page</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* General Styles */
-        .main-container {
-            background-color: #e0f0ff;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-            background: url('{{ asset('assets/images/imagebgLogin.png') }}');
-            background-position: bottom;
-            background-size: contain;
-            background-repeat: no-repeat;
-        }
+@extends('layouts.guest')
+@section('content')
+  
 
-        .login-container {
-            max-width: 900px;
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
-            height: 507px;
-        }
+  
 
-        .profile-icon {
-            position: relative;
-        }
-
-        .profile-icon img {
-            position: absolute;
-            top: 10px;
-        }
-
-        /* Left Panel */
-        .login-left {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            width: 35%;
-            background-image: url('{{ asset('assets/images/login-left.png') }}');
-            background-position: top;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        .login-left h2 {
-            font-size: 30px;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        /* Right Panel */
-        .login-right {
-            flex-grow: 1;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .login-right h4 {
-            text-align: center;
-            font-size: 24px;
-            margin-bottom: 20px;
-            font-weight: bold;
-            color: #2a5298;
-        }
-
-        .form-control {
-            border-radius: 5px;
-            padding: 15px;
-        }
-
-        .form-control {
-
-            font-size: 18px !important;
-            font-weight: 400;
-            line-height: 1.5;
-            color: #B4B4B4 !important;
-            border-radius: 0px !important;
-            border-width: 0px 0px 1px 0px;
-            padding-left: 31px;
-
-
-        }
-
-        .form-group.form-check label,
-        .form-check a {
-            color: #282760 !important;
-            font-weight: 500;
-            font-size: 17px;
-        }
-
-        .btn-login {
-            background-color: #3753A4;
-            color: #fff;
-            font-weight: bold;
-            width: 100%;
-            border-radius: 5px;
-        }
-
-        .form-group {
-            margin-bottom: 40px !important;
-        }
-
-        .btn:hover {
-            color: #ffffff !important;
-            text-decoration: none;
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            .login-container {
-                flex-direction: column;
-                max-width: 90%;
-            }
-
-            .login-left {
-                width: 100%;
-                padding: 40px 20px;
-                text-align: center;
-
-            }
-
-            .login-right {
-                width: 100%;
-                padding: 20px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <div class="main-container">
-        <div class="login-container">
-            <!-- Left Panel -->
-            <div class="login-left">
-
-            </div>
-
-            <!-- Right Panel -->
-            <div class="login-right">
-                <h4>
-                    <img src="{{ asset('assets/images/logoBrand.png')}}" alt="logo">
-                </h4>
-
-                 @if (session('error'))
-            <div class="col-sm-12">
-              <div class="alert  alert-danger alert-dismissible fade show" role="alert">
-                {{ session('error') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-            </div>
-            @endif
-                <form action="{{route('login')}}" method="post">
-              @csrf()
-                    <div class="form-group profile-icon">
-                        <img src="{{ asset('assets/images/profile.png') }}" alt="">
-                        <input type="email" class="form-control emailIcon" id="email" placeholder="Enter email"
-                            required>
-                        @if ($errors->has('email'))
-                        <div style="color: red;">
-                            {{ $errors->first('email') }}
-                        </div>
-                        @endif
-
-
-
-                    </div>
-                    <div class="form-group profile-icon">
-                        <img src="{{ asset('assets/images/profile.png')}}" alt="">
-                        <input  id="password-field" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required>
-
-                        @error('password')
-                        <div style="color:red">{{ $message }}</div>
-                        @enderror
-                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span> 
-
-
-
-
-                    </div>
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="rememberMe">
-                        <label class="form-check-label remember-me" for="rememberMe">Remember me</label>
-                        <a href="#" class="float-right">Forgot Password?</a>
-                    </div>
-                    <button type="submit" class="btn btn-login">Login</button>
-                </form>
-            </div>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Advanced Form</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Advanced Form</li>
+            </ol>
+          </div>
         </div>
-    </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="card card-default">
+          <div class="card-header">
+            <h3 class="card-title">Select2 (Default Theme)</h3>
+
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="row">
+              
+              <!-- /.col -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Multiple</label>
+                  <select class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                    <option>Alabama</option>
+                    <option>Alaska</option>
+                    <option>California</option>
+                    <option>Delaware</option>
+                    <option>Tennessee</option>
+                    <option>Texas</option>
+                    <option>Washington</option>
+                  </select>
+                </div>
+                <!-- /.form-group -->
+              
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+            </div>
+           
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer">
+            Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and information about
+            the plugin.
+          </div>
+        </div>
+       
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+ 
 
 
-    <!-- Bootstrap JS, jQuery, and Popper.js -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
 
-</html>
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+  });
+ 
+</script>
+@endsection

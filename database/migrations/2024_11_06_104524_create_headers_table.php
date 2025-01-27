@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('headers', function (Blueprint $table) {
             $table->id();
             $table->string('category');
-            $table->string('link');
             $table->foreignId('parent_id')->nullable()->constrained('headers')->onDelete('cascade');
+            $table->string('link')->nullable();
+
             $table->timestamps();
         });
     }

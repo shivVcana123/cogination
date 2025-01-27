@@ -16,13 +16,10 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('subtitle')->nullable();
             $table->string('description_1')->nullable();
-            // $table->string('description_2')->nullable();
             $table->string('button_content')->nullable();
             $table->string('button_link')->nullable();
             $table->string('image')->nullable();
-            $table->string('background_image')->nullable();
-            $table->string('background_color')->nullable();
-            // $table->json('pointers')->nullable();
+            $table->string('social')->nullable();
             $table->timestamps();
         });
     }

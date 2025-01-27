@@ -13,14 +13,12 @@ return new class extends Migration
     {
         Schema::create('page_designs', function (Blueprint $table) {
             $table->id();
-            $table->text('title_style')->nullable();
-            $table->text('subtitle_style')->nullable();
-            $table->text('description_style')->nullable();
-            $table->text('button_content_style')->nullable();
-            $table->string('header_color')->nullable();
-            $table->string('header_image')->nullable();
-            $table->string('footer_color')->nullable();
-            $table->string('footer_image')->nullable();
+            $table->string('category')->nullable();
+            $table->string('font_size')->nullable();
+            $table->string('font_weight')->nullable();
+            $table->string('content_color')->nullable();
+            $table->string('text_alignment')->nullable();
+            // $table->string('logo')->nullable();
             $table->timestamps();
         });
     }

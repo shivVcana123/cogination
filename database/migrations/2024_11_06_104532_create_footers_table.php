@@ -11,8 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
+       
         Schema::create('footers', function (Blueprint $table) {
             $table->id();
+            $table->string('title1')->nullable();
+            $table->string('title2')->nullable();
+            $table->string('display_data')->nullable();
+            $table->string('description')->nullable();
+            $table->string('address')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone_no')->nullable();
+            $table->string('start_time')->nullable();
+            $table->string('end_time')->nullable();
+            $table->string('days')->nullable();
+            $table->string('image')->nullable();
+            $table->string('button_content')->nullable();
+            $table->string('button_link')->nullable();
             $table->timestamps();
         });
     }
