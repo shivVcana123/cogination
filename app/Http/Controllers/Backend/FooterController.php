@@ -21,20 +21,31 @@ class FooterController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function footer()
     {
-       $footer =  new Footer();
-       $headers = Header::all();
-       $footer = new Footer;
-       return view('Footer.form',compact('footer','headers','footer'));
+       $footerData = Footer::get();
+       $headers = Header::where('link', '!=', '')->get();
+    //    dd($headers);
+       return view('Footer.form',compact('footerData','headers'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function saveFooter(Request $request)
     {
-        $footer = new Footer;
+        // dd($request->all());
+        $linkPointers = [];
+        if ($request->has('dats_display')) {
+            foreach ($request->dats_display as $index => $nameData) {
+                $linkPointers[] = [
+                    'name' => $index, // Key of the associative array (e.g., "Home", "ADHD")
+                    'link' => $nameData, // Value of the associative array (e.g., "/", "adhd")
+                ];
+            }
+        }
+    
+        $footer = $request->id ? Footer::find($request->id) : new Footer;
         $footer->title1 = $request->title1;
         $footer->title2 = $request->title2;
         $footer->address = $request->address;
@@ -42,11 +53,17 @@ class FooterController extends Controller
         $footer->phone_no = $request->phone_no;
         $footer->email = $request->email;
         $footer->start_time = $request->start_time;
-        $footer->display_data = json_encode($request->dats_display);
+        $footer->display_data = json_encode($linkPointers);
+        // $footer->link = json_encode($linkPointers);
         $footer->end_time = $request->end_time;
         $footer->days = $request->days;
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
+            $imagePath = $request->file('image')->storeAs('logo', $imageName, 'public');
+            $footer->image = 'storage/' . $imagePath;
+        }
         $footer->save();
-        return redirect()->route('footer.index');
+        return redirect()->route('footer');
     }
 
     /**
@@ -62,9 +79,11 @@ class FooterController extends Controller
      */
     public function edit(string $id)
     {
+       
         $footer =  new Footer();
        $headers = Header::all();
        $footer = Footer::find($id);
+       
        return view('Footer.form',compact('footer','headers','footer'));
     }
 

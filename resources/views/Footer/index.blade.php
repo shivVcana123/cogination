@@ -17,7 +17,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Title</th>
+                            <th>Description</th>
                             <th>Address</th>
                             <th>Email</th>
                             <th>Contact Info</th>
@@ -30,7 +30,7 @@
                          @if($footer->parent_id === null)
                             <td>{{ $key + 1 }}</td>
                            
-                                <td>{{ $footer->title }}</td>
+                                <td>{{ $footer->description }}</td>
                                 <td>{{ $footer->address }}</td>
                                 <td>{{ $footer->email }}</td>
                                 <td>{{ $footer->phone_no }}</td>

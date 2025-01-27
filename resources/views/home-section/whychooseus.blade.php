@@ -33,29 +33,34 @@
                             @csrf
                             <input type="hidden" name="id" value="{{ old('id', $chooseusData[0]->id ?? '') }}">
 
+
+
                             <div class="card-body">
-                                <!-- Title Field -->
-                                <div class="form-group">
-                                    <label for="title">Title</label>
-                                    <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-                                    <input type="text" class="form-control" name="title" id="title"
-                                        placeholder="Enter title" value="{{ old('title', $chooseusData[0]->title ?? '') }}">
-                                    @error('title')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                <div class="row">
+                                    <!-- Title Field -->
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Title</label>
+                                        <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                                        <input type="text" class="form-control" name="title" id="title"
+                                            placeholder="Enter title" value="{{ old('title', $chooseusData[0]->title ?? '') }}">
+                                        @error('title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
 
-                                <!-- Subtitle Field -->
-                                <div class="form-group">
-                                    <label for="subtitle">Subtitle</label>
-                                    <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
-                                    <input type="text" class="form-control" name="subtitle" id="subtitle"
-                                        placeholder="Enter subtitle" value="{{ old('subtitle', $chooseusData[0]->subtitle ?? '') }}">
-                                    @error('subtitle')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    <!-- Subtitle Field -->
+                                    <div class="form-group col-md-6">
+                                        <label for="subtitle">Subtitle</label>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
+                                        <input type="text" class="form-control" name="subtitle" id="subtitle"
+                                            placeholder="Enter subtitle" value="{{ old('subtitle', $chooseusData[0]->subtitle ?? '') }}">
+                                        @error('subtitle')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
+
 
                                 <!-- Description Field -->
                                 <div class="form-group">
@@ -68,67 +73,65 @@
                                 </div>
                                 <hr>
 
+                                @php
+                                // Check if the $chooseusData exists and contains data before attempting to decode
+                                $pointers = isset($chooseusData[0]) && !empty($chooseusData[0]->pointers)
+                                ? json_decode($chooseusData[0]->pointers)
+                                : [];
+                                @endphp
+
+
                                 <!-- Pointers Section -->
-                                 <label for="">Add Extra Pointers</label>
+                                <label for="">Card Details</label>
                                 <div id="Pointers-container">
-                                    @php
-                                    $pointers = old('sub_title')
-                                    ? array_map(null, old('sub_title', []), old('sub_description', []))
-                                    : (isset($chooseusData[0]->pointers) ? json_decode($chooseusData[0]->pointers, true) : []);
-                                    @endphp
 
-                                    @if (!empty($pointers))
-                                    @foreach ($pointers as $index => $pointer)
+                                    @if(!empty($pointers) && is_array($pointers))
+                                    <!-- Loop through each pointer and display -->
+                                    @foreach($pointers as $index => $pointer)
                                     <div class="form-group url-group">
-                                        <!-- Sub Title -->
-                                        <label>Sub Title</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_title[]" class="form-control"
-                                            value="{{ old('sub_title.' . $index, $pointer['sub_title'] ?? '') }}"
-                                            placeholder="Enter sub title">
-                                        @error("sub_title.{$index}")
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Title</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter title">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter description">
+                                            </div>
+                                        </div>
 
-                                        <!-- Sub Description -->
-                                        <label>Sub Description</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_description[]" class="form-control"
-                                            value="{{ old('sub_description.' . $index, $pointer['sub_description'] ?? '') }}"
-                                            placeholder="Enter sub description">
-                                        @error("sub_description.{$index}")
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-
-                                        <!-- Remove Button -->
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                     </div>
                                     @endforeach
                                     @else
+
                                     <!-- Default empty field when no pointers exist -->
                                     <div class="form-group url-group">
-                                        <label>Sub Title</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_title[]" class="form-control"
-                                            value="" placeholder="Enter sub title">
-                                        <label>Sub Description</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_description[]" class="form-control"
-                                            value="" placeholder="Enter sub description">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label> Title</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter title">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label> Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter description">
+                                            </div>
+                                        </div>
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                     </div>
                                     @endif
                                 </div>
-
                                 <!-- Add Pointer Button -->
-                                <button type="button" class="btn btn-success" id="add-Pointers">Add Pointer</button>
-
-
+                                <button type="button" class="btn btn-success" id="add-Pointers">Add Card</button>
 
                                 <div class="form-group">
                                     <label for="image">Image</label>
                                     <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                    <img id="blah" src="{{asset($chooseusData[0]->image ?? '')}}" alt="Image Preview" style="width: 130px; display:none" />
+                                    <img id="blah" src="{{asset($chooseusData[0]->image ?? '')}}" alt="Image Preview" style="width: 130px; display: {{ empty($chooseusData[0]->image) ? 'none' : 'block' }};" />
                                     <input type="file" class="form-control" name="image" id="imgInp" accept="image/*">
                                     @error('image')
                                     <div class="text-danger">{{ $message }}</div>
@@ -137,7 +140,9 @@
                             </div>
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                            <input type="checkbox" id="status" name="status" {{ ($chooseusData[0]->status ?? '') === 'on' ? 'checked' : '' }}>
+                            <label for="status">Show On Website</label>
+                                <button type="submit" id="submit-form" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -147,51 +152,87 @@
     </section>
 </div>
 
+@endsection
+@section('java_script')
 <script>
-    function updateRemoveButtonVisibility() {
-        const urlGroups = document.querySelectorAll('.url-group');
-        urlGroups.forEach((group) => {
-            const removeButton = group.querySelector('.remove-Pointers');
-            if (urlGroups.length > 1) {
-                removeButton.style.display = 'inline-block';
-            } else {
-                removeButton.style.display = 'none';
-            }
-        });
-    }
+    CKEDITOR.replace('description_1');
+    document.addEventListener('DOMContentLoaded', function () {
+    const addPointersButton = document.getElementById('add-Pointers');
+    const container = document.getElementById('Pointers-container');
+    const submitButton = document.getElementById('submit-form');
 
-    document.getElementById('add-Pointers').addEventListener('click', function() {
-        const container = document.getElementById('Pointers-container');
+    // Add new input group
+    addPointersButton.addEventListener('click', function () {
         const newInputGroup = document.createElement('div');
         newInputGroup.classList.add('form-group', 'url-group');
         newInputGroup.innerHTML = `
-        <label>Sub Title</label>
-        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-        <div class="input-group mb-2">
-            <input type="text" name="sub_title[]" class="form-control" placeholder="Enter sub title">
-        </div>
-        <label>Sub Description</label>
-        <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-        <div class="input-group mb-2">
-            <input type="text" name="sub_description[]" class="form-control" placeholder="Enter sub description">
-        </div>
-        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
-    `;
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label> Title</label>
+                    <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                    <input type="text" name="sub_title[]" class="form-control" placeholder="Enter title">
+                    <div class="text-danger sub-title-error" style="display: none;">Please fill at least one field.</div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label> Description</label>
+                    <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
+                    <input type="text" name="sub_description[]" class="form-control" placeholder="Enter description">
+                    <div class="text-danger sub-description-error" style="display: none;">Please fill at least one field.</div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+        `;
         container.appendChild(newInputGroup);
-        updateRemoveButtonVisibility(); // Ensure the visibility of "Remove" buttons is updated
     });
 
-    document.getElementById('Pointers-container').addEventListener('click', function(event) {
+    // Remove input group
+    container.addEventListener('click', function (event) {
         if (event.target.classList.contains('remove-Pointers')) {
             event.target.closest('.url-group').remove();
-            updateRemoveButtonVisibility(); // Ensure the visibility of "Remove" buttons is updated
         }
     });
 
-    // Initial visibility check when the page loads
-    document.addEventListener('DOMContentLoaded', function() {
-        updateRemoveButtonVisibility();
+    // Validate fields
+    function validateFields() {
+    const urlGroups = document.querySelectorAll('.url-group');
+    let isValid = true;
+
+    urlGroups.forEach((group) => {
+        const subTitleInput = group.querySelector('input[name="sub_title[]"]');
+        const subDescriptionInput = group.querySelector('input[name="sub_description[]"]');
+
+        const titleError = group.querySelector('.sub-title-error');
+        const descriptionError = group.querySelector('.sub-description-error');
+
+        // Reset error visibility if elements exist
+        if (titleError) titleError.style.display = 'none';
+        if (descriptionError) descriptionError.style.display = 'none';
+
+        // Check if both fields are empty
+        if (!subTitleInput.value.trim() && !subDescriptionInput.value.trim()) {
+            if (titleError) titleError.style.display = 'block';
+            if (descriptionError) descriptionError.style.display = 'block';
+            isValid = false;
+        }
     });
+
+    // if (!isValid) {
+    //     alert('Please ensure at least one field in each group is filled.');
+    // }
+
+    return isValid;
+}
+
+    // Form submission validation
+    submitButton.addEventListener('click', function (event) {
+        if (!validateFields()) {
+            event.preventDefault(); // Prevent form submission if validation fails
+        }
+    });
+});
+
+
+    
 
 
     imgInp.onchange = evt => {

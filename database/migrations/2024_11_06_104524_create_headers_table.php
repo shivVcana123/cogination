@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('category');
             $table->foreignId('parent_id')->nullable()->constrained('headers')->onDelete('cascade');
+            $table->string('link')->nullable();
+
             $table->timestamps();
         });
     }

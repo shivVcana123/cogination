@@ -17,13 +17,13 @@ class AboutResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'description_1' => $this->description_1,
-            'description_2' => $this->description_2,
+            'subtitle' => $this->subtitle,
+            'description' => $this->description,
             'button_content' => $this->button_content,
             'button_link' => $this->button_link,
-            'image' => $this->image,
-            'background_image' => $this->background_image,
-            'background_color' => $this->background_color,
+            'first_image' => $this->first_image,
+            'second_image' => $this->second_image,
+            'status' => $this->status,
             
         ];
     }

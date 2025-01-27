@@ -8,16 +8,19 @@ use App\Models\PageDesign;
 use App\Http\Requests\StorePageDesignRequest;
 use App\Http\Requests\UpdatePageDesignRequest;
 use Illuminate\Http\Request;
+use App\Models\Header;
+use Illuminate\Support\Facades\Storage;
 
 class PageDesignController extends Controller
 {
     /**
      * Display a listing of the resource.
+     
      */
     public function index()
     {
         $pageData = PageDesign::all();
-        return view('page-design.page_design',compact('pageData'));
+        return view('page-design.index',compact('pageData'));
     }
 
     /**
@@ -25,7 +28,9 @@ class PageDesignController extends Controller
      */
     public function create()
     {
-        //
+        $pageData = new PageDesign;
+        $categories = ['Title','Subtitle','Description','Header','Footer'];
+        return view('page-design.page_design',compact('pageData','categories'));
     }
 
     /**
@@ -34,106 +39,28 @@ class PageDesignController extends Controller
 
      public function store(Request $request)
      {
-    
-         // Create a new PageDesign record
-         $page = new PageDesign();
-     
-         // Set the extracted style values
-         $page->title_style = $request->input('title_style');
-         $page->subtitle_style = $request->input('subtitle_style');
-         $page->description_style = $request->input('description_style');
-         $page->button_content_style = $request->input('button_content_style');
-         $page->header_color = $request->input('header_color');
-         $page->footer_color = $request->input('footer_color');
-     
- 
-         if ($request->hasFile('header_image')) {
-             $backgroundImageName = time() . '_' . $request->file('header_image')->getClientOriginalName();
-             $backgroundImagePath = $request->file('header_image')->storeAs('page', $backgroundImageName, 'public');
-             $page->header_image = 'storage/app/public/' . $backgroundImagePath;
-         }
- 
-         if ($request->hasFile('footer_image')) {
-             $imageName = time() . '_' . $request->file('footer_image')->getClientOriginalName();
-             $imagePath = $request->file('footer_image')->storeAs('page', $imageName, 'public');
-             $page->footer_image = 'storage/app/public/' . $imagePath;
-         }
-     
-         // Save the PageDesign record to the database
+           $page = PageDesign::where('category',$request->category)->first();
+		   if(!$page)
+           {
+         	 $page = new PageDesign();
+           }
+       	
+         $page->category = $request->category;
+         $page->font_size = $request->font_size;
+         $page->font_weight = $request->font_weight;
+         $page->content_color = $request->content_color;
+         $page->text_alignment = $request->text_alignment;
+        //  if ($request->hasFile('image') && $request->file('image')->isValid()) {
+        //     $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
+        //     $imagePath = $request->file('image')->storeAs('design', $imageName, 'public');
+        //     $page->logo = 'storage/' . $imagePath;
+        // }
          $page->save();
-     
-         // Redirect or return success message
          return redirect()->route('page.index')->with('success', 'Page created successfully');
      }
      
 
-    // public function store(Request $request)
-    // {
-    //     // Validate the request data
-    //     $request->validate([
-    //         'title_style' => 'required',
-    //         'subtitle_style' => 'required',
-    //         'description_style' => 'required',
-    //         'button_content_style' => 'required',
-    //         'header_color' => 'required',
-    //         'footer_color' => 'required',
-    //         'header_image' => 'required|image',
-    //         'footer_image' => 'required|image',
-    //     ]);
-
-    //     dd('sdsad');
-    
-    //     // Extract styles from the fields (if available)
-    //     $titleStyle = $this->extractStyle($request->input('title_style'));
-    //     $subtitleStyle = $this->extractStyle($request->input('subtitle_style'));
-    //     $descriptionStyle = $this->extractStyle($request->input('description_style'));
-    //     $buttonContentStyle = $this->extractStyle($request->input('button_content_style'));
-    
-    //     // Create a new PageDesign record
-    //     $page = new PageDesign();
-    
-    //     // Set the extracted style values
-    //     $page->title_style = $titleStyle;
-    //     $page->subtitle_style = $subtitleStyle;
-    //     $page->description_style = $descriptionStyle;
-    //     $page->button_content_style = $buttonContentStyle;
-    
-    //     // Handle additional fields: header and footer colors
-    //     $page->header_color = $request->input('header_color');
-    //     $page->footer_color = $request->input('footer_color');
-    
-
-    //     if ($request->hasFile('header_image')) {
-    //         $backgroundImageName = time() . '_' . $request->file('header_image')->getClientOriginalName();
-    //         $backgroundImagePath = $request->file('header_image')->storeAs('page', $backgroundImageName, 'public');
-    //         $page->header_image = 'storage/app/public/' . $backgroundImagePath;
-    //     }
-
-    //     if ($request->hasFile('footer_image')) {
-    //         $imageName = time() . '_' . $request->file('footer_image')->getClientOriginalName();
-    //         $imagePath = $request->file('footer_image')->storeAs('page', $imageName, 'public');
-    //         $page->footer_image = 'storage/app/public/' . $imagePath;
-    //     }
-    
-    //     // Save the PageDesign record to the database
-    //     $page->save();
-    
-    //     // Redirect or return success message
-    //     return redirect()->route('page.index')->with('success', 'Page created successfully');
-    // }
-    
-    // // Helper function to extract style content
-    // private function extractStyle($styleInput)
-    // {
-    //     if ($styleInput) {
-    //         preg_match('/<span style="([^"]+)">/', $styleInput, $matches);
-    //         return $matches[1] ?? null; // Return the style part
-    //     }
-    //     return null;
-    // }
-    
-    
-
+   
 
     /**
      * Display the specified resource.
@@ -146,24 +73,80 @@ class PageDesignController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PageDesign $pageDesign)
+    public function edit($id)
     {
-        //
+        $pageData = PageDesign::find($id); // Fetch the specific record
+        $categories = ['Title', 'Subtitle', 'Description', 'Header', 'Footer']; // Categories list
+        return view('page-design.page_design', compact('pageData', 'categories'));
     }
 
+
+    
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePageDesignRequest $request, PageDesign $pageDesign)
+    public function update(Request $request, $id)
     {
-        //
+        $page = PageDesign::find($id);
+        $page->category = ($request->category)?$request->category:$page->category;
+        $page->font_size = $request->font_size;
+        $page->font_weight = $request->font_weight;
+        $page->content_color = $request->content_color;
+        $page->text_alignment = $request->text_alignment;
+        // if ($request->hasFile('image') && $request->file('image')->isValid()) {
+        //     $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
+        //     $imagePath = $request->file('image')->storeAs('design', $imageName, 'public');
+        //     $page->logo = 'storage/' . $imagePath;
+        // }
+        $page->save();
+        return redirect()->route('page.index')->with('success', 'Page updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PageDesign $pageDesign)
+   public function destroy(string $id)
     {
-        //
+        try {
+            $content = PageDesign::findOrFail($id);
+
+            if ($content->background_image) {
+                Storage::delete('public/' . $content->background_image);
+            }
+
+            if ($content->image) {
+                Storage::delete('public/' . $content->image);
+            }
+
+            $content->delete();
+
+            return redirect()->route('page.index')->with('success', 'Record deleted successfully!');
+        } catch (\Exception $e) {
+            return redirect()->route('page.index')->with('error', 'Failed to delete record: ' . $e->getMessage());
+        }
     }
+
+    public function saveDesign(Request $request)
+    {
+        $page = PageDesign::where('category',$request->category)->first();
+      if(!$page)
+      {
+        $page = new PageDesign();
+      }
+        $page->category = ($request->category)?$request->category:$request->category;
+
+        $page->font_size = $request->font_size;
+        $page->font_weight = $request->font_weight;
+        $page->content_color = $request->content_color;
+        $page->text_alignment = $request->text_alignment;
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
+            $imagePath = $request->file('image')->storeAs('design', $imageName, 'public');
+            $page->logo = 'storage/' . $imagePath;
+        }
+
+        $page->save();
+        return response()->json(['message' => 'Design applied successfully!']);
+  }
+
 }

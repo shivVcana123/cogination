@@ -217,6 +217,9 @@
       .login-section .space-left {
         padding-left: 0px;
       }
+      span.fa.fa-fw.fa-eye.field-icon.toggle-password, span.fa.fa-fw.field-icon.toggle-password.fa-eye-slash {
+    width: 86% !important;
+}
     
       .first-colm {
         height: 64vh;
@@ -365,6 +368,16 @@
         padding-right: 100px;
       }
     }
+        
+span.fa.fa-fw.fa-eye.field-icon.toggle-password, span.fa.fa-fw.field-icon.toggle-password.fa-eye-slash {
+    position: absolute;
+    margin-top: -33px;
+    text-align: right;
+    width: fit-content;
+    display: block;
+    float: right;
+    right: 168px;
+}
     </style>
     
 
@@ -393,29 +406,42 @@
                 </div>
               </div>
             </div>
+              
             <div class="col-md-12 col-sm-12 col-lg-6 col-xl-5 second-colm">
               <div class="inner-colm">
                 <div class="heading-colm">
                   <h4>Hello!</h4>
                   <h6>Sign In To Your Account</h6>
                 </div>
+                  @if (session('error'))
+                    <div class="">
+                      <div class="alert  alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                        {{-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button> --}}
+                      </div>
+                    </div>
+                  @endif
                 <form class="form-container" method="post" action="{{ route('login') }}">
                 @csrf
                   <div class="mb-3">
                     <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
-                      placeholder="Enter Your Email" />
+                      placeholder="Enter Your Email" required />
                     <div class="text-danger"></div>
                   </div>
 
-                  <div class="mb-3 passbrd">
-                    <input type="password" class="form-control" id="password" placeholder="Enter Your Password"
-                      name="password" v-model="password" />
-                    <i class="fas" ></i>
-                  </div>
-                  <div class="mb-3 flex-colm">
+                  <div class="form-group profile-icon">
+                        <input  id="password-field" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required>
+                        @error('password')
+                        <div style="color:red">{{ $message }}</div>
+                        @enderror
+                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span> 
+                    </div>
+                  <!-- <div class="mb-3 flex-colm">
                     <span class="signIn">Having trouble in signing in?</span>
-                    <router-link to="/admin/reset/" class="signIn forgetpass">Forget Password?</router-link>
-                  </div>
+                    <a href="{{route('changePassword')}}" class="signIn forgetpass">Forget Password?</a>
+                  </div> -->
                   {{-- <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="remember" v-model="remember" />
                     <label class="form-check-label signIn" for="exampleCheck1">Remember Me</label>
@@ -427,9 +453,21 @@
           </div>
         </div>
       </section>
-    
-    
-    
   </body>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS, jQuery, and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ <script>
+    $(".toggle-password").click(function() {
+
+      $(this).toggleClass("fa-eye fa-eye-slash");
+      var input = $($(this).attr("toggle"));
+      if (input.attr("type") == "password") {
+        input.attr("type", "text");
+      } else {
+        input.attr("type", "password");
+      }
+    });
+  </script>
 </html>
