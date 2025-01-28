@@ -247,6 +247,7 @@ class AdhdBenefitsController extends Controller
                 'second_title' => 'required|string|max:255',
                 'second_subtitle' => 'nullable|string|max:255',
                 'second_description' => 'nullable|string|max:1000',
+                'heading' => 'nullable|string|max:1000',
                 'second_sub_title.*' => 'required_with:second_sub_description.*|string|max:255',
                 'second_sub_description.*' => 'nullable|string|max:255',
                 'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
@@ -281,6 +282,7 @@ class AdhdBenefitsController extends Controller
             $adhdSecondSection->second_title = $validated['second_title'];
             $adhdSecondSection->second_subtitle = $validated['second_subtitle'] ?? null;
             $adhdSecondSection->second_description = $validated['second_description'] ?? null;
+            $adhdSecondSection->heading = $validated['heading'] ?? null;
             $adhdSecondSection->status = $request->status ?? "off";
             $adhdSecondSection->pointers = json_encode($pointers);
     
