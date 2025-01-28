@@ -84,6 +84,14 @@
 
                                 <!-- Pointers -->
                                 <label for="">Card Details</label>
+                                <div class="form-group">
+                                    <label for="heading">Heading</label>
+                                    <input class="form-control" name="heading" id="heading"
+                                      value="{{ old('heading', $adhdSection[0]->heading ?? '') }} "  required>
+                                    @error('heading')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
                                 <div id="Pointers-container">
                                     @if(!empty($pointers) && is_array($pointers))
                                     @foreach($pointers as $index => $pointer)

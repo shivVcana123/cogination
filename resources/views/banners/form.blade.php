@@ -26,7 +26,7 @@
                         <div class="card-header" style="background-color:#0377ce">
                             <h3 class="card-title">Add Banner Details</h3>
                         </div>
-                        <form action="{{ isset($banner->id) ? route('banner.update', $banner->id) : route('banner.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ isset($banner->id) ? route('banner.update', $banner->id) : route('banner.store') }}" method="POST" enctype="multipart/form-data" id="form-baaner-id">
                             <input type="hidden" name="hidden_id" value="{{ $banner->id }}">
                             @csrf
                             @if(isset($banner->id))
@@ -40,29 +40,33 @@
                                     <i class="fas fa-info-circle" title="Enter a title for Banner Section."></i>
                                     <select class="form-control" style="width: 100%;" name="type" id="page_type">
                                         @foreach ($headerData as $header)
-                                        <option value="{{ $header->category }}" {{ $header->category == $banner->type ? 'selected' : '' }}>
+                                        <option value="{{ $header->category }}" {{ old('type', $banner->type) == $header->category ? 'selected' : '' }}>
                                             {{ $header->category }}
                                         </option>
                                         @endforeach
                                     </select>
+
                                 </div>
                                 @else
                                 <label for="title"> Page</label>
                                 <input type="text" class="form-control" name="type" id="button_text" placeholder="Enter Button Text" value="{{ old('type', $banner->type) }}" readonly>
-                               @if (!empty( $banner->section_type))
-                               <label for="title"> Choose Banner</label>
-                               <input type="text" class="form-control" name="section_banner" id="button_text" placeholder="Enter Button Text" value="{{ old('section_banner', $banner->section_type) }}" readonly>
-                               @endif
-                           
+                                @if (!empty( $banner->section_type))
+                                <label for="title"> Choose Banner</label>
+                                <input type="text" class="form-control" name="section_banner" id="button_text" placeholder="Enter Button Text" value="{{ old('section_banner', $banner->section_type) }}" readonly>
+                                @endif
+
                                 @endif
                                 <div class="form-group type-area">
                                     <label for="title">Choose Type</label>
                                     <i class="fas fa-info-circle" title="Enter a title for Banner Section."></i>
                                     <select class="form-control" style="width: 100%;" name="section_type" id="section_type">
                                         <option selected disabled>Please Select Type</option>
-                                        <option value="Child" {{ ( $banner->section_type == 'Child') ? 'selected' : '' }}>Child</option>
-                                        <option value="Adult" {{ ( $banner->section_type == 'Adult') ? 'selected' : '' }}>Adult</option>
+                                        <option value="Child" {{ old('section_type', $banner->section_type) == 'Child' ? 'selected' : '' }}>Child</option>
+                                        <option value="Adult" {{ old('section_type', $banner->section_type) == 'Adult' ? 'selected' : '' }}>Adult</option>
                                     </select>
+                                    @error('section_type')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group home-area">
@@ -70,10 +74,13 @@
                                     <i class="fas fa-info-circle" title="Enter a title for Banner Section."></i>
                                     <select class="form-control" style="width: 100%;" name="section_banner" id="section_type">
                                         <option selected disabled>Please Select Banner</option>
-                                        <option value="1st" {{ ( $banner->section_type == '1st') ? 'selected' : '' }}>1st</option>
-                                        <option value="2nd" {{ ( $banner->section_type == '2nd') ? 'selected' : '' }}>2nd</option>
-                                        <option value="3rd" {{ ( $banner->section_type == '3rd') ? 'selected' : '' }}>3rd</option>
+                                        <option value="1st" {{ old('section_banner', $banner->section_type) == '1st' ? 'selected' : '' }}>1st</option>
+                                        <option value="2nd" {{ old('section_banner', $banner->section_type) == '2nd' ? 'selected' : '' }}>2nd</option>
+                                        <option value="3rd" {{ old('section_banner', $banner->section_type) == '3rd' ? 'selected' : '' }}>3rd</option>
                                     </select>
+                                    @error('section_banner')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="row">
@@ -81,16 +88,16 @@
                                         <label for="title">Heading</label><i class="fas fa-info-circle" title="Enter a title for Banner Section ."></i>
                                         <input type="text" class="form-control" name="heading" id="heading" placeholder="Enter heading" value="{{ old('heading', $banner->heading) }}">
                                         @error('heading')
-                                        <div class="text-danger">{{ $message }}</div>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
 
                                     <div class="form-group col-md-6">
-                                        <label for="subtitle">Sub Heading</label>
-                                        <input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="Enter sub heading" value="{{ old('subtitle', $banner->subtitle ?? '') }}">
-                                        @error('subtitle')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                        <label for="subtitle">Subtitle</label>
+                                        <i class="fas fa-info-circle" title="Enter a subtitle for Banner Section ."></i>
+                                        <label>(optional)</label>
+                                        <input type="text" class="form-control " name="subtitle" id="subtitle" placeholder="Enter sub heading" value="{{ old('subtitle', $banner->subtitle ?? '') }}">
+
                                     </div>
                                 </div>
 
@@ -98,25 +105,25 @@
                                     <label for="description_1">Description</label><i class="fas fa-info-circle" title="Enter a Description for Banner Section."></i>
                                     <textarea class="form-control" name="description" id="description_1">{{ old('description', $banner->description) }}</textarea>
                                     @error('description')
-                                    <div class="text-danger">{{ $message }}</div>
+                                    <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label for="button_content">Button Text</label><i class="fas fa-info-circle" title="Enter a Button text for Banner Section."></i>
+                                        <label for="button_content">Button Text</label><i class="fas fa-info-circle" title="Enter a Button text for Banner Section."></i> <label>(optional)</label>
                                         <input type="text" class="form-control" name="button_text" id="button_text" placeholder="Enter Button Text" value="{{ old('button_text', $banner->button_text) }}">
                                         @error('button_text')
-                                        <div class="text-danger">{{ $message }}</div>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
 
                                     <div class="form-group col-md-6">
-                                        <label for="button_link">Button Link</label><i class="fas fa-info-circle" title="Enter a Button link for Banner Section."></i>
+                                        <label for="button_link">Button Link</label><i class="fas fa-info-circle" title="Enter a Button link for Banner Section."></i> <label>(optional)</label>
                                         <input type="text" class="form-control" name="button_link" id="button_link" placeholder="Enter Button Link" value="{{ old('button_link', $banner->button_link) }}">
-                                        @error('button_link')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
                                     </div>
+                                    @error('button_link')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
@@ -125,7 +132,7 @@
                                     <img id="blah" src="{{asset($banner->image ?? '')}}" alt="Image Preview" style="width: 130px; display: {{ empty($banner->image) ? 'none' : 'block' }};" />
                                     <input type="file" class="form-control" name="image" id="imgInp" accept="image/*">
                                     @error('image')
-                                    <div class="text-danger">{{ $message }}</div>
+                                    <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -145,6 +152,7 @@
 @section('java_script')
 <script>
     CKEDITOR.replace('description_1');
+
     imgInp.onchange = evt => {
         const [file] = imgInp.files;
         if (file) {
@@ -156,39 +164,68 @@
         }
     };
 
-    $(document).ready(function() {
-        $('.type-area').hide();
-        $('.home-area').hide();
-        var getValue = $("#page_type").val();
-        if (getValue === "Autism") {
-            $('.type-area').show();
-        } else {
-            $('.type-area').hide();
-        }
-        if (getValue === "Home") {
-            $('.home-area').show();
-        } else {
-            $('.home-area').hide();
+    function resetFields(){
+        $('#form-baaner-id')[0].reset();
+        $('#section_banner').prop('selectedIndex', 0);  // Set to the first (disabled) option
+        $('#section_type').prop('selectedIndex', 0); 
+       
+    }
 
-        }
+    $(document).ready(function () {
+        const pageType = $("#page_type").val();
 
-        // Show the type-area if the page type is "Autism"
-        $("#page_type").change(function() {
+        // Show or hide areas based on initial value or old input
+        const initializeVisibility = () => {
+            if (pageType === "Autism" || pageType === "ADHD" || pageType === "{{ old('type') }}") {
+                $('.type-area').show();
+            } else {
+                $('.type-area').hide();
+            }
+
+            if (pageType === "Home" || pageType === "{{ old('type') }}") {
+                $('.home-area').show();
+            } else {
+                $('.home-area').hide();
+            }
+        };
+
+        // Initialize visibility on page load
+        initializeVisibility();
+
+        // Handle changes to the page type dropdown
+        $("#page_type").change(function () {
             if (this.value === "Autism" || this.value === "ADHD") {
                 $('.type-area').show();
             } else {
                 $('.type-area').hide();
-
             }
+
             if (this.value === "Home") {
                 $('.home-area').show();
             } else {
                 $('.home-area').hide();
-
             }
-        });
+            // alert(this.value);
+            if (this.value !== "Home") {
+            //   resetFields();
+            }else{
+                resetFields();
+            }
+          
+            // $('#section_type').val('');
+            // Reset the form values
+            // $('#form-baaner-id')[0].reset(); // Replace 'yourFormId' with the actual form ID
 
+            // Reset CKEditor content
+            CKEDITOR.instances.description_1.setData(''); // Reset CKEditor content
+
+            // Reset the image preview
+            blah.style.display = "none"; // Hide the image preview
+            blah.src = "#"; // Reset the image src
+        });
     });
 </script>
+
+
 
 @endsection

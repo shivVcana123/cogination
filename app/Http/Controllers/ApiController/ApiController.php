@@ -11,6 +11,7 @@ use App\Http\Resources\AccreditationCertificationResource;
 use App\Http\Resources\AccreditationOurCommitmentResource;
 use App\Http\Resources\AccreditationSpecializedCertificationResource;
 use App\Http\Resources\AdhdBenefitResource;
+use App\Http\Resources\AdhdSecondSectionResource;
 use App\Http\Resources\AdhdSectionResource;
 use App\Http\Resources\AssessmentOurDiagnosticServiceResource;
 use App\Http\Resources\AssessmentResource;
@@ -43,6 +44,7 @@ use App\Models\AccreditationOurCommitment;
 use App\Models\AccreditationOurTeamContinuous;
 use App\Models\AccreditationSpecializedCertification;
 use App\Models\AdhdBenefit;
+use App\Models\AdhdSecondSection;
 use App\Models\AdhdSection;
 use App\Models\Assessment;
 use App\Models\AssessmentOurDiagnosticService;
@@ -194,10 +196,12 @@ class ApiController extends Controller
     public function fetchAdhdSectionData()
     {
         $adhdSection = AdhdSection::all();
+        $adhdSecondSection = AdhdSecondSection::all();
         $adhdBenefit = AdhdBenefit::all();
         // Group the data by `service_type` and transform dynamically
         $data = [
             'adhdSection' => AdhdSectionResource::collection($adhdSection),
+            'adhdSecondSection' => AdhdSecondSectionResource::collection($adhdSecondSection),
             'adhdBenefit' => AdhdBenefitResource::collection($adhdBenefit),
 
         ];
