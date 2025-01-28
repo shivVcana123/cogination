@@ -116,3 +116,16 @@ a.nav-link {
     align-items: baseline;
     gap: 4px;
 }
+.card-footer {
+    margin-top: 20px;
+}
+.ctaa-cls{
+    line-height: 34px;
+}
+.ad-btn a{
+    color: #fff !important;
+}
+
+.prcss-cls .remove-Pointers {
+    margin-left: 8px !important;
+}
