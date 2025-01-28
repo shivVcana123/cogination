@@ -1,0 +1,118 @@
+.btn-danger {
+    color: #050505;
+    border-color: #e4e4e4;
+    background-color: #e4e4e4;
+    box-shadow: 0 0 0 0 rgb(225 83 97 / 0%);
+}
+
+.card-header {
+    background-color: #069aef !important;
+}
+
+.card-header h3{
+   color: #fff;
+}
+
+label:not(.form-check-label):not(.custom-file-label) {
+    font-weight: 600;
+    letter-spacing: 0.7px;
+}
+
+.fa-info-circle {
+    font-size: 12px;
+}
+
+button.btn.btn-primary {
+    background-color: #069aef !important;
+    border: none;
+}
+
+input[type='file'] {
+    margin-top: 10px;
+    padding-left: 4px;
+    padding-top: 4px;
+}
+
+input[type="checkbox"] {
+    position: relative;
+    top: 2px; 
+    accent-color: #069aef;
+}
+
+.main-footer a {
+    color: #069aef;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show >.nav-link {
+    color: #fff !important;
+    background-color: #069aef !important;
+}
+
+.nav-pills .nav-link.active p {
+  color: #fff !important;
+}
+.nav-pills .nav-link.active i {
+    color: #fff !important;
+  }
+
+.small-box {
+    background-color: #fff!important;
+    box-shadow: 0 4px 16px rgba(188, 188, 188, 0.386) !important;
+}
+.small-box .inner{
+    padding: 18px;
+}
+.small-box h3 , .small-box p{
+    color: #000 !important;
+}
+
+
+.small-box .icon i{
+    color: #069aef;
+}
+
+.fa-edit {
+    color:#069aef !important;
+}
+.fa-trash{
+    color: #069aef !important;
+}
+
+li.breadcrumb-item a {
+    color: #069aef;
+}
+.content-wrapper {
+    background-color: #ffffff;
+}
+
+.elevation-4 {
+    box-shadow: 0 20px 40px rgba(188, 188, 188, 0.386) !important;
+}
+.card {
+    box-shadow: 0 10px 20px rgba(188, 188, 188, 0.386) !important;
+}
+.content-wrapper {
+    margin-left: 270px !important;
+}
+.content-header h1 {
+    font-weight: 500;
+}
+
+.small-box .icon > i.ion {
+    top: 28px !important;
+    right: 27px !important;
+}
+.main-footer {
+    margin-left: 270px !important;
+}
+.form-check {
+    padding-left: 2rem;
+}
+.selct-data{
+    padding-left: 9px !important;
+}
+a.nav-link {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}

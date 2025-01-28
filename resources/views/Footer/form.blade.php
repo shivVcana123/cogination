@@ -26,6 +26,7 @@
                         <div class="card-header" style="background-color:#0377ce">
                             <h3 class="card-title">Add Footer</h3>
                         </div>
+
                         <form action="{{ route('save-footer') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" class="form-control" name="id" id="id" value="{{$footerData[0]->id ?? ''}}" placeholder="Enter title1">
@@ -84,10 +85,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-md-12">
-                                        <label for="email">Footer Description</label><i class="fas fa-info-circle" title="Enter a description for Footer Section."></i>
-                                        <textarea class="form-control" name="description" id="description" placeholder="Enter Text">{{$footerData[0]->description ?? ''}}</textarea>
-                                    </div>
+
 
                                 </div>
                                 <hr>
@@ -99,7 +97,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label for="headers">Select Display Data</label>
+                                            <label class="selct-data" for="headers">Select Display Data</label>
                                             <i class="fas fa-info-circle" title="Select the values you want to show in the footer."></i>
                                         </div>
 
@@ -211,11 +209,16 @@
                                 <div class="form-group">
                                     <label for="image">WebSite Logo</label>
                                     <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                    <img id="blah" src="{{asset($footerData[0]->image ?? '')}}" alt="Image Preview"  style="width: 130px; display: {{ empty($footerData[0]->image) ? 'none' : 'block' }};" />
+                                    <img id="blah" src="{{asset($footerData[0]->image ?? '')}}" alt="Image Preview" style="width: 130px; display: {{ empty($footerData[0]->image) ? 'none' : 'block' }};" />
                                     <input type="file" class="form-control" name="image" id="imgInp" accept="image/*">
                                     @error('image')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
+                                </div>
+                                <hr>
+                                <div class="form-group col-md-12">
+                                    <label for="email">Footer Description</label><i class="fas fa-info-circle" title="Enter a description for Footer Section."></i>
+                                    <textarea class="form-control" name="description" id="description" placeholder="Enter Text">{{$footerData[0]->description ?? ''}}</textarea>
                                 </div>
                             </div>
                             <div class="card-footer">
