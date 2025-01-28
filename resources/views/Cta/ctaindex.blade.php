@@ -6,8 +6,8 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">CTA</h3>
-                <button class="btn btn-primary" ><a style="color:black" href="{{ route('cta.create') }}">+ ADD</a></button>
+                <h3 class="card-title ctaa-cls">CTA</h3>
+                <button class="btn btn-primary ad-btn" ><a style="color:black" href="{{ route('cta.create') }}">+ ADD</a></button>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

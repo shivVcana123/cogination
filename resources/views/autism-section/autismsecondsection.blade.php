@@ -117,7 +117,7 @@
                                             <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
                                             <input type="text" name="second_sub_title[]" class="form-control" value="{{$pointer->second_sub_title}}" placeholder="Enter title">
 
-                                            <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                                            <button type="button" class="btn btn-danger remove-Pointers mt-3">Remove</button>
                                         </div>
                                         @endforeach
                                         @else
@@ -128,12 +128,12 @@
                                             <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
                                             <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter  title">
 
-                                            <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                                            <button type="button" class="btn btn-danger remove-Pointers mt-3">Remove</button>
                                         </div>
                                         @endif
                                     </div>
                                     <!-- Add Pointer Button -->
-                                    <button type="button" class="btn btn-success" id="add-Pointers">Add Card</button>
+                                    <button type="button" class="btn btn-success mb-3" id="add-Pointers">Add Card</button>
 
                                     <div class="form-group">
                                         <label for="image">Image</label>

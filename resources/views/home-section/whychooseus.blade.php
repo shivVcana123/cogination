@@ -126,7 +126,7 @@
                                     @endif
                                 </div>
                                 <!-- Add Pointer Button -->
-                                <button type="button" class="btn btn-success" id="add-Pointers">Add Card</button>
+                                <button type="button" class="btn btn-success mb-3" id="add-Pointers">Add Card</button>
 
                                 <div class="form-group">
                                     <label for="image">Image</label>

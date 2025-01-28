@@ -84,7 +84,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-6 mt-3">
                                         <label for="title">Heading</label><i class="fas fa-info-circle" title="Enter a title for Banner Section ."></i>
                                         <input type="text" class="form-control" name="heading" id="heading" placeholder="Enter heading" value="{{ old('heading', $banner->heading) }}">
                                         @error('heading')
@@ -92,7 +92,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-6 mt-3">
                                         <label for="subtitle">Subtitle</label>
                                         <i class="fas fa-info-circle" title="Enter a subtitle for Banner Section ."></i>
                                         <label>(optional)</label>
