@@ -74,7 +74,7 @@
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label>Media Icon</label>
-                                                <img class="media-icon" id="blah" src="{{asset($pointer['image'])}}" alt="Image Preview" style="width: 130px; display:{{empty($pointer['image']) ? 'none' : 'block'}};" />
+                                                <img class="media-icon" id="blah" src="{{asset($pointer['image'])}}" alt="Image Preview" style="width: auto; display:{{empty($pointer['image']) ? 'none' : 'block'}};" />
                                                 <input type="file" name="image[{{ $key }}]" id="imgInp" class="form-control">
                                             </div>
                                             <div class="form-group col-md-6">
@@ -90,7 +90,7 @@
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label>Media Icon</label>
-                                                <img class="media-icon" id="blah" src="#" alt="Image Preview" style="width: 130px; display:none;" />
+                                                <img class="media-icon" id="blah" src="#" alt="Image Preview" style="width: auto; display:none;" />
                                                 <input type="file" name="image[]" id="imgInp" class="form-control">
                                             </div>
                                             <div class="form-group col-md-6">
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="row">
                 <div class="form-group col-md-6">
                     <label>Media Icon</label>
-                    <img class="media-icon" id="img-preview-${uniqueId}" src="#" alt="Image Preview" style="width: 130px; display:none;" />
+                    <img class="media-icon" id="img-preview-${uniqueId}" src="#" alt="Image Preview" style="width: auto; display:none;" />
                     <input type="file" name="image[]" id="file-input-${uniqueId}" class="form-control">
                 </div>
                 <div class="form-group col-md-6">

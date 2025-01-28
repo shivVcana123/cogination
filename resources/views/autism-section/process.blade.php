@@ -67,7 +67,7 @@
                                 <label for="">Add Extra Pointers</label>
                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
 
-                                <div id="Pointers-container">
+                                <div id="Pointers-container" class="prcss-cls">
                                     @php
                                     $pointers = json_decode($autismProcess[0]->pointers ?? '[]');
                                     @endphp

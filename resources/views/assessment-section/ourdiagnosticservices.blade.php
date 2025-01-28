@@ -120,13 +120,13 @@
                                                             <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
                                                             <textarea id="pointerSubDescription{{ $index }}_{{ $subIndex }}" class="form-control mb-2" name="pointerSubDescription[{{ $index }}][{{ $subIndex }}]" placeholder="Enter description">{{ $subPointer->pointerSubDescription1 ?? '' }}</textarea>
                                                         </div>
-                                                        <button type="button" class="btn btn-danger btn-sm remove-sub-pointer">Remove Sub Card</button>
+                                                        <button type="button" class="btn btn-danger remove-sub-pointer">Remove Sub Card</button>
                                                     </div>
                                                 </div>
                                                 @endforeach
                                             </div>
                                             <button type="button" class="btn btn-success add-sub-pointer">Add Sub Card</button>
-                                            <button type="button" class="btn btn-danger btn-sm remove-pointer">Remove Card</button>
+                                            <button type="button" class="btn btn-danger remove-pointer">Remove Card</button>
                                         </div>
                                         @endforeach
                                         @else
@@ -299,11 +299,11 @@
                         <textarea id="pointerSubDescription${pointerCount}_0" class="form-control mb-2" name="pointerSubDescription[${pointerCount}][]" placeholder="Enter description" required></textarea>
                     </div>
                 </div>
-                <button type="button" class="btn btn-danger btn-sm remove-sub-pointer">Remove Sub Card</button>
+                <button type="button" class="btn btn-danger remove-sub-pointer">Remove Sub Card</button>
             </div>
         </div>
         <button type="button" class="btn btn-success add-sub-pointer">Add Sub Card</button>
-        <button type="button" class="btn btn-danger btn-sm remove-pointer">Remove Card</button>
+        <button type="button" class="btn btn-danger remove-pointer">Remove Card</button>
     `;
 
         // Append the new pointer field to the container
@@ -349,7 +349,7 @@
                     <textarea class="form-control mb-2" name="pointerSubDescription[${pointerField.getAttribute('data-pointer-id')}][${subPointerCount}]" id="pointerSubDescription${pointerField.getAttribute('data-pointer-id')}_${subPointerCount}" placeholder="Enter description" required></textarea>
                 </div>
             </div>
-            <button type="button" class="btn btn-danger btn-sm remove-sub-pointer">Remove Sub Card</button>
+            <button type="button" class="btn btn-danger remove-sub-pointer">Remove Sub Card</button>
         `;
             pointerField.querySelector('.sub-pointer-area').appendChild(subPointer);
 
