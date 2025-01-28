@@ -32,6 +32,9 @@
   <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.min.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
 
+    <!-- custom style css -->
+     <link rel="stylesheet" href="{{asset('dist/css/custom.css')}}">
+
 
 </head>
 <style>
