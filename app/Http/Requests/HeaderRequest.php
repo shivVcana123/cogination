@@ -33,10 +33,17 @@ class HeaderRequest extends FormRequest
             'parent_id' => 'nullable|exists:headers,id',
         ];
     }
+    
     public function messages()
     {
         return [
             'category.required' => 'Please enter your category.',
+            'category.max' => 'The category must not exceed 255 characters.',
+            'category.unique' => 'This category already exists.',
+            'subcategories.*.string' => 'Each subcategory must be a valid string.',
+            'subcategories.*.max' => 'Subcategories must not exceed 255 characters.',
+            'parent_id.exists' => 'The selected parent ID is invalid.',
         ];
     }
+    
 }

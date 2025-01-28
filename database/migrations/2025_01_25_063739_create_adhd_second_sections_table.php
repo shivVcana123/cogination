@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('second_title')->nullable();
             $table->text('second_subtitle')->nullable();
             $table->text('second_description')->nullable();
+            $table->string('heading')->nullable();
             $table->string('second_sub_title')->nullable();
             $table->string('second_sub_description')->nullable();
             $table->string('second_image')->nullable();

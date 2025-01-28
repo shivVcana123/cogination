@@ -30,15 +30,7 @@ class AutismsSectionController extends Controller
             'first_description' => 'required|string',
             'first_button_content' => 'nullable|string|max:255',
             'first_button_link' => 'nullable|string|max:255',
-            'second_title' => 'required|string|max:255',
-            'second_subtitle' => 'required|string|max:255',
-            'second_description' => 'required|string',
-            'second_sub_title' => 'array',
-            'second_sub_title.*' => 'nullable|string|max:255',
-            'second_button_content' => 'nullable|string|max:255',
-            'second_button_link' => 'nullable|string|max:255',
             'first_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
-            'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
         ]);
 
         // Fetch or create a new section
@@ -46,16 +38,6 @@ class AutismsSectionController extends Controller
             ? AutismsSection::find($request->id)
             : new AutismsSection();
 
-        // Handle pointers
-        $pointers = [];
-        if ($request->has('second_sub_title')) {
-            foreach ($validated['second_sub_title'] as $index => $subTitle) {
-                $pointers[] = [
-                    'second_sub_title' => $subTitle,
-                    
-                ];
-            }
-        }
 
         // Assign data
         $autismSection->type = $validated['type'];
@@ -64,13 +46,9 @@ class AutismsSectionController extends Controller
         $autismSection->first_description = $validated['first_description'];
         $autismSection->first_button_content = $validated['first_button_content'];
         $autismSection->first_button_link = $validated['first_button_link'];
-        $autismSection->second_title = $validated['second_title'];
-        $autismSection->second_subtitle = $validated['second_subtitle'];
-        $autismSection->second_button_content = $validated['second_button_content'];
-        $autismSection->second_button_link = $validated['second_button_link'];
-        $autismSection->second_description = $validated['second_description'];
-        $autismSection->status = $request->status ?? "off";
-        $autismSection->pointers = json_encode($pointers);
+    
+      
+        $autismSection->status = $request->status ?? "off";  
 
         // Handle first image upload
         if ($request->hasFile('first_image') && $request->file('first_image')->isValid()) {
@@ -79,13 +57,7 @@ class AutismsSectionController extends Controller
             $autismSection->first_image = 'storage/' . $imagePath;
         }
 
-        // Handle second image upload
-        if ($request->hasFile('second_image') && $request->file('second_image')->isValid()) {
-            $imageName = time() . '_' . uniqid() . '_' . $request->file('second_image')->getClientOriginalName();
-            $imagePath = $request->file('second_image')->storeAs('autism', $imageName, 'public');
-            $autismSection->second_image = 'storage/' . $imagePath;
-        }
-
+    
         // Save the record
         if (!$autismSection->save()) {
             return redirect()->back()->withErrors(['error' => 'Failed to save the record.']);
