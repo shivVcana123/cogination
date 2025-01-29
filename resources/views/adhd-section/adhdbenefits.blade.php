@@ -62,7 +62,7 @@
                                     <!-- Subtitle Field -->
                                     <div class="form-group col-md-6">
                                         <label for="subtitle">Subtitle</label>
-                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label for="">(Optional)</label>
                                         <input type="text" class="form-control" name="subtitle" id="subtitle"
                                             placeholder="Enter subtitle" value="{{ old('subtitle', $adhdBenefit[0]->subtitle ?? '') }}">
                                         @error('subtitle')
@@ -93,7 +93,7 @@
 
 
                                 <!-- Pointers Section -->
-                                <label for="">Add Extra Pointers</label>
+                                <label for="">Card Details</label>
                                 <div id="Pointers-container">
 
                                     @if(!empty($pointers) && is_array($pointers))
@@ -102,14 +102,14 @@
                                     <div class="form-group url-group">
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <label>Sub Title</label>
+                                                <label> Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" id="sub_title" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter sub title">
+                                                <input type="text" name="sub_title[]" id="sub_title" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter title">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label>Sub Description</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_description[]" id="sub_description" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter sub description">
+                                                <label> Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
+                                                <input type="text" name="sub_description[]" id="sub_description" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter  description">
                                             </div>
 
                                             <div class="form-group col-md-6">
@@ -133,14 +133,14 @@
                                     <div class="form-group url-group">
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <label>Sub Title</label>
+                                                <label> Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" id="sub_title" class="form-control" value="" placeholder="Enter sub title">
+                                                <input type="text" name="sub_title[]" id="sub_title" class="form-control" value="" placeholder="Enter title">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label>Sub Description</label>
+                                                <label> Description</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_description[]" id="sub_description" class="form-control" value="" placeholder="Enter sub description">
+                                                <input type="text" name="sub_description[]" id="sub_description" class="form-control" value="" placeholder="Enter description">
                                             </div>
 
                                             <div class="form-group col-md-6">
@@ -160,7 +160,7 @@
                                     @endif
                                 </div>
                                 <!-- Add Pointer Button -->
-                                <button type="button" class="btn btn-success" id="add-Pointers">Add Pointer</button>
+                                <button type="button" class="btn btn-success" id="add-Pointers">Add Card</button>
                             </div>
 
                             <div class="card-footer">
@@ -179,65 +179,6 @@
 @section('java_script')
 <script>
     CKEDITOR.replace('description_1');
-    // function updateRemoveButtonVisibility() {
-    //     const urlGroups = document.querySelectorAll('.url-group');
-    //     urlGroups.forEach((group) => {
-    //         const removeButton = group.querySelector('.remove-Pointers');
-    //         removeButton.style.display = urlGroups.length > 1 ? 'inline-block' : 'none';
-    //     });
-    // }
-
-    // document.getElementById('add-Pointers').addEventListener('click', function() {
-    //     const container = document.getElementById('Pointers-container');
-    //     const newInputGroup = document.createElement('div');
-    //     newInputGroup.classList.add('form-group', 'url-group');
-    //     newInputGroup.innerHTML = `
-    //         <div class="row">
-    //                                         <div class="form-group col-md-6">
-    //                                             <label>Sub Title</label>
-    //                                             <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-    //                                             <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter sub title">
-    //                                         </div>
-    //                                         <div class="form-group col-md-6">
-    //                                             <label>Sub Description</label>
-    //                                             <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-    //                                             <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter sub description">
-    //                                         </div>
-
-    //                                         <div class="form-group col-md-6">
-    //                                     <label for="image">Image</label>
-    //                                     <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-    //                                     <img id="blah" src="#" alt="Image Preview" style="width: 130px; display:none" />
-    //                                     <input type="file" class="form-control" name="image[]" id="imgInp" accept="image/*">
-                                  
-    //                                 </div>
-                                         
-    //                                     </div>
-
-    //     <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
-    // `;
-    //     container.appendChild(newInputGroup);
-    //     updateRemoveButtonVisibility(); // Update "Remove" buttons visibility
-    // });
-
-    // document.getElementById('Pointers-container').addEventListener('click', function(event) {
-    //     if (event.target.classList.contains('remove-Pointers')) {
-    //         event.target.closest('.url-group').remove();
-    //         updateRemoveButtonVisibility(); // Update "Remove" buttons visibility
-    //     }
-    // });
-
-    // // Initial visibility check when the page loads
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     updateRemoveButtonVisibility();
-    // });
-
-
-    // // Initial visibility check when the page loads
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     updateRemoveButtonVisibility();
-    // });
-
     function updateRemoveButtonVisibility() {
     const urlGroups = document.querySelectorAll('.url-group');
     urlGroups.forEach((group) => {
@@ -255,19 +196,20 @@ document.getElementById('add-Pointers').addEventListener('click', function () {
     newInputGroup.innerHTML = `
         <div class="row">
             <div class="form-group col-md-6">
-                <label>Sub Title</label>
+                <label> Title</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                <input type="text" name="sub_title[]" class="form-control" placeholder="Enter sub title">
+                <input type="text" name="sub_title[]" class="form-control" placeholder="Enter title">
                 <div class="text-danger title-error" style="display: none;">Sub title is required.</div>
             </div>
             <div class="form-group col-md-6">
-                <label>Sub Description</label>
+                <label> Description</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                <input type="text" name="sub_description[]" class="form-control" placeholder="Enter sub description">
+                <input type="text" name="sub_description[]" class="form-control" placeholder="Enter description">
                 <div class="text-danger description-error" style="display: none;">Sub description is required.</div>
             </div>
             <div class="form-group col-md-6">
                 <label for="image">Image</label>
+                <img id="blah" src="#" alt="Image Preview" style="width: 130px; display:none" />
                 <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
                 <input type="file" class="form-control image-input" name="image[]" accept="image/*">
                 <div class="text-danger image-error" style="display: none;">Image is required.</div>
@@ -374,7 +316,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 // $('#description_1').val(section.description_1 || '');
                 CKEDITOR.instances.description_1.setData(section.description_1 || '');
                 $('#status').prop('checked', section.status === 'on');
-
+                const imageUrl = section.sub_image || '';
+                $('#blah').attr('src', imageUrl ? imageUrl : '#');
                 // Clear existing pointers
                 $('#Pointers-container').empty();
                const pointers = JSON.parse(section.pointers)
@@ -387,18 +330,20 @@ document.addEventListener('DOMContentLoaded', function () {
                             <div class="form-group url-group">
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label>Sub Title</label>
-                                        <input type="text" name="sub_title[]" class="form-control" value="${pointer.sub_title || ''}" placeholder="Enter sub title">
+                                        <label> Title</label>
+                                        <input type="text" name="sub_title[]" class="form-control" value="${pointer.sub_title || ''}" placeholder="Enter title">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>Sub Description</label>
-                                        <input type="text" name="sub_description[]" class="form-control" value="${pointer.sub_description || ''}" placeholder="Enter sub description">
+                                        <label> Description</label>
+                                        <input type="text" name="sub_description[]" class="form-control" value="${pointer.sub_description || ''}" placeholder="Enter description">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="image">Image</label>
-                                        <img src="${pointer.sub_image}" alt="Image Preview" style="width: 130px; display:none;" />
-                                        <input type="file" class="form-control" name="image[]" accept="image/*">
+                                        <img id="blah" src="${pointer.sub_image || ''}" alt="Image Preview" 
+                                            style="width: 130px; display: ${pointer.sub_image ? 'block' : 'none'};" />
+                                        <input type="file" class="form-control file-input" name="image[]" accept="image/*">
                                     </div>
+
                                 </div>
                                 <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                             </div>`;

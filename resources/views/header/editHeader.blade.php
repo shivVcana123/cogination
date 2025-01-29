@@ -38,8 +38,8 @@
                                     <label for="category">Category (Edit)</label>
                                     <input type="text" oninput="categorySlug(this)" class="form-control" name="category" id="category" placeholder="Enter Category" value="{{ old('category', $headerData[0]->category) }}">
                                     @error('category')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                 </div>
                                 @if ($headerData[0]->children->isEmpty())
                                 @if($headerData[0]->link == '/')

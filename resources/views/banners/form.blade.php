@@ -86,7 +86,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-6 mt-3">
                                         <label for="title">Heading</label><i class="fas fa-info-circle" title="Enter a title for Banner Section ."></i>
-                                        <input type="text" class="form-control" name="heading" id="heading" placeholder="Enter heading" value="{{ old('heading', $banner->heading) }}">
+                                        <input type="text" maxlength="10" class="form-control" name="heading" id="heading" placeholder="Enter heading" value="{{ old('heading', $banner->heading) }}">
                                         @error('heading')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -95,7 +95,7 @@
                                     <div class="form-group col-md-6 mt-3">
                                         <label for="subtitle">Subtitle</label>
                                         <i class="fas fa-info-circle" title="Enter a subtitle for Banner Section ."></i>
-                                        <label>(optional)</label>
+                                        <label>(Optional)</label>
                                         <input type="text" class="form-control " name="subtitle" id="subtitle" placeholder="Enter sub heading" value="{{ old('subtitle', $banner->subtitle ?? '') }}">
 
                                     </div>
@@ -110,7 +110,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label for="button_content">Button Text</label><i class="fas fa-info-circle" title="Enter a Button text for Banner Section."></i> <label>(optional)</label>
+                                        <label for="button_content">Button Text</label><i class="fas fa-info-circle" title="Enter a Button text for Banner Section."></i> <label>(Optional)</label>
                                         <input type="text" class="form-control" name="button_text" id="button_text" placeholder="Enter Button Text" value="{{ old('button_text', $banner->button_text) }}">
                                         @error('button_text')
                                         <span class="text-danger">{{ $message }}</span>
@@ -118,7 +118,7 @@
                                     </div>
 
                                     <div class="form-group col-md-6">
-                                        <label for="button_link">Button Link</label><i class="fas fa-info-circle" title="Enter a Button link for Banner Section."></i> <label>(optional)</label>
+                                        <label for="button_link">Button Link</label><i class="fas fa-info-circle" title="Enter a Button link for Banner Section."></i> <label>(Optional)</label>
                                         <input type="text" class="form-control" name="button_link" id="button_link" placeholder="Enter Button Link" value="{{ old('button_link', $banner->button_link) }}">
                                     </div>
                                     @error('button_link')

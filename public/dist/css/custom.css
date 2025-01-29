@@ -77,6 +77,9 @@ input[type="checkbox"] {
 .fa-trash{
     color: #069aef !important;
 }
+.fa-trash:hover{
+    color: red !important;
+}
 
 li.breadcrumb-item a {
     color: #069aef;
@@ -126,6 +129,6 @@ a.nav-link {
     color: #fff !important;
 }
 
-.prcss-cls .remove-Pointers {
+/* .prcss-cls .remove-Pointers {
     margin-left: 8px !important;
-}
+} */

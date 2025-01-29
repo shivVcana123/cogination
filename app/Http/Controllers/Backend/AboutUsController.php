@@ -13,9 +13,22 @@ class AboutUsController extends Controller
         return view('about-section.ourstory',compact('ourStorySection'));
     }
 
-    public function saveOurStorySection(TitleRequest $request)
+    public function saveOurStorySection(Request $request)
     {
-
+        // dd($request->all());
+        $validated = $request->validate([
+            'title' => 'required',
+            'subtitle' => 'nullable',
+            'button_content' => 'nullable',
+            'button_link' => 'nullable|required_with:button_content',
+            'description' => 'required',
+        ], [
+            'title.required' => 'The title field is required.',
+            'subtitle.required' => 'The subtitle field is required.',
+            'button_content.required' => 'The second title must be a valid string.',
+            'button_link.required_with' => 'The button link is required when button content is provided.',
+            'description' => 'The description field is required.',
+        ]);
         // Fetch or create a new section
         $autismSection = $request->id
             ? AboutUsOurStory::find($request->id)
@@ -50,7 +63,13 @@ class AboutUsController extends Controller
 
     public function saveOurMissionSection(TitleRequest $request)
     {
-        // dd($request->all());
+        $validated = $request->validate([
+            'title' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg',
+        ], [
+            'title.required' => 'The title field is required.',
+            'image.mimes' => 'The second image must be a file of type: jpeg, png, jpg, gif,svg, webp.',
+        ]);
 
         // Fetch or create a new section
         $autismSection = $request->id
@@ -82,8 +101,30 @@ class AboutUsController extends Controller
     }
 
     public function savejoinCommunitySection(TitleRequest $request)
-    {        
-        // dd($request->all());
+    {     
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'subtitle' => 'nullable|string|max:255',
+            'description' => 'required|string|max:2000', // Increased limit for better flexibility
+            'sub_title' => 'nullable|array',
+            'sub_title.*' => 'required|string|max:255', // Ensures each subtitle is required
+            'sub_description' => 'nullable|array',
+            'sub_description.*' => 'required|string|max:255', // Each sub-description can be null but must be a string
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg', // Added max file size 2MB
+        ], [
+            'title.required' => 'The title field is required.',
+            'title.string' => 'The title must be a valid string.',
+            'subtitle.string' => 'The subtitle must be a valid string.',
+            'description.string' => 'The description must be a valid string.',
+            'sub_title.required' => 'Each subtitle is required.',
+            'sub_title.array' => 'The subtitles must be an array.',
+            'sub_title.*.required' => 'Each subtitle is required and must be a string.',
+            'sub_title.*.string' => 'Each subtitle must be a valid string.',
+            'sub_description.array' => 'The sub-descriptions must be an array.',
+            'sub_description.*.string' => 'Each sub-description must be a valid string.',
+            'image.image' => 'The image must be a valid image file.',
+            'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif,svg, webp.',
+        ]);
         // Fetch or create a new section
         $autismSection = $request->id
             ? AboutUsJoinCommunity::find($request->id)

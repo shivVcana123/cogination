@@ -17,9 +17,18 @@ class OurApproachController extends Controller
         return view('our-approach-section.ourapproach', compact('ourApproachSection'));
     }
 
-    public function saveOurApproachSection(TitleRequest $request)
+    public function saveOurApproachSection(Request $request)
     {
-        // dd($request->all());
+        $validated = $request->validate([
+            'title' => 'required',
+            'description' => 'required', // Increased limit for better flexibility
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg', // Added max file size 2MB
+        ], [
+            'title.required' => 'The title field is required.',
+            'description.required' => 'The description field is required.',
+            'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif,svg, webp.',
+        ]);
+
         // Fetch or create a new section
         $autismSection = $request->id
             ? OurApproach::find($request->id)
@@ -52,11 +61,25 @@ class OurApproachController extends Controller
         return view('our-approach-section.howitworks', compact('howItWorkSection'));
     }
 
-    public function savehowItWorksSection(TitleRequest $request)
+    public function savehowItWorksSection(Request $request)
     {
-        // Debugging (optional)
-        // dd($request->all());
-        try {
+            $validated = $request->validate([
+                'title' => 'required',
+                'sub_title' => 'nullable|array',
+                'sub_title.*' => 'required|string|max:255', // Ensures each subtitle is required
+                'sub_description' => 'nullable|array',
+                'sub_description.*' => 'required|string|max:255', // Each sub-description can be null but must be a string
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg', // Added max file size 2MB
+            ], [
+                'title' => 'The title field is required.',
+                'sub_title.required' => 'Each subtitle is required.',
+                'sub_title.array' => 'The subtitles must be an array.',
+                'sub_title.*.required' => 'Each subtitle is required and must be a string.',
+                'sub_title.*.string' => 'Each subtitle must be a valid string.',
+                'sub_description.array' => 'The sub-descriptions must be an array.',
+                'sub_description.*.string' => 'Each sub-description must be a valid string.',
+                'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif,svg, webp.',
+            ]);
             // Fetch or create a new section
             $autismSection = $request->id
                 ? OurApproachHowItWork::find($request->id)
@@ -91,9 +114,6 @@ class OurApproachController extends Controller
             // Redirect with success message
             return redirect()->route('how-it-works-section')
                 ->with('success', 'Details saved successfully.');
-        } catch (\Exception $e) {
-            dd($e);
-            //throw $th;
-        }
+        
     }
 }

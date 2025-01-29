@@ -51,6 +51,7 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <hr>
 
 
                                 @php
@@ -106,7 +107,7 @@
                                     @endif
                                 </div>
                                 <!-- Add Pointer Button -->
-                                <button type="button" class="btn btn-success" id="add-Pointers">Add Pointer</button>
+                                <button type="button" class="btn btn-success" id="add-Pointers">Add Card</button>
 
                             </div>
 

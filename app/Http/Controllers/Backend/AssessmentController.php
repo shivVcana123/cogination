@@ -17,9 +17,26 @@ class AssessmentController extends Controller
         return view('assessment-section.assessment',compact('assessmentSection'));
     }
 
-    public function saveAssessmentSection(TitleRequest $request)
+    public function saveAssessmentSection(Request $request)
     {
-        // dd($request->all());
+    
+        $validated = $request->validate([
+            'title' => 'required',
+            'subtitle' => 'nullable',
+            'button_content' => 'nullable',
+            'button_link' => 'nullable|required_with:button_content',
+            'description' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg', // Added max file size 2MB
+        ], [
+            'title.required' => 'The title field is required.',
+            'subtitle.required' => 'The subtitle field is required.',
+            'button_content.required' => 'The second title must be a valid string.',
+            'button_link.required_with' => 'The button link is required when button content is provided.',
+            'description' => 'The description field is required.',
+            'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif,svg, webp.',
+        ]);
+
+
         // Fetch or create a new section
         $assessmentSection = $request->id
             ? Assessment::find($request->id)
@@ -52,9 +69,37 @@ class AssessmentController extends Controller
         return view('assessment-section.whychoose',compact('assessmentWhyChoose'));
     }
 
-    public function saveWhychooseSection(TitleRequest $request)
+    public function saveWhychooseSection(Request $request)
     {
         try {
+            $validated = $request->validate([
+                'title' => 'required',
+                'first_button_content' => 'nullable', // Allow content but as string
+                'first_button_link' => 'nullable|required_with:first_button_content',
+                'second_button_content' => 'nullable',
+                'second_button_link' => 'nullable|required_with:second_button_content',
+                'description' => 'required',
+                'sub_title' => 'nullable|array',
+                'sub_title.*' => 'nullable', // Allow empty but ensure it's a string
+                'sub_description' => 'nullable|array',
+                'sub_description.*' => 'nullable', // Allow empty but ensure it's a string    
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg', // Max size 2MB
+            ], [
+                'title.required' => 'The title field is required.',
+                'first_button_content.string' => 'The first button content must be a valid string.',
+                'first_button_link.required_with' => 'The first button link is required when button content is provided.',
+                'second_button_content.string' => 'The second button content must be a valid string.',
+                'second_button_link.required_with' => 'The second button link is required when button content is provided.',
+                'description.required' => 'The description field is required.',
+                'sub_title.array' => 'The subtitles must be an array.',
+                'sub_title.*.string' => 'Each subtitle must be a string.',
+                'sub_description.array' => 'The sub-descriptions must be an array.',
+                'sub_description.*.string' => 'Each sub-description must be a string.',
+                'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, svg, webp.',
+                'image.max' => 'The image size must be less than 2MB.',
+            ]);
+
+            dd($request->all());
         $assessmentWhyChoose = $request->id
             ? AssessmentWhyChoose::find($request->id)
             : new AssessmentWhyChoose();
@@ -88,8 +133,7 @@ class AssessmentController extends Controller
             $assessmentWhyChoose->save();
             return redirect()->route('assessment-whychoose-section')->with('success', 'Assessment details saved successfully.');
         } catch (\Exception $e) {
-            \Log::error($e->getMessage());
-            return redirect()->back()->with('error', 'An error occurred while saving the assessment.');
+            return redirect()->back()->withErrors(['error' => $e->getMessage()])->withInput();
         }
     }
 
@@ -98,9 +142,41 @@ class AssessmentController extends Controller
         return view('assessment-section.ourdiagnosticservices',compact('ourDiagnostic'));
     }
 
-public function saveOurDiagnosticServices(TitleRequest $request)
+public function saveOurDiagnosticServices(Request $request)
 {
     try {
+        $validated = $request->validate([
+            'title' => 'required',
+            'description' => 'nullable',
+            'pointerTitle' => 'array',
+            'pointerTitle.*' => 'required',
+            'pointerDescription' => 'array',
+            'pointerDescription.*' => 'required',
+            'button1Text' => 'array',
+            'button1Text.*' => 'nullable',
+            'button1Link' => 'array',
+            'button1Link.*' => 'nullable',
+            'button2Text' => 'array',
+            'button2Text.*' => 'nullable',
+            'button2Link' => 'array',
+            'button2Link.*' => 'nullable',
+            'pointerSubTitle' => 'array',
+            'pointerSubTitle.*' => 'required|array',
+            'pointerSubDescription' => 'array',
+            'pointerSubDescription.*' => 'required|array',
+            'image' => 'array',
+            'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ], [
+            'title.required' => 'The title field is required.',
+            'pointerTitle.*.required' => 'Each pointer title is required.',
+            'image.*.image' => 'Each image must be a valid image file.',
+            'image.*.mimes' => 'Each image must be of type jpeg, png, jpg, gif, or svg.',
+            'image.*.max' => 'Each image must not be greater than 2MB.',
+            'button1Link.*.url' => 'Each Button 1 Link must be a valid URL.',
+            'button2Link.*.url' => 'Each Button 2 Link must be a valid URL.',
+        ]);
+        dd($request->all());
+        
         // Retrieve or create a new section
         $adhdfirstSection = $request->id
             ? AssessmentOurDiagnosticService::find($request->id)
@@ -171,9 +247,28 @@ public function understandingConditionsSection(){
         return view('assessment-section.understandingconditions',compact('ourDiagnostic'));
     }
 
-    public function saveUnderstandingConditions(TitleRequest $request)
+    public function saveUnderstandingConditions(Request $request)
     {
-        // dd($request->all());
+       
+        $validated = $request->validate([
+            'title' => 'required',
+            'subtitle' => 'nullable',
+            'description' => 'required',
+            'sub_title' => 'required|array',  // Both sub_title and sub_description are required arrays
+            'sub_title.*' => 'required',
+            'sub_description' => 'required|array',  // Sub_description must also be an array
+            'sub_description.*' => 'required',  // Each item in sub_description must be required and string
+        ], [
+            'title.required' => 'The title field is required.',
+            'description.required' => 'The description field is required.',
+            'sub_title.required' => 'The sub_title field is required.',
+            'sub_title.*.required' => 'Each sub-title is required.',
+            'sub_description.required' => 'The sub_description field is required.',
+            'sub_description.*.required' => 'Each sub-description is required.',
+        ]);
+        
+        
+        dd($request->all());
         $adhdfirstSection = $request->id
             ? AssessmentUnderstandingCondition::find($request->id)
             : new AssessmentUnderstandingCondition();
