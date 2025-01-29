@@ -298,7 +298,7 @@
                                         <label>Sub Title</label>
                                         <input type="text" name="second_sub_title[]" class="form-control" value="${pointer.second_sub_title || ''}" placeholder="Enter title">
                                        
-                                        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                                        <button type="button" class="btn btn-danger remove-Pointers mt-3">Remove</button>
                                     </div>
                                 `;
                                         container.append(pointerHtml);
@@ -310,7 +310,7 @@
                                     <label> Title</label>
                                     <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter title">
                                    
-                                    <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                                    <button type="button" class="btn btn-danger remove-Pointers mt-3">Remove</button>
                                 </div>
                             `);
                                 }
@@ -337,7 +337,7 @@
                             <label> Title</label>
                             <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter title">
                            
-                            <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                            <button type="button" class="btn btn-danger remove-Pointers mt-3">Remove</button>
                         </div>
                     `);
 
@@ -368,7 +368,7 @@
             <input type="text" name="second_sub_title[]" class="form-control" placeholder="Enter sub title">
             <label>Sub Description</label>
             <input type="text" name="second_sub_description[]" class="form-control" placeholder="Enter description">
-            <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+            <button type="button" class="btn btn-danger remove-Pointers mt-3">Remove</button>
         </div>
     `);
             toggleRemoveButton(); // Re-evaluate button visibility

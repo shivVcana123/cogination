@@ -20,6 +20,7 @@ use App\Http\Resources\AssessmentWhyChooseResource;
 use App\Http\Resources\AutismsBookResource;
 use App\Http\Resources\AutismsProcessResource;
 use App\Http\Resources\AutismsScreeningResource;
+use App\Http\Resources\AutismsSecondSectionResource;
 use App\Http\Resources\AutismsSectionResource;
 use App\Http\Resources\FeesOurPricingResource;
 use App\Http\Resources\FinancialResponsibilityResource;
@@ -53,6 +54,7 @@ use App\Models\AssessmentWhyChoose;
 use App\Models\AutismsBook;
 use App\Models\AutismsProcess;
 use App\Models\AutismsScreening;
+use App\Models\AutismsSecondSection;
 use App\Models\AutismsSection;
 use App\Models\BannerSection;
 use App\Models\Cta;
@@ -216,12 +218,14 @@ class ApiController extends Controller
     public function fetchAutismSectionData()
     {
         $autismsSectionData = AutismsSection::all();
+        $autismsSecondSectionData = AutismsSecondSection::all();
         $procesSectionData = AutismsProcess::all();
         $screeningSectionData = AutismsScreening::all();
         $bookSectionData = AutismsBook::all();
 
         $data = [
             'autismsSection' => AutismsSectionResource::collection($autismsSectionData),
+            'autismsSecondSection' => AutismsSecondSectionResource::collection($autismsSecondSectionData),
             'procesSection' => AutismsProcessResource::collection($procesSectionData),
             'screeningSection' => AutismsScreeningResource::collection($screeningSectionData),
             'bookSection' => AutismsBookResource::collection($bookSectionData),

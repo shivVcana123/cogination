@@ -249,12 +249,12 @@
             <div class="col-md-6">
                 <label for="pointerTitle${pointerCount}"> Title</label>
                 <i class="fas fa-info-circle" title="Enter a meaningful  title that summarizes the purpose of this section."></i>
-                <input type="text" id="pointerTitle${pointerCount}" class="form-control mb-2" name="pointerTitle[]" placeholder="Enter  title" required>
+                <input type="text" id="pointerTitle${pointerCount}" class="form-control mb-2" name="pointerTitle[]" placeholder="Enter  title">
             </div>
             <div class="col-md-6">
                 <label for="pointerDescription${pointerCount}"> Description</label>
                 <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
-                <input type="text" id="pointerDescription${pointerCount}" class="form-control mb-2" name="pointerDescription[]" placeholder="Enter description" required>
+                <input type="text" id="pointerDescription${pointerCount}" class="form-control mb-2" name="pointerDescription[]" placeholder="Enter description">
             </div>
             <div class="col-md-6">
                 <label for="button1Text${pointerCount}">Button 1 Text</label>
@@ -280,7 +280,7 @@
                 <label for="image${pointerCount}">Image</label>
                 <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
                 <img id="blah" src="#" alt="Image Preview" style="width: 130px; display:none" />
-                <input type="file" id="image${pointerCount}" class="form-control mb-2" name="image[]" accept="image/*" required>
+                <input type="file" id="image${pointerCount}" class="form-control mb-2" name="image[]" accept="image/*">
             </div>
         </div>
         <hr>
@@ -291,12 +291,12 @@
                     <div class="col-md-6">
                         <label for="pointerSubTitle${pointerCount}_0"> Title</label>
                         <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-                        <input type="text" id="pointerSubTitle${pointerCount}_0" class="form-control mb-2" name="pointerSubTitle[${pointerCount}][]" placeholder="Enter pointer sub title" required>
+                        <input type="text" id="pointerSubTitle${pointerCount}_0" class="form-control mb-2" name="pointerSubTitle[${pointerCount}][]" placeholder="Enter pointer sub title">
                     </div>
                     <div class="col-md-6">
                         <label for="pointerSubDescription${pointerCount}_0"> Description</label>
                         <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
-                        <textarea id="pointerSubDescription${pointerCount}_0" class="form-control mb-2" name="pointerSubDescription[${pointerCount}][]" placeholder="Enter description" required></textarea>
+                        <textarea id="pointerSubDescription${pointerCount}_0" class="form-control mb-2" name="pointerSubDescription[${pointerCount}][]" placeholder="Enter description"></textarea>
                     </div>
                 </div>
                 <button type="button" class="btn btn-danger remove-sub-pointer">Remove Sub Card</button>
@@ -341,12 +341,12 @@
                 <div class="col-md-6">
                     <label for="pointerSubTitle${pointerField.getAttribute('data-pointer-id')}_${subPointerCount}" class="form-label"> Title</label>
                     <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-                    <input type="text" class="form-control mb-2" name="pointerSubTitle[${pointerField.getAttribute('data-pointer-id')}][${subPointerCount}]" id="pointerSubTitle${pointerField.getAttribute('data-pointer-id')}_${subPointerCount}" placeholder="Enter title" required>
+                    <input type="text" class="form-control mb-2" name="pointerSubTitle[${pointerField.getAttribute('data-pointer-id')}][${subPointerCount}]" id="pointerSubTitle${pointerField.getAttribute('data-pointer-id')}_${subPointerCount}" placeholder="Enter title">
                 </div>
                 <div class="col-md-6">
                     <label for="pointerSubDescription${pointerField.getAttribute('data-pointer-id')}_${subPointerCount}" class="form-label"> Description</label>
                     <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
-                    <textarea class="form-control mb-2" name="pointerSubDescription[${pointerField.getAttribute('data-pointer-id')}][${subPointerCount}]" id="pointerSubDescription${pointerField.getAttribute('data-pointer-id')}_${subPointerCount}" placeholder="Enter description" required></textarea>
+                    <textarea class="form-control mb-2" name="pointerSubDescription[${pointerField.getAttribute('data-pointer-id')}][${subPointerCount}]" id="pointerSubDescription${pointerField.getAttribute('data-pointer-id')}_${subPointerCount}" placeholder="Enter description"></textarea>
                 </div>
             </div>
             <button type="button" class="btn btn-danger remove-sub-pointer">Remove Sub Card</button>

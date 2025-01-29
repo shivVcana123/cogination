@@ -18,10 +18,23 @@ class AccreditationController extends Controller
         return view('accreditation-section.ourcommitment',compact('ourCommitmentSection'));
     }
 
-    
-    public function saveOurCommitmentSection(TitleRequest $request)
+    public function saveOurCommitmentSection(Request $request)
     {
-        // dd($request->all());
+       
+        $validated = $request->validate([
+            'title' => 'required',
+            'button_content' => 'nullable',
+            'button_link' => 'nullable|required_with:button_content',
+            'description' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg', // Added max file size 2MB
+        ], [
+            'title.required' => 'The title field is required.',
+            'subtitle.required' => 'The subtitle field is required.',
+            'button_content.required' => 'The second title must be a valid string.',
+            'button_link.required_with' => 'The button link is required when button content is provided.',
+            'description' => 'The description field is required.',
+            'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif,svg, webp.',
+        ]);
         // Fetch or create a new section
         $autismSection = $request->id
             ? AccreditationOurCommitment::find($request->id)
@@ -49,9 +62,29 @@ class AccreditationController extends Controller
         return view('accreditation-section.certifications',compact('certificationsSection'));
     }
 
-    public function saveCertificationsSection(TitleRequest $request)
+    public function saveCertificationsSection(Request $request)
     {
-        // dd($request->all());
+        
+        $validated = $request->validate([
+            'title' => 'required',
+            'subtitle' => 'nullable',
+            'description' => 'required',
+            'sub_title' => 'nullable|array',
+            'sub_title.*' => 'required', // Ensures each subtitle is required
+            'sub_description' => 'nullable|array',
+            'sub_description.*' => 'required', // Each sub-description can be null but must be a string
+
+        ], [
+            'title.required' => 'The title field is required.',
+            'description' => 'The description field is required.',
+            'sub_title.required' => 'Each subtitle is required.',
+            'sub_title.array' => 'The subtitles must be an array.',
+            'sub_title.*.required' => 'Each subtitle is required and must be a string.',
+            'sub_title.*.string' => 'Each subtitle must be a valid string.',
+            'sub_description.array' => 'The sub-descriptions must be an array.',
+            'sub_description.*.string' => 'Each sub-description must be a valid string.',
+
+        ]);
         $adhdfirstSection = $request->id
             ? AccreditationCertification::find($request->id)
             : new AccreditationCertification();
@@ -90,7 +123,27 @@ class AccreditationController extends Controller
 
     public function saveAccreditationsSection(TitleRequest $request)
     {
-        // dd($request->all());
+        
+        $validated = $request->validate([
+            'title' => 'required',
+            'subtitle' => 'nullable',
+            'description' => 'required',
+            'sub_title' => 'nullable|array',
+            'sub_title.*' => 'required', // Ensures each subtitle is required
+            'sub_description' => 'nullable|array',
+            'sub_description.*' => 'required', // Each sub-description can be null but must be a string
+        ], [
+            'title.required' => 'The title field is required.',
+            'description' => 'The description field is required.',
+            'sub_title.required' => 'Each subtitle is required.',
+            'sub_title.array' => 'The subtitles must be an array.',
+            'sub_title.*.required' => 'Each subtitle is required and must be a string.',
+            'sub_title.*.string' => 'Each subtitle must be a valid string.',
+            'sub_description.array' => 'The sub-descriptions must be an array.',
+            'sub_description.*.string' => 'Each sub-description must be a valid string.',
+        ]);
+
+        dd($request->all());
         $adhdfirstSection = $request->id
             ? AccreditationAccreditation::find($request->id)
             : new AccreditationAccreditation();
@@ -129,7 +182,27 @@ class AccreditationController extends Controller
 
     public function saveSpecializedCertifications(TitleRequest $request)
     {
-        // dd($request->all());
+        
+        $validated = $request->validate([
+            'title' => 'required',
+            'subtitle' => 'nullable',
+            'sub_title' => 'nullable|array',
+            'sub_title.*' => 'required', // Ensures each subtitle is required
+            'sub_description' => 'nullable|array',
+            'sub_description.*' => 'required', // Each sub-description can be null but must be a string
+        ], [
+            'title.required' => 'The title field is required.',
+            'title.string' => 'The title must be a valid string.',
+            'subtitle.string' => 'The subtitle must be a valid string.',
+            'sub_title.required' => 'Each subtitle is required.',
+            'sub_title.array' => 'The subtitles must be an array.',
+            'sub_title.*.required' => 'Each subtitle is required and must be a string.',
+            'sub_title.*.string' => 'Each subtitle must be a valid string.',
+            'sub_description.array' => 'The sub-descriptions must be an array.',
+            'sub_description.*.string' => 'Each sub-description must be a valid string.',
+           
+        ]);
+
         $adhdfirstSection = $request->id
             ? AccreditationSpecializedCertification::find($request->id)
             : new AccreditationSpecializedCertification();
@@ -159,7 +232,7 @@ class AccreditationController extends Controller
     
         return redirect()->route('specialized-certifications-section')->with('success', 'Details saved successfully.');
     }
-
+    
     public function ourTeamContinuousSection(){
         $ourTeamContinuousSection = AccreditationOurTeamContinuous::get();
         return view('accreditation-section.ourteamcontinuous',compact('ourTeamContinuousSection'));
@@ -167,7 +240,23 @@ class AccreditationController extends Controller
 
     public function saveOurTeamContinuousSection(TitleRequest $request)
     {
-        // dd($request->all()); 
+        
+        $validated = $request->validate([
+            'title' => 'required',
+            'button_content' => 'nullable',
+            'button_link' => 'nullable|required_with:button_content',
+            'description' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg', // Added max file size 2MB
+        ], [
+            'title.required' => 'The title field is required.',
+            'button_content.required' => 'The second title must be a valid string.',
+            'button_link.required_with' => 'The button link is required when button content is provided.',
+            'description' => 'The description field is required.',
+            'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif,svg, webp.',
+        ]);
+
+        dd($request->all()); 
+
         // Fetch or create a new section
         $autismSection = $request->id
             ? AccreditationOurTeamContinuous::find($request->id)

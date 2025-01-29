@@ -38,8 +38,8 @@ class AddBannerRequest extends FormRequest
                  'string', // Must be a string if present
              ],
              'button_text' => 'nullable|string|max:255',
-             'button_link' => 'nullable|required_with:button_text|url|max:255', // Required if button_text is present
-             'image' => 'required|image|mimes:jpg,jpeg,png,gif,webp,svg|max:2048', // Max size 2MB
+             'button_link' => 'nullable|required_with:button_text', // Required if button_text is present
+             'image' => 'required|image|mimes:jpg,jpeg,png,gif,webp,svg', // Max size 2MB
          ];
      }
      
@@ -65,7 +65,6 @@ class AddBannerRequest extends FormRequest
              'image.required' => 'An image is required.',
              'image.image' => 'The uploaded file must be an image.',
              'image.mimes' => 'The image must be a file of type: jpg, jpeg, png, gif, webp, svg.',
-             'image.max' => 'The image size must not exceed 2MB.',
          ];
      }
      

@@ -43,7 +43,7 @@
                                     <!-- Subtitle Field -->
                                     <div class="form-group col-md-6">
                                         <label for="subtitle">Subtitle</label>
-                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label>(Optional)</label>
                                         <input type="text" class="form-control" name="subtitle" id="subtitle"
                                             placeholder="Enter first subtitle" value="{{ old('subtitle',$certificationsSection[0]->subtitle ?? '') }}">
                                         @error('subtitle')

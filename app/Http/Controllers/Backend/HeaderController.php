@@ -125,7 +125,9 @@ class HeaderController extends Controller
 
             return redirect()->route('header.index')->with('success', 'Record updated successfully!');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => $e->getMessage()])->withInput();
+            // return redirect()->back()->withErrors(['error' => $e->getMessage()])->withInput();
+            return redirect()->back()->with('error', 'Failed to create record: ' . $e->getMessage());
+
         }
     }
 

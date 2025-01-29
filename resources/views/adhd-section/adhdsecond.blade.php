@@ -57,7 +57,7 @@
 
                                     <div class="form-group col-md-6">
                                         <label for="second_subtitle">Subtitle</label>
-                                        <i class="fas fa-info-circle" title="Provide a subtitle."></i>
+                                        <i class="fas fa-info-circle" title="Provide a subtitle."></i> <label for="">(Optional)</label>
                                         <input type="text" class="form-control" name="second_subtitle" id="second_subtitle"
                                             placeholder="Enter second subtitle" value="{{ old('second_subtitle', $adhdSection[0]->second_subtitle ?? '') }}">
                                         @error('second_subtitle')
@@ -86,8 +86,9 @@
                                 <label for="">Card Details</label>
                                 <div class="form-group">
                                     <label for="heading">Heading</label>
+                                    <i class="fas fa-info-circle" title="Provide a Heading."></i> <label for="">(Optional)</label>
                                     <input class="form-control" name="heading" id="heading"
-                                      value="{{ old('heading', $adhdSection[0]->heading ?? '') }} "  required>
+                                        value="{{ old('heading', $adhdSection[0]->heading ?? '') }} " required>
                                     @error('heading')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -99,6 +100,7 @@
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label> Title</label>
+                                                <i class="fas fa-info-circle" title="Enter a meaningful title."></i>
                                                 <input type="text" name="second_sub_title[]" class="form-control"
                                                     value="{{ $pointer->second_sub_title }}" placeholder="Enter title">
                                                 @error('second_sub_title.' . $index)
@@ -107,6 +109,7 @@
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label> Description</label>
+                                                <i class="fas fa-info-circle" title="Enter a meaningful description."></i>
                                                 <input type="text" name="second_sub_description[]" class="form-control"
                                                     value="{{ $pointer->second_sub_description }}" placeholder="Enter description">
                                                 @error('second_sub_description.' . $index)
@@ -122,6 +125,7 @@
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label> Title</label>
+                                                <i class="fas fa-info-circle" title="Enter a meaningful title."></i>
                                                 <input type="text" name="second_sub_title[]" class="form-control" placeholder="Enter title">
                                                 @error('second_sub_title.0')
                                                 <span class="text-danger">{{ $message }}</span>
@@ -129,6 +133,7 @@
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label> Description</label>
+                                                <i class="fas fa-info-circle" title="Enter a meaningful description."></i>
                                                 <input type="text" name="second_sub_description[]" class="form-control" placeholder="Enter description">
                                                 @error('second_sub_description.0')
                                                 <span class="text-danger">{{ $message }}</span>
@@ -277,6 +282,7 @@
                         CKEDITOR.instances.second_description.setData(section.second_description || '');
                         $('#second_title').val(section.second_title || '');
                         $('#second_subtitle').val(section.second_subtitle || '');
+                        $('#heading').val(section.heading || '');
                         $('#status').prop('checked', section.status === 'on');
                         const imageUrl = section.second_image || '';
                         $('#blah').attr('src', imageUrl ? imageUrl : '#'); // Use the image URL or reset

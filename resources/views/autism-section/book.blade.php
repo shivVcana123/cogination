@@ -37,27 +37,33 @@
                                         <option value="Child" {{ old('type', $autismBook[0]->type ?? '') === 'Child' ? 'selected' : '' }}>Child</option>
                                         <option value="Adult" {{ old('type', $autismBook[0]->type ?? '') === 'Adult' ? 'selected' : '' }}>Adult</option>
                                     </select>
+                                    @error('type')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                 </div>
                                 <div class="row">
 
                                     <div class="form-group col-md-6">
                                         <label for="title">Title</label>
                                         <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-
                                         <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" value="{{ old('title', $autismBook[0]->title ?? '') }}">
+                                        @error('title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group col-md-6">
                                         <label for="subtitle">Subtitle</label>
-                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
-
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label for="">(Optional)</label>
                                         <input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="Enter subtitle" value="{{ old('subtitle', $autismBook[0]->subtitle ?? '') }}">
+                                        @error('subtitle')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group col-md-6">
                                         <label for="title">Button Text</label>
-                                        <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
-
+                                        <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i> <label for="">(Optional)</label>
                                         <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text" value="{{old('button_content',$autismBook[0]->button_content ?? '')}}">
                                         @error('button_content')
                                         <div class="text-danger">{{ $message }}</div>
@@ -65,8 +71,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="title">Button Link</label>
-                                        <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
-
+                                        <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i> <label for="">(Optional)</label>
                                         <input type="text" class="form-control" name="button_link" id="button_link" placeholder="Enter Button Link" value="{{old('button_link',$autismBook[0]->button_link ?? '')}}">
                                         @error('button_link')
                                         <div class="text-danger">{{ $message }}</div>
@@ -77,8 +82,10 @@
                                 <div class="form-group">
                                     <label for="description">Description</label>
                                     <i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
-
                                     <textarea name="description" id="description" class="form-control">{{ old('description', $autismBook[0]->description ?? '') }}</textarea>
+                                    @error('description')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                 </div>
 
 
@@ -130,6 +137,8 @@
                             $('#button_content').val(section.button_content || '');
                             $('#button_link').val(section.button_link || '');
                             $('#status').prop('checked', section.status === 'on');
+                            const imageUrl = section.image || '';
+                            $('#img').attr('src', imageUrl ? imageUrl : '#'); 
                         }
                     } else {
                         // Clear fields if no data is found
