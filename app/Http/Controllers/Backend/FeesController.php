@@ -62,7 +62,7 @@ class FeesController extends Controller
         return view('fees-section.ourpricing',compact('ourPricing'));
     }
     
-
+    
     public function saveOurPricingSection(Request $request)
     {
         
@@ -84,7 +84,7 @@ class FeesController extends Controller
             'price.*.required' => 'The price field is required.',
             'price.*.numeric' => 'Each price must be a valid number.',
         ]);
-        dd($request->all());
+        // dd($request->all());
         try {
             // Fetch or create a new record
             $autismSection = $request->id
@@ -144,7 +144,7 @@ class FeesController extends Controller
             // Success redirect
             return redirect()->route('our-pricing-section')->with('success', 'Pricing section saved successfully.');
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            dd($e);
             // Handle any exceptions
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -153,30 +153,30 @@ class FeesController extends Controller
      }
     
 
-    public function checkoutPurchase(Request $request, string $plan)
-    {
-        // Define Stripe price ID
-        $stripePriceId = $plan;
+    // public function checkoutPurchase(Request $request, string $plan)
+    // {
+    //     // Define Stripe price ID
+    //     $stripePriceId = $plan;
 
-        // Set quantity (e.g., 1 for one subscription or item)
-        $quantity = 1;
+    //     // Set quantity (e.g., 1 for one subscription or item)
+    //     $quantity = 1;
 
-        // Ensure the user is authenticated
-        $user = $request->user();
-        dd($user);
-        if (!$user) {
-            return response()->json(['error' => 'User not authenticated'], 401);
-        }
+    //     // Ensure the user is authenticated
+    //     $user = $request->user();
+    //     dd($user);
+    //     if (!$user) {
+    //         return response()->json(['error' => 'User not authenticated'], 401);
+    //     }
 
-        // Use Stripe's checkout method
-        return $user->checkout([$stripePriceId => $quantity], [
-            'success_url' => route('dashboard', [
-                'success' => 'Congratulations! You have successfully purchased.',
-                'plan' => $stripePriceId,
-            ]),
-            'cancel_url' => route('dashboard', [
-                'error' => 'Something went wrong!',
-            ]),
-        ]);
-    }
+    //     // Use Stripe's checkout method
+    //     return $user->checkout([$stripePriceId => $quantity], [
+    //         'success_url' => route('dashboard', [
+    //             'success' => 'Congratulations! You have successfully purchased.',
+    //             'plan' => $stripePriceId,
+    //         ]),
+    //         'cancel_url' => route('dashboard', [
+    //             'error' => 'Something went wrong!',
+    //         ]),
+    //     ]);
+    // }
 }

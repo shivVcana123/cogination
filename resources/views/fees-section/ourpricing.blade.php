@@ -63,7 +63,7 @@
                                         <!-- Sub Title -->
                                         <label> Title</label>
                                         <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_title[]" class="form-control" value="{{ old('sub_title.' . $index, $pointer->sub_title ?? '') }}" placeholder="Enter title">
+                                        <input type="text" name="sub_title[]" class="form-control mb-2" value="{{ old('sub_title.' . $index, $pointer->sub_title ?? '') }}" placeholder="Enter title">
                                         @error('sub_title.' . $index)
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -187,10 +187,10 @@
             const newInputGroup = document.createElement('div');
             newInputGroup.classList.add('form-group', 'url-group');
             newInputGroup.innerHTML = `
-            <div class="col-md-12">
+             <div class="form-group">
                 <label> Title</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                <input type="text" name="sub_title[]" class="form-control" placeholder="Enter title">
+                <input type="text" name="sub_title[]" class="form-control mb-2" placeholder="Enter title">
                 <div class="text-danger sub-title-error" style="display: none;">This field is required.</div>
             </div>
             <div class="form-group sub-group">
