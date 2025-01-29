@@ -25,60 +25,151 @@ class HomeSectionControoler extends Controller
         $chooseusData = HomeAboutUsData::first();
         return view('home-section.homeAbout', compact('chooseusData'));
     }
-    public function saveHomeAbout(TitleRequest $request)
-    {
-        // dd($request->all());
-        $about = $request->id ? HomeAboutUsData::find($request->id) : new HomeAboutUsData();
-        $about->title =  $request->title;
-        $about->subtitle = $request->subtitle;
-        $about->description =$request->description;
-        $about->button_content = $request->button_content;
-        $about->button_link = $request->button_link;
-        $about->status = $request->status ?? "off";
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            if ($about->image) {
-                Storage::disk('public')->delete(str_replace('storage/', '', $about->image));
-            }
-            $originalName = $request->file('image')->getClientOriginalName();
-            $cleanedName = str_replace(' ', '_', $originalName); // Replace spaces with underscores
-            $imageName = uniqid() . '_' . $cleanedName;
-            $imagePath = $request->file('image')->storeAs('home', $imageName, 'public');
-            $about->image = 'storage/' . $imagePath;
+
+
+     public function saveHomeAbout(Request $request)
+{
+    // Validate request data
+    $request->validate(
+        [
+            'title' => 'required', 
+            // 'subtitle' => 'required', 
+            'description' => 'required', 
+            'button_content' => 'nullable', 
+            'button_link' => 'nullable|required_with:button_content', 
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp', // Validate image type and size
+        ],
+        [
+            'title.required' => 'The title field is required.',
+            // 'subtitle.required' => 'The subtitle field is required.',
+            'description.required' => 'The description field is required.',
+            'button_link.required_with' => 'The button link is required when button text is present.',
+            'image.image' => 'The uploaded file must be an image.',
+            'image.mimes' => 'The image must be in jpeg, png, jpg, gif, webp, or svg format.',
+        ]
+    );
+
+    // Handle saving or updating HomeAboutUsData record
+    $about = $request->id ? HomeAboutUsData::find($request->id) : new HomeAboutUsData();
+    $about->title = $request->title;
+    $about->subtitle = $request->subtitle;
+    $about->description = $request->description;
+    $about->button_content = $request->button_content;
+    $about->button_link = $request->button_link;
+    $about->status = $request->status ?? "off";
+
+    // Image handling logic
+    if ($request->hasFile('image') && $request->file('image')->isValid()) {
+        // Delete old image if exists
+        if ($about->image) {
+            Storage::disk('public')->delete(str_replace('storage/', '', $about->image));
         }
-        $about->save();
-        return redirect()->route('homeAbout')->with('message', 'Data saved successfully.');
+
+        // Get and clean up image file name
+        $originalName = $request->file('image')->getClientOriginalName();
+        $cleanedName = str_replace(' ', '_', $originalName); // Replace spaces with underscores
+        $imageName = uniqid() . '_' . $cleanedName;
+
+        // Store the new image
+        $imagePath = $request->file('image')->storeAs('home', $imageName, 'public');
+        $about->image = 'storage/' . $imagePath;
     }
-    
-    
-    /**
-     * Display a listing of the resource.
-     */
+
+    // Save the record
+    $about->save();
+
+    return redirect()->route('homeAbout')->with('message', 'Data saved successfully.');
+}
+
 
      public function appointment()
      {
          $appointment = HomeAppointment::latest()->first();
          return view('home-section.appointment',compact('appointment'));
      }
-     public function saveappointment(TitleRequest $request)
-     {
+    //  public function saveappointment(Request $request)
+    //  {
     
-         $healthcare = $request->id ? HomeAppointment::find($request->id) : new HomeAppointment();
-         if (!$healthcare) {
-             return redirect()->route('whyhealthcare')->withErrors('Record not found.');
-         }
-         $healthcare->title = $request->title;
-         $healthcare->subtitle = $request->subtitle ?? null;
-         $healthcare->button_content = $request->button_content ?? null;
-         $healthcare->button_link = $request->button_link ?? null;
-         $healthcare->status = $request->status ?? "off";
-         if ($request->hasFile('image') && $request->file('image')->isValid()) {
-             $directory = 'home';
-             $oldImage = str_replace('storage/', '', $healthcare->image);
-             $healthcare->image = 'storage/' . $this->uploadImages($request->file('image'), $directory, $oldImage);
-         }
-         $healthcare->save();
-         return redirect()->route('appointment')->with('message', 'Data saved successfully.');
-     }
+    //     dd($request->all());
+    //      $healthcare = $request->id ? HomeAppointment::find($request->id) : new HomeAppointment();
+    //      if (!$healthcare) {
+    //          return redirect()->route('whyhealthcare')->withErrors('Record not found.');
+    //      }
+    //      $healthcare->title = $request->title;
+    //      $healthcare->subtitle = $request->subtitle ?? null;
+    //      $healthcare->button_content = $request->button_content ?? null;
+    //      $healthcare->button_link = $request->button_link ?? null;
+    //      $healthcare->status = $request->status ?? "off";
+    //      if ($request->hasFile('image') && $request->file('image')->isValid()) {
+    //          $directory = 'home';
+    //          $oldImage = str_replace('storage/', '', $healthcare->image);
+    //          $healthcare->image = 'storage/' . $this->uploadImages($request->file('image'), $directory, $oldImage);
+    //      }
+    //      $healthcare->save();
+    //      return redirect()->route('appointment')->with('message', 'Data saved successfully.');
+    //  }
+    public function saveappointment(Request $request)
+{
+    try {
+        // Validate request data
+        $request->validate(
+            [
+                'title' => 'required',
+                'subtitle' => 'required',
+                'button_content' => 'nullable',
+                'button_link' => 'nullable|required_with:button_content',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
+            ],
+            [
+                'title.required' => 'The title field is required.',
+                'subtitle.required' => 'The description field is required.',
+                'button_link.required_with' => 'The button link is required when button content is provided.',
+                'image.image' => 'The uploaded file must be an image.',
+                'image.mimes' => 'The image must be in jpeg, png, jpg, gif, webp, or svg format.',
+            ]
+        );
+
+        // Fetch or create a new record
+        $healthcare = $request->id ? HomeAppointment::find($request->id) : new HomeAppointment();
+        if (!$healthcare) {
+            return redirect()->route('whyhealthcare')->withErrors('Record not found.');
+        }
+
+        // Assign values from request
+        $healthcare->title = $request->title;
+        $healthcare->subtitle = $request->subtitle ?? null;
+        $healthcare->button_content = $request->button_content ?? null;
+        $healthcare->button_link = $request->button_link ?? null;
+        $healthcare->status = $request->status ?? "off";
+
+        // Handle image upload
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $directory = 'home';
+
+            // Delete the old image if it exists
+            if ($healthcare->image) {
+                $oldImage = str_replace('storage/', '', $healthcare->image);
+                Storage::disk('public')->delete($oldImage);
+            }
+
+            // Upload the new image
+            $uploadedImage = $request->file('image');
+            $imageName = uniqid() . '_' . str_replace(' ', '_', $uploadedImage->getClientOriginalName());
+            $imagePath = $uploadedImage->storeAs($directory, $imageName, 'public');
+            $healthcare->image = 'storage/' . $imagePath;
+        }
+
+        // Save the record
+        $healthcare->save();
+
+        return redirect()->route('appointment')->with('message', 'Data saved successfully.');
+    } catch (\Exception $e) {
+        // Log the error for debuggin
+        // Redirect back with error message
+        return redirect()->route('appointment')->withErrors('An error occurred while saving the data. Please try again later.');
+    }
+}
+
     public function whychooseus()
     {
         // Fetch all records to display or pass to the view
@@ -89,6 +180,24 @@ class HomeSectionControoler extends Controller
     public function savewhychooseus(TitleRequest $request)
     {
        
+        $validated = $request->validate([
+            'type' => 'required|string|max:255',
+            'second_title' => 'required|string|max:255',
+            'second_subtitle' => 'nullable|string|max:255',
+            'second_description' => 'nullable|string|max:1000',
+            'heading' => 'nullable|string|max:1000',
+            'second_sub_title.*' => 'required_with:second_sub_description.*|string|max:255',
+            'second_sub_description.*' => 'nullable|string|max:255',
+            'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
+        ], [
+            'type.required' => 'The type field is required.',
+            'type.string' => 'The type must be a valid string.',
+            'second_title.required' => 'The second title field is required.',
+            'second_title.string' => 'The second title must be a valid string.',
+            'second_sub_title.*.required_with' => 'Each subtitle must be provided if a sub-description is given.',
+            'second_image.image' => 'The second image must be an image file.',
+            'second_image.mimes' => 'The second image must be a file of type: jpeg, png, jpg, gif, webp.',
+        ]);
         $pointers = [];
         if (!empty($request->sub_title)) {
             foreach ($request->sub_title as $index => $subTitle) {
@@ -147,6 +256,24 @@ class HomeSectionControoler extends Controller
     public function savebringinghealthcare(TitleRequest $request)
     {
         // dd( $request->all());
+        $validated = $request->validate([
+            'type' => 'required|string|max:255',
+            'second_title' => 'required|string|max:255',
+            'second_subtitle' => 'nullable|string|max:255',
+            'second_description' => 'nullable|string|max:1000',
+            'heading' => 'nullable|string|max:1000',
+            'second_sub_title.*' => 'required_with:second_sub_description.*|string|max:255',
+            'second_sub_description.*' => 'nullable|string|max:255',
+            'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
+        ], [
+            'type.required' => 'The type field is required.',
+            'type.string' => 'The type must be a valid string.',
+            'second_title.required' => 'The second title field is required.',
+            'second_title.string' => 'The second title must be a valid string.',
+            'second_sub_title.*.required_with' => 'Each subtitle must be provided if a sub-description is given.',
+            'second_image.image' => 'The second image must be an image file.',
+            'second_image.mimes' => 'The second image must be a file of type: jpeg, png, jpg, gif, webp.',
+        ]);
         // Check if an ID is passed for update or create a new record
         $healthcare = $request->id ? HomeBringingHealthcare::find($request->id) : new HomeBringingHealthcare();
     
@@ -267,6 +394,24 @@ class HomeSectionControoler extends Controller
     
     public function saveOurServices(TitleRequest $request)
     {
+        $validated = $request->validate([
+            'type' => 'required|string|max:255',
+            'second_title' => 'required|string|max:255',
+            'second_subtitle' => 'nullable|string|max:255',
+            'second_description' => 'nullable|string|max:1000',
+            'heading' => 'nullable|string|max:1000',
+            'second_sub_title.*' => 'required_with:second_sub_description.*|string|max:255',
+            'second_sub_description.*' => 'nullable|string|max:255',
+            'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
+        ], [
+            'type.required' => 'The type field is required.',
+            'type.string' => 'The type must be a valid string.',
+            'second_title.required' => 'The second title field is required.',
+            'second_title.string' => 'The second title must be a valid string.',
+            'second_sub_title.*.required_with' => 'Each subtitle must be provided if a sub-description is given.',
+            'second_image.image' => 'The second image must be an image file.',
+            'second_image.mimes' => 'The second image must be a file of type: jpeg, png, jpg, gif, webp.',
+        ]);
         // Initialize pointers array
         $pointers = [];
     

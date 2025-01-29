@@ -35,7 +35,7 @@
                                         <label for="title">Title</label>
                                         <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
                                         <input type="text" class="form-control" name="title" id="title"
-                                            placeholder="Enter first title" value="{{ old('title',$ourTeamContinuousSection[0]->title ?? '') }}">
+                                            placeholder="Enter title" value="{{ old('title',$ourTeamContinuousSection[0]->title ?? '') }}">
                                         @error('title')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -53,7 +53,7 @@
 
                                     <div class="form-group col-md-6">
                                         <label for="title">Button Text</label>
-                                        <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
+                                        <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i> <label>(Optional)</label>
                                         <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text" value="{{old('button_content',$ourTeamContinuousSection[0]->button_content ?? '')}}">
                                         @error('button_content')
                                         <div class="text-danger">{{ $message }}</div>
@@ -61,7 +61,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="title">Button Link</label>
-                                        <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
+                                        <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i> <label>(Optional)</label>
                                         <input type="text" class="form-control" name="button_link" id="button_link" placeholder="Enter Button Link" value="{{old('button_link',$ourTeamContinuousSection[0]->button_link ?? '')}}">
                                         @error('button_link')
                                         <div class="text-danger">{{ $message }}</div>

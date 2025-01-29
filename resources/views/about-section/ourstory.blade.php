@@ -44,7 +44,7 @@
                                     <!-- Subtitle Field -->
                                     <div class="form-group col-md-6">
                                         <label for="subtitle">Subtitle</label>
-                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label for="">(Optional)</label>
                                         <input type="text" class="form-control" name="subtitle" id="subtitle"
                                             placeholder="Enter first subtitle" value="{{ old('subtitle',$ourStorySection[0]->subtitle ?? '') }}">
                                         @error('subtitle')
@@ -54,7 +54,7 @@
 
                                     <div class="form-group col-md-6">
                                         <label for="title">Button Text</label>
-                                        <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
+                                        <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i> <label for="">(Optional)</label>
                                         <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text" value="{{old('button_content',$ourStorySection[0]->button_content ?? '')}}">
                                         @error('button_content')
                                         <div class="text-danger">{{ $message }}</div>
@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="title">Button Link</label>
-                                        <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
+                                        <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i> <label for="">(Optional)</label>
                                         <input type="text" class="form-control" name="button_link" id="button_link" placeholder="Enter Button Link" value="{{old('button_link',$ourStorySection[0]->button_link ?? '')}}">
                                         @error('button_link')
                                         <div class="text-danger">{{ $message }}</div>

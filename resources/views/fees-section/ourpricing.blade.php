@@ -176,7 +176,6 @@
 </div>
 @endsection
 @section('java_script')
-
 <script>
     CKEDITOR.replace('description');
 
