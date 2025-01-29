@@ -63,7 +63,7 @@
                                         <!-- Sub Title -->
                                         <label> Title</label>
                                         <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_title[]" class="form-control" value="{{ old('sub_title.' . $index, $pointer->sub_title ?? '') }}" placeholder="Enter title">
+                                        <input type="text" name="sub_title[]" class="form-control mb-2" value="{{ old('sub_title.' . $index, $pointer->sub_title ?? '') }}" placeholder="Enter title">
                                         @error('sub_title.' . $index)
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -176,133 +176,7 @@
 </div>
 @endsection
 @section('java_script')
-<!-- <script>
-    CKEDITOR.replace('description');
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const container = document.getElementById('Pointers-container');
-
-        // Add new Pointer group
-        document.getElementById('add-Pointers').addEventListener('click', function() {
-            const newInputGroup = document.createElement('div');
-            newInputGroup.classList.add('form-group', 'url-group');
-            newInputGroup.innerHTML = `
-            <label>Sub Title</label>
-            <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-            <input type="text" name="sub_title[]" class="form-control" placeholder="Enter sub title">
-            <div class="text-danger sub-title-error" style="display: none;">This field is required.</div>
-            <div class="form-group sub-group">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Sub Description</label>
-                        <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-                        <input type="text" name="sub_description[0][]" class="form-control" placeholder="Enter sub description">
-                        <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
-                    </div>
-                    <div class="col-md-6">
-                        <label>Price</label>
-                        <i class="fas fa-info-circle" title="Provide a meaningful price for this section."></i>
-                        <input type="number" step="0.01" name="price[0][]" class="form-control" placeholder="Enter price">
-                        <div class="text-danger price-error" style="display: none;">This field is required.</div>
-                    </div>
-                    <div class="col-md-2">
-                        <button type="button" class="btn btn-danger remove-description">Remove</button>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-success add-description">Add</button>
-            </div>
-            <button type="button" class="btn btn-danger remove-Pointers">Remove Pointer</button>`;
-            container.appendChild(newInputGroup);
-        });
-        // Delegate events inside Pointers container
-        container.addEventListener('click', function(event) {
-            const target = event.target;
-
-            // Add new Sub Description
-            if (target.classList.contains('add-description')) {
-                const subDescriptionContainer = target.closest('.sub-group');
-                const index = [...container.querySelectorAll('.url-group')].indexOf(subDescriptionContainer.closest('.url-group'));
-                const newRow = document.createElement('div');
-                newRow.classList.add('row');
-                newRow.innerHTML = `
-                <div class="col-md-6">
-                    <label>Sub Description</label>
-                    <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-                    <input type="text" name="sub_description[${index}][]" class="form-control" placeholder="Enter sub description">
-                    <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
-                    </div>
-                <div class="col-md-6">
-                    <label>Price</label>
-                    <i class="fas fa-info-circle" title="Provide a meaningful price for this section."></i>
-                    <input type="number" step="0.01" name="price[${index}][]" class="form-control" placeholder="Enter price">
-                    <div class="text-danger price-error" style="display: none;">This field is required.</div>
-                </div>
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-danger remove-description">Remove Description</button>
-                </div>
-            `;
-
-                // Append the new row above the Add button
-                const addButton = subDescriptionContainer.querySelector('.add-description');
-                subDescriptionContainer.insertBefore(newRow, addButton);
-
-                updateIndexes();
-                updateRemoveButtonVisibility();
-            }
-
-            // Remove a Pointer group
-            if (target.classList.contains('remove-Pointers')) {
-                target.closest('.url-group').remove();
-                updateIndexes();
-                updateRemoveButtonVisibility();
-            }
-
-            // Remove a Sub Description
-            if (target.classList.contains('remove-description')) {
-                const subGroup = target.closest('.sub-group');
-                target.closest('.row').remove();
-                updateIndexes();
-                updateRemoveButtonVisibility();
-            }
-        });
-
-        // Update indexes for all groups and sub-descriptions
-        function updateIndexes() {
-            const groups = container.querySelectorAll('.url-group');
-            groups.forEach((group, groupIndex) => {
-                const subDescriptions = group.querySelectorAll('.sub-group .row input');
-                subDescriptions.forEach((input) => {
-                    const nameParts = input.name.split('[');
-                    if (nameParts[0] === 'sub_description' || nameParts[0] === 'price') {
-                        input.name = `${nameParts[0]}[${groupIndex}][]`;
-                    }
-                });
-            });
-        }
-
-        // Update Remove Button Visibility
-        function updateRemoveButtonVisibility() {
-            const groups = container.querySelectorAll('.url-group');
-            groups.forEach((group) => {
-                const removeButton = group.querySelector('.remove-Pointers');
-                removeButton.style.display = groups.length > 1 ? 'inline-block' : 'none';
-            });
-
-            const allRows = container.querySelectorAll('.sub-group');
-            allRows.forEach((subGroup) => {
-                const rows = subGroup.querySelectorAll('.row');
-                rows.forEach((row) => {
-                    const removeButton = row.querySelector('.remove-description');
-                    removeButton.style.display = rows.length > 1 ? 'inline-block' : 'none';
-                });
-            });
-        }
-
-        // Initial setup
-        updateIndexes();
-        updateRemoveButtonVisibility();
-    });
-</script> -->
 <script>
     CKEDITOR.replace('description');
 
@@ -314,10 +188,10 @@
             const newInputGroup = document.createElement('div');
             newInputGroup.classList.add('form-group', 'url-group');
             newInputGroup.innerHTML = `
-            <div class="col-md-12">
+             <div class="form-group">
                 <label> Title</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                <input type="text" name="sub_title[]" class="form-control" placeholder="Enter title">
+                <input type="text" name="sub_title[]" class="form-control mb-2" placeholder="Enter title">
                 <div class="text-danger sub-title-error" style="display: none;">This field is required.</div>
             </div>
             <div class="form-group sub-group">

@@ -129,3 +129,9 @@ a.nav-link {
 .prcss-cls .remove-Pointers {
     margin-left: 8px !important;
 }
+.card-header button.btn.btn-primary {
+    background-color: #fff !important;
+}
+.card-header .btn-primary > a{
+    color: #000 !important;
+}
