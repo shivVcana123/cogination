@@ -119,24 +119,34 @@ class FeesController extends Controller
     //     }
     // }
     
-
+    
     public function saveOurPricingSection(Request $request)
     {
+        // dd($request->all());
         // Validation rules
         $validatedData = $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'sub_title.*' => 'required',
-            'sub_description.*.*' => 'required',
-            'price.*.*' => 'required|numeric',
+            'sub_title' => 'nullable|array',
+            'sub_title.*' => 'required|string|max:255',
+            'sub_description' => 'nullable|array',
+            'sub_description.*' => 'required|string|max:255',
+            'price' => 'nullable|array',
+            'price.*' => 'required|numeric', // Fix: Remove the extra '*'
         ], [
             'title.required' => 'The title field is required.',
             'description.required' => 'The description field is required.',
-            'sub_title.*.required' => 'The sub title field is required.',
-            'sub_description.*.*.required' => 'The sub description field is required.',
-            'price.*.*.required' => 'The price field is required.',
-            'price.*.*.numeric' => 'Each price must be a valid number.',
+            'sub_title.required' => 'Each subtitle is required.',
+            'sub_title.array' => 'The subtitles must be an array.',
+            'sub_title.*.required' => 'Each subtitle is required and must be a string.',
+            'sub_title.*.string' => 'Each subtitle must be a valid string.',
+            'sub_description.array' => 'The sub-descriptions must be an array.',
+            'sub_description.*.string' => 'Each sub-description must be a valid string.',
+            'price.*.required' => 'The price field is required.', // Fix message key
+            'price.*.numeric' => 'Each price must be a valid number.',
         ]);
+        
+        // dd($request->all());
         try {
             // Fetch or create a new record
             $autismSection = $request->id
@@ -196,7 +206,7 @@ class FeesController extends Controller
             // Success redirect
             return redirect()->route('our-pricing-section')->with('success', 'Pricing section saved successfully.');
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            dd($e);
             // Handle any exceptions
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
