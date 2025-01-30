@@ -34,27 +34,34 @@ class BannerController extends Controller
      */
     public function store(AddBannerRequest $request)
     {
-        try {
-            $banner = new BannerSection();
-            $banner->heading = $request->heading;
-            $banner->subtitle = $request->subtitle;
-            $banner->type = $request->type;
-            $banner->section_type = $request->section_type;
-            $banner->section_type = $request->section_banner;
-            $banner->description = $request->description;
-            $banner->button_text = $request->button_text;
-            $banner->button_link = $request->button_link;
-            if ($request->hasFile('image') && $request->file('image')->isValid()) {
-                $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
-                $imagePath = $request->file('image')->storeAs('banner', $imageName, 'public');
-                $banner->image = 'storage/' . $imagePath;
-            }
 
-            $banner->save();
-            return redirect()->route('banner.index')->with('success', 'Record created successfully!');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to create record: ' . $e->getMessage());
+        $existingBanner = BannerSection::where('type', $request->type)
+            ->where('section_type', $request->section_type)
+            ->first();
+
+        if ($existingBanner) {
+            // dd('Existing banner found!'); // Debugging point
+            return redirect()->back()->withErrors([
+                'section_type' => 'A banner with this type and section type already exists.',
+            ]);
         }
+
+        $banner = new BannerSection();
+        $banner->heading = $request->heading;
+        $banner->subtitle = $request->subtitle;
+        $banner->type = $request->type;
+        $banner->section_type = $request->section_type ?? '';
+        $banner->description = $request->description;
+        $banner->button_text = $request->button_text;
+        $banner->button_link = $request->button_link;
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
+            $imagePath = $request->file('image')->storeAs('banner', $imageName, 'public');
+            $banner->image = 'storage/' . $imagePath;
+        }
+
+        $banner->save();
+        return redirect()->route('banner.index')->with('success', 'Record created successfully!');
     }
 
     /**
@@ -85,7 +92,7 @@ class BannerController extends Controller
         $request->validate([
             'heading' => 'required',
             'description' => 'required',
-        ],[
+        ], [
             'heading.required' => 'The heading field is required.',
             'image.image' => 'The uploaded file must be an image.',
         ]);
@@ -93,33 +100,30 @@ class BannerController extends Controller
         if (!$banner) {
             $banner = new BannerSection();
         }
-        try {
-            $banner->heading = $request->heading;
-            $banner->subtitle = $request->subtitle;
-            $banner->type = $request->type;
-            $banner->section_type = $request->section_type;
-            $banner->section_type = $request->section_banner;
-            $banner->description = $request->description;
-            $banner->button_text = $request->button_text;
-            $banner->button_link = $request->button_link;
-            // if ($request->hasFile('image')) {
-            //     $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
-            //     $imagePath = $request->file('image')->storeAs('banner', $imageName, 'public');
-            //     $banner->image = 'storage/app/public/' . $imagePath;
-            // }
-            // Handle first image upload
-            if ($request->hasFile('image') && $request->file('image')->isValid()) {
-                $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
-                $imagePath = $request->file('image')->storeAs('banner', $imageName, 'public');
-                $banner->image = 'storage/' . $imagePath;
-            }
 
-            $banner->save();
-
-            return redirect()->route('banner.index')->with('success', 'Record created successfully!');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to create record: ' . $e->getMessage());
+        $banner->heading = $request->heading;
+        $banner->subtitle = $request->subtitle;
+        $banner->type = $request->type;
+        $banner->section_type = $request->section_type;
+        $banner->section_type = $request->section_banner;
+        $banner->description = $request->description;
+        $banner->button_text = $request->button_text;
+        $banner->button_link = $request->button_link;
+        // if ($request->hasFile('image')) {
+        //     $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+        //     $imagePath = $request->file('image')->storeAs('banner', $imageName, 'public');
+        //     $banner->image = 'storage/app/public/' . $imagePath;
+        // }
+        // Handle first image upload
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
+            $imagePath = $request->file('image')->storeAs('banner', $imageName, 'public');
+            $banner->image = 'storage/' . $imagePath;
         }
+
+        $banner->save();
+
+        return redirect()->route('banner.index')->with('success', 'Record created successfully!');
     }
 
     /**
@@ -130,6 +134,5 @@ class BannerController extends Controller
         $banner = BannerSection::findOrFail($id);
         $banner->delete();
         return redirect()->back()->with('success', 'Record deleted successfully.');
-
     }
 }

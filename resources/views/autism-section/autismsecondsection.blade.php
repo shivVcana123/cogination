@@ -59,7 +59,7 @@
                                         <!-- Subtitle Field -->
                                         <div class="form-group col-md-6">
                                             <label for="subtitle">Subtitle</label>
-                                            <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
+                                            <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label for="">(Optional)</label>
                                             <input type="text" class="form-control" name="second_subtitle" id="second_subtitle"
                                                 placeholder="Enter subtitle" value="{{ old('second_subtitle',$autismSection[0]->second_subtitle ?? '') }}">
                                             @error('second_subtitle')
@@ -69,7 +69,7 @@
 
                                         <div class="form-group col-md-6">
                                             <label for="title">Button Text</label>
-                                            <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
+                                            <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i> <label for="">(Optional)</label>
                                             <input type="text" class="form-control" name="second_button_content" id="second_button_content" placeholder="Enter Button Text" value="{{old('second_button_content',$autismSection[0]->second_button_content ?? '')}}">
                                             @error('second_button_content')
                                             <div class="text-danger">{{ $message }}</div>
@@ -77,7 +77,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="title">Button Link</label>
-                                            <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
+                                            <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i> <label for="">(Optional)</label>
 
                                             <input type="text" class="form-control" name="second_button_link" id="second_button_link" placeholder="Enter Button Link" value="{{old('second_button_link',$autismSection[0]->second_button_link ?? '')}}">
                                             @error('second_button_link')

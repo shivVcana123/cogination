@@ -121,7 +121,7 @@ class AccreditationController extends Controller
         return view('accreditation-section.accreditations',compact('accreditationsSection'));
     }
 
-    public function saveAccreditationsSection(TitleRequest $request)
+    public function saveAccreditationsSection(Request $request)
     {
         
         $validated = $request->validate([
@@ -180,7 +180,7 @@ class AccreditationController extends Controller
         return view('accreditation-section.specializedcertifications',compact('accreditationsSection'));
     }
 
-    public function saveSpecializedCertifications(TitleRequest $request)
+    public function saveSpecializedCertifications(Request $request)
     {
         
         $validated = $request->validate([
