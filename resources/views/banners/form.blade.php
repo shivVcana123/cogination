@@ -34,6 +34,19 @@
                             @endif
 
                             <div class="card-body">
+                                @if($errors->any())
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                @endif
+
                                 @if (empty($banner->id))
                                 <div class="form-group">
                                     <label for="title">Page</label>
@@ -45,17 +58,12 @@
                                         </option>
                                         @endforeach
                                     </select>
-
                                 </div>
                                 @else
                                 <label for="title"> Page</label>
                                 <input type="text" class="form-control" name="type" id="button_text" placeholder="Enter Button Text" value="{{ old('type', $banner->type) }}" readonly>
-                                @if (!empty( $banner->section_type))
-                                <label for="title"> Choose Banner</label>
-                                <input type="text" class="form-control" name="section_banner" id="button_text" placeholder="Enter Button Text" value="{{ old('section_banner', $banner->section_type) }}" readonly>
                                 @endif
 
-                                @endif
                                 <div class="form-group type-area">
                                     <label for="title">Choose Type</label>
                                     <i class="fas fa-info-circle" title="Enter a title for Banner Section."></i>
@@ -65,20 +73,6 @@
                                         <option value="Adult" {{ old('section_type', $banner->section_type) == 'Adult' ? 'selected' : '' }}>Adult</option>
                                     </select>
                                     @error('section_type')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group home-area">
-                                    <label for="title">Choose Banner</label>
-                                    <i class="fas fa-info-circle" title="Enter a title for Banner Section."></i>
-                                    <select class="form-control" style="width: 100%;" name="section_banner" id="section_type">
-                                        <option selected disabled>Please Select Banner</option>
-                                        <option value="1st" {{ old('section_banner', $banner->section_type) == '1st' ? 'selected' : '' }}>1st</option>
-                                        <option value="2nd" {{ old('section_banner', $banner->section_type) == '2nd' ? 'selected' : '' }}>2nd</option>
-                                        <option value="3rd" {{ old('section_banner', $banner->section_type) == '3rd' ? 'selected' : '' }}>3rd</option>
-                                    </select>
-                                    @error('section_banner')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -97,7 +91,6 @@
                                         <i class="fas fa-info-circle" title="Enter a subtitle for Banner Section ."></i>
                                         <label>(Optional)</label>
                                         <input type="text" class="form-control " name="subtitle" id="subtitle" placeholder="Enter sub heading" value="{{ old('subtitle', $banner->subtitle ?? '') }}">
-
                                     </div>
                                 </div>
 
@@ -108,6 +101,7 @@
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="button_content">Button Text</label><i class="fas fa-info-circle" title="Enter a Button text for Banner Section."></i> <label>(Optional)</label>
@@ -129,18 +123,20 @@
                                 <div class="form-group">
                                     <label for="image">Background Image</label>
                                     <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                    <img id="blah" src="{{asset($banner->image ?? '')}}" alt="Image Preview" style="width: 130px; display: {{ empty($banner->image) ? 'none' : 'block' }};" />
+                                    <img id="blah" src="{{ old('image', asset($banner->image ?? '')) }}" alt="Image Preview" style="width: 130px; display: {{ empty($banner->image) && old('image') ? 'block' : 'none' }};" />
                                     <input type="file" class="form-control" name="image" id="imgInp" accept="image/*">
                                     @error('image')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+
                             </div>
 
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -164,14 +160,14 @@
         }
     };
 
-    function resetFields(){
+    function resetFields() {
         $('#form-baaner-id')[0].reset();
-        $('#section_banner').prop('selectedIndex', 0);  // Set to the first (disabled) option
-        $('#section_type').prop('selectedIndex', 0); 
-       
+        $('#section_banner').prop('selectedIndex', 0); // Set to the first (disabled) option
+        $('#section_type').prop('selectedIndex', 0);
+
     }
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         const pageType = $("#page_type").val();
 
         // Show or hide areas based on initial value or old input
@@ -193,7 +189,7 @@
         initializeVisibility();
 
         // Handle changes to the page type dropdown
-        $("#page_type").change(function () {
+        $("#page_type").change(function() {
             if (this.value === "Autism" || this.value === "ADHD") {
                 $('.type-area').show();
             } else {
@@ -207,11 +203,11 @@
             }
             // alert(this.value);
             if (this.value !== "Home") {
-            //   resetFields();
-            }else{
+                //   resetFields();
+            } else {
                 resetFields();
             }
-          
+
             // $('#section_type').val('');
             // Reset the form values
             // $('#form-baaner-id')[0].reset(); // Replace 'yourFormId' with the actual form ID

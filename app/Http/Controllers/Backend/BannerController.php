@@ -32,37 +32,119 @@ class BannerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AddBannerRequest $request)
-    {
+    public function store(Request $request)
+{
+    // Validate request data with custom error messages
+    $request->validate([
+        'type' => 'required|string',
+        'section_type' => $request->type === 'Home' ? 'required|string' : 'nullable|string',
+        'heading' => 'nullable|string',
+        'subtitle' => 'nullable|string',
+        'description' => 'nullable|string',
+        'button_text' => 'nullable|string',
+        'button_link' => 'nullable|url',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ], [
+        'type.required' => 'The banner type is required.',
+        'section_type.required' => 'The section banner is required when the type is Home.',
+        'button_link.url' => 'The button link must be a valid URL.',
+        'image.image' => 'The uploaded file must be an image.',
+        'image.mimes' => 'Only JPEG, PNG, JPG, and GIF image formats are allowed.',
+        'image.max' => 'The image size must not exceed 2MB.',
+    ]);
 
+    // Allow multiple banners if type is "Home"
+    if ($request->type !== 'Home') {
+        // Check for existing banner with the same type and section_type
         $existingBanner = BannerSection::where('type', $request->type)
             ->where('section_type', $request->section_type)
             ->first();
 
+        // Check for existing banner with the same type (excluding Home)
+        $existingBannerData = BannerSection::where('type', $request->type)->first();
+
         if ($existingBanner) {
-            // dd('Existing banner found!'); // Debugging point
             return redirect()->back()->withErrors([
                 'section_type' => 'A banner with this type and section type already exists.',
             ]);
         }
 
-        $banner = new BannerSection();
-        $banner->heading = $request->heading;
-        $banner->subtitle = $request->subtitle;
-        $banner->type = $request->type;
-        $banner->section_type = $request->section_type ?? '';
-        $banner->description = $request->description;
-        $banner->button_text = $request->button_text;
-        $banner->button_link = $request->button_link;
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
-            $imagePath = $request->file('image')->storeAs('banner', $imageName, 'public');
-            $banner->image = 'storage/' . $imagePath;
+        if ($existingBannerData) {
+            return redirect()->back()->withErrors([
+                'type' => 'A banner with this type already exists and is not Home.',
+            ]);
         }
-
-        $banner->save();
-        return redirect()->route('banner.index')->with('success', 'Record created successfully!');
     }
+
+    // Store new banner
+    $banner = new BannerSection();
+    $banner->heading = $request->heading;
+    $banner->subtitle = $request->subtitle;
+    $banner->type = $request->type;
+    $banner->section_type = $request->section_type ?? '';
+    $banner->description = $request->description;
+    $banner->button_text = $request->button_text;
+    $banner->button_link = $request->button_link;
+
+    if ($request->hasFile('image') && $request->file('image')->isValid()) {
+        $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
+        $imagePath = $request->file('image')->storeAs('banner', $imageName, 'public');
+        $banner->image = 'storage/' . $imagePath;
+    }
+
+    $banner->save();
+
+    return redirect()->route('banner.index')->with('success', 'Banner created successfully!');
+}
+
+//     public function store(Request $request)
+//     {
+
+        
+//         // Allow multiple banners if type is "Home"
+// if ($request->type === 'Home') {
+//     // Skip validation and allow multiple banners
+// } else {
+//     // Check for existing banner with the same type and section_type
+//     $existingBanner = BannerSection::where('type', $request->type)
+//         ->where('section_type', $request->section_type)
+//         ->first();
+
+//     // Check for existing banner with the same type (excluding Home)
+//     $existingBannerData = BannerSection::where('type', $request->type)
+//         ->first();
+
+//     if ($existingBanner) {
+//         return redirect()->back()->withErrors([
+//             'section_type' => 'A banner with this type and section type already exists.',
+//         ]);
+//     }
+
+//     if ($existingBannerData) {
+//         return redirect()->back()->withErrors([
+//             'type' => 'A banner with this type already exists and is not Home.',
+//         ]);
+//     }
+// }
+
+// dd('sdsadsa');
+//         $banner = new BannerSection();
+//         $banner->heading = $request->heading;
+//         $banner->subtitle = $request->subtitle;
+//         $banner->type = $request->type;
+//         $banner->section_type = $request->section_type ?? '';
+//         $banner->description = $request->description;
+//         $banner->button_text = $request->button_text;
+//         $banner->button_link = $request->button_link;
+//         if ($request->hasFile('image') && $request->file('image')->isValid()) {
+//             $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
+//             $imagePath = $request->file('image')->storeAs('banner', $imageName, 'public');
+//             $banner->image = 'storage/' . $imagePath;
+//         }
+
+//         $banner->save();
+//         return redirect()->route('banner.index')->with('success', 'Record created successfully!');
+//     }
 
     /**
      * Display the specified resource.
