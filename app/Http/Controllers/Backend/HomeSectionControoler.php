@@ -87,27 +87,7 @@ class HomeSectionControoler extends Controller
         $appointment = HomeAppointment::latest()->first();
         return view('home-section.appointment', compact('appointment'));
     }
-        //  public function saveappointment(Request $request)
-        //  {
-
-        //     dd($request->all());
-        //      $healthcare = $request->id ? HomeAppointment::find($request->id) : new HomeAppointment();
-        //      if (!$healthcare) {
-        //          return redirect()->route('whyhealthcare')->withErrors('Record not found.');
-        //      }
-        //      $healthcare->title = $request->title;
-        //      $healthcare->subtitle = $request->subtitle ?? null;
-        //      $healthcare->button_content = $request->button_content ?? null;
-        //      $healthcare->button_link = $request->button_link ?? null;
-        //      $healthcare->status = $request->status ?? "off";
-        //      if ($request->hasFile('image') && $request->file('image')->isValid()) {
-        //          $directory = 'home';
-        //          $oldImage = str_replace('storage/', '', $healthcare->image);
-        //          $healthcare->image = 'storage/' . $this->uploadImages($request->file('image'), $directory, $oldImage);
-        //      }
-        //      $healthcare->save();
-        //      return redirect()->route('appointment')->with('message', 'Data saved successfully.');
-        //  }
+  
     public function saveappointment(Request $request)
     {
 
@@ -171,74 +151,6 @@ class HomeSectionControoler extends Controller
         $chooseusData = HomeChooseUs::all();
         return view('home-section.whychooseus', compact('chooseusData'));
     }
-
-    // public function savewhychooseus(Request $request)
-    // {
-
-    //     $validated = $request->validate([
-    //         'type' => 'required|string|max:255',
-    //         'second_title' => 'required|string|max:255',
-    //         'second_subtitle' => 'nullable|string|max:255',
-    //         'second_description' => 'nullable|string|max:1000',
-    //         'heading' => 'nullable|string|max:1000',
-    //         'second_sub_title.*' => 'required_with:second_sub_description.*|string|max:255',
-    //         'second_sub_description.*' => 'nullable|string|max:255',
-    //         'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
-    //     ], [
-    //         'type.required' => 'The type field is required.',
-    //         'type.string' => 'The type must be a valid string.',
-    //         'second_title.required' => 'The second title field is required.',
-    //         'second_title.string' => 'The second title must be a valid string.',
-    //         'second_sub_title.*.required_with' => 'Each subtitle must be provided if a sub-description is given.',
-    //         'second_image.image' => 'The second image must be an image file.',
-    //         'second_image.mimes' => 'The second image must be a file of type: jpeg, png, jpg, gif, webp.',
-    //     ]);
-    //     $pointers = [];
-    //     if (!empty($request->sub_title)) {
-    //         foreach ($request->sub_title as $index => $subTitle) {
-    //             $pointers[] = [
-    //                 'sub_title' => $subTitle,
-    //                 'sub_description' => $request->sub_description[$index] ?? null,
-    //             ];
-    //         }
-    //     }
-
-    //     // Check if an ID is passed for update or create a new record
-    //     $chooseus = $request->id ? HomeChooseUs::find($request->id) : new HomeChooseUs();
-
-    //     if (!$chooseus) {
-    //         return redirect()->route('whychooseus')->withErrors('Record not found.');
-    //     }
-
-    //     // Assign validated fields
-    //     $chooseus->title = $request->title;
-    //     $chooseus->subtitle = $request->subtitle ?? null;
-    //     $chooseus->description_1 = $request->description_1 ?? null;
-    //     $chooseus->status = $request->status ?? "off";
-    //     $chooseus->pointers = json_encode($pointers);
-
-    //     // Handle image upload
-    //     // if ($request->hasFile('image') && $request->file('image')->isValid()) {
-    //     //     $directory = 'home';
-    //     //     $oldImage = str_replace('storage/', '', $chooseus->image);
-    //     //     $chooseus->image = 'storage/' . $this->uploadImages($request->file('image'), $directory, $oldImage);
-    //     // }
-    //     if ($request->hasFile('image') && $request->file('image')->isValid()) {
-    //         if ($chooseus->image) {
-    //             Storage::disk('public')->delete(str_replace('storage/', '', $chooseus->image));
-    //         }
-    //         $originalName = $request->file('image')->getClientOriginalName();
-    //         $cleanedName = str_replace(' ', '_', $originalName); // Replace spaces with underscores
-    //         $imageName = uniqid() . '_' . $cleanedName;
-    //         $imagePath = $request->file('image')->storeAs('home', $imageName, 'public');
-    //         $chooseus->image = 'storage/' . $imagePath;
-    //     }
-
-    //     // Save the record
-    //     $chooseus->save();
-
-    //     return redirect()->route('whychooseus')->with('message', 'Data saved successfully.');
-    // }
 
     public function savewhychooseus(Request $request)
     {
@@ -341,22 +253,18 @@ class HomeSectionControoler extends Controller
         $healthcare->status = $request->status ?? "off";
 
         // Handle image upload
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $directory = 'home';
-            $oldImage = str_replace('storage/', '', $healthcare->image);
-            $healthcare->image = 'storage/' . $this->uploadImages($request->file('image'), $directory, $oldImage);
-        }
-        // if ($request->hasFile('image')) {
-        //     // Delete the old image if it exists
-        //     if ($healthcare->image && \Storage::exists(str_replace('storage/', '', $healthcare->image))) {
-        //         \Storage::delete(str_replace('storage/', '', $healthcare->image));
-        //     }
+   
+        if ($request->hasFile('image')) {
+            // Delete the old image if it exists
+            if ($healthcare->image && \Storage::exists(str_replace('storage/', '', $healthcare->image))) {
+                \Storage::delete(str_replace('storage/', '', $healthcare->image));
+            }
 
-        //     // Store the new image with the original file name
-        //     $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
-        //     $imagePath = $request->file('image')->storeAs('home', $imageName, 'public');
-        //     $healthcare->image = 'storage/' . $imagePath;
-        // }
+            // Store the new image with the original file name
+            $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+            $imagePath = $request->file('image')->storeAs('home', $imageName, 'public');
+            $healthcare->image = 'storage/' . $imagePath;
+        }
 
         // Save the record
         $healthcare->save();

@@ -78,16 +78,16 @@
                                                     <input type="text" id="pointerDescription{{ $index }}" class="form-control mb-2" name="pointerDescription[]" placeholder="Enter description" value="{{ $details->pointerDescription }}">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="button1Text{{ $index }}">Button 1 Text</label>
-                                                    <i class="fas fa-info-circle" title="Enter a meaningful button 1 text of this section."></i>
-                                                    <input type="text" id="button1Text{{ $index }}" class="form-control mb-2" name="button1Text[]" placeholder="Enter Button 1 Text" value="{{ $details->button1Text }}">
+                                                    <label for="button1Text{{ $index }}">Button Text</label>
+                                                    <i class="fas fa-info-circle" title="Enter a meaningful button text of this section."></i>
+                                                    <input type="text" id="button1Text{{ $index }}" class="form-control mb-2" name="button1Text[]" placeholder="Enter Button Text" value="{{ $details->button1Text }}">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="button1Link{{ $index }}">Button 1 Link</label>
-                                                    <i class="fas fa-info-circle" title="Enter a meaningful button 1 link of this section."></i>
-                                                    <input type="text" id="button1Link{{ $index }}" class="form-control mb-2" name="button1Link[]" placeholder="Enter Button 1 Link" value="{{ $details->button1Link }}">
+                                                    <label for="button1Link{{ $index }}">Button Link</label>
+                                                    <i class="fas fa-info-circle" title="Enter a meaningful button link of this section."></i>
+                                                    <input type="text" id="button1Link{{ $index }}" class="form-control mb-2" name="button1Link[]" placeholder="Enter Button Link" value="{{ $details->button1Link }}">
                                                 </div>
-                                                <div class="col-md-6">
+                                                <!-- <div class="col-md-6">
                                                     <label for="button2Text{{ $index }}">Button 2 Text</label>
                                                     <i class="fas fa-info-circle" title="Enter a meaningful button 2 Text of this section."></i>
                                                     <input type="text" id="button2Text{{ $index }}" class="form-control mb-2" name="button2Text[]" placeholder="Enter Button 2 Text" value="{{ $details->button2Text }}">
@@ -96,7 +96,7 @@
                                                     <label for="button2Link{{ $index }}">Button 2 Link</label>
                                                     <i class="fas fa-info-circle" title="Enter a meaningful button 2 link of this section."></i>
                                                     <input type="text" id="button2Link{{ $index }}" class="form-control mb-2" name="button2Link[]" placeholder="Enter Button 2 Link" value="{{ $details->button2Link }}">
-                                                </div>
+                                                </div> -->
                                                 <div class="col-md-12">
                                                     <label for="image{{ $index }}">Image</label>
                                                     <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
@@ -144,16 +144,16 @@
                                                     <input type="text" id="pointerDescription0" class="form-control mb-2" name="pointerDescription[]" placeholder="Enter description">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="button1Text0">Button 1 Text</label>
-                                                    <i class="fas fa-info-circle" title="Enter a meaningful button 1 text that summarizes the purpose of this section."></i>
-                                                    <input type="text" id="button1Text0" class="form-control mb-2" name="button1Text[]" placeholder="Enter Button 1 Text">
+                                                    <label for="button1Text0">Button Text</label>
+                                                    <i class="fas fa-info-circle" title="Enter a meaningful button text that summarizes the purpose of this section."></i>
+                                                    <input type="text" id="button1Text0" class="form-control mb-2" name="button1Text[]" placeholder="Enter Button Text">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="button1Link0">Button 1 Link</label>
-                                                    <i class="fas fa-info-circle" title="Enter a meaningful button 1 link that summarizes the purpose of this section."></i>
-                                                    <input type="text" id="button1Link0" class="form-control mb-2" name="button1Link[]" placeholder="Enter Button 1 Link">
+                                                    <label for="button1Link0">Button Link</label>
+                                                    <i class="fas fa-info-circle" title="Enter a meaningful button link that summarizes the purpose of this section."></i>
+                                                    <input type="text" id="button1Link0" class="form-control mb-2" name="button1Link[]" placeholder="Enter Button Link">
                                                 </div>
-                                                <div class="col-md-6">
+                                                <!-- <div class="col-md-6">
                                                     <label for="button2Text0">Button 2 Text</label>
                                                     <i class="fas fa-info-circle" title="Enter a meaningful button 2 text that summarizes the purpose of this section."></i>
                                                     <input type="text" id="button2Text0" class="form-control mb-2" name="button2Text[]" placeholder="Enter Button 2 Text">
@@ -162,7 +162,7 @@
                                                     <label for="button2Link0">Button 2 Link</label>
                                                     <i class="fas fa-info-circle" title="Enter a meaningful button 2 link that summarizes the purpose of this section."></i>
                                                     <input type="text" id="button2Link0" class="form-control mb-2" name="button2Link[]" placeholder="Enter Button 2 Link">
-                                                </div>
+                                                </div> -->
                                                 <div class="col-md-12">
                                                     <label for="image0">Image</label>
                                                     <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
@@ -257,25 +257,16 @@
                 <input type="text" id="pointerDescription${pointerCount}" class="form-control mb-2" name="pointerDescription[]" placeholder="Enter description">
             </div>
             <div class="col-md-6">
-                <label for="button1Text${pointerCount}">Button 1 Text</label>
-                <i class="fas fa-info-circle" title="Enter a meaningful button 1 text that summarizes the purpose of this section."></i>
-                <input type="text" id="button1Text${pointerCount}" class="form-control mb-2" name="button1Text[]" placeholder="Enter Button 1 Text" >
+                <label for="button1Text${pointerCount}">Button Text</label>
+                <i class="fas fa-info-circle" title="Enter a meaningful button text that summarizes the purpose of this section."></i>
+                <input type="text" id="button1Text${pointerCount}" class="form-control mb-2" name="button1Text[]" placeholder="Enter Button Text" >
             </div>
             <div class="col-md-6">
-                <label for="button1Link${pointerCount}">Button 1 Link</label>
-                <i class="fas fa-info-circle" title="Enter a meaningful button 1 link that summarizes the purpose of this section."></i>
-                <input type="text" id="button1Link${pointerCount}" class="form-control mb-2" name="button1Link[]" placeholder="Enter Button 1 Link" >
+                <label for="button1Link${pointerCount}">Button Link</label>
+                <i class="fas fa-info-circle" title="Enter a meaningful button link that summarizes the purpose of this section."></i>
+                <input type="text" id="button1Link${pointerCount}" class="form-control mb-2" name="button1Link[]" placeholder="Enter Button Link" >
             </div>
-            <div class="col-md-6">
-                <label for="button2Text${pointerCount}">Button 2 Text</label>
-                <i class="fas fa-info-circle" title="Enter a meaningful button 2 text that summarizes the purpose of this section."></i>
-                <input type="text" id="button2Text${pointerCount}" class="form-control mb-2" name="button2Text[]" placeholder="Enter Button 2 Text" >
-            </div>
-            <div class="col-md-6">
-                <label for="button2Link${pointerCount}">Button 2 Link</label>
-                <i class="fas fa-info-circle" title="Enter a meaningful button 2 link that summarizes the purpose of this section."></i>
-                <input type="text" id="button2Link${pointerCount}" class="form-control mb-2" name="button2Link[]" placeholder="Enter Button 2 Link" >
-            </div>
+       
             <div class="col-md-12">
                 <label for="image${pointerCount}">Image</label>
                 <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>

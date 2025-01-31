@@ -156,10 +156,10 @@ public function saveOurDiagnosticServices(Request $request)
             'button1Text.*' => 'nullable',
             'button1Link' => 'array',
             'button1Link.*' => 'nullable',
-            'button2Text' => 'array',
-            'button2Text.*' => 'nullable',
-            'button2Link' => 'array',
-            'button2Link.*' => 'nullable',
+            // 'button2Text' => 'array',
+            // 'button2Text.*' => 'nullable',
+            // 'button2Link' => 'array',
+            // 'button2Link.*' => 'nullable',
             'pointerSubTitle' => 'array',
             'pointerSubTitle.*' => 'required|array',
             'pointerSubDescription' => 'array',
@@ -175,7 +175,7 @@ public function saveOurDiagnosticServices(Request $request)
             'button1Link.*.url' => 'Each Button 1 Link must be a valid URL.',
             'button2Link.*.url' => 'Each Button 2 Link must be a valid URL.',
         ]);
-        dd($request->all());
+        // dd($request->all());
         
         // Retrieve or create a new section
         $adhdfirstSection = $request->id
@@ -268,7 +268,7 @@ public function understandingConditionsSection(){
         ]);
         
         
-        dd($request->all());
+        // dd($request->all());
         $adhdfirstSection = $request->id
             ? AssessmentUnderstandingCondition::find($request->id)
             : new AssessmentUnderstandingCondition();
