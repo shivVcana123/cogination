@@ -131,7 +131,7 @@
                                 <!-- Add Pointer Button -->
                                 <button type="button" class="btn btn-success" id="add-Pointers">Add Card</button>
 
-                                <div class="form-group">
+                                <div class="form-group mt-2">
                                     <label for="image">Image</label>
                                     <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
                                     <img id="blah" src="{{asset($joinCommunitySection[0]->image ?? '')}}" alt="Image Preview" style="width: 130px; display:{{empty($joinCommunitySection[0]->image) ? 'none' : 'block'}}" />
@@ -213,14 +213,14 @@
         subTitles.forEach(input => {
             if (!input.value.trim()) {
                 isValid = false;
-                showValidationError(input, 'Sub Title is required.');
+                showValidationError(input, 'Title is required.');
             }
         });
 
         subDescriptions.forEach(input => {
             if (!input.value.trim()) {
                 isValid = false;
-                showValidationError(input, 'Sub Description is required.');
+                showValidationError(input, 'Description is required.');
             }
         });
 

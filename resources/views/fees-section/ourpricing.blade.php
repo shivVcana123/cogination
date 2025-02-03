@@ -29,15 +29,28 @@
                             @csrf
                             <input type="hidden" name="id" id="id" value="{{ old('id', $ourPricing[0]->id ?? '') }}">
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label for="title">Title</label>
-                                    <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-                                    <input type="text" class="form-control" name="title" id="title"
-                                        placeholder="Enter title" value="{{ old('title', $ourPricing[0]->title ?? '') }}">
-                                    @error('title')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Title</label>
+                                        <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                                        <input type="text" class="form-control" name="title" id="title"
+                                            placeholder="Enter title" value="{{ old('title', $ourPricing[0]->title ?? '') }}">
+                                        @error('title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Button Text</label>
+                                        <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
+                                        <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text" value="{{old('button_content',$ourPricing[0]->button_content ?? '')}}">
+                                        @error('button_content')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
                                 </div>
+
 
                                 <!-- Description Field -->
                                 <div class="form-group">
@@ -49,6 +62,8 @@
                                     @enderror
                                 </div>
 
+                                <hr>
+
                                 @php
                                 $pointers = isset($ourPricing[0]) && !empty($ourPricing[0]->pointers)
                                 ? json_decode($ourPricing[0]->pointers)
@@ -59,7 +74,11 @@
                                 <label for="">Card Details</label>
                                 <div id="Pointers-container">
                                     @forelse($pointers as $index => $pointer)
+                                    
                                     <div class="form-group url-group">
+                                    @if (count($pointers) > 1 && $index > 0)
+        <hr>
+    @endif
                                         <!-- Sub Title -->
                                         <label> Title</label>
                                         <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
@@ -103,14 +122,14 @@
                                                     <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
-                                                <div class="col-md-2">
-                                                    <button type="button" class="btn btn-danger remove-description">Remove</button>
+                                                <div class="col-md-2 mt-1">
+                                                    <button type="button" class="btn btn-danger remove-description">Remove Description</button>
                                                 </div>
                                             </div>
                                             @endforeach
 
-                                            <button type="button" class="btn btn-success add-description">Add</button>
                                         </div>
+                                        <button type="button" class="btn btn-success add-description">Add</button>
 
                                         <!-- Remove Pointer Button -->
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove Card</button>
@@ -186,7 +205,7 @@
         document.getElementById('add-Pointers').addEventListener('click', function() {
             const newInputGroup = document.createElement('div');
             newInputGroup.classList.add('form-group', 'url-group');
-            newInputGroup.innerHTML = `
+            newInputGroup.innerHTML = `<hr>
              <div class="form-group">
                 <label> Title</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>

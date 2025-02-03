@@ -81,7 +81,7 @@
                                 ? json_decode($adhdSection[0]->pointers)
                                 : [];
                                 @endphp
-
+                                <hr>
                                 <!-- Pointers -->
                                 <label for="">Card Details</label>
                                 <div class="form-group">

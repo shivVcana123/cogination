@@ -135,3 +135,23 @@ a.nav-link {
 .card-header .btn-primary > a{
     color: #000 !important;
 }
+
+
+ul.nav.nav-treeview p {
+    font-size: 14px;
+    padding-bottom: 0px ! IMPORTANT;
+    line-height: 22px;
+    margin-bottom: 0px ! IMPORTANT;
+}
+
+hr {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+    background: #b0b0b0;
+    height: 4px;
+}
+.bar-clss{
+    align-items: center !important;
+}

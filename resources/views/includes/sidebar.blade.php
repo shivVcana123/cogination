@@ -1,5 +1,5 @@
 <!-- Main Sidebar Container -->
-<?php
+<span?php
 
 use App\Models\Logo;
 
@@ -79,46 +79,41 @@ $logo = Logo::first();
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <!-- <li class="nav-item">
-                            <a href="{{route('home.index')}}" class="nav-link {{request()->is('home*') ? 'active' : ''}}">
-                                <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Hero Section</p>
-                            </a>
-                        </li> -->
                         <li class="nav-item">
                             <a href="{{route('homeAbout')}}" class="nav-link {{ request()->is('about-us*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">About Us</p>
+                                <p style="color:black">About Us (section)</p>
+                                <!-- <p class="sectiontext">Section</p> -->
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('appointment')}}" class="nav-link {{ request()->is('appointment*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Appointment</p>
+                                <p style="color:black">Appointment (section)</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('whychooseus')}}" class="nav-link {{ request()->is('whychooseus*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Why Choose Us</p>
+                                <p style="color:black">Why Choose Us (section)</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('our-services')}}" class="nav-link {{ request()->is('our-services*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Our Services</p>
+                                <p style="color:black">Our Services (section)</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('bringinghealthcare')}}" class="nav-link {{ request()->is('bringinghealthcare*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Bringing Healthcare</p>
+                                <p style="color:black">Bringing Healthcare (section)</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('faqs')}}" class="nav-link {{ request()->is('faqs*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">FAQs</p>
+                                <p style="color:black">FAQs (section)</p>
                             </a>
                         </li>
                     </ul>
@@ -137,19 +132,19 @@ $logo = Logo::first();
                         <li class="nav-item">
                             <a href="{{route('adhd-section')}}" class="nav-link {{ request()->is('adhd-section*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">ADHD 1st Section</p>
+                                <p style="color:black">ADHD Child/Adult (section)</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('adhd-second-section')}}" class="nav-link {{ request()->is('adhd-second-section*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">ADHD 2nd Section</p>
+                                <p style="color:black">ADHD Assessment Journey (section)</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('adhd-benefits')}}" class="nav-link {{ request()->is('adhd-benefits*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">ADHD Benefits</p>
+                                <p style="color:black">ADHD Benefits (section)</p>
                             </a>
                         </li>
                     </ul>
@@ -168,33 +163,33 @@ $logo = Logo::first();
                         <li class="nav-item">
                             <a href="{{route('autism-section')}}" class="nav-link {{ request()->is('autism-section*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Autism 1st Section</p>
+                                <p style="color:black">Autism Private Child/Adult (section)</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a href="{{route('autism-second-section')}}" class="nav-link {{ request()->is('autism-second-section*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Autism 2nd Section</p>
+                                <p style="color:black">Autism Assessment Journey (section)</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a href="{{route('autism-process-section')}}" class="nav-link {{ request()->is('autism-process*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Autism Process</p>
+                                <p style="color:black">Autism Process (section)</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('autism-screening-section')}}" class="nav-link {{ request()->is('autism-screening*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Autism Screening</p>
+                                <p style="color:black">Autism Screening (section)</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('autism-book-section')}}" class="nav-link {{ request()->is('autism-book*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Autism Book</p>
+                                <p style="color:black">Autism Book (section)</p>
                             </a>
                         </li>
                         <!-- <li class="nav-item">
@@ -212,6 +207,45 @@ $logo = Logo::first();
                     </ul>
                 </li>
 
+                       <!-- Assessments -->
+                <li class="nav-item {{ request()->is('assessment-section*') || request()->is('assessment-whychoose*') || request()->is('our-diagnostic-services*') || request()->is('understanding-conditions*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-clipboard-list" style="color:black"></i>
+                        <p style="color:black">
+                            Assessments Page
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('assessment-section') }}" class="nav-link {{ request()->is('assessment-section*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon" style="color:black"></i>
+                                <p style="color:black">Comprehensive Diagnosis (section)</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('assessment-our-diagnostic-services-section') }}" class="nav-link {{ request()->is('our-diagnostic-services*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon" style="color:black"></i>
+                                <p style="color:black">Our Diagnostic Services (section)</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('assessment-whychoose-section') }}" class="nav-link {{ request()->is('assessment-whychoose*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon" style="color:black"></i>
+                                <p style="color:black">Why Choose Cognitive Care (section)</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('understanding-conditions-section') }}" class="nav-link {{ request()->is('understanding-conditions*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon" style="color:black"></i>
+                                <p style="color:black">Understanding the Conditions (section)</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
                 <!-- About Us -->
                 <li class="nav-item {{ request()->is('our-story-section*') || request()->is('our-mission-section*') || request()->is('join-community-section*') || request()->is('understanding-conditions*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
@@ -225,19 +259,19 @@ $logo = Logo::first();
                         <li class="nav-item">
                             <a href="{{ route('our-story-section') }}" class="nav-link {{ request()->is('our-story-section*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Our Story</p>
+                                <p style="color:black">Our Story (section)</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('our-mission-section') }}" class="nav-link {{ request()->is('our-mission-section*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Our Mission</p>
+                                <p style="color:black">Our Mission (section)</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('join-community-section') }}" class="nav-link {{ request()->is('join-community-section*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Join Community</p>
+                                <p style="color:black">Join Community (section)</p>
                             </a>
                         </li>
                     </ul>
@@ -256,13 +290,13 @@ $logo = Logo::first();
                         <li class="nav-item">
                             <a href="{{ route('our-approach-section') }}" class="nav-link {{ request()->is('our-approach*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Our Approach</p>
+                                <p style="color:black">Our Approach (section)</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('how-it-works-section') }}" class="nav-link {{ request()->is('how-it-works*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">How It Works</p>
+                                <p style="color:black">How It Works (section)</p>
                             </a>
                         </li>
                     </ul>
@@ -281,72 +315,32 @@ $logo = Logo::first();
                         <li class="nav-item">
                             <a href="{{ route('our-commitment-section') }}" class="nav-link {{ request()->is('our-commitment*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Our Commitment</p>
+                                <p style="color:black">Our Commitment (section)</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('certifications-section') }}" class="nav-link {{ request()->is('certifications-section*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Certifications</p>
+                                <p style="color:black">Certifications (section)</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('accreditations-section') }}" class="nav-link {{ request()->is('accreditations-section*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Accreditations</p>
+                                <p style="color:black">Accreditations (section)</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('specialized-certifications-section') }}" class="nav-link {{ request()->is('specialized-certifications-section*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Specialized Certifications
-                                </p>
+                                <p style="color:black">Specialized Certifications (section)</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a href="{{ route('our-team-continuous-section') }}" class="nav-link {{ request()->is('our-team-continuous-section*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Our Team Continuous
-                                </p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <!-- Assessments -->
-                <li class="nav-item {{ request()->is('assessment-section*') || request()->is('assessment-whychoose*') || request()->is('our-diagnostic-services*') || request()->is('understanding-conditions*') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-clipboard-list" style="color:black"></i>
-                        <p style="color:black">
-                            Assessments Page
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('assessment-section') }}" class="nav-link {{ request()->is('assessment-section*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Comprehensive Diagnosis</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('assessment-our-diagnostic-services-section') }}" class="nav-link {{ request()->is('our-diagnostic-services*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Our Diagnostic Services</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('assessment-whychoose-section') }}" class="nav-link {{ request()->is('assessment-whychoose*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Why Choose Cognitive Care</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="{{ route('understanding-conditions-section') }}" class="nav-link {{ request()->is('understanding-conditions*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Understanding the Conditions</p>
+                                <p style="color:black">Our Team Continuous (section)</p>
                             </a>
                         </li>
                     </ul>
@@ -365,7 +359,7 @@ $logo = Logo::first();
                         <li class="nav-item">
                             <a href="{{ route('our-pricing-section') }}" class="nav-link {{ request()->is('our-pricing-section*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Our Pricing</p>
+                                <p style="color:black">Our Pricing (section)</p>
                             </a>
                         </li>
                     </ul>
@@ -374,7 +368,7 @@ $logo = Logo::first();
                         <li class="nav-item">
                             <a href="{{ route('financialResponsibilities') }}" class="nav-link {{ request()->is('financial-responsibilities*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Responsibility</p>
+                                <p style="color:black">Responsibility (section)</p>
                             </a>
                         </li>
                     </ul>
@@ -385,7 +379,7 @@ $logo = Logo::first();
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-envelope" style="color:black"></i>
                         <p style="color:black">
-                        Newsletter Section
+                        Newsletter
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -442,3 +436,5 @@ $logo = Logo::first();
     </div>
     <!-- /.sidebar -->
 </aside>
+
+
