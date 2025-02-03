@@ -74,11 +74,10 @@
                                 <label for="">Card Details</label>
                                 <div id="Pointers-container">
                                     @forelse($pointers as $index => $pointer)
-                                    
-                                    <div class="form-group url-group">
                                     @if (count($pointers) > 1 && $index > 0)
         <hr>
     @endif
+                                    <div class="form-group url-group">
                                         <!-- Sub Title -->
                                         <label> Title</label>
                                         <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
@@ -122,8 +121,8 @@
                                                     <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
-                                                <div class="col-md-2 mt-1">
-                                                    <button type="button" class="btn btn-danger remove-description">Remove Description</button>
+                                                <div class="col-md-2">
+                                                    <button type="button" class="btn btn-danger remove-description">Remove</button>
                                                 </div>
                                             </div>
                                             @endforeach
@@ -168,8 +167,8 @@
                                                 </div>
                                             </div>
 
-                                            <button type="button" class="btn btn-success add-description">Add</button>
                                         </div>
+                                        <button type="button" class="btn btn-success add-description">Add</button>
 
                                         <!-- Remove Pointer Button -->
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove Card</button>
@@ -230,8 +229,8 @@
                         <button type="button" class="btn btn-danger remove-description">Remove</button>
                     </div>
                 </div>
+                </div>
                 <button type="button" class="btn btn-success add-description">Add</button>
-            </div>
             <button type="button" class="btn btn-danger remove-Pointers">Remove Card</button>`;
             container.appendChild(newInputGroup);
 
