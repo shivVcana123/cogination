@@ -81,7 +81,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ApiController extends Controller
 {
-    use jsonResponse;
+    //use jsonResponse;
     public function fetchHeaderData()
     {
         $headerData = Header::with('children')->whereNull('parent_id')->get();
@@ -96,14 +96,14 @@ class ApiController extends Controller
             'newslatter' => $newslatter,
         ];
 
-        return $this->jsonResponse($data);
+        //return $this->jsonResponse($data);
 
 
-        // return response()->json([
-        //     'status' => 'success',
-        //     'message' => 'Data fetched successfully',
-        //     'data' => $data,
-        // ], 200);
+        return response()->json([
+            'status' => 'success',
+             'message' => 'Data fetched successfully',
+             'data' => $data,
+         ], 200);
     }
     public function fetchHomeData()
     {
@@ -127,12 +127,12 @@ class ApiController extends Controller
             'homeFaq' => $homeFaqData ? new HomeFaqResource($homeFaqData) : null,
         ];
 
-        return $this->jsonResponse($data);
-        // return response()->json([
-        //     'status' => 'success',
-        //     'message' => 'Data fetched successfully',
-        //     'data' => $data,
-        // ], 200);
+        //return $this->jsonResponse($data);
+         return response()->json([
+             'status' => 'success',
+             'message' => 'Data fetched successfully',
+             'data' => $data,
+         ], 200);
     }
     public function fetchAboutData()
     {
@@ -147,12 +147,12 @@ class ApiController extends Controller
             'joinCommunityData' => $joinCommunityData ? new AboutUsJoinCommunityResource($joinCommunityData) : null,
         ];
 
-        return $this->jsonResponse($data);
-        // return response()->json([
-        //     'status' => 'success',
-        //     'message' => 'Data fetched successfully',
-        //     'data' => $data,
-        // ], 200);
+        //return $this->jsonResponse($data);
+         return response()->json([
+             'status' => 'success',
+             'message' => 'Data fetched successfully',
+             'data' => $data,
+         ], 200);
     }
     public function fetchOurApproachSectionData()
     {
@@ -165,12 +165,12 @@ class ApiController extends Controller
             'ourApproachHowItWork' => $ourApproachHowItWorkData ? new OurApproachHowItWorkResource($ourApproachHowItWorkData) : null,
         ];
 
-        return $this->jsonResponse($data);
-        // return response()->json([
-        //     'status' => 'success',
-        //     'message' => 'Data fetched successfully',
-        //     'data' => $data,
-        // ], 200);
+        //return $this->jsonResponse($data);
+         return response()->json([
+             'status' => 'success',
+             'message' => 'Data fetched successfully',
+             'data' => $data,
+         ], 200);
     }
     public function fetchAccreditationSectionData()
     {
@@ -188,12 +188,12 @@ class ApiController extends Controller
             'accreditationOurTeamContinuous' => $accreditationOurTeamContinuousDate ? new AccreditationOurCommitmentResource($accreditationOurTeamContinuousDate) : null,
         ];
 
-        return $this->jsonResponse($data);
-        // return response()->json([
-        //     'status' => 'success',
-        //     'message' => 'Data fetched successfully',
-        //     'data' => $data,
-        // ], 200);
+        //return $this->jsonResponse($data);
+         return response()->json([
+             'status' => 'success',
+             'message' => 'Data fetched successfully',
+             'data' => $data,
+         ], 200);
     }
     public function fetchAdhdSectionData()
     {
@@ -208,12 +208,12 @@ class ApiController extends Controller
 
         ];
 
-        return $this->jsonResponse($data);
-        // return response()->json([
-        //     'status' => 'success',
-        //     'message' => 'Data fetched successfully',
-        //     'data' => $data,
-        // ], 200);
+        //return $this->jsonResponse($data);
+         return response()->json([
+             'status' => 'success',
+             'message' => 'Data fetched successfully',
+             'data' => $data,
+         ], 200);
     }
     public function fetchAutismSectionData()
     {
@@ -231,12 +231,12 @@ class ApiController extends Controller
             'bookSection' => AutismsBookResource::collection($bookSectionData),
         ];
 
-        return $this->jsonResponse($data);
-        // return response()->json([
-        //     'status' => 'success',
-        //     'message' => 'Data fetched successfully',
-        //     'data' => $data,
-        // ], 200);
+        //return $this->jsonResponse($data);
+         return response()->json([
+             'status' => 'success',
+            'message' => 'Data fetched successfully',
+             'data' => $data,
+         ], 200);
     }
     public function fetchAssessmentSectionData()
     {
@@ -253,12 +253,12 @@ class ApiController extends Controller
             'understandingConditionSection' => $understandingConditionSectionData ? new AssessmentUnderstandingConditionResource($understandingConditionSectionData) : null,
         ];
 
-        return $this->jsonResponse($data);
-        // return response()->json([
-        //     'status' => 'success',
-        //     'message' => 'Data fetched successfully',
-        //     'data' => $data,
-        // ], 200);
+        //return $this->jsonResponse($data);
+         return response()->json([
+             'status' => 'success',
+             'message' => 'Data fetched successfully',
+             'data' => $data,
+       ], 200);
     }
     public function fetchFeesSectionData(Request $request)
     {
@@ -269,23 +269,33 @@ class ApiController extends Controller
             'financialResponsibility' => $financialResponsibilityData ? new FinancialResponsibilityResource($financialResponsibilityData) : null,
 
         ];
-        return $this->jsonResponse($data);
+       // return $this->jsonResponse($data);
 
-        // return response()->json([
-        //     'status' => 'success',
-        //     'message' => 'Data fetched successfully',
-        //     'data' => $data,
-        // ], 200);
+         return response()->json([
+             'status' => 'success',
+             'message' => 'Data fetched successfully',
+             'data' => $data,
+         ], 200);
     }
     public function fetchCtaSectionData()
     {
         $ctaData = Cta::get();
-        return $this->jsonResponse($ctaData);
+       // return $this->jsonResponse($ctaData);
+       return response()->json([
+            'status' => 'success',
+             'message' => 'CSS styles fetched successfully',
+            'data' =>  $ctaData,
+         ], 200);
     }
     public function fetchBannerSectionData()
     {
         $bannerSection = BannerSection::get();
-        return $this->jsonResponse($bannerSection);
+        //return $this->jsonResponse($bannerSection);
+       return response()->json([
+             'status' => 'success',
+             'message' => 'CSS styles fetched successfully',
+             'data' =>$bannerSection,
+         ], 200);
     }
     // public function fetchWebsiteStyle()
     // {

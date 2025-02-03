@@ -21,30 +21,42 @@ class AutismsSectionController extends Controller
 
     public function saveAutismSection(Request $request)
     {
-        // dd($request->all());
-        // Validate the request data
         $validated = $request->validate([
-            'type' => 'required',
-            'first_title' => 'required',
-            'first_subtitle' => 'nullable',
-            'first_button_content' => 'nullable',
-            'first_button_link' => 'nullable|required_with:first_button_content',
-            'first_description' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048', // Max file size 2MB
+            'type' => 'required|string|min:3|max:255',  
+            'first_title' => 'required|string|min:3|max:255',  
+            'first_subtitle' => 'nullable|string|min:3|max:255',  
+            'first_button_content' => 'nullable|string|min:3|max:255',  
+            'first_button_link' => 'nullable|required_with:first_button_content',  
+            'first_description' => 'required|string|min:100|max:2000',  
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg', 
         ], [
             'type.required' => 'The type field is required.',
             'type.string' => 'The type must be a valid string.',
+            'type.min' => 'The type must be at least 3 characters.',
+            'type.max' => 'The type must not exceed 255 characters.',
+            
             'first_title.required' => 'The title field is required.',
             'first_title.string' => 'The title must be a valid string.',
+            'first_title.min' => 'The title must be at least 3 characters.',
+            'first_title.max' => 'The title must not exceed 255 characters.',
+            
             'first_subtitle.string' => 'The subtitle must be a valid string.',
+            'first_subtitle.min' => 'The subtitle must be at least 3 characters.',
+            'first_subtitle.max' => 'The subtitle must not exceed 255 characters.',
+            
             'first_button_content.string' => 'The button content must be a valid string.',
-            'first_button_link.url' => 'The button link must be a valid URL.',
+            'first_button_content.min' => 'The button content must be at least 3 characters.',
+            'first_button_content.max' => 'The button content must not exceed 255 characters.',
             'first_button_link.required_with' => 'The button link is required when button content is provided.',
+            
             'first_description.required' => 'The description field is required.',
             'first_description.string' => 'The description must be a valid string.',
+            'first_description.min' => 'The description must be at least 100 characters.',
+            'first_description.max' => 'The description must not exceed 2000 characters.',
+            
             'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, webp, svg.',
-            'image.max' => 'The image must not be greater than 2MB.',
         ]);
+        
 
         // Fetch or create a new section
         $autismSection = $request->id
@@ -102,24 +114,49 @@ class AutismsSectionController extends Controller
     
         // Validate the request data
         $validated = $request->validate([
-            'type' => 'required',
-            'second_title' => 'required',
-            'second_subtitle' => 'nullable',
-            'second_button_content' => 'nullable',
+            'type' => 'required|string|min:3|max:255',
+            'second_title' => 'required|string|min:3|max:255',
+            'second_subtitle' => 'nullable|string|min:3|max:255',
+            'second_button_content' => 'nullable|string|min:3|max:255',
             'second_button_link' => 'nullable|required_with:second_button_content',
-            'second_description' => 'required',
+            'second_description' => 'required|string|min:100|max:2000',
             'second_sub_title' => 'nullable|array',
-            'second_sub_title.*' => 'required', // Ensure each subtitle is required and a valid string
-            'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|', // Max file size 2MB
+            'second_sub_title.*' => 'required|string|min:3|max:255',
+            'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg',
         ], [
             'type.required' => 'The type field is required.',
+            'type.string' => 'The type must be a valid string.',
+            'type.min' => 'The type must be at least 3 characters.',
+            'type.max' => 'The type must not exceed 255 characters.',
+            
             'second_title.required' => 'The second title field is required.',
+            'second_title.string' => 'The second title must be a valid string.',
+            'second_title.min' => 'The second title must be at least 3 characters.',
+            'second_title.max' => 'The second title must not exceed 255 characters.',
+            
+            'second_subtitle.string' => 'The second subtitle must be a valid string.',
+            'second_subtitle.min' => 'The second subtitle must be at least 3 characters.',
+            'second_subtitle.max' => 'The second subtitle must not exceed 255 characters.',
+            
+            'second_button_content.string' => 'The second button content must be a valid string.',
+            'second_button_content.min' => 'The second button content must be at least 3 characters.',
+            'second_button_content.max' => 'The second button content must not exceed 255 characters.',
             'second_button_link.required_with' => 'The button link is required when button content is provided.',
+            
             'second_description.required' => 'The description field is required.',
+            'second_description.string' => 'The second description must be a valid string.',
+            'second_description.min' => 'The second description must be at least 100 characters.',
+            'second_description.max' => 'The second description must not exceed 2000 characters.',
+            
             'second_sub_title.array' => 'The second sub-title field must be an array.',
             'second_sub_title.*.required' => 'Each second sub-title is required.',
+            'second_sub_title.*.string' => 'Each second sub-title must be a valid string.',
+            'second_sub_title.*.min' => 'Each second sub-title must be at least 3 characters.',
+            'second_sub_title.*.max' => 'Each second sub-title must not exceed 255 characters.',
+            
             'second_image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, webp, svg.',
         ]);
+        
         
 
         // Fetch or create a new section
@@ -186,31 +223,43 @@ class AutismsSectionController extends Controller
         // Validate the request data
         $validated = $request->validate([
             'type' => 'required',
-            'title' => 'required',
+            'title' => 'required|string|min:3|max:255',
             'subtitle' => 'nullable|string|max:255',
-            'description' => 'required|string',
+            'description' => 'required|string|min:100|max:2000',
             'sub_title' => 'nullable|array',
-            'sub_title.*' => 'required|string|max:255', // Ensures each subtitle is required and a valid string
+            'sub_title.*' => 'required|string|max:255',
             'sub_description' => 'nullable|array',
-            'sub_description.*' => 'required|string', // Ensures each sub-description is required and a valid string
-            'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048', // Fixed extra '|' and added max file size 2MB
+            'sub_description.*' => 'required|string|max:255',
+            'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg',
         ], [
             'type.required' => 'Please select the type.',
-            'title' => 'The title field is required.',
+            'title.required' => 'The title field is required.',
+            'title.string' => 'The title must be a valid string.',
+            'title.min' => 'The title must be at least 3 characters.',
+            'title.max' => 'The title must not exceed 255 characters.',
+            
             'subtitle.string' => 'The subtitle must be a valid string.',
+            'subtitle.max' => 'The subtitle must not exceed 255 characters.',
+            
             'description.required' => 'The description field is required.',
             'description.string' => 'The description must be a valid string.',
+            'description.min' => 'The description must be at least 100 characters.',
+            'description.max' => 'The description must not exceed 2000 characters.',
+            
             'sub_title.array' => 'The sub-title field must be an array.',
             'sub_title.*.required' => 'Each sub-title is required.',
             'sub_title.*.string' => 'Each sub-title must be a valid string.',
+            'sub_title.*.max' => 'Each sub-title must not exceed 255 characters.',
+            
             'sub_description.array' => 'The sub-description field must be an array.',
             'sub_description.*.required' => 'Each sub-description is required.',
             'sub_description.*.string' => 'Each sub-description must be a valid string.',
+            'sub_description.*.max' => 'Each sub-description must not exceed 255 characters.',
+            
             'second_image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, webp, svg.',
-            'second_image.max' => 'The image must not be greater than 2MB.',
         ]);
         
-        // dd($request->all());
+        
         // Fetch or create a new section
         $autismSection = $request->id
             ? AutismsProcess::find($request->id)
@@ -265,21 +314,35 @@ class AutismsSectionController extends Controller
         // Validate the request data
         $validated = $request->validate([
             'type' => 'required',
-            'title' => 'required',
-            'subtitle' => 'nullable',
-            'button_content' => 'nullable',
+            'title' => 'required|string|min:3|max:255',
+            'subtitle' => 'nullable|string|max:255',
+            'button_content' => 'nullable|string|max:255',
             'button_link' => 'nullable|required_with:button_content',
-            'description' => 'required',
+            'description' => 'required|string|min:100|max:2000',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg',
         ], [
             'type.required' => 'The type field is required.',
             'title.required' => 'The title field is required.',
-            'subtitle.required' => 'The subtitle field is required.',
-            'button_content.required' => 'The second title must be a valid string.',
+            'title.string' => 'The title must be a valid string.',
+            'title.min' => 'The title must be at least 3 characters.',
+            'title.max' => 'The title must not exceed 255 characters.',
+            
+            'subtitle.string' => 'The subtitle must be a valid string.',
+            'subtitle.max' => 'The subtitle must not exceed 255 characters.',
+            
+            'button_content.string' => 'The button content must be a valid string.',
+            'button_content.max' => 'The button content must not exceed 255 characters.',
+            
             'button_link.required_with' => 'The button link is required when button content is provided.',
-            'description' => 'The description field is required.',
-            'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif,svg, webp.',
+            
+            'description.required' => 'The description field is required.',
+            'description.string' => 'The description must be a valid string.',
+            'description.min' => 'The description must be at least 100 characters.',
+            'description.max' => 'The description must not exceed 2000 characters.',
+            
+            'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, svg, webp.',
         ]);
+        
 
         // Fetch or create a new section
         $autismSection = $request->id
@@ -330,23 +393,39 @@ class AutismsSectionController extends Controller
 
         // Validate the request data
         $validated = $request->validate([
-            'type' => 'required',
-            'title' => 'required',
-            'subtitle' => 'nullable',
-            'button_content' => 'nullable',
+            'type' => 'required|string|max:255',
+            'title' => 'required|string|min:3|max:255',
+            'subtitle' => 'nullable|string|max:255',
+            'button_content' => 'nullable|string|max:255',
             'button_link' => 'nullable|required_with:button_content',
-            'description' => 'required',
+            'description' => 'required|string|min:100|max:2000',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg',
         ], [
             'type.required' => 'The type field is required.',
+            'type.string' => 'The type must be a valid string.',
+            'type.max' => 'The type must not exceed 255 characters.',
+            
             'title.required' => 'The title field is required.',
-            'subtitle.required' => 'The subtitle field is required.',
-            'button_content.required' => 'The second title must be a valid string.',
+            'title.string' => 'The title must be a valid string.',
+            'title.min' => 'The title must be at least 3 characters.',
+            'title.max' => 'The title must not exceed 255 characters.',
+            
+            'subtitle.string' => 'The subtitle must be a valid string.',
+            'subtitle.max' => 'The subtitle must not exceed 255 characters.',
+            
+            'button_content.string' => 'The button content must be a valid string.',
+            'button_content.max' => 'The button content must not exceed 255 characters.',
+            
             'button_link.required_with' => 'The button link is required when button content is provided.',
-            'description' => 'The description field is required.',
-            'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif,svg, webp.',
+            
+            'description.required' => 'The description field is required.',
+            'description.string' => 'The description must be a valid string.',
+            'description.min' => 'The description must be at least 100 characters.',
+            'description.max' => 'The description must not exceed 2000 characters.',
+            
+            'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, svg, webp.',
         ]);
-        dd($request->all());
+        
         // Fetch or create a new section
         $autismBook = $request->id
             ? AutismsBook::find($request->id)
@@ -404,25 +483,49 @@ class AutismsSectionController extends Controller
     public function saveForm(Request $request)
     {
         // Save the CategorySection
-        // dd($request->all());
         $validated = $request->validate([
             'type' => 'required|string|max:255',
-            'second_title' => 'required|string|max:255',
+            'second_title' => 'required|string|min:3|max:255',
             'second_subtitle' => 'nullable|string|max:255',
-            'second_description' => 'nullable|string|max:1000',
+            'second_description' => 'nullable|string|min:100|max:2000',
             'heading' => 'nullable|string|max:1000',
-            'second_sub_title.*' => 'required_with:second_sub_description.*|string|max:255',
+            'second_sub_title.*' => 'required_with:second_sub_description.*|string|min:1|max:255',
             'second_sub_description.*' => 'nullable|string|max:255',
-            'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
+            'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp', // Added max size of 2MB
         ], [
             'type.required' => 'The type field is required.',
             'type.string' => 'The type must be a valid string.',
+            'type.max' => 'The type must not exceed 255 characters.',
+            
             'second_title.required' => 'The second title field is required.',
             'second_title.string' => 'The second title must be a valid string.',
+            'second_title.min' => 'The second title must be at least 3 characters.',
+            'second_title.max' => 'The second title must not exceed 255 characters.',
+            
             'second_sub_title.*.required_with' => 'Each subtitle must be provided if a sub-description is given.',
+            'second_sub_title.*.string' => 'Each subtitle must be a valid string.',
+            'second_sub_title.*.min' => 'Each subtitle must be at least 1 character.',
+            'second_sub_title.*.max' => 'Each subtitle must not exceed 255 characters.',
+            
             'second_image.image' => 'The second image must be an image file.',
             'second_image.mimes' => 'The second image must be a file of type: jpeg, png, jpg, gif, webp.',
+            'second_image.max' => 'The second image must not be greater than 2MB.',
+            
+            'second_subtitle.string' => 'The second subtitle must be a valid string.',
+            'second_subtitle.max' => 'The second subtitle must not exceed 255 characters.',
+            
+            'second_description.string' => 'The second description must be a valid string.',
+            'second_description.max' => 'The second description must not exceed 1000 characters.',
+            'second_description.min' => 'The second description title must be at least 100 characters.',
+            
+            'heading.string' => 'The heading must be a valid string.',
+            'heading.max' => 'The heading must not exceed 1000 characters.',
+            
+            'second_sub_description.*.nullable' => 'Each sub-description must be nullable.',
+            'second_sub_description.*.string' => 'Each sub-description must be a valid string.',
+            'second_sub_description.*.max' => 'Each sub-description must not exceed 255 characters.',
         ]);
+        
         // Save the SubCategorySection using the newly created CategorySection ID
         $subCategorySection = SubCategorySection::create([
             'first_title' => $request->first_title,

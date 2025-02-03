@@ -35,6 +35,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="title">Title</label>
+                                            <i class="fas fa-info-circle" title="Provide a brief title that complements the main title of this section."></i>
                                             <input type="text" class="form-control" name="title" id="title" value="{{ old('title', $subscribeNewsletter->title ?? '') }}" placeholder="Enter Title">
                                             @error('title')
                                             <div class="text-danger">{{ $message }}</div>
@@ -45,6 +46,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="button_content">Button Text</label>
+                                            <i class="fas fa-info-circle" title="Provide a brief button text of this section."></i>
                                             <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text" value="{{ old('button_content', $subscribeNewsletter->button_content ?? '') }}">
                                             @error('button_content')
                                             <div class="text-danger">{{ $message }}</div>
@@ -74,11 +76,13 @@
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label>Media Icon</label>
+                                                <i class="fas fa-info-circle" title="Provide a brief media icon of this section."></i> <label for="">(Optional)</label>
                                                 <img class="media-icon" id="blah" src="{{asset($pointer['image'])}}" alt="Image Preview" style="width: auto; display:{{empty($pointer['image']) ? 'none' : 'block'}};" />
                                                 <input type="file" name="image[{{ $key }}]" id="imgInp" class="form-control">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Media Link</label>
+                                                <i class="fas fa-info-circle" title="Provide a brief media link of this section."></i> <label for="">(Optional)</label>
                                                 <input type="text" name="link[{{ $key }}]" class="form-control" value="{{ $pointer['link'] ?? '' }}" placeholder="Enter Media Link">
                                             </div>
                                         </div>
@@ -90,11 +94,13 @@
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label>Media Icon</label>
+                                                <i class="fas fa-info-circle" title="Provide a brief media icon of this section."></i> <label for="">(Optional)</label>
                                                 <img class="media-icon" id="blah" src="#" alt="Image Preview" style="width: auto; display:none;" />
                                                 <input type="file" name="image[]" id="imgInp" class="form-control">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Media Link</label>
+                                                <i class="fas fa-info-circle" title="Provide a brief media link of this section."></i> <label for="">(Optional)</label>
                                                 <input type="text" name="link[]" class="form-control" placeholder="Enter Media Link">
                                             </div>
                                         </div>
@@ -137,11 +143,13 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="row">
                 <div class="form-group col-md-6">
                     <label>Media Icon</label>
-                    <img class="media-icon" id="img-preview-${uniqueId}" src="#" alt="Image Preview" style="width: auto; display:none;" />
+                     <i class="fas fa-info-circle" media icon of this section."></i>
+                    <img class="media-icon" id="img-preview-${uniqueId}" src="#" alt="Image Preview" style="width: auto; display:none;" /> <label for="">(Optional)</label>
                     <input type="file" name="image[]" id="file-input-${uniqueId}" class="form-control">
                 </div>
                 <div class="form-group col-md-6">
                     <label>Media Link</label>
+                     <i class="fas fa-info-circle" title="Provide a brief media link of this section."></i> <label for="">(Optional)</label>
                     <input type="text" name="link[]" class="form-control" placeholder="Enter Media Link">
                 </div>
             </div>

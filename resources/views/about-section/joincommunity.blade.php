@@ -213,14 +213,14 @@
         subTitles.forEach(input => {
             if (!input.value.trim()) {
                 isValid = false;
-                showValidationError(input, 'Sub Title is required.');
+                showValidationError(input, 'Title is required.');
             }
         });
 
         subDescriptions.forEach(input => {
             if (!input.value.trim()) {
                 isValid = false;
-                showValidationError(input, 'Sub Description is required.');
+                showValidationError(input, 'Description is required.');
             }
         });
 

@@ -45,7 +45,7 @@
                                     <!-- Subtitle Field -->
                                     <div class="form-group col-md-6">
                                         <label for="subtitle">Subtitle</label>
-                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label for="">(Optional)</label>
                                         <input type="text" class="form-control" name="subtitle" id="subtitle"
                                             placeholder="Enter subtitle" value="{{ old('subtitle',$healthcare[0]->subtitle ?? '') }}">
                                         @error('subtitle')
@@ -54,8 +54,8 @@
                                     </div>
 
                                     <div class="form-group col-md-6">
-                                        <label for="button_content">Button 1 Text</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful label for Button 1."></i>
+                                        <label for="button_content">Button Text</label>
+                                        <i class="fas fa-info-circle" title="Provide a meaningful label for button text."></i> <label for="">(Optional)</label>
                                         <input type="text" class="form-control" name="button_content1" id="button_content" placeholder="Enter Button Text" value="{{ old('button_content',$healthcare[0]->button_content1 ?? '') }}">
                                         @error('button_content')
                                         <div class="text-danger">{{ $message }}</div>
@@ -63,17 +63,17 @@
                                     </div>
 
                                     <div class="form-group col-md-6">
-                                        <label for="button_link">Button 1 Link</label>
-                                        <i class="fas fa-info-circle" title="Provide a valid URL for Button 1."></i>
+                                        <label for="button_link">Button Link</label>
+                                        <i class="fas fa-info-circle" title="Provide a valid URL for button link."></i> <label for="">(Optional)</label>
                                         <input type="text" class="form-control" name="button_link1" id="button_link" placeholder="Enter Button Link" value="{{ old('button_link',$healthcare[0]->button_link1 ?? '') }}">
                                         @error('button_link')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
 
-                                    <div class="form-group col-md-6">
+                                    <!-- <div class="form-group col-md-6">
                                         <label for="button_content">Button 2 Text</label>
-                                        <i class="fas fa-info-circle" title="Provide a meaningful label for Button 2."></i>
+                                        <i class="fas fa-info-circle" title="Provide a meaningful label for Button 2."></i> <label for="">(Optional)</label>
                                         <input type="text" class="form-control" name="button_content2" id="button_content" placeholder="Enter Button Text" value="{{ old('button_content',$healthcare[0]->button_content2 ?? '') }}">
                                         @error('button_content')
                                         <div class="text-danger">{{ $message }}</div>
@@ -82,22 +82,20 @@
 
                                     <div class="form-group col-md-6">
                                         <label for="button_link">Button 2 Link</label>
-                                        <i class="fas fa-info-circle" title="Provide a valid URL for Button 2."></i>
+                                        <i class="fas fa-info-circle" title="Provide a valid URL for Button 2."></i> <label for="">(Optional)</label>
                                         <input type="text" class="form-control" name="button_link2" id="button_link" placeholder="Enter Button Link" value="{{ old('button_link',$healthcare[0]->button_link2 ?? '') }}">
                                         @error('button_link')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
-                                    </div>
+                                    </div> -->
                                 </div>
 
 
                                 <div class="form-group">
                                     <label for="image">Image</label>
                                     <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                    <img id="blah" 
-     src="{{ asset($healthcare[0]->image ?? '') }}" 
-     alt="Image Preview" 
-     style="width: 130px; display: {{ !empty($healthcare) && isset($healthcare[0]) && $healthcare[0]->image ? 'block' : 'none' }};" />
+                                    <img id="blah" src="{{ asset($healthcare[0]->image ?? '') }}"  alt="Image Preview" 
+                                        style="width: 130px; display: {{ !empty($healthcare) && isset($healthcare[0]) && $healthcare[0]->image ? 'block' : 'none' }};" />
                                     <input type="file" class="form-control" name="image" id="imgInp" accept="image/*">
                                     @error('image')
                                     <div class="text-danger">{{ $message }}</div>
