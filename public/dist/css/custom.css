@@ -155,3 +155,6 @@ hr {
 .bar-clss{
     align-items: center !important;
 }
+.data-clss {
+    padding-left: 7px;
+}

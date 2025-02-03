@@ -95,7 +95,7 @@
                                         <label for="title">Title 1</label><i class="fas fa-info-circle" title="Enter a first title for Footer Section ."></i>
                                         <input type="text" class="form-control" name="title1" id="title1" value="{{$footerData[0]->title1 ?? ''}}" placeholder="Enter title1">
                                     </div>
-                                    <div class="row">
+                                    <div class="row data-clss">
                                         <div class="col-12">
                                             <label class="selct-data" for="headers">Select Display Data</label>
                                             <i class="fas fa-info-circle" title="Select the values you want to show in the footer."></i>
