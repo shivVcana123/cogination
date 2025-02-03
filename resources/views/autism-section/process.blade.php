@@ -38,8 +38,8 @@
                                         <option value="Adult" {{ old('type', $autismProcess[0]->type ?? '') === 'Adult' ? 'selected' : '' }}>Adult</option>
                                     </select>
                                     @error('type')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="row">
@@ -47,6 +47,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="title">Title</label>
                                         <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+
                                         <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" value="{{ old('title', $autismProcess[0]->title ?? '') }}">
                                         @error('title')
                                         <div class="text-danger">{{ $message }}</div>
@@ -55,7 +56,7 @@
 
                                     <div class="form-group col-md-6">
                                         <label for="subtitle">Subtitle</label>
-                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label for="">(Optional)</label>
                                         <input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="Enter subtitle" value="{{ old('subtitle', $autismProcess[0]->subtitle ?? '') }}">
                                         @error('subtitle')
                                         <div class="text-danger">{{ $message }}</div>
@@ -66,17 +67,18 @@
                                 <div class="form-group">
                                     <label for="description">Description</label>
                                     <i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
+
                                     <textarea name="description" id="description" class="form-control">{{ old('description', $autismProcess[0]->description ?? '') }}</textarea>
                                     @error('description')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
-
+                                <hr>
                                 <!-- Pointers Section -->
-                                <label for="">Add Extra Pointers</label>
+                                <label for="">Card Details</label>
                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
 
-                                <div id="Pointers-container" class="prcss-cls">
+                                <div id="Pointers-container">
                                     @php
                                     $pointers = json_decode($autismProcess[0]->pointers ?? '[]');
                                     @endphp
@@ -85,49 +87,55 @@
                                     <div class="form-group url-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Sub Title</label>
-                                                <input type="text" name="sub_title[]" class="form-control" value="{{ $pointer->sub_title }}" placeholder="Enter sub title">
+                                                <label> Title</label>
+                                                <input type="text" name="sub_title[]" class="form-control" value="{{ $pointer->sub_title }}" placeholder="Enter title">
+                                                @error('sub_title')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                             <div class="col-md-6">
-                                                <label>Sub Description</label>
+                                                <label> Description</label>
                                                 <textarea name="sub_description[]" class="form-control">{{ $pointer->sub_description }}</textarea>
+                                                @error('sub_description')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
-                                            <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                         </div>
+                                        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                     </div>
                                     @endforeach
                                     @else
                                     <div class="form-group url-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Sub Title</label>
+                                                <label> Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter sub title">
+                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter title">
                                                 @error('sub_title')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                             <div class="col-md-6">
-                                                <label>Sub Description</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
+                                                <label> Description</label>
+                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+
                                                 <textarea name="sub_description[]" class="form-control"></textarea>
                                                 @error('sub_description')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                     </div>
+                                    @endif
                                 </div>
-                                @endif
                                 <button type="button" id="add-Pointers" class="btn btn-success">Add Card</button>
-                            </div>
 
-                            <div class="card-footer">
-                                <input type="checkbox" id="status" name="status" {{ ($autismProcess[0]->status ?? '') === 'on' ? 'checked' : '' }}>
-                                <label for="status">Show On Website</label>
-                                <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
-                            </div>
+                                <div class="card-footer">
+                                    <input type="checkbox" id="status" name="status" {{ ($autismProcess[0]->status ?? '') === 'on' ? 'checked' : '' }}>
+                                    <label for="status">Show On Website</label>
+                                    <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
+                                </div>
                         </form>
                     </div>
                 </div>
@@ -137,38 +145,33 @@
 </div>
 @endsection
 @section('java_script')
+
 <script>
     CKEDITOR.replace('description');
 
+    // Handle adding new pointers (cards)
     document.getElementById('add-Pointers').addEventListener('click', function() {
         const container = document.getElementById('Pointers-container');
         const div = document.createElement('div');
         div.classList.add('form-group', 'url-group');
         div.innerHTML = `
-        <div class="row">
-            <div class="col-md-6">
-                <label>Sub Title</label>
-                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter sub title">
-                                <div class="text-danger image-error" style="display: none;">The title field is required.</div>
-
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Title</label>
+                    <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter title">
                 </div>
-            <div class="col-md-6">
-                <label>Sub Description</label>
-                <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-                <textarea name="sub_description[]" class="form-control"></textarea>
-                                <div class="text-danger image-error" style="display: none;">The description field is required.</div>
-
+                <div class="col-md-6">
+                    <label>Description</label>
+                    <textarea name="sub_description[]" class="form-control"></textarea>
                 </div>
             </div>
             <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
-        </div>
-            
         `;
         container.appendChild(div);
         toggleRemoveButtons();
     });
 
+    // Handle removing pointers (cards)
     document.getElementById('Pointers-container').addEventListener('click', function(e) {
         if (e.target.classList.contains('remove-Pointers')) {
             e.target.closest('.url-group').remove();
@@ -176,6 +179,7 @@
         }
     });
 
+    // Toggle visibility of remove buttons
     function toggleRemoveButtons() {
         const pointers = document.querySelectorAll('.url-group');
         pointers.forEach((pointer) => {
@@ -187,139 +191,162 @@
     // Initial check on page load
     toggleRemoveButtons();
 
-    // Validation logic
+    // Form submission validation
     document.getElementById('form-submit-button').addEventListener('click', function(event) {
-    let isValid = true;
+        event.preventDefault(); // Prevent form submission
 
-    // Remove existing error messages
-    document.querySelectorAll('.validation-error').forEach(error => error.remove());
+        const subTitles = document.querySelectorAll('.sub-title-input');
+        const subDescriptions = document.querySelectorAll('.sub-description-input');
+        let isValid = true;
 
-    // Validate Sub Titles
-    document.querySelectorAll('.sub-title-input').forEach(input => {
-        if (!input.value.trim()) {
-            isValid = false;
-            showError(input, "Sub Title is required.");
+        // Remove existing error messages
+        document.querySelectorAll('.validation-error').forEach(error => error.remove());
+
+        subTitles.forEach((input, index) => {
+            // Validate sub_title
+            if (!input.value.trim()) {
+                isValid = false;
+
+                // Display error message for sub_title
+                const errorMessage = document.createElement('div');
+                errorMessage.classList.add('validation-error');
+                errorMessage.style.color = 'red';
+                errorMessage.textContent = 'Title is required.';
+                input.parentElement.appendChild(errorMessage);
+            }
+
+            // Validate sub_description only if the corresponding element exists
+            const subDescription = subDescriptions[index];
+            if (subDescription && !subDescription.value.trim()) {
+                isValid = false;
+
+                // Display error message for sub_description
+                const errorMessage = document.createElement('div');
+                errorMessage.classList.add('validation-error');
+                errorMessage.style.color = 'red';
+                errorMessage.textContent = 'Sub Description is required.';
+                subDescription.parentElement.appendChild(errorMessage);
+            }
+        });
+
+        // Only submit if valid
+        if (isValid) {
+            // Simulate form submission (or call your actual form submission method here)
+            console.log('Form is valid, submitting...');
+            // Add actual form submission code here, e.g., make an AJAX request or submit the form.
+            document.querySelector('form').submit();
+        } else {
+            console.log('Form has errors, not submitting.');
         }
     });
 
-    // Validate Sub Descriptions
-    document.querySelectorAll('textarea[name="sub_description[]"]').forEach(textarea => {
-        if (!textarea.value.trim()) {
-            isValid = false;
-            showError(textarea, "Sub Description is required.");
-        }
-    });
+    // Handle type change for AJAX
+    $('#type').on('change', function() {
+        const selectedType = $(this).val();
+        if (selectedType) {
+            $.ajax({
+                url: "{{ route('fetch-process-section-by-type') }}",
+                type: "GET",
+                data: {
+                    type: selectedType
+                },
+                success: function(response) {
+                    if (response && response.data && response.data.length > 0) {
+                        const section = response.data[0];
+                        if (section) {
+                            $('#id').val(section.id || '');
+                            $('#title').val(section.title || '');
+                            $('#subtitle').val(section.subtitle || '');
+                            $('#status').prop('checked', section.status === 'on');
+                            CKEDITOR.instances.description.setData(section.description || '');
 
-    if (!isValid) {
-        event.preventDefault(); // Prevent form submission if validation fails
-    }
-});
+                            const pointers = section.pointers ? JSON.parse(section.pointers) : [];
+                            const container = $('#Pointers-container');
+                            container.empty();
 
-// Function to show error messages
-function showError(element, message) {
-    const errorMessage = document.createElement('div');
-    errorMessage.classList.add('validation-error');
-    errorMessage.style.color = 'red';
-    errorMessage.textContent = message;
-    element.parentElement.appendChild(errorMessage);
-}
-
-
-$('#type').on('change', function() {
-    const selectedType = $(this).val();
-    const container = $('#Pointers-container');
-
-    if (selectedType) {
-        $.ajax({
-            url: "{{ route('fetch-process-section-by-type') }}",
-            type: "GET",
-            data: { type: selectedType },
-            success: function(response) {
-                console.log(response.data);
-                if (response && response.data && response.data.length > 0) {
-                    const section = response.data[0]; // Assuming a single record
-                    if (section) {
-                        $('#id').val(section.id || '');
-                        $('#title').val(section.title || '');
-                        $('#subtitle').val(section.subtitle || '');
-                        $('#status').prop('checked', section.status === 'on');
-                        CKEDITOR.instances.description.setData(section.description || '');
-
-                        // Handle pointers
-                        const pointers = section.pointers ? JSON.parse(section.pointers) : [];
-                        container.empty();
-
-                        if (pointers.length > 0) {
-                            pointers.forEach(pointer => {
-                                const pointerHtml = `
+                            if (pointers.length > 0) {
+                                pointers.forEach(pointer => {
+                                    const pointerHtml = `
+                                        <div class="form-group url-group">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Title</label>
+                                                    <input type="text" name="sub_title[]" class="form-control sub-title-input" value="${pointer.sub_title || ''}" placeholder="Enter title">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label>Sub Description</label>
+                                                    <textarea name="sub_description[]" class="form-control sub-description-input">${pointer.sub_description || ''}</textarea>
+                                                </div>
+                                                <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                                            </div>
+                                        </div>
+                                    `;
+                                    container.append(pointerHtml);
+                                });
+                            } else {
+                                container.append(`
                                     <div class="form-group url-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Sub Title</label>
-                                                <input type="text" name="sub_title[]" class="form-control sub-title-input" value="${pointer.sub_title || ''}" placeholder="Enter sub title">
+                                                <label>Title</label>
+                                                <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter title">
                                             </div>
                                             <div class="col-md-6">
-                                                <label>Sub Description</label>
-                                                <textarea name="sub_description[]" class="form-control">${pointer.sub_description || ''}</textarea>
+                                                <label>Description</label>
+                                                <textarea name="sub_description[]" class="form-control sub-description-input"></textarea>
                                             </div>
                                             <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                         </div>
                                     </div>
-                                `;
-                                container.append(pointerHtml);
-                            });
+                                `);
+                            }
+
+                            toggleRemoveButtons();
                         } else {
-                            addEmptyPointer(container);
+                            resetForm(); // Reset form if no data is found
                         }
-
-                        toggleRemoveButtons();
                     }
-                } else {
-                    resetForm(); // Reset form if no data is found
+                },
+                error: function() {
+                    alert('An error occurred while fetching data.');
                 }
-            },
-            error: function() {
-                alert('An error occurred while fetching data.');
-                resetForm();
-            }
-        });
-    } else {
-        resetForm(); // Reset form when no type is selected
+            });
+        }
+    });
+
+    // Reset form fields
+    function resetForm() {
+        $('#id').val('');
+        $('#title').val('');
+        $('#subtitle').val('');
+        $('#status').prop('checked', false);
+        CKEDITOR.instances.description.setData('');
+        $('#Pointers-container').empty();
+        addEmptyPointer($('#Pointers-container'));
     }
-});
 
-// Function to add an empty pointer input
-function addEmptyPointer(container) {
-    container.empty();
-    container.append(`
-        <div class="form-group url-group">
-            <div class="row">
-                <div class="col-md-6">
-                    <label>Sub Title</label>
-                    <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter sub title">
+    // Add an empty pointer input
+    function addEmptyPointer(container) {
+        container.empty();
+        container.append(`
+            <div class="form-group url-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Title</label>
+                        <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter title">
+                    </div>
+                    <div class="col-md-6">
+                        <label>Description</label>
+                        <textarea name="sub_description[]" class="form-control sub-description-input"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                 </div>
-                <div class="col-md-6">
-                    <label>Sub Description</label>
-                    <textarea name="sub_description[]" class="form-control"></textarea>
-                </div>
-                <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
             </div>
-        </div>
-    `);
-}
-
-// Function to reset form fields
-function resetForm() {
-    $('#id').val('');
-    $('#title').val('');
-    $('#subtitle').val('');
-    $('#status').prop('checked', false);
-    CKEDITOR.instances.description.setData('');
-    $('#Pointers-container').empty();
-    addEmptyPointer($('#Pointers-container'));
-}
-
+        `);
+    }
 </script>
+
+
 
 
 @endsection

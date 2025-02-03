@@ -70,7 +70,8 @@
                                 ? json_decode($accreditationsSection[0]->pointers)
                                 : [];
                                 @endphp
-
+                                
+                                <hr>
                                 <!-- Pointers Section -->
                                 <label for="">Card Details</label>
                                 <div id="Pointers-container">

@@ -43,15 +43,24 @@ class CtaController extends Controller
      */
     public function store(Request $request)
 {
-    try {
+
         $validated = $request->validate([
             'cta_type' => 'required',
-            'title' => 'required',
-            'description' => 'required', // Update to 'required' instead of 'required|string'
+            'title' => 'required|string|min:3|max:255',
+            'description' => 'required|string|min:100|max:2000',
+            'button_content' => 'nullable|string|max:255',
+            'button_link' => 'nullable|required_with:button_content',
         ], [
-            'cta_type.required' => 'The service type is required.',
+            'cta_type.required' => 'Please select the page .',
             'title.required' => 'The title is required.',
-            'description.required' => 'The description is required.', // Correct validation error message
+            'title.string' => 'The title must be a valid string.',
+            'title.min' => 'The title must be at least 3 characters.',
+            'title.max' => 'The title must not exceed 255 characters.',
+            'button_link.required_with' => 'The button link is required when button content is provided.',
+            'description.required' => 'The description is required.',
+            'description.string' => 'The description must be a valid string.',
+            'description.min' => 'The description must be at least 100 characters.',
+            'description.max' => 'The description must not exceed 2000 characters.',
         ]);
         
         $cta = new Cta();
@@ -64,44 +73,8 @@ class CtaController extends Controller
         $cta->save();
 
         return redirect()->route('cta.index')->with('success', 'Record created successfully!');
-    } catch (\Exception $e) {
-        // Log the exception to debug further if needed
-        return redirect()->back()->with('error', 'Failed to create record: ' . $e->getMessage());
-    }
 }
 
-    // public function store(Request $request)
-    // {
-    //     try {
-    //         $validated = $request->validate([
-    //             'cta_type' => 'required',
-    //             'title' => 'required',
-    //             'description' => 'required',
-    //         ], [
-    //             'cta_type.required' => 'The service type is required.',
-    //             'title.required' => 'The title is required.',
-    //             'description.string' => 'The description is required.',
-    //         ]);
-            
-    //         $cta = new Cta();
-    //         $cta->title = $request->title;
-    //         $cta->cta_type = $request->cta_type;
-    //         $cta->button_content = $request->button_content;
-    //         $cta->button_link = $request->button_link;
-    //         $cta->description = $request->description;
-    //         $cta->status = $request->status ?? "off";
-    //         $cta->save();
-
-    //         return redirect()->route('cta.index')->with('success', 'Record created successfully!');
-    //     } catch (\Exception $e) {
-    //         // dd($e);
-    //         return redirect()->back()->with('error', 'Failed to create record: ' . $e->getMessage());
-    //     }
-    // }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
        $cta= Cta::find($id);
@@ -118,15 +91,24 @@ class CtaController extends Controller
     public function update(Request $request, string $id)
     {
         // dd($request->all());
-        try {
+    
             $validated = $request->validate([
-                'title' => 'required',
-                'description' => 'required', // Update to 'required' instead of 'required|string'
+                'title' => 'required|string|min:3|max:255',
+                'description' => 'required|string|min:100|max:2000',
+                'button_content' => 'nullable|string|max:255',
+                'button_link' => 'nullable|required_with:button_content',
             ], [
                 'title.required' => 'The title is required.',
-                'description.required' => 'The description is required.', // Correct validation error message
+                'title.string' => 'The title must be a valid string.',
+                'title.min' => 'The title must be at least 3 characters.',
+                'title.max' => 'The title must not exceed 255 characters.',
+                'button_link.required_with' => 'The button link is required when button content is provided.',
+                'description.required' => 'The description is required.',
+                'description.string' => 'The description must be a valid string.',
+                'description.min' => 'The description must be at least 100 characters.',
+                'description.max' => 'The description must not exceed 2000 characters.',
             ]);
-
+            
             $cta = Cta::findOrFail($request->hidden_id);
 
              $cta->title = $request->title;
@@ -138,9 +120,7 @@ class CtaController extends Controller
             
    			 $cta->save();
             return redirect()->route('cta.index')->with('success', 'Record updated successfully!');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to update record: ' . $e->getMessage());
-        }
+      
     }
 
     /**

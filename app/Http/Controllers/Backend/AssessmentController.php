@@ -12,29 +12,48 @@ use Illuminate\Http\Request;
 
 class AssessmentController extends Controller
 {
-    public function assessmentSection(){
+    public function assessmentSection()
+    {
         $assessmentSection = Assessment::all();
-        return view('assessment-section.assessment',compact('assessmentSection'));
+        return view('assessment-section.assessment', compact('assessmentSection'));
     }
 
     public function saveAssessmentSection(Request $request)
     {
-    
+
         $validated = $request->validate([
-            'title' => 'required',
-            'subtitle' => 'nullable',
-            'button_content' => 'nullable',
+            'title' => 'required|string|min:3|max:255',
+            'subtitle' => 'nullable|string|min:3|max:255',
+            'button_content' => 'nullable|string|min:3|max:255',
             'button_link' => 'nullable|required_with:button_content',
-            'description' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg', // Added max file size 2MB
+            'description' => 'required|string|min:100|max:2000', // Min length set to 100
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048', // Max file size 2MB
         ], [
             'title.required' => 'The title field is required.',
-            'subtitle.required' => 'The subtitle field is required.',
-            'button_content.required' => 'The second title must be a valid string.',
+            'title.string' => 'The title must be a valid string.',
+            'title.min' => 'The title must be at least 3 characters.',
+            'title.max' => 'The title must not exceed 255 characters.',
+
+            'subtitle.string' => 'The subtitle must be a valid string.',
+            'subtitle.min' => 'The subtitle must be at least 3 characters.',
+            'subtitle.max' => 'The subtitle must not exceed 255 characters.',
+
+            'button_content.string' => 'The button content must be a valid string.',
+            'button_content.min' => 'The button content must be at least 3 characters.',
+            'button_content.max' => 'The button content must not exceed 255 characters.',
+
             'button_link.required_with' => 'The button link is required when button content is provided.',
-            'description' => 'The description field is required.',
-            'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif,svg, webp.',
+
+            'description.required' => 'The description field is required.',
+            'description.string' => 'The description must be a valid string.',
+            'description.min' => 'The description must be at least 100 characters.',
+            'description.max' => 'The description must not exceed 2000 characters.',
+
+            'image.image' => 'The image must be an image file.',
+            'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, svg, webp.',
+            'image.max' => 'The image must not exceed 2MB in size.',
         ]);
+
 
 
         // Fetch or create a new section
@@ -51,7 +70,7 @@ class AssessmentController extends Controller
         $assessmentSection->button_content = $request->button_content;
         $assessmentSection->button_link = $request->button_link;
         $assessmentSection->status = $request->status ?? "off";
-        
+
         // Handle first image upload
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
@@ -64,46 +83,64 @@ class AssessmentController extends Controller
         return redirect()->route('assessment-section')->with('success', 'Adhd details saved successfully.');
     }
 
-    public function assessmentWhychooseSection(){
+    public function assessmentWhychooseSection()
+    {
         $assessmentWhyChoose = AssessmentWhyChoose::all();
-        return view('assessment-section.whychoose',compact('assessmentWhyChoose'));
+        return view('assessment-section.whychoose', compact('assessmentWhyChoose'));
     }
 
     public function saveWhychooseSection(Request $request)
     {
-        try {
-            $validated = $request->validate([
-                'title' => 'required',
-                'first_button_content' => 'nullable', // Allow content but as string
-                'first_button_link' => 'nullable|required_with:first_button_content',
-                'second_button_content' => 'nullable',
-                'second_button_link' => 'nullable|required_with:second_button_content',
-                'description' => 'required',
-                'sub_title' => 'nullable|array',
-                'sub_title.*' => 'nullable', // Allow empty but ensure it's a string
-                'sub_description' => 'nullable|array',
-                'sub_description.*' => 'nullable', // Allow empty but ensure it's a string    
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg', // Max size 2MB
-            ], [
-                'title.required' => 'The title field is required.',
-                'first_button_content.string' => 'The first button content must be a valid string.',
-                'first_button_link.required_with' => 'The first button link is required when button content is provided.',
-                'second_button_content.string' => 'The second button content must be a valid string.',
-                'second_button_link.required_with' => 'The second button link is required when button content is provided.',
-                'description.required' => 'The description field is required.',
-                'sub_title.array' => 'The subtitles must be an array.',
-                'sub_title.*.string' => 'Each subtitle must be a string.',
-                'sub_description.array' => 'The sub-descriptions must be an array.',
-                'sub_description.*.string' => 'Each sub-description must be a string.',
-                'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, svg, webp.',
-                'image.max' => 'The image size must be less than 2MB.',
-            ]);
 
-            dd($request->all());
+        $validated = $request->validate([
+            'title' => 'required|string|min:3|max:255',
+            'first_button_content' => 'nullable|string|max:255', // Allow content as string, with a max length
+            'first_button_link' => 'nullable|required_with:first_button_content',
+            'second_button_content' => 'nullable|string|max:255',
+            'second_button_link' => 'nullable|required_with:second_button_content',
+            'description' => 'required|string|min:100|max:2000', // Min length 50, Max length 2000
+            'sub_title' => 'nullable|array',
+            'sub_title.*' => 'nullable|string|max:255', // Ensure subtitles are strings and with max length
+            'sub_description' => 'nullable|array',
+            'sub_description.*' => 'nullable|string|max:500', // Each sub-description is a string with max length 500
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048', // Max size 2MB
+        ], [
+            'title.required' => 'The title field is required.',
+            'title.string' => 'The title must be a valid string.',
+            'title.min' => 'The title must be at least 3 characters.',
+            'title.max' => 'The title must not exceed 255 characters.',
+
+            'first_button_content.string' => 'The first button content must be a valid string.',
+            'first_button_content.max' => 'The first button content must not exceed 255 characters.',
+            'first_button_link.required_with' => 'The first button link is required when button content is provided.',
+
+            'second_button_content.string' => 'The second button content must be a valid string.',
+            'second_button_content.max' => 'The second button content must not exceed 255 characters.',
+            'second_button_link.required_with' => 'The second button link is required when button content is provided.',
+
+            'description.required' => 'The description field is required.',
+            'description.string' => 'The description must be a valid string.',
+            'description.min' => 'The description must be at least 100 characters.',
+            'description.max' => 'The description must not exceed 2000 characters.',
+
+            'sub_title.array' => 'The subtitles must be an array.',
+            'sub_title.*.string' => 'Each subtitle must be a valid string.',
+            'sub_title.*.max' => 'Each subtitle must not exceed 255 characters.',
+
+            'sub_description.array' => 'The sub-descriptions must be an array.',
+            'sub_description.*.string' => 'Each sub-description must be a valid string.',
+            'sub_description.*.max' => 'Each sub-description must not exceed 500 characters.',
+
+            'image.image' => 'The image must be a valid image file.',
+            'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, svg, webp.',
+            'image.max' => 'The image must not exceed 2MB in size.',
+        ]);
+
+
         $assessmentWhyChoose = $request->id
             ? AssessmentWhyChoose::find($request->id)
             : new AssessmentWhyChoose();
-    
+
         $pointers = [];
         if ($request->has('sub_title')) {
             foreach ($request->sub_title as $index => $subTitle) {
@@ -113,7 +150,7 @@ class AssessmentController extends Controller
                 ];
             }
         }
-    
+
         $assessmentWhyChoose->title = $request->title;
         $assessmentWhyChoose->description = $request->description;
         $assessmentWhyChoose->first_button_content = $request->first_button_content;
@@ -122,61 +159,69 @@ class AssessmentController extends Controller
         $assessmentWhyChoose->second_button_link = $request->second_button_link;
         $assessmentWhyChoose->status = $request->status ?? "off";
         $assessmentWhyChoose->pointers = json_encode($pointers);
-    
+
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
             $imagePath = $request->file('image')->storeAs('assessment', $imageName, 'public');
             $assessmentWhyChoose->image = 'storage/' . $imagePath;
         }
-    
-   
-            $assessmentWhyChoose->save();
-            return redirect()->route('assessment-whychoose-section')->with('success', 'Assessment details saved successfully.');
-        } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => $e->getMessage()])->withInput();
-        }
+
+
+        $assessmentWhyChoose->save();
+        return redirect()->route('assessment-whychoose-section')->with('success', 'Assessment details saved successfully.');
     }
 
-    public function assessmentOurDiagnosticServicesSection(){
+    public function assessmentOurDiagnosticServicesSection()
+    {
         $ourDiagnostic = AssessmentOurDiagnosticService::all();
-        return view('assessment-section.ourdiagnosticservices',compact('ourDiagnostic'));
+        return view('assessment-section.ourdiagnosticservices', compact('ourDiagnostic'));
     }
 
-public function saveOurDiagnosticServices(Request $request)
-{
-    try {
+    public function saveOurDiagnosticServices(Request $request)
+    {
+
         $validated = $request->validate([
-            'title' => 'required',
-            'description' => 'nullable',
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string|max:2000',
             'pointerTitle' => 'array',
-            'pointerTitle.*' => 'required',
+            'pointerTitle.*' => 'required|string|max:255',  // Ensure pointer titles are valid strings
             'pointerDescription' => 'array',
-            'pointerDescription.*' => 'required',
+            'pointerDescription.*' => 'required|string|max:500',  // Ensure descriptions are valid strings
             'button1Text' => 'array',
-            'button1Text.*' => 'nullable',
+            'button1Text.*' => 'nullable|string|max:255',
             'button1Link' => 'array',
-            'button1Link.*' => 'nullable',
-            'button2Text' => 'array',
-            'button2Text.*' => 'nullable',
-            'button2Link' => 'array',
-            'button2Link.*' => 'nullable',
+            'button1Link.*' => 'nullable|url',
             'pointerSubTitle' => 'array',
             'pointerSubTitle.*' => 'required|array',
             'pointerSubDescription' => 'array',
             'pointerSubDescription.*' => 'required|array',
             'image' => 'array',
-            'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg', // Max size 2MB
         ], [
             'title.required' => 'The title field is required.',
+            'title.string' => 'The title must be a valid string.',
+            'title.max' => 'The title must not exceed 255 characters.',
+
             'pointerTitle.*.required' => 'Each pointer title is required.',
-            'image.*.image' => 'Each image must be a valid image file.',
-            'image.*.mimes' => 'Each image must be of type jpeg, png, jpg, gif, or svg.',
-            'image.*.max' => 'Each image must not be greater than 2MB.',
+            'pointerTitle.*.string' => 'Each pointer title must be a valid string.',
+            'pointerTitle.*.max' => 'Each pointer title must not exceed 255 characters.',
+
+            'pointerDescription.*.required' => 'Each pointer description is required.',
+            'pointerDescription.*.string' => 'Each pointer description must be a valid string.',
+            'pointerDescription.*.max' => 'Each pointer description must not exceed 500 characters.',
+
             'button1Link.*.url' => 'Each Button 1 Link must be a valid URL.',
-            'button2Link.*.url' => 'Each Button 2 Link must be a valid URL.',
+
+            'pointerSubTitle.*.required' => 'Each pointer sub-title is required.',
+            'pointerSubTitle.*.array' => 'Each pointer sub-title must be an array.',
+
+            'pointerSubDescription.*.required' => 'Each pointer sub-description is required.',
+            'pointerSubDescription.*.array' => 'Each pointer sub-description must be an array.',
+
+            'image.*.image' => 'Each image must be a valid image file.',
+            'image.*.mimes' => 'Each image must be of type: jpeg, png, jpg, gif, svg.',
         ]);
-        dd($request->all());
-        
+
         // Retrieve or create a new section
         $adhdfirstSection = $request->id
             ? AssessmentOurDiagnosticService::find($request->id)
@@ -233,74 +278,88 @@ public function saveOurDiagnosticServices(Request $request)
         $adhdfirstSection->save();
 
         return redirect()->route('assessment-our-diagnostic-services-section')->with('success', 'Details saved successfully.');
-    } catch (\Exception $e) {
-        // Optionally log the exception message
-        \Log::error($e->getMessage());
-
-        return redirect()->back()->withErrors(['error' => 'An error occurred while saving the record. Please try again later.']);
     }
-}
 
 
-public function understandingConditionsSection(){
+    public function understandingConditionsSection()
+    {
         $ourDiagnostic = AssessmentUnderstandingCondition::all();
-        return view('assessment-section.understandingconditions',compact('ourDiagnostic'));
+        return view('assessment-section.understandingconditions', compact('ourDiagnostic'));
     }
 
     public function saveUnderstandingConditions(Request $request)
     {
-       
+
         $validated = $request->validate([
-            'title' => 'required',
-            'subtitle' => 'nullable',
-            'description' => 'required',
-            'sub_title' => 'required|array',  // Both sub_title and sub_description are required arrays
-            'sub_title.*' => 'required',
-            'sub_description' => 'required|array',  // Sub_description must also be an array
-            'sub_description.*' => 'required',  // Each item in sub_description must be required and string
+            'title' => 'required|string|min:3|max:255',
+            'subtitle' => 'nullable|string|min:3|max:255',
+            'description' => 'required|string|min:100|max:2000',
+            'sub_title' => 'required|array',
+            'sub_title.*' => 'required|string|min:3|max:255',
+            'sub_description' => 'required|array',
+            'sub_description.*' => 'required|string|min:10|max:1000',
         ], [
             'title.required' => 'The title field is required.',
+            'title.string' => 'The title must be a valid string.',
+            'title.min' => 'The title must be at least 3 characters.',
+            'title.max' => 'The title must not exceed 255 characters.',
+
+            'subtitle.string' => 'The subtitle must be a valid string.',
+            'subtitle.min' => 'The subtitle must be at least 3 characters.',
+            'subtitle.max' => 'The subtitle must not exceed 255 characters.',
+
             'description.required' => 'The description field is required.',
+            'description.string' => 'The description must be a valid string.',
+            'description.min' => 'The description must be at least 100 characters.',
+            'description.max' => 'The description must not exceed 2000 characters.',
+
             'sub_title.required' => 'The sub_title field is required.',
+            'sub_title.array' => 'The sub_title must be an array.',
             'sub_title.*.required' => 'Each sub-title is required.',
+            'sub_title.*.string' => 'Each sub-title must be a string.',
+            'sub_title.*.min' => 'Each sub-title must be at least 3 characters.',
+            'sub_title.*.max' => 'Each sub-title must not exceed 255 characters.',
+
             'sub_description.required' => 'The sub_description field is required.',
+            'sub_description.array' => 'The sub_description must be an array.',
             'sub_description.*.required' => 'Each sub-description is required.',
+            'sub_description.*.string' => 'Each sub-description must be a string.',
+            'sub_description.*.min' => 'Each sub-description must be at least 10 characters.',
+            'sub_description.*.max' => 'Each sub-description must not exceed 1000 characters.',
         ]);
-        
-        
-        dd($request->all());
+
+       
         $adhdfirstSection = $request->id
             ? AssessmentUnderstandingCondition::find($request->id)
             : new AssessmentUnderstandingCondition();
-    
+
         $pointers = [];
         if (!empty($request->sub_title)) {
             foreach ($request->sub_title as $index => $subTitle) {
-    
+
                 // Append pointer data, including all buttons
                 $pointers[] = [
                     'sub_title' => $subTitle,
                     'sub_description' => $request->sub_description[$index] ?? null,
                     'button_content' => $request->button_content[$index] ?? null,
                     'button_link' => $request->button_link[$index] ?? null,
-                    
+
                 ];
             }
         }
-        
-    
+
+
         $adhdfirstSection->title = $request->title;
         $adhdfirstSection->subtitle = $request->subtitle;
         $adhdfirstSection->description = $request->description; // Handle nullable description
         $adhdfirstSection->status = $request->status ?? "off";
         $adhdfirstSection->pointers = json_encode($pointers);
-        
-    
+
+
         if (!$adhdfirstSection->save()) {
             return redirect()->back()->withErrors(['error' => 'Failed to save the record.']);
         }
-    
+
         return redirect()->route('understanding-conditions-section')->with('success', 'Details saved successfully.');
     }
-    
 }

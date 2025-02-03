@@ -25,7 +25,15 @@ class NewsLetterSubscriptionController extends Controller
 
     public function newsLetterSave(Request $request)
     {
-        try {
+
+            $validated = $request->validate([
+                'title' => 'required',
+                'button_content' => 'required',
+            ], [
+                'title.required' => 'The title field is required.',
+                'button_content.required' => 'The title field is required.',
+            
+            ]);
             // Fetch or create a new section
             $newsletter = $request->hidden_id
                 ? NewsLetterSection::findOrFail($request->hidden_id)
@@ -68,10 +76,7 @@ class NewsLetterSubscriptionController extends Controller
     
             // Redirect with success message
             return redirect()->route('news-letter-form')->with('success', 'Newsletter details saved successfully.');
-        } catch (\Exception $e) {
-            // Handle errors
-            return redirect()->route('news-letter-form')->with('error', 'An error occurred while saving the newsletter: ' . $e->getMessage());
-        }
+        
     }
     
     

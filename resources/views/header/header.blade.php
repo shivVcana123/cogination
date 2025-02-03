@@ -6,7 +6,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Header</h3>
+                <h3 class="card-title">Header Menu</h3>
                 {{-- <button class="btn btn-primary" ><a style="color:white" href="{{ route('header.create') }}">+ Header</a></button> --}}
             </div>
             <!-- /.card-header -->
@@ -44,7 +44,7 @@
                             <td style="font-weight: 600; font-size:14px;">http://localhost:5173/</td>
 
                             @else
-                            <td>{{ $header->link }}
+                            <td style="font-weight: 600; font-size:14px;">{{ $header->link }}
 
                                 @if($header->children->isNotEmpty())
                                 @foreach ($header->children as $child)

@@ -27,12 +27,20 @@ class FeesController extends Controller
     {
        
         $validatedData = $request->validate([
-            'title' => 'required',
-            'description' => 'required',
+            'title' => 'required|string|min:3|max:255',
+            'description' => 'required|string|min:100|max:2000',
         ], [
             'title.required' => 'The title field is required.',
+            'title.string' => 'The title must be a valid string.',
+            'title.min' => 'The title must be at least 3 characters.',
+            'title.max' => 'The title must not exceed 255 characters.',
+        
             'description.required' => 'The description field is required.',
+            'description.string' => 'The description must be a valid string.',
+            'description.min' => 'The description must be at least 100 characters.',
+            'description.max' => 'The description must not exceed 2000 characters.',
         ]);
+        
         $data = [
             'title' => $request->title,
             'description' => $request->description,
@@ -65,27 +73,54 @@ class FeesController extends Controller
     
     public function saveOurPricingSection(Request $request)
     {
-        
-        // Validation rules
-        $validatedData = $request->validate([
-            'title' => 'required|string',
-            'description' => 'required|string',
-            'sub_title' => 'nullable|array',
-            'sub_title.*' => 'required|string', // Each sub_title must be a required string
-            'sub_description' => 'nullable|array',
-            'sub_description.*' => 'required|string', // Each sub_description must be required and a string
-            'price' => 'nullable|array',
-            'price.*' => 'required|numeric', // Each price must be a required number
-        ], [
-            'title.required' => 'The title field is required.',
-            'description.required' => 'The description field is required.',
-            'sub_title.*.required' => 'The sub title field is required.',
-            'sub_description.*.required' => 'The sub description field is required.',
-            'price.*.required' => 'The price field is required.',
-            'price.*.numeric' => 'Each price must be a valid number.',
-        ]);
         // dd($request->all());
-        try {
+        // Validation rules
+        
+
+            $validatedData = $request->validate([
+                'title' => 'required|string|min:3|max:255',
+                'description' => 'required|string|min:100|max:2000',
+                'button_content' => 'required|string|min:2|max:255',
+                
+                'sub_title' => 'nullable|array',
+                'sub_title.*' => 'required|string|min:3|max:255', // Each sub_title must be a valid string
+                
+                'sub_description' => 'nullable|array',
+                'sub_description.*' => 'required|string|min:5|max:1000', // Each sub_description must be a valid string
+                
+                'price' => 'nullable|array',
+                'price.*' => 'required|min:0|max:1000000', // Each price must be a valid number within a range
+            ], [
+                'title.required' => 'The title field is required.',
+                'title.string' => 'The title must be a valid string.',
+                'title.min' => 'The title must be at least 3 characters.',
+                'title.max' => 'The title must not exceed 255 characters.',
+            
+                'description.required' => 'The description field is required.',
+                'description.string' => 'The description must be a valid string.',
+                'description.min' => 'The description must be at least 100 characters.',
+                'description.max' => 'The description must not exceed 2000 characters.',
+            
+                'button_content.required' => 'The button text field is required.',
+                'button_content.string' => 'The button content must be a valid string.',
+                'button_content.min' => 'The button content must be at least 2 characters.',
+                'button_content.max' => 'The button content must not exceed 255 characters.',
+            
+                'sub_title.*.required' => 'Each sub title field is required.',
+                'sub_title.*.string' => 'Each sub title must be a valid string.',
+                'sub_title.*.min' => 'Each sub title must be at least 3 characters.',
+                'sub_title.*.max' => 'Each sub title must not exceed 255 characters.',
+            
+                'sub_description.*.required' => 'Each sub description field is required.',
+                'sub_description.*.string' => 'Each sub description must be a valid string.',
+                'sub_description.*.min' => 'Each sub description must be at least 5 characters.',
+                'sub_description.*.max' => 'Each sub description must not exceed 1000 characters.',
+            
+                'price.*.required' => 'Each price field is required.',
+                'price.*.min' => 'Each price must be at least 0.',
+                'price.*.max' => 'Each price must not exceed 1,000,000.',
+            ]);
+            
             // Fetch or create a new record
             $autismSection = $request->id
                 ? FeesOurPricing::find($request->id)
@@ -134,6 +169,7 @@ class FeesController extends Controller
         
             // Assign data to the model
             $autismSection->title = $request->title;
+            $autismSection->button_content = $request->button_content;
             $autismSection->description = $request->description;
             $autismSection->status = $request->status ?? "off";
             $autismSection->pointers = json_encode($pointers);
@@ -143,40 +179,6 @@ class FeesController extends Controller
         
             // Success redirect
             return redirect()->route('our-pricing-section')->with('success', 'Pricing section saved successfully.');
-        } catch (\Exception $e) {
-            dd($e);
-            // Handle any exceptions
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
-        }
-        
         
      }
-    
-
-    // public function checkoutPurchase(Request $request, string $plan)
-    // {
-    //     // Define Stripe price ID
-    //     $stripePriceId = $plan;
-
-    //     // Set quantity (e.g., 1 for one subscription or item)
-    //     $quantity = 1;
-
-    //     // Ensure the user is authenticated
-    //     $user = $request->user();
-    //     dd($user);
-    //     if (!$user) {
-    //         return response()->json(['error' => 'User not authenticated'], 401);
-    //     }
-
-    //     // Use Stripe's checkout method
-    //     return $user->checkout([$stripePriceId => $quantity], [
-    //         'success_url' => route('dashboard', [
-    //             'success' => 'Congratulations! You have successfully purchased.',
-    //             'plan' => $stripePriceId,
-    //         ]),
-    //         'cancel_url' => route('dashboard', [
-    //             'error' => 'Something went wrong!',
-    //         ]),
-    //     ]);
-    // }
 }
