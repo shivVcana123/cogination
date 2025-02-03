@@ -44,7 +44,7 @@
                                     @if (!empty($cta->id))
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="cta_type">Service Type</label>
+                                            <label for="cta_type">page</label>
                                             <input type="text" class="form-control" name="cta_type" id="cta_type"
                                                 value="{{ old('cta_type', $cta->cta_type ?? '') }}" placeholder="Enter Title" readonly>
                                         </div>
@@ -52,7 +52,7 @@
                                     @else
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="cta_type">Service Type</label>
+                                            <label for="cta_type">page</label>
                                             <select class="form-control" name="cta_type" id="cta_type">
                                                 <option value="" selected disabled>Please Select Type</option>
                                                 @if ($links)
@@ -66,7 +66,9 @@
                                                 <option value="">No children available</option>
                                                 @endif
                                             </select>
-                                            <div class="text-danger" id="cta_type_error"></div>
+                                            @error('cta_type')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                         </div>
                                     </div>
                                     @endif
@@ -76,7 +78,9 @@
                                             <label for="title">Title</label>
                                             <input type="text" class="form-control" name="title" id="title"
                                                 value="{{ old('title', $cta->title ?? '') }}" placeholder="Enter Title">
-                                            <div class="text-danger" id="title_error"></div>
+                                                @error('title')
+                                            <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -84,7 +88,9 @@
                                 <div class="form-group col-md-12">
                                     <label for="description">Description</label><i class="fas fa-info-circle" title="Enter a description for Footer Section."></i>
                                     <textarea class="form-control" name="description" id="description" placeholder="Enter Text">{{ $cta->description }}</textarea>
-                                    <div class="text-danger" id="description_error"></div>
+                                    @error('description')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="row">
@@ -92,14 +98,18 @@
                                         <div class="form-group">
                                             <label for="button_content">Button Text</label>
                                             <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text" value="{{ old('button_content', $cta->button_content) }}">
-                                            <div class="text-danger" id="button_content_error"></div>
+                                            @error('button_content')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="button_link">Button Link</label>
                                             <input type="text" class="form-control" name="button_link" id="button_link" value="{{ old('button_link', $cta->button_link) }}" placeholder="Enter Button link">
-                                            <div class="text-danger" id="button_link_error"></div>
+                                            @error('button_link')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -120,48 +130,7 @@
 @endsection
 @section('java_script')
 <script>
-    document.getElementById('ctaForm').addEventListener('submit', function(event) {
-
-        // Service Type Validation
-        const ctaType = document.getElementById('cta_type');
-        const ctaTypeError = document.getElementById('cta_type_error');
-
-        let isValid = true;
-
-        // Validate the select input
-        if (!ctaType.value || ctaType.value === '') {
-            isValid = false;
-            ctaTypeError.textContent = 'Please select a service type.';
-        } else {
-            ctaTypeError.textContent = '';
-        }
-
-        // Prevent form submission if validation fails
-
-        // Title Validation
-        const title = document.getElementById('title');
-        const titleError = document.getElementById('title_error');
-        if (title.value.trim() === '') {
-            isValid = false;
-            titleError.textContent = 'The title field is required.';
-        } else {
-            titleError.textContent = '';
-        }
-
-        // Description Validation
-        const description = document.getElementById('description');
-        const descriptionError = document.getElementById('description_error');
-        if (description.value.trim() === '') {
-            isValid = false;
-            descriptionError.textContent = 'The description field is required.';
-        } else {
-            descriptionError.textContent = '';
-        }
-
-        // If any validation fails, prevent form submission
-        if (!isValid) {
-            event.preventDefault();
-        }
-    });
+    CKEDITOR.replace('description');
+   
 </script>
 @endsection
