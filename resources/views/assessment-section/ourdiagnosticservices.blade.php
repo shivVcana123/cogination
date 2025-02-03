@@ -58,7 +58,6 @@
                                 <div class="mb-3">
                                     <h5>Card Details</h5>
                                     <div id="pointerFields">
-                                        <!-- Empty Pointer Fields -->
                                         <div class="pointer-field mb-3" data-pointer-id="0">
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -130,14 +129,14 @@
 
 
                                         </div>
-
                                     </div>
-                                    <button type="button" class="btn btn-primary">Add sub Card</button>
-                                    <button type="button" class="btn btn-primary1" style="margin-left: 86%;"> Delete Sub card </button>
+                                    <div class="btn-area">
+                                        <button type="button" class="btn btn-primary">Add sub Card</button>
+                                        <button type="button" class="btn btn-primary"> Delete Sub card </button>
+                                    </div>
+                                </div>
 
-                                </div>
-                                <div>
-                                </div>
+                               
                                 <div class="mb-3">
                                     <h5>Card Details</h5>
                                     <div id="pointerFields">
@@ -199,10 +198,10 @@
 
                                 </div>
                                 <div class="buttons">
+                                    <button type="button" class="btn btn-primary">Add sub Card</button>
+                                    <button type="button" class="btn btn-primary1"> Delete Sub card </button>
                                     <button type="button" class="btn btn-primary">Add Card</button>
-                                    <button type="button" class="btn btn-primary1" style="https://vcanaglobal.in/cognition-caremargin-left: 75%;">Delete Card</button>
-                                    <button type="button" class="btn btn-primary" >Add sub Card</button>
-                                    <button type="button" class="btn btn-primary1" > Delete Sub card </button>
+                                    <button type="button" class="btn btn-primary">Delete Card</button>
                                 </div>
                             </div>
 
