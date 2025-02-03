@@ -1,5 +1,5 @@
 <!-- Main Sidebar Container -->
-<span?php
+<?php
 
 use App\Models\Logo;
 

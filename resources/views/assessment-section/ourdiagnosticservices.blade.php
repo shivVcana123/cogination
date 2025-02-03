@@ -51,10 +51,11 @@
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                               
+                                <hr>
+
                                 <!-- Extra Pointers Section -->
 
-                                <div class="mb-3">
+                                <!-- <div class="mb-3">
                                     <h5>Card Details</h5>
                                     <div id="pointerFields">
                                         <div class="pointer-field mb-3" data-pointer-id="0">
@@ -128,14 +129,14 @@
 
 
                                         </div>
-                                    </div>
-                                    <div class="btn-area">
-                                        <button type="button" class="btn btn-primary">Add sub Card</button>
-                                        <button type="button" class="btn btn-primary"> Delete Sub card </button>
-                                    </div>
-                                </div>
 
-                               
+                                    </div>
+                                    <button type="button" class="btn btn-primary">Add sub Card</button>
+                                    <button type="button" class="btn btn-primary1" style="margin-left: 86%;"> Delete Sub card </button>
+
+                                </div> -->
+                                <div>
+                                </div>
                                 <div class="mb-3">
                                     <h5>Card Details</h5>
                                     <div id="pointerFields">
@@ -184,6 +185,21 @@
                                                             <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
                                                             <input id="pointerSubDescription0_0" class="form-control mb-2" name="pointerSubDescription[0][]" placeholder="Enter description">
                                                         </div>
+                                                        <div class="rmove-btn">
+                                                            <button type="button" class="btn btn-danger remove-Pointers">Remove Sub Card</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label for="pointerSubTitle0_0"> Title</label>
+                                                            <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                                                            <input type="text" id="pointerSubTitle0_0" class="form-control mb-2" name="pointerSubTitle[0][]" placeholder="Enter title">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="pointerSubDescription0_0"> Description</label>
+                                                            <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
+                                                            <input id="pointerSubDescription0_0" class="form-control mb-2" name="pointerSubDescription[0][]" placeholder="Enter description">
+                                                        </div>
                                                     </div>
 
                                                 </div>
@@ -196,11 +212,16 @@
 
 
                                 </div>
-                                <div class="buttons">
-                                    <button type="button" class="btn btn-primary">Add sub Card</button>
-                                    <button type="button" class="btn btn-primary1"> Delete Sub card </button>
-                                    <button type="button" class="btn btn-primary">Add Card</button>
-                                    <button type="button" class="btn btn-primary">Delete Card</button>
+                                <div class="row btnn-add">
+                                    <div class="col-md-6">
+                                    <button type="button" class="btn btn-success" id="add-Pointers">Add Card</button>
+                                        <button type="button" class="btn btn-danger remove-Pointers">Remove Card</button>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <button type="button" class="btn btn-success" id="add-Pointers">Add Sub Card</button>
+                                        <button type="button" class="btn btn-danger remove-Pointers">Remove Sub Card</button>
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -226,27 +247,3 @@
 </script>
 
 @endsection
-
-<style>
-    .buttons button.btn.btn-primary {
-        margin-left: 17px;
-    }
-
-    button.btn.btn-primary1 {
-        background: #e2e2e2 !important;
-        color: #000;
-    }
-
-    button.btn.btn-primary1:hover {
-        background: red !important;
-        color: #fff !important;
-    }
-
-    hr {
-        opacity: 0;
-    }
-
-    button.btn.btn-primary {
-        margin-left: 10px;
-    }
-</style>
