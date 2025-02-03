@@ -127,8 +127,8 @@
                                             </div>
                                             @endforeach
 
-                                            <button type="button" class="btn btn-success add-description">Add</button>
                                         </div>
+                                        <button type="button" class="btn btn-success add-description">Add</button>
 
                                         <!-- Remove Pointer Button -->
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove Card</button>
@@ -167,8 +167,8 @@
                                                 </div>
                                             </div>
 
-                                            <button type="button" class="btn btn-success add-description">Add</button>
                                         </div>
+                                        <button type="button" class="btn btn-success add-description">Add</button>
 
                                         <!-- Remove Pointer Button -->
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove Card</button>
@@ -229,8 +229,8 @@
                         <button type="button" class="btn btn-danger remove-description">Remove</button>
                     </div>
                 </div>
+                </div>
                 <button type="button" class="btn btn-success add-description">Add</button>
-            </div>
             <button type="button" class="btn btn-danger remove-Pointers">Remove Card</button>`;
             container.appendChild(newInputGroup);
 

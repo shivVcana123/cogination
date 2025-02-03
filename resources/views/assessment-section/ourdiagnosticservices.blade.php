@@ -51,8 +51,7 @@
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <hr>
-
+                               
                                 <!-- Extra Pointers Section -->
 
                                 <div class="mb-3">

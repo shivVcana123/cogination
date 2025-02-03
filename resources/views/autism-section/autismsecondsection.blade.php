@@ -102,7 +102,7 @@
                                     : [];
                                     @endphp
 
-
+                                    <hr>
                                     <!-- Pointers Section -->
                                     <label for="">Card Details</label>
                                     <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>

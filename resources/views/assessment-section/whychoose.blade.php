@@ -96,7 +96,8 @@
                                 ? json_decode($assessmentWhyChoose[0]->pointers)
                                 : [];
                                 @endphp
-
+                                  
+                                <hr>
                                 <!-- Pointers Section -->
                                 <label for="">Card Details</label>
                                 <div id="Pointers-container">
@@ -148,7 +149,7 @@
                                 <!-- Add Pointer Button -->
                                 <button type="button" class="btn btn-success" id="add-Pointers">Add Card</button>
 
-                                <div class="form-group">
+                                <div class="form-group mt-2">
                                     <label for="image">Image</label>
                                     <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
                                     <img id="blah" src="{{asset($assessmentWhyChoose[0]->image ?? '')}}" alt="Image Preview" style="width: 130px; display:{{empty($assessmentWhyChoose[0]->image) ? 'none' : 'block'}}" />
