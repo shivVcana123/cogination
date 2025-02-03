@@ -65,27 +65,28 @@ class FeesController extends Controller
     
     public function saveOurPricingSection(Request $request)
     {
-        
-        // Validation rules
-        $validatedData = $request->validate([
-            'title' => 'required|string',
-            'description' => 'required|string',
-            'sub_title' => 'nullable|array',
-            'sub_title.*' => 'required|string', // Each sub_title must be a required string
-            'sub_description' => 'nullable|array',
-            'sub_description.*' => 'required|string', // Each sub_description must be required and a string
-            'price' => 'nullable|array',
-            'price.*' => 'required|numeric', // Each price must be a required number
-        ], [
-            'title.required' => 'The title field is required.',
-            'description.required' => 'The description field is required.',
-            'sub_title.*.required' => 'The sub title field is required.',
-            'sub_description.*.required' => 'The sub description field is required.',
-            'price.*.required' => 'The price field is required.',
-            'price.*.numeric' => 'Each price must be a valid number.',
-        ]);
         // dd($request->all());
+        // Validation rules
+        
         try {
+            $validatedData = $request->validate([
+                'title' => 'required',
+                'description' => 'required',
+                'button_content' => 'required',
+                'sub_title' => 'nullable|array',
+                'sub_title.*' => 'required', // Each sub_title must be a required string
+                'sub_description' => 'nullable|array',
+                'sub_description.*' => 'required', // Each sub_description must be required and a string
+                'price' => 'nullable|array',
+                'price.*' => 'required', // Each price must be a required number
+            ], [
+                'title.required' => 'The title field is required.',
+                'button_content.required' => 'The button text field is required.',
+                'description.required' => 'The description field is required.',
+                'sub_title.*.required' => 'The sub title field is required.',
+                'sub_description.*.required' => 'The sub description field is required.',
+                'price.*.required' => 'The price field is required.',
+            ]);
             // Fetch or create a new record
             $autismSection = $request->id
                 ? FeesOurPricing::find($request->id)
@@ -134,6 +135,7 @@ class FeesController extends Controller
         
             // Assign data to the model
             $autismSection->title = $request->title;
+            $autismSection->button_content = $request->button_content;
             $autismSection->description = $request->description;
             $autismSection->status = $request->status ?? "off";
             $autismSection->pointers = json_encode($pointers);

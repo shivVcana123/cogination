@@ -18,6 +18,7 @@ class FeesOurPricingResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
+            'button_content' => $this->button_content,
             'pointers' => $this->pointers,
             'status' => $this->status,
         ];

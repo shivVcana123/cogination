@@ -38,8 +38,8 @@
                                         <option value="Adult" {{ old('type', $autismProcess[0]->type ?? '') === 'Adult' ? 'selected' : '' }}>Adult</option>
                                     </select>
                                     @error('type')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="row">
@@ -70,8 +70,8 @@
 
                                     <textarea name="description" id="description" class="form-control">{{ old('description', $autismProcess[0]->description ?? '') }}</textarea>
                                     @error('description')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <!-- Pointers Section -->
@@ -90,18 +90,18 @@
                                                 <label> Title</label>
                                                 <input type="text" name="sub_title[]" class="form-control" value="{{ $pointer->sub_title }}" placeholder="Enter title">
                                                 @error('sub_title')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                             <div class="col-md-6">
                                                 <label> Description</label>
                                                 <textarea name="sub_description[]" class="form-control">{{ $pointer->sub_description }}</textarea>
                                                 @error('sub_description')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
-                                            <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                         </div>
+                                        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                     </div>
                                     @endforeach
                                     @else
@@ -112,8 +112,8 @@
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
                                                 <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter title">
                                                 @error('sub_title')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                             <div class="col-md-6">
                                                 <label> Description</label>
@@ -121,11 +121,11 @@
 
                                                 <textarea name="sub_description[]" class="form-control"></textarea>
                                                 @error('sub_description')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
-                                            <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                         </div>
+                                        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                     </div>
                                     @endif
                                 </div>
@@ -247,7 +247,9 @@
             $.ajax({
                 url: "{{ route('fetch-process-section-by-type') }}",
                 type: "GET",
-                data: { type: selectedType },
+                data: {
+                    type: selectedType
+                },
                 success: function(response) {
                     if (response && response.data && response.data.length > 0) {
                         const section = response.data[0];
