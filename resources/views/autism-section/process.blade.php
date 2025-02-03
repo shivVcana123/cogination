@@ -88,14 +88,14 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label> Title</label>
-                                                <input type="text" name="sub_title[]" class="form-control" value="{{ $pointer->sub_title }}" placeholder="Enter title">
+                                                <input type="text" name="sub_title[]" class="form-control" value="{{ $pointer->sub_title }}" placeholder="Enter title" required>
                                                 @error('sub_title')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                             <div class="col-md-6">
                                                 <label> Description</label>
-                                                <textarea name="sub_description[]" class="form-control">{{ $pointer->sub_description }}</textarea>
+                                                <textarea name="sub_description[]" class="form-control" required>{{ $pointer->sub_description }}</textarea>
                                                 @error('sub_description')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror

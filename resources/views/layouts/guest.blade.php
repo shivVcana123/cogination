@@ -14,7 +14,7 @@
     <!-- /.control-sidebar -->
     <!-- Footer -->
     <footer class="main-footer">
-    <strong>&copy; <span id="currentYear"></span> Cognition Care, All Rights Reserved. Designed by – Vcana Global, Inc 
+    <strong>&copy; <span id="currentYear"></span> Cognition Care, All Rights Reserved. Designed by – Vcana Global, Inc. 
     <a href="https://cognition-demo.vercel.app">https://cognition-demo.vercel.app</a>.</strong>
 </footer>
 

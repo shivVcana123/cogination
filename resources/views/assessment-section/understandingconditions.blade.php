@@ -91,7 +91,7 @@
                                             <div class="form-group col-md-6">
                                                 <label> Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter title">
+                                                <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter title" required>
                                                 @error('button_link_2')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -101,7 +101,7 @@
                                             <div class="form-group col-md-6">
                                                 <label> Description</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-                                                <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter description">
+                                                <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter description" required>
                                                 @error('button_link_2')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror

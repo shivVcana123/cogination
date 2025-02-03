@@ -54,89 +54,6 @@
                                 <hr>
 
                                 <!-- Extra Pointers Section -->
-
-                                <!-- <div class="mb-3">
-                                    <h5>Card Details</h5>
-                                    <div id="pointerFields">
-                                        <div class="pointer-field mb-3" data-pointer-id="0">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label for="pointerTitle0"> Title</label>
-                                                    <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-                                                    <input type="text" id="pointerTitle0" class="form-control mb-2" name="pointerTitle[]" placeholder="Enter title">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="pointerDescription0"> Description</label>
-                                                    <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
-                                                    <input type="text" id="pointerDescription0" class="form-control mb-2" name="pointerDescription[]" placeholder="Enter description">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="button1Text0">Button Text</label>
-                                                    <i class="fas fa-info-circle" title="Enter a meaningful button text that summarizes the purpose of this section."></i>
-                                                    <input type="text" id="button1Text0" class="form-control mb-2" name="button1Text[]" placeholder="Enter Button Text">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="button1Link0">Button Link</label>
-                                                    <i class="fas fa-info-circle" title="Enter a meaningful button link that summarizes the purpose of this section."></i>
-                                                    <input type="text" id="button1Link0" class="form-control mb-2" name="button1Link[]" placeholder="Enter Button Link">
-                                                </div>
-
-                                                <div class="col-md-12">
-                                                    <label for="image0">Image</label>
-                                                    <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
-                                                    <img id="blah" src="#" alt="Image Preview" style="width: 130px; display:none" />
-                                                    <input type="file" id="image0" class="form-control mb-2" name="image[]" accept="image/*">
-                                                </div>
-                                            </div>
-                                            <h5>Add Sub Card</h5>
-                                            <div class="sub-pointer-area ">
-                                                <div class="sub-pointer mb-3 " data-sub-pointer-id="0">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <input type="checkbox"> <label for="pointerSubTitle0_0"> Title</label>
-                                                            <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-                                                            <input type="text" id="pointerSubTitle0_0" class="form-control mb-2" name="pointerSubTitle[0][]" placeholder="Enter title">
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label for="pointerSubDescription0_0"> Description</label>
-                                                            <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
-                                                            <input id="pointerSubDescription0_0" class="form-control mb-2" name="pointerSubDescription[0][]" placeholder="Enter description">
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <input type="checkbox"> <label for="pointerSubTitle0_0"> Title</label>
-                                                            <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-                                                            <input type="text" id="pointerSubTitle0_0" class="form-control mb-2" name="pointerSubTitle[0][]" placeholder="Enter title">
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label for="pointerSubDescription0_0"> Description</label>
-                                                            <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
-                                                            <input id="pointerSubDescription0_0" class="form-control mb-2" name="pointerSubDescription[0][]" placeholder="Enter description">
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <input type="checkbox"> <label for="pointerSubTitle0_0"> Title</label>
-                                                            <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-                                                            <input type="text" id="pointerSubTitle0_0" class="form-control mb-2" name="pointerSubTitle[0][]" placeholder="Enter title">
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label for="pointerSubDescription0_0"> Description</label>
-                                                            <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
-                                                            <input id="pointerSubDescription0_0" class="form-control mb-2" name="pointerSubDescription[0][]" placeholder="Enter description">
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-
-                                    </div>
-                                    <button type="button" class="btn btn-primary">Add sub Card</button>
-                                    <button type="button" class="btn btn-primary1" style="margin-left: 86%;"> Delete Sub card </button>
-
-                                </div> -->
-                                <div>
-                                </div>
                                 <div class="mb-3">
                                     <h5>Card Details</h5>
                                     <div id="pointerFields">
@@ -185,21 +102,6 @@
                                                             <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
                                                             <input id="pointerSubDescription0_0" class="form-control mb-2" name="pointerSubDescription[0][]" placeholder="Enter description">
                                                         </div>
-                                                        <div class="rmove-btn">
-                                                            <button type="button" class="btn btn-danger remove-Pointers">Remove Sub Card</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <label for="pointerSubTitle0_0"> Title</label>
-                                                            <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-                                                            <input type="text" id="pointerSubTitle0_0" class="form-control mb-2" name="pointerSubTitle[0][]" placeholder="Enter title">
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label for="pointerSubDescription0_0"> Description</label>
-                                                            <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
-                                                            <input id="pointerSubDescription0_0" class="form-control mb-2" name="pointerSubDescription[0][]" placeholder="Enter description">
-                                                        </div>
                                                     </div>
 
                                                 </div>
@@ -207,22 +109,24 @@
 
 
                                         </div>
+                                        <div class="row btnn-add">
+                                            <div class="col-md-6">
+                                                <button type="button" class="btn btn-success" id="addCard">Add Card</button>
+                                                <!-- <button type="button" class="btn btn-danger remove-card">Remove Card</button> -->
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button type="button" class="btn btn-success" id="addSubCard">Add Sub Card</button>
+                                                <!-- <button type="button" class="btn btn-danger remove-Pointers">Remove Sub Card</button> -->
+                                            </div>
+
+                                        </div>
+
 
                                     </div>
 
 
                                 </div>
-                                <div class="row btnn-add">
-                                    <div class="col-md-6">
-                                    <button type="button" class="btn btn-success" id="add-Pointers">Add Card</button>
-                                        <button type="button" class="btn btn-danger remove-Pointers">Remove Card</button>
-                                    </div>
-                                    <div class="col-md-6">
-                                    <button type="button" class="btn btn-success" id="add-Pointers">Add Sub Card</button>
-                                        <button type="button" class="btn btn-danger remove-Pointers">Remove Sub Card</button>
-                                    </div>
 
-                                </div>
                             </div>
 
                             <div class="card-footer">
@@ -242,8 +146,106 @@
 @endsection
 @section('java_script')
 <script>
-    // Initialize CKEditor
-    CKEDITOR.replace('description');
+$(document).ready(function() {
+    let cardIndex = 1; // Track card count
+    let subCardIndexes = {}; // Track sub-card count for each card
+
+    // Add new Card
+    $(document).on('click', '#addCard', function() {
+        let newCardId = cardIndex;
+        subCardIndexes[newCardId] = 1; // Initialize sub-card count for this card
+
+        let newCardHTML = `
+            <div class="pointer-field mb-3" data-pointer-id="${newCardId}">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="pointerTitle${newCardId}">Title</label>
+                        <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                        <input type="text" id="pointerTitle${newCardId}" class="form-control mb-2" name="pointerTitle[]" placeholder="Enter title">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="pointerDescription${newCardId}">Description</label>
+                        <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
+                        <input type="text" id="pointerDescription${newCardId}" class="form-control mb-2" name="pointerDescription[]" placeholder="Enter description">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="button1Text${newCardId}">Button Text</label>
+                        <i class="fas fa-info-circle" title="Enter a meaningful button text that summarizes the purpose of this section."></i>
+                        <input type="text" id="button1Text${newCardId}" class="form-control mb-2" name="button1Text[]" placeholder="Enter Button Text">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="button1Link${newCardId}">Button Link</label>
+                        <i class="fas fa-info-circle" title="Enter a meaningful button link that summarizes the purpose of this section."></i>
+                        <input type="text" id="button1Link${newCardId}" class="form-control mb-2" name="button1Link[]" placeholder="Enter Button Link">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="image${newCardId}">Image</label>
+                        <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
+                        <img id="blah${newCardId}" src="#" alt="Image Preview" style="width: 130px; display:none" />
+                        <input type="file" id="image${newCardId}" class="form-control mb-2" name="image[]" accept="image/*">
+                    </div>
+                </div>
+                
+                <h5>Add Sub Card</h5>
+                <div class="sub-pointer-area"></div>
+
+                <div class="row btnn-add">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-danger remove-card">Remove Card</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-success addSubCard" data-card-id="${newCardId}">Add Sub Card</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        $('#pointerFields').append(newCardHTML);
+        cardIndex++; // Increment card index
+    });
+
+    // Remove Card
+    $(document).on('click', '.remove-card', function() {
+        $(this).closest('.pointer-field').remove();
+    });
+
+    // Add new Sub Card
+    $(document).on('click', '.addSubCard', function() {
+        let parentCardId = $(this).data('card-id');
+        let subCardIndex = subCardIndexes[parentCardId]++;
+
+        let newSubCardHTML = `
+            <div class="sub-pointer mb-3" data-sub-pointer-id="${subCardIndex}">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="pointerSubTitle${parentCardId}_${subCardIndex}">Title</label>
+                        <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                        <input type="text" id="pointerSubTitle${parentCardId}_${subCardIndex}" class="form-control mb-2" name="pointerSubTitle[${parentCardId}][]" placeholder="Enter title">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="pointerSubDescription${parentCardId}_${subCardIndex}">Description</label>
+                        <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
+                        <input type="text" id="pointerSubDescription${parentCardId}_${subCardIndex}" class="form-control mb-2" name="pointerSubDescription[${parentCardId}][]" placeholder="Enter description">
+                    </div>
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-danger remove-Pointers mt-2">Remove Sub Card</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        $(this).closest('.pointer-field').find('.sub-pointer-area').append(newSubCardHTML);
+    });
+
+    // Remove Sub Card
+    $(document).on('click', '.remove-Pointers', function() {
+        $(this).closest('.sub-pointer').remove();
+    });
+});
+
 </script>
+
+
 
 @endsection
