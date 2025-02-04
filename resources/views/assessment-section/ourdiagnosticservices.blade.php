@@ -52,74 +52,139 @@
                                     @enderror
                                 </div>
                                 <hr>
-
-                                <!-- Card Section -->
+                                @php
+                                // Check if the $ourDiagnostic exists and contains data before attempting to decode
+                                $pointers = isset($ourDiagnostic[0]) && !empty($ourDiagnostic[0]->pointers)
+                                ? json_decode($ourDiagnostic[0]->pointers)
+                                : [];
+                                @endphp
+                                <!-- Extra Pointers Section -->
                                 <div class="mb-3">
                                     <h5>Card Details</h5>
                                     <div id="cardContainer">
+                                    @if(!empty($pointers) && is_array($pointers))
+                                        @foreach ($pointers as $pointer)
                                         <div class="card mt-3 p-3 border">
                                             <h5>Card Details</h5>
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label>Title</label>
+                                                    <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                                                    <input type="text" class="form-control" name="card_title[]" placeholder="Enter title" value="{{$pointer->pointerTitle ?? ''}}">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>Description</label>
+                                                    <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
+                                                    <input type="text" class="form-control" name="card_description[]" placeholder="Enter description" value="{{$pointer->pointerDescription ?? ''}}">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>Button Text</label>
+                                                    <i class="fas fa-info-circle" title="Enter a meaningful button text that summarizes the purpose of this section."></i>
+                                                    <input type="text" class="form-control" name="card_button_text[]" placeholder="Enter Button Text" value="{{$pointer->button1Text ?? ''}}">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>Button Link</label>
+                                                    <i class="fas fa-info-circle" title="Enter a meaningful button link that summarizes the purpose of this section."></i>
+                                                    <input type="text" class="form-control" name="card_button_link[]" placeholder="Enter Button Link" value="{{$pointer->button1Link ?? ''}}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Image</label>
+                                                <i class="fas fa-info-circle" title="Enter a meaningful image that summarizes the purpose of this section."></i>
+                                                <img id="blah" src="{{asset($pointer->sub_image ?? '')}}" alt="Image Preview" style="width: 130px; display:{{empty($pointer->sub_image) ? 'none' : 'block'}}" />
+
+                                                <input type="file" class="form-control" name="card_image[]">
+                                            </div><br>
+                                            <h6>Sub Card</h6>
+                                            <div class="subCardContainer">
+                                                @foreach ($pointer->sub_pointer as $sub_pointers)
+                                                <div class="row">
+                                                    <div class="form-group col-md-6">
+                                                        <label>Title</label>
+                                                        <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                                                        <input type="text" class="form-control" name="sub_card_title[]" placeholder="Enter title" value="{{$sub_pointers->pointerSubTitle1}}">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label>Description</label>
+                                                        <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
+                                                        <input type="text" class="form-control" name="sub_card_description[]" placeholder="Enter description" value="{{$sub_pointers->pointerSubDescription1}}">
+                                                    </div>
+                                                </div>
+                                                <button type="button" class="btn btn-danger removeSubCard">Remove Sub Card</button>
+                                                @endforeach
+                                            </div><br>
+                                            <div class="d-flex justify-content-between">
+                                                <button type="button" class="btn btn-success addSubCard mr-2">Add Sub Card</button>
+                                                <button type="button" class="btn btn-danger removeCard">Remove Card</button>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                        @else
+                                        <div class="card mt-3 p-3 border">
+                                            <h5>Card Details</h5>
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label>Title</label>
+                                                    <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
                                                     <input type="text" class="form-control" name="card_title[]" placeholder="Enter title">
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label>Description</label>
+                                                    <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
                                                     <input type="text" class="form-control" name="card_description[]" placeholder="Enter description">
                                                 </div>
-                                            
-                                            <div class="form-group col-md-6">
-                                                <label>Button Text</label>
-                                                <input type="text" class="form-control" name="card_button_text[]" placeholder="Enter Button Text">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label>Button Link</label>
-                                                <input type="text" class="form-control" name="card_button_link[]" placeholder="Enter Button Link">
-                                            </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>Button Text</label>
+                                                    <i class="fas fa-info-circle" title="Enter a meaningful button text that summarizes the purpose of this section."></i>
+                                                    <input type="text" class="form-control" name="card_button_text[]" placeholder="Enter Button Text">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>Button Link</label>
+                                                    <i class="fas fa-info-circle" title="Enter a meaningful button link that summarizes the purpose of this section."></i>
+                                                    <input type="text" class="form-control" name="card_button_link[]" placeholder="Enter Button Link">
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Image</label>
+                                                <i class="fas fa-info-circle" title="Enter a meaningful image that summarizes the purpose of this section."></i>
                                                 <input type="file" class="form-control" name="card_image[]">
-                                            </div>
-<br>
-                                            <h3>Sub Cards</h3>
-                                            <div class="border p-2 mt-2">
-                                                <h6>Sub Card</h6>
-                                                <div class="subCardHtml">
-                                                    <div class="row">
-                                                        <div class="form-group col-md-6">
-                                                            <label>Title</label>
-                                                            <input type="text" class="form-control" name="sub_card_title[]" placeholder="Enter title">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label>Description</label>
-                                                            <input type="text" class="form-control" name="sub_card_description[]" placeholder="Enter description">
-                                                        </div>
+                                            </div><br>
+                                            <h6>Sub Card</h6>
+                                            <div class="subCardContainer">
+                                                <div class="row">
+                                                    <div class="form-group col-md-6">
+                                                        <label>Title</label>
+                                                        <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                                                        <input type="text" class="form-control" name="sub_card_title[]" placeholder="Enter title">
                                                     </div>
-
+                                                    <div class="form-group col-md-6">
+                                                        <label>Description</label>
+                                                        <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
+                                                        <input type="text" class="form-control" name="sub_card_description[]" placeholder="Enter description">
+                                                    </div>
                                                 </div>
                                                 <button type="button" class="btn btn-danger removeSubCard">Remove Sub Card</button>
+                                            </div><br>
+                                            <div class="d-flex justify-content-between">
+                                                <button type="button" class="btn btn-success addSubCard mr-2">Add Sub Card</button>
+                                                <button type="button" class="btn btn-danger removeCard">Remove Card</button>
                                             </div>
-                                            <div class="subCardContainer"></div>
-                                            <button type="button" class="btn btn-success addSubCard">Add Sub Card</button>
-                                            <button type="button" class="btn btn-danger removeCard">Remove Card</button>
                                         </div>
+                                        @endif
+                                        
                                     </div>
-
                                     <div class="row btnn-add">
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 ml-3">
                                             <button type="button" class="btn btn-success" id="addCard">Add Card</button>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="card-footer">
-                                <input type="checkbox" id="status" name="status" {{ ($ourDiagnostic[0]->status ?? '') === 'on' ? 'checked' : '' }}>
-                                <label for="status">Show On Website</label>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
+                                <div class="card-footer">
+                                    <input type="checkbox" id="status" name="status" {{ ($ourDiagnostic[0]->status ?? '') === 'on' ? 'checked' : '' }}>
+                                    <label for="status">Show On Website</label>
+                                    <button type="submit" id="formSubmit" class="btn btn-primary">Submit</button>
+                                </div>
                         </form>
 
 
@@ -132,72 +197,209 @@
 </div>
 @endsection
 @section('java_script')
-<script>
+<!-- <script>
     $(document).ready(function() {
+        // Add new Card
         $('#addCard').click(function() {
             let cardHtml = `
-            <div class="card mt-3 p-3 border">
-                <h5>Card Details</h5>
-                <div class="form-group">
+        <div class="card mt-3 p-3 border">
+            <h5>Card Details</h5>
+             <div class="row">
+            <div class="form-group col-md-6">
+                <label>Title</label>
+                <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                <input type="text" class="form-control" name="card_title[]" placeholder="Enter title">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Description</label>
+                <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
+                <input type="text" class="form-control" name="card_description[]" placeholder="Enter description">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Button Text</label>
+                <i class="fas fa-info-circle" title="Enter a meaningful button text that summarizes the purpose of this section."></i>
+                <input type="text" class="form-control" name="card_button_text[]" placeholder="Enter Button Text">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Button Link</label>
+                <i class="fas fa-info-circle" title="Enter a meaningful button link that summarizes the purpose of this section."></i>
+                <input type="text" class="form-control" name="card_button_link[]" placeholder="Enter Button Link">
+            </div>
+             </div>
+            <div class="form-group">
+                <label>Image</label>
+                <i class="fas fa-info-circle" title="Enter a meaningful Image that summarizes the purpose of this section."></i>
+                <input type="file" class="form-control" name="card_image[]">
+            </div><br>
+            
+            <h6>Sub Card</h6>
+            <div class="subCardContainer">
+              <div class="row">
+             <div class="form-group col-md-6">
                     <label>Title</label>
-                    <input type="text" class="form-control" name="card_title[]" placeholder="Enter title">
+                    <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                    <input type="text" class="form-control" name="sub_card_title[]" placeholder="Enter title">
                 </div>
-                <div class="form-group">
+                <div class="form-group col-md-6">
                     <label>Description</label>
-                    <input type="text" class="form-control" name="card_description[]" placeholder="Enter description">
+                    <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
+                    <input type="text" class="form-control" name="sub_card_description[]" placeholder="Enter description">
                 </div>
-                <div class="form-group">
-                    <label>Button Text</label>
-                    <input type="text" class="form-control" name="card_button_text[]" placeholder="Enter Button Text">
                 </div>
-                <div class="form-group">
-                    <label>Button Link</label>
-                    <input type="text" class="form-control" name="card_button_link[]" placeholder="Enter Button Link">
-                </div>
-                <div class="form-group">
-                    <label>Image</label>
-                    <input type="file" class="form-control-file" name="card_image[]">
-                </div>
-                <div class="subCardContainer"></div>
-                <button type="button" class="btn btn-success addSubCard">Add Sub Card</button>
+                <button type="button" class="btn btn-danger removeSubCard">Remove Sub Card</button>
+            </div><br>
+            
+         <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-success addSubCard mr-2">Add Sub Card</button>
                 <button type="button" class="btn btn-danger removeCard">Remove Card</button>
-            </div>`;
+        </div>
+        </div>`;
 
             $('#cardContainer').append(cardHtml);
         });
 
+        // Remove Card
         $(document).on('click', '.removeCard', function() {
             $(this).closest('.card').remove();
         });
 
+        // Add new Sub Card
         $(document).on('click', '.addSubCard', function() {
-    let subCardHtml = `
-       
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label>Title</label>
-                        <input type="text" class="form-control" name="sub_card_title[]" placeholder="Enter title">
+            let subCardHtml = `
+        <div class="subCard p-2 border rounded mt-2">
+         <div class="row">
+            <div class="form-group col-md-6">
+                <label>Title</label>
+                <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                <input type="text" class="form-control" name="sub_card_title[]" placeholder="Enter title">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Description</label>
+                <i class="fas fa-info-circle" title="Enter a meaningful description that summarizes the purpose of this section."></i>
+                <input type="text" class="form-control" name="sub_card_description[]" placeholder="Enter description">
+            </div>
+             </div>
+            <button type="button" class="btn btn-danger removeSubCard">Remove Sub Card</button>
+        </div>`;
+
+            $(this).closest('.card').find('.subCardContainer').append(subCardHtml);
+        });
+
+        // Remove Sub Card
+        $(document).on('click', '.removeSubCard', function() {
+            $(this).closest('.subCard').remove();
+        });
+    });
+</script> -->
+
+<script>
+    $(document).ready(function() {
+        // Function to update remove button visibility
+        function updateRemoveButtonVisibility() {
+            $(".removeCard").toggle($(".card").length > 1);
+            $(".subCardContainer").each(function() {
+                $(this).find(".removeSubCard").toggle($(this).find(".subCard").length > 1);
+            });
+        }
+
+        // Add new Card
+        $('#addCard').click(function() {
+            let cardHtml = `
+        <div class="card mt-3 p-3 border">
+            <h5>Card Details</h5>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Title</label>
+                    <input type="text" class="form-control card-title" name="card_title[]" placeholder="Enter title">
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Description</label>
+                    <input type="text" class="form-control card-description" name="card_description[]" placeholder="Enter description">
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Button Text</label>
+                    <input type="text" class="form-control card-button-text" name="card_button_text[]" placeholder="Enter Button Text">
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Button Link</label>
+                    <input type="text" class="form-control card-button-link" name="card_button_link[]" placeholder="Enter Button Link">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Image</label>
+                <input type="file" class="form-control card-image" name="card_image[]">
+            </div><br>
+
+            <h6>Sub Card</h6>
+            <div class="subCardContainer">
+                <div class="subCard p-2 border rounded mt-2">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>Title</label>
+                            <input type="text" class="form-control sub-card-title" name="sub_card_title[]" placeholder="Enter title">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Description</label>
+                            <input type="text" class="form-control sub-card-description" name="sub_card_description[]" placeholder="Enter description">
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label>Description</label>
-                        <input type="text" class="form-control" name="sub_card_description[]" placeholder="Enter description">
-                    </div>
+                    <button type="button" class="btn btn-danger removeSubCard">Remove Sub Card</button>
+                </div>
+            </div><br>
+
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-success addSubCard">Add Sub Card</button>
+                <button type="button" class="btn btn-danger removeCard">Remove Card</button>
+            </div>
+        </div>`;
+
+            $('#cardContainer').append(cardHtml);
+            updateRemoveButtonVisibility();
+        });
+
+        // Remove Card
+        $(document).on('click', '.removeCard', function() {
+            $(this).closest('.card').remove();
+            updateRemoveButtonVisibility();
+        });
+
+        // Add new Sub Card
+        $(document).on('click', '.addSubCard', function() {
+            let subCardHtml = `
+        <div class="subCard p-2 border rounded mt-2">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Title</label>
+                    <input type="text" class="form-control sub-card-title" name="sub_card_title[]" placeholder="Enter title">
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Description</label>
+                    <input type="text" class="form-control sub-card-description" name="sub_card_description[]" placeholder="Enter description">
                 </div>
             </div>
             <button type="button" class="btn btn-danger removeSubCard">Remove Sub Card</button>
-     `;
-    
-    // Append to the correct `.subCardContainer` inside the nearest `.card`
-    $(this).closest('.card').find('.subCardHtml').append(subCardHtml);
-});
+        </div>`;
 
-
-        $(document).on('click', '.removeSubCard', function() {
-            $(this).parent().remove();
+            $(this).closest('.card').find('.subCardContainer').append(subCardHtml);
+            updateRemoveButtonVisibility();
         });
+
+        // Remove Sub Card
+        $(document).on('click', '.removeSubCard', function() {
+            $(this).closest('.subCard').remove();
+            updateRemoveButtonVisibility();
+        });
+
+   
+
+        // Remove validation error on input change
+        $(document).on('input', '.is-invalid', function() {
+            $(this).removeClass('is-invalid');
+        });
+
+        // Initialize button visibility
+        updateRemoveButtonVisibility();
     });
 </script>
-
-
 
 @endsection

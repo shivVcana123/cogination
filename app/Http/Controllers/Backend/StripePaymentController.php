@@ -11,7 +11,7 @@ use Stripe\Stripe;
 
 class StripePaymentController extends Controller
 {
-
+     
      public function createCheckoutSession(Request $request)
     {
         try {
@@ -33,5 +33,8 @@ class StripePaymentController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+
+  
 
 }
