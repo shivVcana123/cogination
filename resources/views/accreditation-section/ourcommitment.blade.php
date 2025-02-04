@@ -50,7 +50,7 @@
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <!-- <div class="form-group col-md-6">
                                         <label for="title">Button Text</label>
                                         <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i> <label>(Optional)</label>
                                         <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text" value="{{old('button_content',$ourCommitmentSection[0]->button_content ?? '')}}">
@@ -65,7 +65,7 @@
                                         @error('button_link')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
-                                    </div>
+                                    </div> -->
                                 </div>
 
 
