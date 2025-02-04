@@ -95,7 +95,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label> Description</label>
-                                                <textarea name="sub_description[]" class="form-control" required>{{ $pointer->sub_description }}</textarea>
+                                                <input name="sub_description[]" class="form-control" required>{{ $pointer->sub_description }}</input>
                                                 @error('sub_description')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -211,6 +211,7 @@
                 const errorMessage = document.createElement('div');
                 errorMessage.classList.add('validation-error');
                 errorMessage.style.color = 'red';
+                errorMessage.style.paddingBottom = '10px';
                 errorMessage.textContent = 'Title is required.';
                 input.parentElement.appendChild(errorMessage);
             }
@@ -224,7 +225,7 @@
                 const errorMessage = document.createElement('div');
                 errorMessage.classList.add('validation-error');
                 errorMessage.style.color = 'red';
-                errorMessage.textContent = 'Sub Description is required.';
+                errorMessage.textContent = 'Description is required.';
                 subDescription.parentElement.appendChild(errorMessage);
             }
         });

@@ -176,109 +176,234 @@ class AssessmentController extends Controller
         $ourDiagnostic = AssessmentOurDiagnosticService::all();
         return view('assessment-section.ourdiagnosticservices', compact('ourDiagnostic'));
     }
-
     public function saveOurDiagnosticServices(Request $request)
-    {
+{
+    // Debug request data
+    dd($request->all());
 
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string|max:2000',
-            'pointerTitle' => 'array',
-            'pointerTitle.*' => 'required|string|max:255',  // Ensure pointer titles are valid strings
-            'pointerDescription' => 'array',
-            'pointerDescription.*' => 'required|string|max:500',  // Ensure descriptions are valid strings
-            'button1Text' => 'array',
-            'button1Text.*' => 'nullable|string|max:255',
-            'button1Link' => 'array',
-            'button1Link.*' => 'nullable|url',
-            'pointerSubTitle' => 'array',
-            'pointerSubTitle.*' => 'required|array',
-            'pointerSubDescription' => 'array',
-            'pointerSubDescription.*' => 'required|array',
-            'image' => 'array',
-            'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg', // Max size 2MB
-        ], [
-            'title.required' => 'The title field is required.',
-            'title.string' => 'The title must be a valid string.',
-            'title.max' => 'The title must not exceed 255 characters.',
+    // Retrieve or create a new section
+    $adhdfirstSection = $request->id
+        ? AssessmentOurDiagnosticService::find($request->id)
+        : new AssessmentOurDiagnosticService();
 
-            'pointerTitle.*.required' => 'Each pointer title is required.',
-            'pointerTitle.*.string' => 'Each pointer title must be a valid string.',
-            'pointerTitle.*.max' => 'Each pointer title must not exceed 255 characters.',
+    $pointers = [];
 
-            'pointerDescription.*.required' => 'Each pointer description is required.',
-            'pointerDescription.*.string' => 'Each pointer description must be a valid string.',
-            'pointerDescription.*.max' => 'Each pointer description must not exceed 500 characters.',
+    // Ensure card_title is an array before looping
+    if (!empty($request->card_title) && is_array($request->card_title)) {
+        $subCardIndex = 0; // To track sub-card index
 
-            'button1Link.*.url' => 'Each Button 1 Link must be a valid URL.',
+        foreach ($request->card_title as $index => $card_title) {
+            $subPointers = [];
 
-            'pointerSubTitle.*.required' => 'Each pointer sub-title is required.',
-            'pointerSubTitle.*.array' => 'Each pointer sub-title must be an array.',
-
-            'pointerSubDescription.*.required' => 'Each pointer sub-description is required.',
-            'pointerSubDescription.*.array' => 'Each pointer sub-description must be an array.',
-
-            'image.*.image' => 'Each image must be a valid image file.',
-            'image.*.mimes' => 'Each image must be of type: jpeg, png, jpg, gif, svg.',
-        ]);
-
-        // Retrieve or create a new section
-        $adhdfirstSection = $request->id
-            ? AssessmentOurDiagnosticService::find($request->id)
-            : new AssessmentOurDiagnosticService();
-
-        $pointers = [];
-
-        // If there are pointer titles, process them
-        if (!empty($request->pointerTitle) && is_array($request->pointerTitle)) {
-            foreach ($request->pointerTitle as $index => $pointerTitle) {
-                $subImagePath = null;
-
-                // Handle image upload for each pointer
-                if (isset($request->file('image')[$index]) && $request->file('image')[$index]->isValid()) {
-                    $imageName = time() . '_' . $request->file('image')[$index]->getClientOriginalName();
-                    $subImagePath = $request->file('image')[$index]->storeAs('assessment', $imageName, 'public');
-                    $subImagePath = 'storage/' . $subImagePath;
-                } elseif (isset($adhdfirstSection->pointers)) {
-                    // Fetch existing pointer image if available
-                    $existingPointers = json_decode($adhdfirstSection->pointers, true);
-                    $subImagePath = $existingPointers[$index]['sub_image'] ?? null;
+            // Group sub-cards for this specific card
+            while ($subCardIndex < count($request->sub_card_title)) {
+                // Check if we have matching sub-card description
+                if (!isset($request->sub_card_description[$subCardIndex])) {
+                    break;
                 }
 
-                // Prepare sub-pointer data
-                $subPointers = [];
-                if (isset($request->pointerSubTitle[$index]) && isset($request->pointerSubDescription[$index])) {
-                    foreach ($request->pointerSubTitle[$index] as $subIndex => $subTitle) {
-                        $subPointers[] = [
-                            'pointerSubTitle1' => $subTitle,
-                            'pointerSubDescription1' => $request->pointerSubDescription[$index][$subIndex] ?? null,
-                        ];
-                    }
-                }
-
-                // Add pointer to the array
-                $pointers[] = [
-                    'pointerTitle' => $pointerTitle,
-                    'pointerDescription' => $request->pointerDescription[$index] ?? null,
-                    'sub_image' => $subImagePath,
-                    'button1Text' => $request->button1Text[$index] ?? null,
-                    'button1Link' => $request->button1Link[$index] ?? null,
-                    'button2Text' => $request->button2Text[$index] ?? null,
-                    'button2Link' => $request->button2Link[$index] ?? null,
-                    'sub_pointer' => $subPointers, // Add sub-pointers here
+                $subPointers[] = [
+                    'pointerSubTitle1' => $request->sub_card_title[$subCardIndex],
+                    'pointerSubDescription1' => $request->sub_card_description[$subCardIndex],
                 ];
+
+                $subCardIndex++; // Move to the next sub-card
             }
+
+            // Add pointer data (card data)
+            $pointers[] = [
+                'pointerTitle' => $card_title,
+                'pointerDescription' => $request->card_description[$index] ?? null,
+                'button1Text' => $request->card_button_text[$index] ?? null,
+                'button1Link' => $request->card_button_link[$index] ?? null,
+                'sub_pointer' => $subPointers, // Attach sub-card data
+            ];
         }
-
-        // Save the main section data
-        $adhdfirstSection->title = $request->title;
-        $adhdfirstSection->description = $request->description ?? null;
-        $adhdfirstSection->pointers = json_encode($pointers); // Save pointers as JSON
-        $adhdfirstSection->status = $request->status ?? "off";
-        $adhdfirstSection->save();
-
-        return redirect()->route('assessment-our-diagnostic-services-section')->with('success', 'Details saved successfully.');
     }
+
+    // Save the main section data
+    $adhdfirstSection->title = $request->title;
+    $adhdfirstSection->description = $request->description ?? null;
+    $adhdfirstSection->pointers = json_encode($pointers); // Store pointers as JSON
+    $adhdfirstSection->status = $request->status ?? "off";
+    $adhdfirstSection->save();
+
+    return redirect()->route('assessment-our-diagnostic-services-section')
+        ->with('success', 'Details saved successfully.');
+}
+
+
+//     public function saveOurDiagnosticServices(Request $request)
+// {
+//     dd($request->all());
+
+//     // Retrieve or create a new section
+//     $adhdfirstSection = $request->id
+//         ? AssessmentOurDiagnosticService::find($request->id)
+//         : new AssessmentOurDiagnosticService();
+
+//     $pointers = [];
+
+//     // If there are pointer titles, process them
+//     if (!empty($request->card_title) && is_array($request->card_title)) {
+//         foreach ($request->card_title as $index => $card_title) {
+//             $subImagePath = null;
+
+//             // Handle image upload for each pointer
+//             if (isset($request->file('card_image')[$index]) && $request->file('card_image')[$index]->isValid()) {
+//                 $imageName = time() . '_' . $request->file('card_image')[$index]->getClientOriginalName();
+//                 $subImagePath = $request->file('card_image')[$index]->storeAs('assessment', $imageName, 'public');
+//                 $subImagePath = 'storage/' . $subImagePath;
+//             } elseif (isset($adhdfirstSection->pointers)) {
+//                 // Fetch existing pointer image if available
+//                 $existingPointers = json_decode($adhdfirstSection->pointers, true);
+//                 $subImagePath = $existingPointers[$index]['card_image'] ?? null;
+//             }
+
+//             // Prepare sub-pointer data (ensure sub_card_title and sub_card_description are arrays)
+//             $subPointers = [];
+//             // Debugging the request data
+//             // dd($request->sub_card_title, $request->sub_card_description);
+            
+//             if (isset($request->sub_card_title) && is_array($request->sub_card_title)) {
+//                 foreach ($request->sub_card_title as $subIndex => $subTitle) {
+//                     $subPointers[] = [
+//                         'pointerSubTitle1' => $subTitle,
+//                         'pointerSubDescription1' => isset($request->sub_card_description[$subIndex]) ? $request->sub_card_description[$subIndex] : null,
+//                     ];
+//                 }
+//             }
+            
+//             // Check the result after the loop
+//             // dd($subPointers);
+
+//             // Add pointer to the array
+//             $pointers[] = [
+//                 'pointerTitle' => $card_title,
+//                 'pointerDescription' => isset($request->card_description[$index]) ? $request->card_description[$index] : null,
+//                 'sub_image' => $subImagePath,
+//                 'button1Text' => isset($request->card_button_text[$index]) ? $request->card_button_text[$index] : null,
+//                 'button1Link' => isset($request->card_button_link[$index]) ? $request->card_button_link[$index] : null,
+//                 'button2Text' => isset($request->button2Text[$index]) ? $request->button2Text[$index] : null,
+//                 'button2Link' => isset($request->button2Link[$index]) ? $request->button2Link[$index] : null,
+//                 'sub_pointer' => $subPointers, // Add sub-pointers here
+//             ];
+//         }
+//     }
+
+//     // Save the main section data
+//     $adhdfirstSection->title = $request->title;
+//     $adhdfirstSection->description = $request->description ?? null;
+//     $adhdfirstSection->pointers = json_encode($pointers); // Save pointers as JSON
+//     $adhdfirstSection->status = $request->status ?? "off";
+//     $adhdfirstSection->save();
+
+//     return redirect()->route('assessment-our-diagnostic-services-section')->with('success', 'Details saved successfully.');
+// }
+
+
+    // public function saveOurDiagnosticServices(Request $request)
+    // {
+
+    //     $validated = $request->validate([
+    //         'title' => 'required|string|max:255',
+    //         'description' => 'nullable|string|max:2000',
+    //         'pointerTitle' => 'array',
+    //         'pointerTitle.*' => 'required|string|max:255',  // Ensure pointer titles are valid strings
+    //         'pointerDescription' => 'array',
+    //         'pointerDescription.*' => 'required|string|max:500',  // Ensure descriptions are valid strings
+    //         'button1Text' => 'array',
+    //         'button1Text.*' => 'nullable|string|max:255',
+    //         'button1Link' => 'array',
+    //         'button1Link.*' => 'nullable|url',
+    //         'pointerSubTitle' => 'array',
+    //         'pointerSubTitle.*' => 'required|array',
+    //         'pointerSubDescription' => 'array',
+    //         'pointerSubDescription.*' => 'required|array',
+    //         'image' => 'array',
+    //         'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg', // Max size 2MB
+    //     ], [
+    //         'title.required' => 'The title field is required.',
+    //         'title.string' => 'The title must be a valid string.',
+    //         'title.max' => 'The title must not exceed 255 characters.',
+
+    //         'pointerTitle.*.required' => 'Each pointer title is required.',
+    //         'pointerTitle.*.string' => 'Each pointer title must be a valid string.',
+    //         'pointerTitle.*.max' => 'Each pointer title must not exceed 255 characters.',
+
+    //         'pointerDescription.*.required' => 'Each pointer description is required.',
+    //         'pointerDescription.*.string' => 'Each pointer description must be a valid string.',
+    //         'pointerDescription.*.max' => 'Each pointer description must not exceed 500 characters.',
+
+    //         'button1Link.*.url' => 'Each Button 1 Link must be a valid URL.',
+
+    //         'pointerSubTitle.*.required' => 'Each pointer sub-title is required.',
+    //         'pointerSubTitle.*.array' => 'Each pointer sub-title must be an array.',
+
+    //         'pointerSubDescription.*.required' => 'Each pointer sub-description is required.',
+    //         'pointerSubDescription.*.array' => 'Each pointer sub-description must be an array.',
+
+    //         'image.*.image' => 'Each image must be a valid image file.',
+    //         'image.*.mimes' => 'Each image must be of type: jpeg, png, jpg, gif, svg.',
+    //     ]);
+
+    //     // Retrieve or create a new section
+    //     $adhdfirstSection = $request->id
+    //         ? AssessmentOurDiagnosticService::find($request->id)
+    //         : new AssessmentOurDiagnosticService();
+
+    //     $pointers = [];
+
+    //     // If there are pointer titles, process them
+    //     if (!empty($request->pointerTitle) && is_array($request->pointerTitle)) {
+    //         foreach ($request->pointerTitle as $index => $pointerTitle) {
+    //             $subImagePath = null;
+
+    //             // Handle image upload for each pointer
+    //             if (isset($request->file('image')[$index]) && $request->file('image')[$index]->isValid()) {
+    //                 $imageName = time() . '_' . $request->file('image')[$index]->getClientOriginalName();
+    //                 $subImagePath = $request->file('image')[$index]->storeAs('assessment', $imageName, 'public');
+    //                 $subImagePath = 'storage/' . $subImagePath;
+    //             } elseif (isset($adhdfirstSection->pointers)) {
+    //                 // Fetch existing pointer image if available
+    //                 $existingPointers = json_decode($adhdfirstSection->pointers, true);
+    //                 $subImagePath = $existingPointers[$index]['sub_image'] ?? null;
+    //             }
+
+    //             // Prepare sub-pointer data
+    //             $subPointers = [];
+    //             if (isset($request->pointerSubTitle[$index]) && isset($request->pointerSubDescription[$index])) {
+    //                 foreach ($request->pointerSubTitle[$index] as $subIndex => $subTitle) {
+    //                     $subPointers[] = [
+    //                         'pointerSubTitle1' => $subTitle,
+    //                         'pointerSubDescription1' => $request->pointerSubDescription[$index][$subIndex] ?? null,
+    //                     ];
+    //                 }
+    //             }
+
+    //             // Add pointer to the array
+    //             $pointers[] = [
+    //                 'pointerTitle' => $pointerTitle,
+    //                 'pointerDescription' => $request->pointerDescription[$index] ?? null,
+    //                 'sub_image' => $subImagePath,
+    //                 'button1Text' => $request->button1Text[$index] ?? null,
+    //                 'button1Link' => $request->button1Link[$index] ?? null,
+    //                 'button2Text' => $request->button2Text[$index] ?? null,
+    //                 'button2Link' => $request->button2Link[$index] ?? null,
+    //                 'sub_pointer' => $subPointers, // Add sub-pointers here
+    //             ];
+    //         }
+    //     }
+
+    //     // Save the main section data
+    //     $adhdfirstSection->title = $request->title;
+    //     $adhdfirstSection->description = $request->description ?? null;
+    //     $adhdfirstSection->pointers = json_encode($pointers); // Save pointers as JSON
+    //     $adhdfirstSection->status = $request->status ?? "off";
+    //     $adhdfirstSection->save();
+
+    //     return redirect()->route('assessment-our-diagnostic-services-section')->with('success', 'Details saved successfully.');
+    // }
 
 
     public function understandingConditionsSection()
