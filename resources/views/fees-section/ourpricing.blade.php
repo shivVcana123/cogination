@@ -75,8 +75,8 @@
                                 <div id="Pointers-container">
                                     @forelse($pointers as $index => $pointer)
                                     @if (count($pointers) > 1 && $index > 0)
-        <hr>
-    @endif
+                                    <hr>
+                                    @endif
                                     <div class="form-group url-group">
                                         <!-- Sub Title -->
                                         <label> Title</label>
@@ -122,7 +122,7 @@
                                                     @enderror
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <button type="button" class="btn btn-danger remove-description">Remove</button>
+                                                    <button type="button" class="btn btn-danger remove-description mt-2">Remove Description</button>
                                                 </div>
                                             </div>
                                             @endforeach
@@ -163,7 +163,7 @@
                                                     @enderror
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <button type="button" class="btn btn-danger remove-description">Remove Description</button>
+                                                    <button type="button" class="btn btn-danger remove-description mt-2">Remove Description</button>
                                                 </div>
                                             </div>
 
@@ -204,34 +204,35 @@
         document.getElementById('add-Pointers').addEventListener('click', function() {
             const newInputGroup = document.createElement('div');
             newInputGroup.classList.add('form-group', 'url-group');
-            newInputGroup.innerHTML = `<hr>
-             <div class="form-group">
-                <label> Title</label>
-                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                <input type="text" name="sub_title[]" class="form-control mb-2" placeholder="Enter title">
-                <div class="text-danger sub-title-error" style="display: none;">This field is required.</div>
-            </div>
-            <div class="form-group sub-group">
-                <div class="row mb-2">
-                    <div class="col-md-6">
-                        <label> Description</label>
-                        <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-                        <input type="text" name="sub_description[0][]" class="form-control" placeholder="Enter description">
-                        <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
-                    </div>
-                    <div class="col-md-6 mb-2">
-                        <label>Price</label>
-                        <i class="fas fa-info-circle" title="Provide a meaningful price for this section."></i>
-                        <input type="number" step="0.01" name="price[0][]" class="form-control" placeholder="Enter price">
-                        <div class="text-danger price-error" style="display: none;">This field is required.</div>
-                    </div>
-                    <div class="col-md-2">
-                        <button type="button" class="btn btn-danger remove-description">Remove</button>
-                    </div>
+            newInputGroup.innerHTML = `
+                <hr>
+                <div class="form-group">
+                    <label> Title</label>
+                    <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                    <input type="text" name="sub_title[]" class="form-control mb-2" placeholder="Enter title">
+                    <div class="text-danger sub-title-error" style="display: none;">This field is required.</div>
                 </div>
+                <div class="form-group sub-group">
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <label> Description</label>
+                            <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
+                            <input type="text" name="sub_description[0][]" class="form-control" placeholder="Enter description">
+                            <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label>Price</label>
+                            <i class="fas fa-info-circle" title="Provide a meaningful price for this section."></i>
+                            <input type="number" step="0.01" name="price[0][]" class="form-control" placeholder="Enter price">
+                            <div class="text-danger price-error" style="display: none;">This field is required.</div>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-danger remove-description mt-2">Remove Description</button>
+                        </div>
+                    </div>
                 </div>
                 <button type="button" class="btn btn-success add-description">Add</button>
-            <button type="button" class="btn btn-danger remove-Pointers">Remove Card</button>`;
+                <button type="button" class="btn btn-danger remove-Pointers">Remove Card</button>`;
             container.appendChild(newInputGroup);
 
             updateIndexes(); // Ensure new inputs have the correct index.
@@ -239,55 +240,58 @@
         });
 
         // Delegate events inside Pointers container
-        container.addEventListener('click', function(event) {
-            const target = event.target;
+        container.addEventListener('click', function(e) {
+    if (e.target && e.target.classList.contains('add-description')) {
+        // Get the corresponding sub-group to add a new description
+        const subGroup = e.target.closest('.url-group').querySelector('.sub-group');
 
-            // Add new Sub Description
-            if (target.classList.contains('add-description')) {
-                const subDescriptionContainer = target.closest('.sub-group');
-                const index = [...container.querySelectorAll('.url-group')].indexOf(subDescriptionContainer.closest('.url-group'));
-                const newRow = document.createElement('div');
-                newRow.classList.add('row');
-                newRow.innerHTML = `
-                <div class="col-md-6">
-                    <label> Description</label>
-                    <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-                    <input type="text" name="sub_description[${index}][]" class="form-control" placeholder="Enter description">
-                    <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
-                </div>
-                <div class="col-md-6 mb-2">
-                    <label>Price</label>
-                    <i class="fas fa-info-circle" title="Provide a meaningful price for this section."></i>
-                    <input type="number" step="0.01" name="price[${index}][]" class="form-control" placeholder="Enter price">
-                    <div class="text-danger price-error" style="display: none;">This field is required.</div>
-                </div>
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-danger remove-description mb-2">Remove Description</button>
-                </div>`;
+        // Create a new description row
+        const newRow = document.createElement('div');
+        newRow.classList.add('row');
+        newRow.innerHTML = `
+            <div class="col-md-6">
+                <label> Description</label>
+                <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
+                <input type="text" name="sub_description[][]" class="form-control" placeholder="Enter description">
+                <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
+            </div>
+            <div class="col-md-6 mb-2">
+                <label>Price</label>
+                <i class="fas fa-info-circle" title="Provide a meaningful price for this section."></i>
+                <input type="number" step="0.01" name="price[][]" class="form-control" placeholder="Enter price">
+                <div class="text-danger price-error" style="display: none;">This field is required.</div>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-danger remove-description mt-2">Remove Description</button>
+            </div>`;
 
-                // Append the new row above the Add button
-                const addButton = subDescriptionContainer.querySelector('.add-description');
-                subDescriptionContainer.insertBefore(newRow, addButton);
+        // Append the new description row to the form
+        subGroup.appendChild(newRow);
 
-                updateIndexes(); // Update indexes after adding a new row
-                updateRemoveButtonVisibility(); // Update remove button visibility
-            }
-
-            // Remove a Pointer group
-            if (target.classList.contains('remove-Pointers')) {
-                target.closest('.url-group').remove();
-                updateIndexes(); // Update indexes after removing a group
-                updateRemoveButtonVisibility(); // Update remove button visibility
-            }
-
-            // Remove a Sub Description
-            if (target.classList.contains('remove-description')) {
-                const subGroup = target.closest('.sub-group');
-                target.closest('.row').remove();
-                updateIndexes(); // Update indexes after removing a sub description
-                updateRemoveButtonVisibility(); // Update remove button visibility
-            }
+        // Reset input values for the new cloned row
+        const inputs = newRow.querySelectorAll('input');
+        inputs.forEach(function(input) {
+            input.value = ''; // Clear values in the cloned inputs
         });
+
+        // Optionally update the name attributes if you want to keep track of the index
+        updateIndexes();
+    }
+
+    // Remove functionality for each description
+    if (e.target && e.target.classList.contains('remove-description')) {
+        const row = e.target.closest('.row');
+        row.remove(); // Remove the clicked description row
+        updateRemoveButtonVisibility(); // Update visibility of remove buttons
+    }
+
+    // Remove Pointer group
+    if (e.target && e.target.classList.contains('remove-Pointers')) {
+        const pointerGroup = e.target.closest('.url-group');
+        pointerGroup.remove(); // Remove the pointer group
+        updateRemoveButtonVisibility(); // Update visibility of remove buttons
+    }
+});
 
         // Update indexes for all groups and sub-descriptions
         function updateIndexes() {
@@ -316,7 +320,7 @@
                 const rows = subGroup.querySelectorAll('.row');
                 rows.forEach((row) => {
                     const removeButton = row.querySelector('.remove-description');
-                    removeButton.style.display = rows.length > 1 ? 'inline-block' : 'none';
+                    removeButton.style.display = rows.length > 0 ? 'inline-block' : 'none';
                 });
             });
         }
@@ -326,6 +330,5 @@
         updateRemoveButtonVisibility();
     });
 </script>
-
 
 @endsection

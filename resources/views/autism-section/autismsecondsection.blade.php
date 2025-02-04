@@ -115,7 +115,7 @@
                                         <div class="form-group url-group">
                                             <label>Sub Title</label>
                                             <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                            <input type="text" name="second_sub_title[]" class="form-control" value="{{$pointer->second_sub_title}}" placeholder="Enter title">
+                                            <input type="text" name="second_sub_title[]" class="form-control" value="{{$pointer->second_sub_title}}" placeholder="Enter title" required>
 
                                             <button type="button" class="btn btn-danger remove-Pointers mt-3">Remove</button>
                                         </div>
@@ -126,7 +126,7 @@
                                         <div class="form-group url-group">
                                             <label> Title</label>
                                             <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                            <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter  title">
+                                            <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter  title" required>
 
                                             <button type="button" class="btn btn-danger remove-Pointers mt-3">Remove</button>
                                         </div>

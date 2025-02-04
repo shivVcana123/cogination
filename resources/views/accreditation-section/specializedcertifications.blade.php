@@ -73,12 +73,12 @@
                                             <div class="form-group col-md-6">
                                                 <label> Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter sub title">
+                                                <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter sub title" required>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label> Description</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter sub description">
+                                                <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter sub description" required>
                                             </div>
 
                                         </div>

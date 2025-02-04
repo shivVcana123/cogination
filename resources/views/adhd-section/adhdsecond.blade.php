@@ -102,7 +102,7 @@
                                                 <label> Title</label>
                                                 <i class="fas fa-info-circle" title="Enter a meaningful title."></i>
                                                 <input type="text" name="second_sub_title[]" class="form-control"
-                                                    value="{{ $pointer->second_sub_title }}" placeholder="Enter title">
+                                                    value="{{ $pointer->second_sub_title }}" placeholder="Enter title" required>
                                                 @error('second_sub_title.' . $index)
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -111,7 +111,7 @@
                                                 <label> Description</label>
                                                 <i class="fas fa-info-circle" title="Enter a meaningful description."></i>
                                                 <input type="text" name="second_sub_description[]" class="form-control"
-                                                    value="{{ $pointer->second_sub_description }}" placeholder="Enter description">
+                                                    value="{{ $pointer->second_sub_description }}" placeholder="Enter description" required>
                                                 @error('second_sub_description.' . $index)
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror

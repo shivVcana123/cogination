@@ -302,8 +302,8 @@ class AccreditationController extends Controller
         
         $validated = $request->validate([
             'title' => 'required|string|min:3|max:255',
-            'button_content' => 'nullable|string|min:3|max:255',
-            'button_link' => 'nullable|required_with:button_content|max:500',
+            // 'button_content' => 'nullable|string|min:3|max:255',
+            // 'button_link' => 'nullable|required_with:button_content|max:500',
             'description' => 'required|string|min:100|max:2000',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg', // Max file size 2MB
         
@@ -346,8 +346,8 @@ class AccreditationController extends Controller
         // Assign data
         $autismSection->title = $request->title;
         $autismSection->description = $request->description;
-        $autismSection->button_content = $request->button_content;
-        $autismSection->button_link = $request->button_link;
+        // $autismSection->button_content = $request->button_content;
+        // $autismSection->button_link = $request->button_link;
         $autismSection->status = $request->status ?? "off";
 
         $autismSection->save();

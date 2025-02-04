@@ -131,80 +131,8 @@
                                         </div>
                                         @endforeach
                                     </div>
-
-
-                                    <!-- <div class="row">
-                                        <div class="col-12">
-                                            <label for="headers">Select Display Data</label><i class="fas fa-info-circle" title="Select the values you want to show in the footer."></i>
-                                        </div>
-
-                                        @php
-                                        $footerValue = isset($footerData[0]) && !empty($footerData[0]->display_data)
-                                        ? json_decode($footerData[0]->display_data)
-                                        : []; // Decode JSON to an array
-                                        @endphp
-
-                                        @foreach ($headers as $header)
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <div class="form-check">
-                                                    <input
-                                                        type="checkbox"
-                                                        class="form-check-input"
-                                                        name="dats_display[]"
-                                                        id="header_{{ $header->id }}"
-                                                        value="{{ $header->category }}"
-                                                        {{ in_array($header->category, $footerValue ?? []) ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="header_{{ $header->id }}">
-                                                        {{ $header->category }}
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @endforeach
-
-                                    </div> -->
                                 </div>
-
-                                <!-- <hr>
-                                <div class="row">
-                                    <div class="form-group col-md-12">
-                                        <label for="title">Title 2</label><i class="fas fa-info-circle" title="Enter a second title for Footer Section."></i>
-                                        <input type="text" class="form-control" name="title2" id="title2" value="{{$footerData[0]->title2 ?? ''}}" placeholder="Enter title2">
-                                    </div>
-
-                                    @php
-                                    $linkValues = isset($footerData[0]) && !empty($footerData[0]->link)
-                                    ? json_decode($footerData[0]->link)
-                                    : [];
-                                    @endphp
-
-                                    <div class="form-group col-md-12">
-                                        <label for="link_name">Link Name</label>
-                                        <div id="link-url-container">
-                                            @if (!empty($linkValues))
-                                            @foreach ($linkValues as $value)
-                                            <div class="link-url-row">
-                                                <div class="row">
-                                                    <input type="text" class="form-control col-md-6 mb-2" name="name[]" placeholder="Enter Link Name" value="{{ $value->name ?? '' }}">
-                                                    <input type="text" class="form-control col-md-6 mb-2" name="link[]" placeholder="Enter URL" value="{{ $value->link ?? '' }}">
-                                                    <button type="button" class="btn btn-danger btn-sm remove-link-url">Remove</button>
-                                                </div>
-                                            </div>
-                                            @endforeach
-                                            @else
-                                            <div class="link-url-row">
-                                                <div class="row">
-                                                    <input type="text" class="form-control col-md-6 mb-2" name="name[]" placeholder="Enter Link Name">
-                                                    <input type="text" class="form-control col-md-6 mb-2" name="link[]" placeholder="Enter URL">
-                                                    <button type="button" class="btn btn-danger btn-sm remove-link-url">Remove</button>
-                                                </div>
-                                            </div>
-                                            @endif
-                                        </div>
-                                        <button type="button" class="btn btn-success btn-sm mt-2" id="add-more-link-url">Add More</button>
-                                    </div>
-                                </div> -->
+                               
                                 <hr>
                                 <div class="form-group">
                                     <label for="image">WebSite Logo</label>
