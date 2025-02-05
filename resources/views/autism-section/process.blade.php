@@ -48,7 +48,7 @@
                                         <label for="title">Title</label>
                                         <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
 
-                                        <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" value="{{ old('title', $autismProcess[0]->title ?? '') }}">
+                                        <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" value="{{ old('title', $autismProcess[0]->title ?? '') }}" required>
                                         @error('title')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -68,7 +68,7 @@
                                     <label for="description">Description</label>
                                     <i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
 
-                                    <textarea name="description" id="description" class="form-control">{{ old('description', $autismProcess[0]->description ?? '') }}</textarea>
+                                    <textarea name="description" id="description" class="form-control" required>{{ old('description', $autismProcess[0]->description ?? '') }}</textarea>
                                     @error('description')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -95,13 +95,13 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label> Description</label>
-                                                <input name="sub_description[]" class="form-control" required>{{ $pointer->sub_description }}</input>
+                                                <input name="sub_description[]" class="form-control" value="{{ $pointer->sub_description }}" required>
                                                 @error('sub_description')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>
-                                        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                                        <button type="button" class="btn btn-danger remove-Pointers mt-2">Remove</button>
                                     </div>
                                     @endforeach
                                     @else
@@ -110,7 +110,7 @@
                                             <div class="col-md-6">
                                                 <label> Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter title">
+                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter title" required>
                                                 @error('sub_title')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -119,7 +119,7 @@
                                                 <label> Description</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
 
-                                                <textarea name="sub_description[]" class="form-control"></textarea>
+                                                <textarea name="sub_description[]" class="form-control" required></textarea>
                                                 @error('sub_description')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -158,11 +158,11 @@
             <div class="row">
                 <div class="col-md-6">
                     <label>Title</label>
-                    <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter title">
+                    <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter title" required>
                 </div>
                 <div class="col-md-6">
                     <label>Description</label>
-                    <textarea name="sub_description[]" class="form-control"></textarea>
+                    <textarea name="sub_description[]" class="form-control" required></textarea>
                 </div>
             </div>
             <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
@@ -272,11 +272,11 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label>Title</label>
-                                                    <input type="text" name="sub_title[]" class="form-control sub-title-input" value="${pointer.sub_title || ''}" placeholder="Enter title">
+                                                    <input type="text" name="sub_title[]" class="form-control sub-title-input" value="${pointer.sub_title || ''}" placeholder="Enter title" required>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label>Sub Description</label>
-                                                    <textarea name="sub_description[]" class="form-control sub-description-input">${pointer.sub_description || ''}</textarea>
+                                                    <textarea name="sub_description[]" class="form-control sub-description-input" required>${pointer.sub_description || ''}</textarea>
                                                 </div>
                                                 <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                             </div>
@@ -290,11 +290,11 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Title</label>
-                                                <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter title">
+                                                <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter title" required>
                                             </div>
                                             <div class="col-md-6">
                                                 <label>Description</label>
-                                                <textarea name="sub_description[]" class="form-control sub-description-input"></textarea>
+                                                <textarea name="sub_description[]" class="form-control sub-description-input" required></textarea>
                                             </div>
                                             <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                         </div>
@@ -334,11 +334,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label>Title</label>
-                        <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter title">
+                        <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter title" required>
                     </div>
                     <div class="col-md-6">
                         <label>Description</label>
-                        <textarea name="sub_description[]" class="form-control sub-description-input"></textarea>
+                        <textarea name="sub_description[]" class="form-control sub-description-input" required></textarea>
                     </div>
                     <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                 </div>

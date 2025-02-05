@@ -34,7 +34,7 @@
                                         <label for="title">Title</label>
                                         <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
                                         <input type="text" class="form-control" name="title" id="title"
-                                            placeholder="Enter title" value="{{ old('title', $ourPricing[0]->title ?? '') }}">
+                                            placeholder="Enter title" value="{{ old('title', $ourPricing[0]->title ?? '') }}" required>
                                         @error('title')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -56,7 +56,7 @@
                                 <div class="form-group">
                                     <label for="description_1">Description</label>
                                     <i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
-                                    <textarea class="form-control" name="description" id="description">{{ old('description', $ourPricing[0]->description ?? '') }}</textarea>
+                                    <textarea class="form-control" name="description" id="description" required>{{ old('description', $ourPricing[0]->description ?? '') }}</textarea>
                                     @error('description')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -81,7 +81,7 @@
                                         <!-- Sub Title -->
                                         <label> Title</label>
                                         <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_title[]" class="form-control mb-2" value="{{ old('sub_title.' . $index, $pointer->sub_title ?? '') }}" placeholder="Enter title">
+                                        <input type="text" name="sub_title[]" class="form-control mb-2" value="{{ old('sub_title.' . $index, $pointer->sub_title ?? '') }}" placeholder="Enter title" required>
                                         @error('sub_title.' . $index)
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -103,7 +103,7 @@
                                                         name="sub_description[{{ $index }}][]"
                                                         class="form-control"
                                                         value="{{ old('sub_description.' . $index . '.' . $key, $description) }}"
-                                                        placeholder="Enter description">
+                                                        placeholder="Enter description" required>
                                                     @error('sub_description.' . $index . '.' . $key)
                                                     <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -116,7 +116,7 @@
                                                         name="price[{{ $index }}][]"
                                                         class="form-control"
                                                         value="{{ old('price.' . $index . '.' . $key, $prices[$key] ?? '') }}"
-                                                        placeholder="Enter price">
+                                                        placeholder="Enter price" required>
                                                     @error('price.' . $index . '.' . $key)
                                                     <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -138,7 +138,7 @@
                                         <!-- Sub Title -->
                                         <label> Title</label>
                                         <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                        <input type="text" name="sub_title[]" class="form-control" value="{{ old('sub_title.0') }}" placeholder="Enter title">
+                                        <input type="text" name="sub_title[]" class="form-control" value="{{ old('sub_title.0') }}" placeholder="Enter title" required>
                                         @error('sub_title.*')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -149,7 +149,7 @@
                                                 <div class="col-md-6">
                                                     <label> Description</label>
                                                     <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-                                                    <input type="text" name="sub_description[0][]" class="form-control" value="{{ old('sub_description.0.0') }}" placeholder="Enter description">
+                                                    <input type="text" name="sub_description[0][]" class="form-control" value="{{ old('sub_description.0.0') }}" placeholder="Enter description" required>
                                                     @error('sub_description.0.*')
                                                     <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -157,7 +157,7 @@
                                                 <div class="col-md-6 mb-2">
                                                     <label>Price</label>
                                                     <i class="fas fa-info-circle" title="Provide a meaningful price for this section."></i>
-                                                    <input type="number" step="0.01" name="price[0][]" class="form-control" value="{{ old('price.0.0') }}" placeholder="Enter price">
+                                                    <input type="number" step="0.01" name="price[0][]" class="form-control" value="{{ old('price.0.0') }}" placeholder="Enter price" required>
                                                     @error('price.0.*')
                                                     <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -209,7 +209,7 @@
                 <div class="form-group">
                     <label> Title</label>
                     <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                    <input type="text" name="sub_title[]" class="form-control mb-2" placeholder="Enter title">
+                    <input type="text" name="sub_title[]" class="form-control mb-2" placeholder="Enter title" required>
                     <div class="text-danger sub-title-error" style="display: none;">This field is required.</div>
                 </div>
                 <div class="form-group sub-group">
@@ -217,13 +217,13 @@
                         <div class="col-md-6">
                             <label> Description</label>
                             <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-                            <input type="text" name="sub_description[0][]" class="form-control" placeholder="Enter description">
+                            <input type="text" name="sub_description[0][]" class="form-control" placeholder="Enter description" required>
                             <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
                         </div>
                         <div class="col-md-6 mb-2">
                             <label>Price</label>
                             <i class="fas fa-info-circle" title="Provide a meaningful price for this section."></i>
-                            <input type="number" step="0.01" name="price[0][]" class="form-control" placeholder="Enter price">
+                            <input type="number" step="0.01" name="price[0][]" class="form-control" placeholder="Enter price" required>
                             <div class="text-danger price-error" style="display: none;">This field is required.</div>
                         </div>
                         <div class="col-md-2">
@@ -252,13 +252,13 @@
             <div class="col-md-6">
                 <label> Description</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-                <input type="text" name="sub_description[][]" class="form-control" placeholder="Enter description">
+                <input type="text" name="sub_description[][]" class="form-control" placeholder="Enter description" required>
                 <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
             </div>
             <div class="col-md-6 mb-2">
                 <label>Price</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful price for this section."></i>
-                <input type="number" step="0.01" name="price[][]" class="form-control" placeholder="Enter price">
+                <input type="number" step="0.01" name="price[][]" class="form-control" placeholder="Enter price" required>
                 <div class="text-danger price-error" style="display: none;">This field is required.</div>
             </div>
             <div class="col-md-2">

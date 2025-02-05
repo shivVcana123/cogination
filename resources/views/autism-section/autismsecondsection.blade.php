@@ -50,7 +50,7 @@
                                             <label for="title">Title</label>
                                             <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
                                             <input type="text" class="form-control" name="second_title" id="second_title"
-                                                placeholder="Enter title" value="{{ old('second_title',$autismSection[0]->second_title ?? '') }}">
+                                                placeholder="Enter title" value="{{ old('second_title',$autismSection[0]->second_title ?? '') }}" required>
                                             @error('second_title')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -89,7 +89,7 @@
                                     <div class="form-group">
                                         <label for="description_1">Description</label>
                                         <i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
-                                        <textarea class="form-control" name="second_description" id="second_description">{{ old('second_description', $autismSection[0]->second_description ?? '') }}</textarea>
+                                        <textarea class="form-control" name="second_description" id="second_description" required>{{ old('second_description', $autismSection[0]->second_description ?? '') }}</textarea>
                                         @error('second_description')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -182,7 +182,7 @@
         newInputGroup.innerHTML = `
         <label> Title</label>
         <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-        <input type="text" name="second_sub_title[]" class="form-control" placeholder="Enter title">
+        <input type="text" name="second_sub_title[]" class="form-control" placeholder="Enter title" required>
         <div class="text-danger error-message" style="display: none;">Sub Title is required.</div>
 
         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
@@ -296,7 +296,7 @@
                                         const pointerHtml = `
                                     <div class="form-group url-group">
                                         <label>Sub Title</label>
-                                        <input type="text" name="second_sub_title[]" class="form-control" value="${pointer.second_sub_title || ''}" placeholder="Enter title">
+                                        <input type="text" name="second_sub_title[]" class="form-control" value="${pointer.second_sub_title || ''}" placeholder="Enter title" required>
                                        
                                         <button type="button" class="btn btn-danger remove-Pointers mt-3">Remove</button>
                                     </div>
@@ -308,7 +308,7 @@
                                     container.append(`
                                 <div class="form-group url-group">
                                     <label> Title</label>
-                                    <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter title">
+                                    <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter title" required>
                                    
                                     <button type="button" class="btn btn-danger remove-Pointers mt-3">Remove</button>
                                 </div>
@@ -335,7 +335,7 @@
                             container.append(`
                         <div class="form-group url-group">
                             <label> Title</label>
-                            <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter title">
+                            <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter title" required>
                            
                             <button type="button" class="btn btn-danger remove-Pointers mt-3">Remove</button>
                         </div>
@@ -365,9 +365,9 @@
             $('#Pointers-container').append(`
         <div class="form-group url-group">
             <label> Title</label>
-            <input type="text" name="second_sub_title[]" class="form-control" placeholder="Enter sub title">
+            <input type="text" name="second_sub_title[]" class="form-control" placeholder="Enter sub title" required>
             <label>Sub Description</label>
-            <input type="text" name="second_sub_description[]" class="form-control" placeholder="Enter description">
+            <input type="text" name="second_sub_description[]" class="form-control" placeholder="Enter description" required>
             <button type="button" class="btn btn-danger remove-Pointers mt-3">Remove</button>
         </div>
     `);

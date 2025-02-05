@@ -46,7 +46,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="title">Title</label>
                                         <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
-                                        <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" value="{{ old('title', $autismBook[0]->title ?? '') }}">
+                                        <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" value="{{ old('title', $autismBook[0]->title ?? '') }}" required>
                                         @error('title')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -82,7 +82,7 @@
                                 <div class="form-group">
                                     <label for="description">Description</label>
                                     <i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
-                                    <textarea name="description" id="description" class="form-control">{{ old('description', $autismBook[0]->description ?? '') }}</textarea>
+                                    <textarea name="description" id="description" class="form-control" required>{{ old('description', $autismBook[0]->description ?? '') }}</textarea>
                                     @error('description')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror

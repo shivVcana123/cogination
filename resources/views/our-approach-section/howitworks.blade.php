@@ -40,7 +40,7 @@
                                         <label for="title">Title</label>
                                         <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
                                         <input type="text" class="form-control" name="title" id="title"
-                                            placeholder="Enter title" value="{{ old('title', $howItWorkSection[0]->title ?? '') }}">
+                                            placeholder="Enter title" value="{{ old('title', $howItWorkSection[0]->title ?? '') }}" required>
                                         @error('title')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -99,12 +99,12 @@
                                             <div class="form-group col-md-6">
                                                 <label> Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter title">
+                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter title" required>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label> Description</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter description">
+                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter description" required>
                                             </div>
 
                                         </div>
@@ -149,13 +149,13 @@
                 <div class="form-group col-md-6">
                     <label> Title</label>
                     <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                    <input type="text" name="sub_title[]" class="form-control" placeholder="Enter title">
+                    <input type="text" name="sub_title[]" class="form-control" placeholder="Enter title" required>
                     <div class="text-danger sub-title-error" style="display: none;">This field is required.</div>
                 </div>
                 <div class="form-group col-md-6">
                     <label> Description</label>
                     <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-                    <input type="text" name="sub_description[]" class="form-control" placeholder="Enter description">
+                    <input type="text" name="sub_description[]" class="form-control" placeholder="Enter description" required>
                     <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
                 </div>
             </div>

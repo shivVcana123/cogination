@@ -34,7 +34,7 @@
                                         <label for="title">Title</label>
                                         <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
                                         <input type="text" class="form-control" name="title" id="title"
-                                            placeholder="Enter first title" value="{{ old('title',$ourMissionSection[0]->title ?? '') }}">
+                                            placeholder="Enter first title" value="{{ old('title',$ourMissionSection[0]->title ?? '') }}" required>
                                         @error('title')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror

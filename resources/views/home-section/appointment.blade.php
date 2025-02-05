@@ -35,7 +35,7 @@
                                         <label for="title">Title</label>
                                         <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
                                         <input type="text" class="form-control" name="title" id="title"
-                                            placeholder="Enter title" value="{{ old('title',$appointment->title ?? '') }}">
+                                            placeholder="Enter title" value="{{ old('title',$appointment->title ?? '') }}" required>
                                         @error('title')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -93,7 +93,7 @@
                                         <label for="subtitle">Description</label>
                                         <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
                                         <textarea type="text" class="form-control" name="subtitle" id="subtitle"
-                                            placeholder="Enter subtitle">{{ old('subtitle',$appointment->subtitle ?? '') }}</textarea>
+                                            placeholder="Enter subtitle" required>{{ old('subtitle',$appointment->subtitle ?? '') }}</textarea>
                                         @error('subtitle')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
