@@ -35,7 +35,7 @@
                                         <label for="title">Title</label>
                                         <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
                                         <input type="text" class="form-control" name="title" id="title"
-                                            placeholder="Enter first title" value="{{ old('title',$ourCommitmentSection[0]->title ?? '') }}">
+                                            placeholder="Enter first title" value="{{ old('title',$ourCommitmentSection[0]->title ?? '') }}" required>
                                         @error('title')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -73,7 +73,7 @@
                                 <div class="form-group">
                                     <label for="description_1">Description</label>
                                     <i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
-                                    <textarea class="form-control" name="description" id="description">{{ old('description', $ourCommitmentSection[0]->description ?? '') }}</textarea>
+                                    <textarea class="form-control" name="description" id="description" required>{{ old('description', $ourCommitmentSection[0]->description ?? '') }}</textarea>
                                     @error('description')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror

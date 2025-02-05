@@ -40,7 +40,7 @@
                                         <label for="title">Title</label>
                                         <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
                                         <input type="text" class="form-control" name="title" id="title"
-                                            placeholder="Enter title" value="{{ old('title', $saveFaqs[0]->title ?? '') }}">
+                                            placeholder="Enter title" value="{{ old('title', $saveFaqs[0]->title ?? '') }}" required>
                                         @error('title')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -108,7 +108,7 @@
                                                 <label for="question">Question</label>
                                                 <i class="fas fa-info-circle" title="Enter a meaningful question that summarizes the purpose of this section."></i>
                                                 <input type="text" class="form-control" name="question[]" id="question"
-                                                    placeholder="Enter question" value="">
+                                                    placeholder="Enter question" value="" required>
                                                 @error('question')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -120,7 +120,7 @@
                                                 <label for="answer">Answer</label>
                                                 <i class="fas fa-info-circle" title="Provide a brief answer that complements the main title of this section."></i>
                                                 <input type="text" class="form-control" name="answer[]" id="answer"
-                                                    placeholder="Enter answer" value="">
+                                                    placeholder="Enter answer" value="" required>
                                                 @error('answer')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -170,7 +170,7 @@ document.getElementById('add-Pointers').addEventListener('click', function () {
             <div class="form-group col-md-6">
                 <label for="question">Question</label>
                 <i class="fas fa-info-circle" title="Enter a meaningful question that summarizes the purpose of this section."></i>
-                <input type="text" class="form-control" name="question[]" id="question" placeholder="Enter question" value="">
+                <input type="text" class="form-control" name="question[]" id="question" placeholder="Enter question" value="" required>
                 <div class="text-danger question-error" style="display: none;">This field is required.</div>
             </div>
 
@@ -178,7 +178,7 @@ document.getElementById('add-Pointers').addEventListener('click', function () {
             <div class="form-group col-md-6">
                 <label for="answer">Answer</label>
                 <i class="fas fa-info-circle" title="Provide a brief answer that complements the main title of this section."></i>
-                <input type="text" class="form-control" name="answer[]" id="answer" placeholder="Enter answer" value="">
+                <input type="text" class="form-control" name="answer[]" id="answer" placeholder="Enter answer" value="" required>
                 <div class="text-danger answer-error" style="display: none;">This field is required.</div>
             </div>
         </div>

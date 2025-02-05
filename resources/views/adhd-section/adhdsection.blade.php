@@ -48,7 +48,7 @@
                                         <label for="title">Title</label>
                                         <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
                                         <input type="text" class="form-control" name="first_title" id="title"
-                                            placeholder="Enter first title" value="{{ old('first_title',$adhdSection[0]->first_title ?? '') }}">
+                                            placeholder="Enter first title" value="{{ old('first_title',$adhdSection[0]->first_title ?? '') }}" required>
                                         @error('first_title')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -87,7 +87,7 @@
                                 <div class="form-group">
                                     <label for="description_1">Description</label>
                                     <i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
-                                    <textarea class="form-control" name="first_description" id="first_description">{{ old('first_description', $adhdSection[0]->first_description ?? '') }}</textarea>
+                                    <textarea class="form-control" name="first_description" id="first_description" required>{{ old('first_description', $adhdSection[0]->first_description ?? '') }}</textarea>
                                     @error('first_description')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror

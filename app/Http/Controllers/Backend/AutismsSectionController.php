@@ -219,7 +219,8 @@ class AutismsSectionController extends Controller
     }
     public function saveProcessSection(Request $request)
     {
-        
+      
+
         // Validate the request data
         $validated = $request->validate([
             'type' => 'required',
@@ -288,6 +289,7 @@ class AutismsSectionController extends Controller
    
 
         return redirect()->route('autism-process-section')->with('success', 'Adhd details saved successfully.');
+    
     }
 
     public function fetchAutismsProcessSectionByType(Request $request)

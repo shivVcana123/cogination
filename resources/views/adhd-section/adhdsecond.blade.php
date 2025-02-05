@@ -49,7 +49,7 @@
                                         <label for="second_title">Title</label>
                                         <i class="fas fa-info-circle" title="Enter a meaningful title."></i>
                                         <input type="text" class="form-control" name="second_title" id="second_title"
-                                            placeholder="Enter second title" value="{{ old('second_title', $adhdSection[0]->second_title ?? '') }}">
+                                            placeholder="Enter second title" value="{{ old('second_title', $adhdSection[0]->second_title ?? '') }}" required>
                                         @error('second_title')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -126,7 +126,7 @@
                                             <div class="form-group col-md-6">
                                                 <label> Title</label>
                                                 <i class="fas fa-info-circle" title="Enter a meaningful title."></i>
-                                                <input type="text" name="second_sub_title[]" class="form-control" placeholder="Enter title">
+                                                <input type="text" name="second_sub_title[]" class="form-control" placeholder="Enter title" required>
                                                 @error('second_sub_title.0')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -134,7 +134,7 @@
                                             <div class="form-group col-md-6">
                                                 <label> Description</label>
                                                 <i class="fas fa-info-circle" title="Enter a meaningful description."></i>
-                                                <input type="text" name="second_sub_description[]" class="form-control" placeholder="Enter description">
+                                                <input type="text" name="second_sub_description[]" class="form-control" placeholder="Enter description" required>
                                                 @error('second_sub_description.0')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -195,13 +195,13 @@
             <div class="form-group col-md-6">
                 <label> Title</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful sub title for this section."></i>
-                <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter title">
+                <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter title" required>
                 <div class="text-danger title-error" style="display: none;">At least one field is required.</div>
             </div>
             <div class="form-group col-md-6">
                 <label> Description</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful sub description for this section."></i>
-                <input type="text" name="second_sub_description[]" class="form-control" value="" placeholder="Enter description">
+                <input type="text" name="second_sub_description[]" class="form-control" value="" placeholder="Enter description" required>
                 <div class="text-danger description-error" style="display: none;">At least one field is required.</div>
             </div>
         </div>
@@ -332,13 +332,13 @@
             <div class="form-group col-md-6">
                 <label> Title</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful sub title for this section."></i>
-                <input type="text" name="second_sub_title[]" class="form-control" value="${data.second_sub_title || ''}" placeholder="Enter title">
+                <input type="text" name="second_sub_title[]" class="form-control" value="${data.second_sub_title || ''}" placeholder="Enter title" required>
                 <div class="text-danger title-error" style="display: none;">At least one field is required.</div>
             </div>
             <div class="form-group col-md-6">
                 <label> Description</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-                <input type="text" name="second_sub_description[]" class="form-control" value="${data.second_sub_description || ''}" placeholder="Enter description">
+                <input type="text" name="second_sub_description[]" class="form-control" value="${data.second_sub_description || ''}" placeholder="Enter description" required>
                 <div class="text-danger description-error" style="display: none;">At least one field is required.</div>
             </div>
         </div>
