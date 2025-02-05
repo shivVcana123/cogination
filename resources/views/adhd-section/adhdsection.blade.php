@@ -125,6 +125,7 @@
 <script>
     CKEDITOR.replace('first_description');
 
+    // Handle image preview
     imgInp.onchange = evt => {
         const [file] = imgInp.files;
         if (file) {
@@ -136,21 +137,19 @@
         }
     };
 
-
     $(document).ready(function() {
-       
-
         // Handle change event on the #type dropdown
         $('#type').on('change', function() {
             const selectedType = $(this).val();
+
+            // Clear validation errors when type is changed
+            $('.validation-error').remove();
 
             if (selectedType) {
                 $.ajax({
                     url: "{{ route('fetch-adhd-section-by-type') }}", // Update with your route
                     type: "GET",
-                    data: {
-                        type: selectedType
-                    },
+                    data: { type: selectedType },
                     beforeSend: function() {
                         $('#loading-spinner').show(); // Show loader
                     },
@@ -165,18 +164,19 @@
                             $('#button_content').val(section.first_button_content || '');
                             $('#button_link').val(section.first_button_link || '');
                             CKEDITOR.instances.first_description.setData(section.first_description || '');
-                            const imageUrl = section.first_image || '';
-                            $('#blah').attr('src', imageUrl ? imageUrl : '#'); // Use the image URL or reset
-                            $('#status').prop('checked', section.status === 'on');
 
-                           
+                            const imageUrl = section.first_image || '';
+                            if (imageUrl) {
+                                $('#blah').attr('src', imageUrl).show();
+                            } else {
+                                $('#blah').attr('src', '#').hide(); // Reset if no image
+                            }
+
+                            $('#status').prop('checked', section.status === 'on');
                         } else {
                             // Reset form fields if no data is found
-                            $('#id, #title, #subtitle, #description, #button_content, #button_link').val('');
-                            
+                            resetFormFields();
                         }
-
-                       
                     },
                     error: function() {
                         alert('An error occurred while fetching data.');
@@ -185,12 +185,20 @@
                         $('#loading-spinner').hide(); // Hide loader
                     }
                 });
+            } else {
+                resetFormFields();
             }
         });
 
-        // Handle click event to dynamically add pointers
-    
+        // Function to reset all form fields
+        function resetFormFields() {
+            $('#id, #title, #subtitle, #button_content, #button_link').val('');
+            CKEDITOR.instances.first_description.setData(''); // Reset CKEditor
+            $('#blah').attr('src', '#').hide(); // Reset image
+            $('#status').prop('checked', false); // Uncheck status
+        }
     });
 </script>
+
 
 @endsection

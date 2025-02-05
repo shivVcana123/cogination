@@ -260,7 +260,7 @@ class AdhdBenefitsController extends Controller
     
     public function saveAdhdSecond(Request $request)
     {
- 
+    //    dd($request->all());
             $validated = $request->validate([
                 'type' => 'required|string|min:3|max:100',
                 'second_title' => 'required|string|min:3|max:255',
@@ -268,9 +268,9 @@ class AdhdBenefitsController extends Controller
                 'second_description' => 'required|string|min:100|max:2000',
                 'heading' => 'nullable|string|min:3|max:255',
                 'second_sub_title' => 'nullable|array',
-                'second_sub_title.*' => 'required_with:second_sub_description.*|string|min:3|max:255',
+                'second_sub_title.*' => 'required|string|min:3|max:255',
                 'second_sub_description' => 'nullable|array',
-                'second_sub_description.*' => 'required_with:second_sub_title.*|string|min:3|max:500',
+                'second_sub_description.*' => 'required|string|min:3|max:500',
                 'second_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp', // Max file size 2MB
             ], [
                 'type.required' => 'The type field is required.',
@@ -350,6 +350,7 @@ class AdhdBenefitsController extends Controller
             $adhdSecondSection->save();
     
             return redirect()->route('adhd-second-section')->with('success', 'Adhd details saved successfully.');
+       
     
     }
     
@@ -364,6 +365,7 @@ class AdhdBenefitsController extends Controller
         }
 
         $adhdSection = AdhdSecondSection::where('type', $type)->get();
+   
 
         return response()->json(['data' => $adhdSection]);
     }

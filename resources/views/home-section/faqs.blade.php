@@ -76,7 +76,7 @@
                                                 <label for="question">Question</label>
                                                 <i class="fas fa-info-circle" title="Enter a meaningful question that summarizes the purpose of this section."></i>
                                                 <input type="text" class="form-control" name="question[]" id="question"
-                                                    placeholder="Enter question" value="{{ old('question.' . $index, $pointer['question'] ?? '') }}" required>
+                                                    placeholder="Enter question" value="{{ old('question', $pointer['question'] ?? '') }}" required>
                                                 @error('question')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -88,7 +88,7 @@
                                                 <label for="answer">Answer</label>
                                                 <i class="fas fa-info-circle" title="Provide a brief answer that complements the main title of this section."></i>
                                                 <input type="text" class="form-control" name="answer[]" id="answer"
-                                                    placeholder="Enter answer" value="{{ old('answer.' . $index, $pointer['answer'] ?? '') }}" required>
+                                                    placeholder="Enter answer" value="{{ old('answer', $pointer['answer'] ?? '') }}" required>
                                                 @error('answer')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror

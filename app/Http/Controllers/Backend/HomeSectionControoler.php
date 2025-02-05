@@ -282,7 +282,6 @@ class HomeSectionControoler extends Controller
 
     public function saveFaqs(Request $request)
     {
-        // dd($request->all());
         // Validate incoming request
         $validated = $request->validate(
             [

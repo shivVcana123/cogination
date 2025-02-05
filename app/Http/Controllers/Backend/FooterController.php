@@ -35,6 +35,24 @@ class FooterController extends Controller
     public function saveFooter(Request $request)
     {
         // dd($request->all());
+
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'phone_no' => 'required', 
+            'address' => 'required',
+            'title1' => 'required',
+            'description' => 'required',
+          
+        ], [
+            'email.required' => 'The email field is required.',
+            'email.email' => 'The email must be a valid email address.',
+            'address.required' => 'The address field is required.',
+            'title1.required' => 'The title field is required.',
+            'description.required' => 'The description field is required.',
+        ]);
+        
+        
+
         $linkPointers = [];
         if ($request->has('dats_display')) {
             foreach ($request->dats_display as $index => $nameData) {

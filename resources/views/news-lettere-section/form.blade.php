@@ -27,99 +27,89 @@
                         </div>
 
                         <form action="{{ route('news-letter-save') }}" method="POST" enctype="multipart/form-data" id="subscribeNewsletterForm">
-                            @csrf
-                            <input type="hidden" name="hidden_id" value="{{ $subscribeNewsletter->id ?? '' }}">
-                            <div class="card-body">
-                                <!-- Title Section -->
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="title">Title</label>
-                                            <i class="fas fa-info-circle" title="Provide a brief title that complements the main title of this section."></i>
-                                            <input type="text" class="form-control" name="title" id="title" value="{{ old('title', $subscribeNewsletter->title ?? '') }}" placeholder="Enter Title">
-                                            @error('title')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                          
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="button_content">Button Text</label>
-                                            <i class="fas fa-info-circle" title="Provide a brief button text of this section."></i>
-                                            <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text" value="{{ old('button_content', $subscribeNewsletter->button_content ?? '') }}">
-                                            @error('button_content')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <!-- <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="button_link">Button Link</label>
-                                            <input type="text" class="form-control" name="button_link" id="button_link" value="{{ old('button_link', $subscribeNewsletter->button_link ?? '') }}" placeholder="Enter Button Link">
-                                            @error('button_link')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div> -->
-                                </div>
+    @csrf
+    <input type="hidden" name="hidden_id" value="{{ $subscribeNewsletter->id ?? '' }}">
+    <div class="card-body">
+        <!-- Title Section -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <i class="fas fa-info-circle" title="Provide a brief title that complements the main title of this section."></i>
+                    <input type="text" class="form-control" name="title" id="title" value="{{ old('title', $subscribeNewsletter->title ?? '') }}" placeholder="Enter Title">
+                    @error('title')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
 
-                                <hr>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="button_content">Button Text</label>
+                    <i class="fas fa-info-circle" title="Provide a brief button text of this section."></i>
+                    <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text" value="{{ old('button_content', $subscribeNewsletter->button_content ?? '') }}">
+                    @error('button_content')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+        </div>
 
-                                <!-- Pointers Section -->
-                                <label for="">Card Icon</label>
-                                <div id="Pointers-container">
-                                    @if(isset($subscribeNewsletter->pointers) && is_array(json_decode($subscribeNewsletter->pointers, true)))
-                                    @foreach(json_decode($subscribeNewsletter->pointers, true) as $key => $pointer)
-                                   
-                                    <div class="form-group url-group">
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label>Media Icon</label>
-                                                <i class="fas fa-info-circle" title="Provide a brief media icon of this section."></i> <label for="">(Optional)</label>
-                                                <img class="media-icon" id="blah" src="{{asset($pointer['image'])}}" alt="Image Preview" style="width: auto; display:{{empty($pointer['image']) ? 'none' : 'block'}};" />
-                                                <input type="file" name="image[{{ $key }}]" id="imgInp" class="form-control">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label>Media Link</label>
-                                                <i class="fas fa-info-circle" title="Provide a brief media link of this section."></i> <label for="">(Optional)</label>
-                                                <input type="text" name="link[{{ $key }}]" class="form-control" value="{{ $pointer['link'] ?? '' }}" placeholder="Enter Media Link">
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
-                                    </div>
-                                    @endforeach
-                                    @else
-                                    <div class="form-group url-group">
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label>Media Icon</label>
-                                                <i class="fas fa-info-circle" title="Provide a brief media icon of this section."></i> <label for="">(Optional)</label>
-                                                <img class="media-icon" id="blah" src="#" alt="Image Preview" style="width: auto; display:none;" />
-                                                <input type="file" name="image[]" id="imgInp" class="form-control">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label>Media Link</label>
-                                                <i class="fas fa-info-circle" title="Provide a brief media link of this section."></i> <label for="">(Optional)</label>
-                                                <input type="text" name="link[]" class="form-control" placeholder="Enter Media Link">
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
-                                    </div>
-                                    @endif
-                                </div>
+        <hr>
 
-                                <!-- Add Pointer Button -->
-                                <button type="button" class="btn btn-success" id="add-Pointers">Add Icon</button>
+        <!-- Pointers Section -->
+        <label for="">Card Icon</label>
+        <div id="Pointers-container">
+            @if(isset($subscribeNewsletter->pointers) && is_array(json_decode($subscribeNewsletter->pointers, true)))
+            @foreach(json_decode($subscribeNewsletter->pointers, true) as $key => $pointer)
+            <div class="form-group url-group">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Media Icon</label>
+                        <i class="fas fa-info-circle" title="Provide a brief media icon of this section."></i> <label for="">(Optional)</label>
+                        <img class="media-icon" id="blah" src="{{asset($pointer['image'])}}" alt="Image Preview" style="width: auto; display:{{empty($pointer['image']) ? 'none' : 'block'}};" />
+                        <input type="file" name="image[{{ $key }}]" id="imgInp" class="form-control">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Media Link</label>
+                        <i class="fas fa-info-circle" title="Provide a brief media link of this section."></i> <label for="">(Optional)</label>
+                        <input type="text" name="link[{{ $key }}]" class="form-control" value="{{ $pointer['link'] ?? '' }}" placeholder="Enter Media Link">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+            </div>
+            @endforeach
+            @else
+            <div class="form-group url-group">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Media Icon</label>
+                        <i class="fas fa-info-circle" title="Provide a brief media icon of this section."></i> <label for="">(Optional)</label>
+                        <img class="media-icon" id="blah" src="#" alt="Image Preview" style="width: auto; display:none;" />
+                        <input type="file" name="image[]" id="imgInp" class="form-control">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Media Link</label>
+                        <i class="fas fa-info-circle" title="Provide a brief media link of this section."></i> <label for="">(Optional)</label>
+                        <input type="text" name="link[]" class="form-control" placeholder="Enter Media Link">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+            </div>
+            @endif
+        </div>
 
-                                <!-- Submit Button -->
-                                <div class="card-footer">
-                                    <input type="checkbox" id="status" name="status" {{ ($subscribeNewsletter->status ?? '') === 'on' ? 'checked' : '' }}>
-                                    <label for="status">Show On Website</label>
-                                    <button type="submit" id="form-submit-button" class="btn btn-primary">Save</button>
-                                </div>
-                            </div>
-                        </form>
+        <!-- Add Pointer Button -->
+        <button type="button" class="btn btn-success" id="add-Pointers">Add Icon</button>
+
+        <!-- Submit Button -->
+        <div class="card-footer">
+            <input type="checkbox" id="status" name="status" {{ ($subscribeNewsletter->status ?? '') === 'on' ? 'checked' : '' }}>
+            <label for="status">Show On Website</label>
+            <button type="submit" id="form-submit-button" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</form>
 
                     </div>
                 </div>
@@ -131,69 +121,69 @@
 @section('java_script')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const pointersContainer = document.getElementById('Pointers-container');
+    const form = document.getElementById('subscribeNewsletterForm');
     const addPointersButton = document.getElementById('add-Pointers');
-
-    // Add Pointer
-    addPointersButton.addEventListener('click', () => {
-        const newPointer = document.createElement('div');
-        newPointer.classList.add('form-group', 'url-group');
-        const uniqueId = Date.now(); // Generate a unique ID for the image and input
-        newPointer.innerHTML = `
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label>Media Icon</label>
-                     <i class="fas fa-info-circle" media icon of this section."></i>
-                    <img class="media-icon" id="img-preview-${uniqueId}" src="#" alt="Image Preview" style="width: auto; display:none;" /> <label for="">(Optional)</label>
-                    <input type="file" name="image[]" id="file-input-${uniqueId}" class="form-control">
+    const submitButton = document.getElementById('form-submit-button');
+    
+    // Function to add a new pointer
+    addPointersButton.addEventListener('click', function () {
+        const newPointerHTML = `
+            <div class="form-group url-group">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Media Icon</label>
+                        <i class="fas fa-info-circle" title="Provide a brief media icon of this section."></i> <label for="">(Optional)</label>
+                        <input type="file" name="image[]" class="form-control">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Media Link</label>
+                        <i class="fas fa-info-circle" title="Provide a brief media link of this section."></i> <label for="">(Optional)</label>
+                        <input type="text" name="link[]" class="form-control" placeholder="Enter Media Link">
+                    </div>
                 </div>
-                <div class="form-group col-md-6">
-                    <label>Media Link</label>
-                     <i class="fas fa-info-circle" title="Provide a brief media link of this section."></i> <label for="">(Optional)</label>
-                    <input type="text" name="link[]" class="form-control" placeholder="Enter Media Link">
-                </div>
+                <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
             </div>
-            <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
         `;
-        pointersContainer.appendChild(newPointer);
-
-        // Add onchange event for the new input
-        const fileInput = document.getElementById(`file-input-${uniqueId}`);
-        const imgPreview = document.getElementById(`img-preview-${uniqueId}`);
-        fileInput.addEventListener('change', function () {
-            const [file] = fileInput.files;
-            if (file) {
-                imgPreview.src = URL.createObjectURL(file);
-                imgPreview.style.display = "block";
-            } else {
-                imgPreview.style.display = "none";
-                imgPreview.src = "#";
-            }
-        });
-
-        // Attach remove event to the new button
-        newPointer.querySelector('.remove-Pointers').addEventListener('click', function () {
-            newPointer.remove();
-        });
+        const pointersContainer = document.getElementById('Pointers-container');
+        pointersContainer.insertAdjacentHTML('beforeend', newPointerHTML);
     });
 
-    // Existing file input preview functionality
-    pointersContainer.addEventListener('change', function (e) {
-        if (e.target.type === 'file') {
-            const imgPreview = e.target.closest('.url-group').querySelector('.media-icon');
-            const [file] = e.target.files;
-            if (file) {
-                imgPreview.src = URL.createObjectURL(file);
-                imgPreview.style.display = "block";
+    // Event delegation for "Remove" button
+    document.getElementById('Pointers-container').addEventListener('click', function(event) {
+        if (event.target && event.target.classList.contains('remove-Pointers')) {
+            event.target.closest('.url-group').remove();
+        }
+    });
+
+    // Add event listener to the submit button
+    submitButton.addEventListener('click', function(event) {
+        let isValid = true;
+
+        // Check if all required fields are filled
+        const urlGroups = document.querySelectorAll('.url-group');
+        urlGroups.forEach(group => {
+            const imageInput = group.querySelector('input[type="file"]');
+            const linkInput = group.querySelector('input[type="text"]');
+            const errorMessage = group.querySelector('.error-message');
+
+            // Validate that at least one field is not empty
+            if (!imageInput.value.trim() && !linkInput.value.trim()) {
+                errorMessage.style.display = 'block'; // Show error message
+                isValid = false;
             } else {
-                imgPreview.style.display = "none";
-                imgPreview.src = "#";
+                errorMessage.style.display = 'none'; // Hide error message
             }
+        });
+
+        // Prevent form submission if validation fails
+        if (!isValid) {
+            event.preventDefault(); // Prevent form from submitting
+            alert("Please fill out all required fields.");
         }
     });
 });
 
-
 </script>
+
 
 @endsection

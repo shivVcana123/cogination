@@ -38,11 +38,18 @@
                                 <td>{{ $banner->button_text }}</td>
                                 <td>
                                     <a href="{{route('banner.edit',$banner->id)}}"><i class="fa fa-edit"></i></a>
-                                    <form action="{{ route('banner.destroy', $banner->id) }}" method="POST" style="display:inline;">
+                                    <!-- <form id="delete-form-{{ $banner->id }}" action="{{ route('banner.destroy', $banner->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-link p-0" onclick="return confirm('Are you sure you want to delete this record?')">
                                         <i class="fa fa-trash text-danger"></i>
+                                    </button>
+                                </form> -->
+                                <form id="delete-form-{{ $banner->id }}" action="{{ route('banner.destroy', $banner->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" class="btn btn-link p-0 delete-button" data-id="{{ $banner->id }}">
+                                        <i class="fa fa-trash"   style="color:black"></i>
                                     </button>
                                 </form>
                                 </td>
@@ -59,4 +66,31 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteButtons = document.querySelectorAll('.delete-button');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const recordId = this.dataset.id;
+                const form = document.getElementById(`delete-form-${recordId}`);
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this record!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#02476c',
+                    cancelButtonColor: '#dd3333',
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    });
+ </script>
 @endsection

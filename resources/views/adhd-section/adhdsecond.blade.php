@@ -87,8 +87,8 @@
                                 <div class="form-group">
                                     <label for="heading">Heading</label>
                                     <i class="fas fa-info-circle" title="Provide a Heading."></i> <label for="">(Optional)</label>
-                                    <input class="form-control" name="heading" id="heading"
-                                        value="{{ old('heading', $adhdSection[0]->heading ?? '') }} " required>
+                                    <input class="form-control" name="heading" id="heading" placeholder="Enter heading"
+                                        value="{{ old('heading', $adhdSection[0]->heading ?? '') }} ">
                                     @error('heading')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -196,13 +196,13 @@
                 <label> Title</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful sub title for this section."></i>
                 <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter title" required>
-                <div class="text-danger title-error" style="display: none;">At least one field is required.</div>
+                <div class="text-danger title-error" style="display: none;">The title field is required.</div>
             </div>
             <div class="form-group col-md-6">
                 <label> Description</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful sub description for this section."></i>
                 <input type="text" name="second_sub_description[]" class="form-control" value="" placeholder="Enter description" required>
-                <div class="text-danger description-error" style="display: none;">At least one field is required.</div>
+                <div class="text-danger description-error" style="display: none;">The description field is required.</div>
             </div>
         </div>
         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
@@ -275,7 +275,7 @@
                 },
                 success: function(response) {
                     const section = response.data?.[0] || null;
-
+console.log(section);
                     if (section) {
                         // Populate other fields
                         $('#id').val(section.id || '');
@@ -333,13 +333,13 @@
                 <label> Title</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful sub title for this section."></i>
                 <input type="text" name="second_sub_title[]" class="form-control" value="${data.second_sub_title || ''}" placeholder="Enter title" required>
-                <div class="text-danger title-error" style="display: none;">At least one field is required.</div>
+                <div class="text-danger title-error" style="display: none;">The title field is required</div>
             </div>
             <div class="form-group col-md-6">
                 <label> Description</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
                 <input type="text" name="second_sub_description[]" class="form-control" value="${data.second_sub_description || ''}" placeholder="Enter description" required>
-                <div class="text-danger description-error" style="display: none;">At least one field is required.</div>
+                <div class="text-danger description-error" style="display: none;">The description field is required</div>
             </div>
         </div>
         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>

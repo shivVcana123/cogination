@@ -158,5 +158,16 @@
             });
         }
     });
+
+    image.onchange = evt => {
+        const [file] = image.files;
+        if (file) {
+            img.src = URL.createObjectURL(file);
+            img.style.display = "block"; // Show the image
+        } else {
+            img.style.display = "none"; // Hide the image if no file is selected
+            img.src = "#"; // Reset the src
+        }
+    };
 </script>
 @endsection

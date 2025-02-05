@@ -197,6 +197,8 @@
                     success: function(response) {
                         if (response && response.data && response.data.length > 0) {
                             const section = response.data[0]; // Assuming a single record
+                            console.log('section',section.first_image)
+
                             if (section) {
                                 $('#id').val(section.id || '');
                                 $('#first_title').val(section.first_title || '');
@@ -209,13 +211,6 @@
                                 const imageUrl = section.first_image || '';
                                 $('#blah').attr('src', imageUrl ? imageUrl : '#'); 
                                 // Update pointers dynamically
-                               
-
-                                
-                          
-                                
-
-                          
                             }
                         } else {
                             // Clear fields if no data is found

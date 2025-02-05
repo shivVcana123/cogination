@@ -146,7 +146,7 @@
 @endsection
 @section('java_script')
 
-<script>
+<!-- <script>
     CKEDITOR.replace('description');
 
     // Handle adding new pointers (cards)
@@ -345,9 +345,146 @@
             </div>
         `);
     }
+</script> -->
+
+
+<script>
+    $(document).ready(function() {
+        CKEDITOR.replace('description');
+
+        // Handle adding new pointers (cards)
+        $('#add-Pointers').on('click', function() {
+            addEmptyPointer($('#Pointers-container'));
+        });
+
+        // Handle removing pointers (cards)
+        $(document).on('click', '.remove-Pointers', function() {
+            $(this).closest('.url-group').remove();
+            toggleRemoveButtons();
+        });
+
+        // Toggle remove button visibility
+        function toggleRemoveButtons() {
+            const pointers = $('.url-group');
+            $('.remove-Pointers').toggle(pointers.length > 1);
+        }
+
+        // Form submission validation
+        $('#form-submit-button').on('click', function(event) {
+            event.preventDefault();
+            $('.validation-error').remove();
+
+            let isValid = true;
+            $('.sub-title-input, .sub-description-input').each(function() {
+                if (!$(this).val().trim()) {
+                    isValid = false;
+                    $(this).after(`<div class="validation-error" style="color: red; padding-bottom: 10px;">This field is required.</div>`);
+                }
+            });
+
+            if (isValid) {
+                console.log('Form is valid, submitting...');
+                $('form').submit();
+            } else {
+                console.log('Form has errors, not submitting.');
+            }
+        });
+
+        // Handle type change for AJAX
+        $('#type').on('change', function() {
+            const selectedType = $(this).val();
+            if (selectedType) {
+                $.ajax({
+                    url: "{{ route('fetch-process-section-by-type') }}",
+                    type: "GET",
+                    data: { type: selectedType },
+                    success: function(response) {
+                        if (response?.data?.length > 0) {
+                            populateForm(response.data[0]);
+                        } else {
+                            resetForm();
+                        }
+                    },
+                    error: function(error) {
+                        console.error('Error fetching data:', error);
+                    }
+                });
+            }
+        });
+
+        // Populate form with fetched data
+        function populateForm(section) {
+            $('#id').val(section.id || '');
+            $('#title').val(section.title || '');
+            $('#subtitle').val(section.subtitle || '');
+            $('#status').prop('checked', section.status === 'on');
+
+            if (CKEDITOR.instances.description) {
+                CKEDITOR.instances.description.setData(section.description || '');
+            }
+
+            const pointers = section.pointers ? JSON.parse(section.pointers) : [];
+            const container = $('#Pointers-container').empty();
+
+            if (pointers.length > 0) {
+                pointers.forEach(pointer => {
+                    container.append(`
+                        <div class="form-group url-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Title</label>
+                                    <input type="text" name="sub_title[]" class="form-control sub-title-input" value="${pointer.sub_title || ''}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Sub Description</label>
+                                    <textarea name="sub_description[]" class="form-control sub-description-input" required>${pointer.sub_description || ''}</textarea>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                        </div>
+                    `);
+                });
+            } else {
+                addEmptyPointer(container);
+            }
+
+            toggleRemoveButtons();
+        }
+
+        // Reset form fields
+        function resetForm() {
+            $('#id, #title, #subtitle').val('');
+            $('#status').prop('checked', false);
+            if (CKEDITOR.instances.description) {
+                CKEDITOR.instances.description.setData('');
+            }
+            $('#Pointers-container').empty();
+            addEmptyPointer($('#Pointers-container'));
+        }
+
+        // Add an empty pointer input
+        function addEmptyPointer(container) {
+            container.append(`
+                <div class="form-group url-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Title</label>
+                            <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter title" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Description</label>
+                            <textarea name="sub_description[]" class="form-control sub-description-input" required></textarea>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                </div>
+            `);
+        }
+
+        // Initial setup
+        toggleRemoveButtons();
+    });
 </script>
-
-
 
 
 @endsection

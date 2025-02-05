@@ -273,6 +273,7 @@
                     success: function(response) {
                         if (response && response.data && response.data.length > 0) {
                             const section = response.data[0]; // Assuming a single record
+                            console.log('section',section.second_image)
                             if (section) {
                                 $('#id').val(section.id || '');
                                 CKEDITOR.instances.second_description.setData(section.second_description || '');
