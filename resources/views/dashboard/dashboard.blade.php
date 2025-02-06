@@ -1,5 +1,24 @@
 @extends('layouts.guest')
 @section('content')
+<style>
+   body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #chartContainer {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #newsletterChart {
+            width: 90% !important;
+            height: 460px !important
+        }
+</style>
 <div class="content-wrapper">
   <div class="content-header">
     <div class="container-fluid">
@@ -61,6 +80,7 @@
               <option value="week">This Week</option>
               <option value="month">This Month</option>
               <option value="year">This Year</option>
+              <option value="all">All</option>
             </select>
           </div>
         </div>
@@ -77,8 +97,8 @@
             <div class="card-body">
               <div class="tab-content p-0">
                 <div class="chart tab-pane active" id="revenue-chart"
-                  style="position: relative; height: 300px;">
-                  <canvas id="newsletterChart" style="width:100%;max-width:600px"></canvas>
+                >
+                  <canvas id="newsletterChart" ></canvas>
                 </div>
               </div>
             </div>
@@ -89,11 +109,18 @@
   </section>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-  function fetchData(filterType) {
-    fetch(`http://127.0.0.1:8000/cognition/newsletter-subscriptions/recent?filter=${filterType}`)
-      .then(response => response.json())
-      .then(data => {
+  function fetchData(filterType = "week") { // Default value is "week"
+    let baseUrl = "{{ route('newsletter-subscriptions-recent', ['filter' => 'PLACEHOLDER']) }}";
+    let apiUrl = baseUrl.replace("PLACEHOLDER", filterType); // Replace placeholder with actual filter
+
+    $.ajax({
+      url: apiUrl,
+      type: "GET",
+      dataType: "json",
+      success: function (data) {
+        // Format labels as Month/Year
         const labels = data.map(item => `${item.month}/${item.year}`);
         const subscriptionCounts = data.map(item => item.count);
 
@@ -103,7 +130,7 @@
           data: {
             labels: labels,
             datasets: [{
-              label: 'Monthly Subscriptions',
+              label: `${filterType.charAt(0).toUpperCase() + filterType.slice(1)} Subscriptions`,
               data: subscriptionCounts,
               backgroundColor: "rgba(3, 119, 206, 0.6)",
               borderColor: "#0377ce",
@@ -123,6 +150,11 @@
                 title: {
                   display: true,
                   text: 'Month/Year'
+                },
+                ticks: {
+                  autoSkip: false,  // Ensure all labels are shown
+                  maxRotation: 45,  // Rotate labels to avoid overlapping
+                  minRotation: 45
                 }
               },
               y: {
@@ -135,17 +167,23 @@
             }
           }
         });
-      })
-      .catch(error => {
-        console.error('Error fetching newsletter subscription data:', error);
-      });
+      },
+      error: function (xhr, status, error) {
+        console.error("Error fetching newsletter subscription data:", error);
+      }
+    });
   }
 
-  document.getElementById('filterType').addEventListener('change', function() {
-    fetchData(this.value);
+  $(document).ready(function() {
+    $("#filterType").val("week"); // Set default value in the dropdown
+    fetchData("week"); // Fetch data for "week" on page load
   });
 
-  // Trigger initial load
-  document.getElementById('filterType').dispatchEvent(new Event('change'));
+  // Trigger when filter dropdown changes
+  $("#filterType").change(function() {
+    fetchData($(this).val());
+  });
 </script>
+
+
 @endsection

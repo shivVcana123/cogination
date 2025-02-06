@@ -181,6 +181,19 @@ class AssessmentController extends Controller
     public function saveOurDiagnosticServices(Request $request)
     {
 
+
+        $validated = $request->validate([
+            'title' => 'required|string|min:3|max:255',
+            'description' => 'required|string',
+            'button1Text' => 'nullable',
+            'button1Link' => 'nullable',
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp', // Image validation
+        ], [
+            'title.required' => 'The title field is required.',
+            'title.min' => 'The title must be at least 3 characters.',
+            'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, svg, webp.',
+        ]);
+        // dd($request->all());
     
         // Retrieve or create a new section
         $adhdfirstSection = $request->id
@@ -223,8 +236,6 @@ class AssessmentController extends Controller
                     'sub_image' => $subImagePath,
                     'button1Text' => $request->button1Text[$index] ?? null,
                     'button1Link' => $request->button1Link[$index] ?? null,
-                    'button2Text' => $request->button2Text[$index] ?? null,
-                    'button2Link' => $request->button2Link[$index] ?? null,
                     'sub_pointer' => $subPointers, // Add sub-pointers here
                 ];
             }
