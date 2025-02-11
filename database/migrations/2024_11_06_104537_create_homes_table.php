@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('button_link')->nullable();
             $table->string('image')->nullable();
             $table->string('social')->nullable();
+            $table->string('url')->nullable();
             $table->timestamps();
         });
     }
