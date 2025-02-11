@@ -219,7 +219,7 @@ Route::get('/migrate', function () {
 // Clear Cache Route
 Route::get('/clear-cache', function () {
     Artisan::call('optimize:clear');
-  Artisan::call('storage:link');
+    Artisan::call('storage:link');
     return response()->json([
         'status' => 'success',
         'message' => 'Application cache cleared successfully.',

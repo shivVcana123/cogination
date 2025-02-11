@@ -81,12 +81,12 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="button1Text{{ $index }}">Button Text</label>
-                                                    <i class="fas fa-info-circle" title="Enter a meaningful Button text of this section."></i> <label class="option-area">(Optional)</label>
+                                                    <i class="fas fa-info-circle" title="Enter a meaningful Button text of this section."></i> <label for="">(Optional)</label>
                                                     <input type="text" id="button1Text{{ $index }}" class="form-control mb-2" name="button1Text[]" placeholder="Enter Button Text" value="{{ $details->button1Text }}">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="button1Link{{ $index }}">Button Link</label>
-                                                    <i class="fas fa-info-circle" title="Enter a meaningful Button link of this section."></i> <label class="option-area">(Optional)</label>
+                                                    <i class="fas fa-info-circle" title="Enter a meaningful Button link of this section."></i> <label for="">(Optional)</label>
                                                     <input type="text" id="button1Link{{ $index }}" class="form-control mb-2" name="button1Link[]" placeholder="Enter Button Link" value="{{ $details->button1Link }}">
                                                 </div>
                                                 <div class="col-md-12">
@@ -139,12 +139,12 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="button1Text0">Button Text</label>
-                                                    <i class="fas fa-info-circle" title="Enter a meaningful Button text that summarizes the purpose of this section."></i> <label class="option-area">(Optional)</label>
+                                                    <i class="fas fa-info-circle" title="Enter a meaningful Button text that summarizes the purpose of this section."></i> <label for="">(Optional)</label>
                                                     <input type="text" id="button1Text0" class="form-control mb-2" name="button1Text[]" placeholder="Enter Button Text">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="button1Link0">Button Link</label>
-                                                    <i class="fas fa-info-circle" title="Enter a meaningful Button link that summarizes the purpose of this section."></i> <label class="option-area">(Optional)</label>
+                                                    <i class="fas fa-info-circle" title="Enter a meaningful Button link that summarizes the purpose of this section."></i> <label for="">(Optional)</label>
                                                     <input type="text" id="button1Link0" class="form-control mb-2" name="button1Link[]" placeholder="Enter Button Link">
                                                 </div>
                                                 <div class="col-md-12">
@@ -247,12 +247,12 @@
             </div>
             <div class="col-md-6">
                 <label for="button1Text${pointerCount}">Button Text</label>
-                <i class="fas fa-info-circle" title="Enter a meaningful Button text that summarizes the purpose of this section."></i> <label class="option-area">(Optional)</label>
+                <i class="fas fa-info-circle" title="Enter a meaningful Button text that summarizes the purpose of this section."></i> <label for="">(Optional)</label>
                 <input type="text" id="button1Text${pointerCount}" class="form-control mb-2" name="button1Text[]" placeholder="Enter Button Text" >
             </div>
             <div class="col-md-6">
                 <label for="button1Link${pointerCount}">Button Link</label>
-                <i class="fas fa-info-circle" title="Enter a meaningful Button link that summarizes the purpose of this section."></i> <label class="option-area">(Optional)</label>
+                <i class="fas fa-info-circle" title="Enter a meaningful Button link that summarizes the purpose of this section."></i> <label for="">(Optional)</label>
                 <input type="text" id="button1Link${pointerCount}" class="form-control mb-2" name="button1Link[]" placeholder="Enter Button Link" >
             </div>
            

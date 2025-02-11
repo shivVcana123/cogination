@@ -101,7 +101,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="button_content">Button Text</label>
-                                            <i class="fas fa-info-circle" title="Provide a brief button text of this section."></i> <label class="option-area">(Optional)</label>
+                                            <i class="fas fa-info-circle" title="Provide a brief button text of this section."></i> <label for="">(Optional)</label>
                                             <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text" value="{{ old('button_content', $cta->button_content) }}">
                                             @error('button_content')
                                             <div class="text-danger">{{ $message }}</div>
@@ -111,7 +111,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="button_link">Button Link</label>
-                                            <i class="fas fa-info-circle" title="Provide a brief button link of this section."></i> <label class="option-area">(Optional)</label>
+                                            <i class="fas fa-info-circle" title="Provide a brief button link of this section."></i> <label for="">(Optional)</label>
                                             <input type="text" class="form-control" name="button_link" id="button_link" value="{{ old('button_link', $cta->button_link) }}" placeholder="Enter Button link">
                                             @error('button_link')
                                             <div class="text-danger">{{ $message }}</div>
