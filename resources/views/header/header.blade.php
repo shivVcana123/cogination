@@ -27,7 +27,7 @@
                             @if($header->parent_id === null)
                             <td>{{ $key + 1 }}</td>
 
-                            <td style="font-weight: 600; font-size:14px;">{{ $header->category }}
+                            <td>{{ $header->category }}
 
 
                                 @if($header->children->isNotEmpty())
@@ -41,10 +41,10 @@
                             </td>
 
                             @if($header->link == '/')
-                            <td style="font-weight: 600; font-size:14px;">http://localhost:5173/</td>
+                            <td>https://cognition-demo.vercel.app/</td>
 
                             @else
-                            <td style="font-weight: 600; font-size:14px;">{{ $header->link }}
+                            <td>{{ $header->link }}
 
                                 @if($header->children->isNotEmpty())
                                 @foreach ($header->children as $child)

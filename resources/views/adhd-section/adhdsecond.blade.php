@@ -57,7 +57,7 @@
 
                                     <div class="form-group col-md-6">
                                         <label for="second_subtitle">Subtitle</label>
-                                        <i class="fas fa-info-circle" title="Provide a subtitle."></i> <label for="">(Optional)</label>
+                                        <i class="fas fa-info-circle" title="Provide a subtitle."></i> <label class="option-area">(Optional)</label>
                                         <input type="text" class="form-control" name="second_subtitle" id="second_subtitle"
                                             placeholder="Enter second subtitle" value="{{ old('second_subtitle', $adhdSection[0]->second_subtitle ?? '') }}">
                                         @error('second_subtitle')
@@ -83,7 +83,7 @@
                                 @endphp
                                 <hr>
                                 <!-- Pointers -->
-                                <label for="">Card Details</label>
+                              <h5>Card Details</h5>
                                 <div class="form-group">
                                     <label for="heading">Heading</label>
                                     <i class="fas fa-info-circle" title="Provide a Heading."></i> <label for="">(Optional)</label>
@@ -160,7 +160,7 @@
                             <div class="card-footer">
                                 <input type="checkbox" id="status" name="status" {{ ($adhdSection[0]->status ?? '') === 'on' ? 'checked' : '' }}>
                                 <label for="status">Show On Website</label>
-                                <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
+                                <button type="submit" id="form-submit-button" class="btn btn-primary">Save</button>
                             </div>
                         </form>
 

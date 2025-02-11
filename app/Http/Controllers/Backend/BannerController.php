@@ -68,27 +68,30 @@ class BannerController extends Controller
     
 
     // Allow multiple banners if type is "Home"
-    // if ($request->type !== 'Home') {
+     if ($request->type !== 'Home') {
     //     // Check for existing banner with the same type and section_type
-    //     $existingBanner = BannerSection::where('type', $request->type)
-    //         ->where('section_type', $request->section_type)
-    //         ->first();
+         $existingBanner = BannerSection::where('type', $request->type)
+             ->where('section_type', $request->section_type)
+             ->first();
+     
+
+
 
     //     // Check for existing banner with the same type (excluding Home)
     //     $existingBannerData = BannerSection::where('type', $request->type)->first();
 
-    //     if ($existingBanner) {
-    //         return redirect()->back()->withErrors([
-    //             'section_type' => 'A banner with this type and section type already exists.',
-    //         ]);
-    //     }
+         if ($existingBanner) {
+            return redirect()->back()->withErrors([
+                 'section_type' => 'A banner with this type and section type already exists.',
+             ]);
+         }
 
     //     if ($existingBannerData) {
     //         return redirect()->back()->withErrors([
     //             'type' => 'A banner with this type already exists and is not Home.',
     //         ]);
     //     }
-    // }
+     }
 
     // Store new banner
     $banner = new BannerSection();

@@ -1,4 +1,3 @@
-
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -42,7 +41,7 @@
     .first-colm {
       /* width: 100%; */
       height: 100vh;
-      background-image:  url('{{ asset('assets/images/bkimage.png') }}');
+      background-image:  url('{{ asset('public/assets/images/bkimage.png') }}');
       background-repeat: no-repeat;
       background-size: cover;
       display: flex;
@@ -392,7 +391,7 @@ span.fa.fa-fw.fa-eye.field-icon.toggle-password, span.fa.fa-fw.field-icon.toggle
                   <h2>Welcome Back!</h2>
                 </div>
                 <div class="image-colm">
-                  <img src="{{ asset('assets/images/logocognition.png') }}" alt="" />
+                  <img src="{{ asset('public/assets/images/logocognition.png') }}" alt="" />
                   <p>
                     Lorem Ipsum is simply dummy text of the printing and typesetting
                     <br />
@@ -432,7 +431,7 @@ span.fa.fa-fw.fa-eye.field-icon.toggle-password, span.fa.fa-fw.field-icon.toggle
                   </div>
 
                   <div class="form-group profile-icon">
-                        <input  id="password-field" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required>
+                        <input  id="password-field" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Enter Your Password" required>
                         @error('password')
                         <div style="color:red">{{ $message }}</div>
                         @enderror

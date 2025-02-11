@@ -14,21 +14,17 @@ class DashboardController extends Controller
     {
         $totalServicesCount = 0;
         $fees = FeesOurPricing::first();
-    
-        if ($fees && $fees->pointers) {
-            $services = json_decode($fees->pointers);
-            foreach ($services as $value) {
-                $sub_description = explode(',', $value->sub_description);
-                $totalServicesCount += count($sub_description);
-            }
+        $services = json_decode($fees->pointers);
+        foreach ($services as $value) {
+            $sub_description = explode(',', $value->sub_description);
+            $totalServicesCount += count($sub_description);
         }
-    
+
         $pageCount = Header::where('link', '!=', '')->count();
         $newsLetterCount = NewsletterSubscription::count();
-    
+
         return view("dashboard.dashboard", compact('totalServicesCount', 'pageCount', 'newsLetterCount'));
     }
-    
 
     public function getRecentNewsletterSubscriptions(Request $request)
     {

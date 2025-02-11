@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\backend;
+namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Footer;
@@ -42,6 +42,8 @@ class FooterController extends Controller
             'address' => 'required',
             'title1' => 'required',
             'description' => 'required',
+          'button_content' => 'nullable|max:255',
+            'button_link' => 'nullable|required_with:button_content',
           
         ], [
             'email.required' => 'The email field is required.',
@@ -49,6 +51,9 @@ class FooterController extends Controller
             'address.required' => 'The address field is required.',
             'title1.required' => 'The title field is required.',
             'description.required' => 'The description field is required.',
+           'button_content.string' => 'The button content must be a valid string.',
+            'button_content.max' => 'The button content must not exceed 255 characters.',
+            'button_link.required_with' => 'The button link is required when button content is provided.',
         ]);
         
         
@@ -66,6 +71,8 @@ class FooterController extends Controller
         $footer = $request->id ? Footer::find($request->id) : new Footer;
         $footer->title1 = $request->title1;
         $footer->title2 = $request->title2;
+              $footer->button_content = $request->button_content;
+        $footer->button_link = $request->button_link;
         $footer->address = $request->address;
         $footer->description = $request->description;
         $footer->phone_no = $request->phone_no;

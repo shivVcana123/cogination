@@ -62,6 +62,14 @@ class CtaController extends Controller
             'description.min' => 'The description must be at least 100 characters.',
             'description.max' => 'The description must not exceed 2000 characters.',
         ]);
+
+		$existingCta = Cta::where('cta_type', $request->cta_type)->first();
+
+        if ($existingCta) {
+            return redirect()->back()
+                ->withErrors(['cta_type' => 'This cta section already exists.'])
+                ->withInput(); // <-- This ensures old input is kept
+        }
         
         $cta = new Cta();
         $cta->title = $request->title;

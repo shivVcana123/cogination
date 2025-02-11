@@ -67,7 +67,7 @@
                             <div class="card-footer">
                             <input type="checkbox" id="status" name="status" {{ ($ourApproachSection[0]->status ?? '') === 'on' ? 'checked' : '' }}>
                             <label for="status">Show On Website</label>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </form>
                     </div>

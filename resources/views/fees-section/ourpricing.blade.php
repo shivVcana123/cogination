@@ -71,7 +71,7 @@
                                 @endphp
 
                                 <!-- Pointers Section -->
-                                <label for="">Card Details</label>
+                                <h5>Card Details</h5>
                                 <div id="Pointers-container">
                                     @forelse($pointers as $index => $pointer)
                                     @if (count($pointers) > 1 && $index > 0)
@@ -128,11 +128,11 @@
                                             @endforeach
 
                                         </div>
-                                        <button type="button" class="btn btn-success add-description">Add</button>
-
-                                        <!-- Remove Pointer Button -->
+                                      <div class="d-flex justify-content-between">
+                                        <button type="button" class="btn btn-success add-description">Add Sub Card</button>
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove Card</button>
                                     </div>
+                                        </div>
                                     @empty
                                     <div class="form-group url-group">
                                         <!-- Sub Title -->
@@ -168,7 +168,7 @@
                                             </div>
 
                                         </div>
-                                        <button type="button" class="btn btn-success add-description">Add</button>
+                                        <button type="button" class="btn btn-success add-description">Add Sub Card</button>
 
                                         <!-- Remove Pointer Button -->
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove Card</button>
@@ -183,7 +183,7 @@
                             <div class="card-footer">
                                 <input type="checkbox" id="status" name="status" {{ old('status', $ourPricing[0]->status ?? '') === 'on' ? 'checked' : '' }}>
                                 <label for="status">Show On Website</label>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </form>
                     </div>
@@ -231,8 +231,9 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-success add-description">Add</button>
-                <button type="button" class="btn btn-danger remove-Pointers">Remove Card</button>`;
+<div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-success add-description">Add Sub Card</button>
+                <button type="button" class="btn btn-danger remove-Pointers">Remove Card</button> </div>`;
             container.appendChild(newInputGroup);
 
             updateIndexes(); // Ensure new inputs have the correct index.

@@ -1,5 +1,9 @@
 @extends('layouts.guest')
 @section('content')
+<style>
+span.edit-area {
+    font-weight: 500;
+}</style>
 
 <div class="content-wrapper">
     <section class="content-header">
@@ -11,7 +15,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{route('header.index')}}">Header</a></li>
-                        <li class="breadcrumb-item active">Update Form</li>
+                        <li class="breadcrumb-item active">Form</li>
                     </ol>
                 </div>
             </div>
@@ -35,7 +39,7 @@
                                     <input type="text"  class="form-control" name="link" id="link"  value=""    placeholder="Page Link" readonly>
                                 </div> -->
                                 <div class="form-group">
-                                    <label for="category">Category (Edit)</label>
+                                  <label for="category">Category <span class="edit-area">(Edit)</span></label>
                                     <input type="text" oninput="categorySlug(this)" class="form-control" name="category" id="category" placeholder="Enter Category" value="{{ old('category', $headerData[0]->category) }}" required>
                                     @error('category')
                                         <span class="text-danger">{{ $message }}</span>
@@ -45,7 +49,7 @@
                                 @if($headerData[0]->link == '/')
                                 <div class="form-group">
                                     <label for="link">Slug</label>
-                                    <input type="text" class="form-control" name="link" id="link" placeholder="Enter link" value="http://localhost:5173/" readonly>
+                                    <input type="text" class="form-control" name="link" id="link" placeholder="Enter link" value="https://cognition-demo.vercel.app/" readonly>
                                     @error('link')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -61,8 +65,9 @@
                                 @endif
                                 @endif
                                 <!-- @if($headerData[0]->children->isNotEmpty()) -->
+                              <br>
                                 <div class="form-group">
-                                    <label>Subcategories</label>
+                                    <h5>Sub Categories</h5>
                                     <div id="subcategory-container">
                                         @php
                                         // Use old values if available, otherwise fallback to existing data
@@ -77,7 +82,7 @@
                                         @foreach ($subcategories as $value)
                                         <div class="row">
                                             <div class="form-group col-md-12">
-                                                <label for="category">Sub Category (Edit)</label>
+                                                <label for="category">Sub Category <span class="edit-area">(Edit)</span></label>
                                                 <div class="input-group">
                                                     <input type="text" name="subcategories[]" class="form-control" placeholder="Enter Subcategory" value="{{ $value['category'] }}" required>
                                                 </div>

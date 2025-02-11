@@ -180,7 +180,7 @@ Route::middleware(['auth'])->group(function () {
      Route::get('news-letter-form', [NewsLetterSubscriptionController::class,'newsLetterForm'])->name('news-letter-form');
      Route::post('news-letter-save', [NewsLetterSubscriptionController::class,'newsLetterSave'])->name('news-letter-save');
      Route::get('news-letter-list', [NewsLetterSubscriptionController::class,'subscribeNewsletter'])->name('news-letter-list');
-     Route::get('/newsletter-subscriptions/recent', [DashboardController::class, 'getRecentNewsletterSubscriptions']);
+     Route::get('/newsletter-subscriptions/recent/', [DashboardController::class, 'getRecentNewsletterSubscriptions'])->name('newsletter-subscriptions-recent');
 });
 
 
@@ -219,6 +219,7 @@ Route::get('/migrate', function () {
 // Clear Cache Route
 Route::get('/clear-cache', function () {
     Artisan::call('optimize:clear');
+  Artisan::call('storage:link');
     return response()->json([
         'status' => 'success',
         'message' => 'Application cache cleared successfully.',
