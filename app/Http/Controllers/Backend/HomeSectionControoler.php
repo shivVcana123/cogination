@@ -424,7 +424,7 @@ class HomeSectionControoler extends Controller
         $ourservice->subtitle = $request->subtitle;
         $ourservice->description_1 = $request->description_1;
         $ourservice->status = $request->status ?? "off";
-        $ourservice->url ='/';
+        $ourservice->url ='Home';
         $ourservice->pointers = json_encode($pointers);  // Store updated pointers data
 
         // Save the model (create or update)
