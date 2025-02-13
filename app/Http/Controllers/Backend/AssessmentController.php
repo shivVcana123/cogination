@@ -70,6 +70,7 @@ class AssessmentController extends Controller
         $assessmentSection->button_content = $request->button_content;
         $assessmentSection->button_link = $request->button_link;
         $assessmentSection->status = $request->status ?? "off";
+        $assessmentSection->url = 'Assessment';
 
         // Handle first image upload
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
@@ -158,6 +159,7 @@ class AssessmentController extends Controller
         $assessmentWhyChoose->second_button_content = $request->second_button_content;
         $assessmentWhyChoose->second_button_link = $request->second_button_link;
         $assessmentWhyChoose->status = $request->status ?? "off";
+        $assessmentWhyChoose->url = 'Assessment';
         $assessmentWhyChoose->pointers = json_encode($pointers);
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
@@ -196,7 +198,7 @@ class AssessmentController extends Controller
         // dd($request->all());
     
         // Retrieve or create a new section
-        $adhdfirstSection = $request->id
+        $ourDiagnostic = $request->id
             ? AssessmentOurDiagnosticService::find($request->id)
             : new AssessmentOurDiagnosticService();
 
@@ -212,9 +214,9 @@ class AssessmentController extends Controller
                     $imageName = time() . '_' . $request->file('image')[$index]->getClientOriginalName();
                     $subImagePath = $request->file('image')[$index]->storeAs('assessment', $imageName, 'public');
                     $subImagePath = 'storage/' . $subImagePath;
-                } elseif (isset($adhdfirstSection->pointers)) {
+                } elseif (isset($ourDiagnostic->pointers)) {
                     // Fetch existing pointer image if available
-                    $existingPointers = json_decode($adhdfirstSection->pointers, true);
+                    $existingPointers = json_decode($ourDiagnostic->pointers, true);
                     $subImagePath = $existingPointers[$index]['sub_image'] ?? null;
                 }
 
@@ -242,11 +244,12 @@ class AssessmentController extends Controller
         }
 
         // Save the main section data
-        $adhdfirstSection->title = $request->title;
-        $adhdfirstSection->description = $request->description ?? null;
-        $adhdfirstSection->pointers = json_encode($pointers); // Save pointers as JSON
-        $adhdfirstSection->status = $request->status ?? "off";
-        $adhdfirstSection->save();
+        $ourDiagnostic->title = $request->title;
+        $ourDiagnostic->description = $request->description ?? null;
+        $ourDiagnostic->pointers = json_encode($pointers); // Save pointers as JSON
+        $ourDiagnostic->status = $request->status ?? "off";
+        $ourDiagnostic->url = 'Assessment';
+        $ourDiagnostic->save();
 
         return redirect()->route('assessment-our-diagnostic-services-section')->with('success', 'Details saved successfully.');
     }
@@ -300,7 +303,7 @@ class AssessmentController extends Controller
         ]);
 
        
-        $adhdfirstSection = $request->id
+        $assessmentUnderstanding = $request->id
             ? AssessmentUnderstandingCondition::find($request->id)
             : new AssessmentUnderstandingCondition();
 
@@ -320,14 +323,15 @@ class AssessmentController extends Controller
         }
 
 
-        $adhdfirstSection->title = $request->title;
-        $adhdfirstSection->subtitle = $request->subtitle;
-        $adhdfirstSection->description = $request->description; // Handle nullable description
-        $adhdfirstSection->status = $request->status ?? "off";
-        $adhdfirstSection->pointers = json_encode($pointers);
+        $assessmentUnderstanding->title = $request->title;
+        $assessmentUnderstanding->subtitle = $request->subtitle;
+        $assessmentUnderstanding->description = $request->description; // Handle nullable description
+        $assessmentUnderstanding->status = $request->status ?? "off";
+        $assessmentUnderstanding->url = 'Assessment';
+        $assessmentUnderstanding->pointers = json_encode($pointers);
 
 
-        if (!$adhdfirstSection->save()) {
+        if (!$assessmentUnderstanding->save()) {
             return redirect()->back()->withErrors(['error' => 'Failed to save the record.']);
         }
 

@@ -98,6 +98,37 @@ class BannerController extends Controller
     $banner->heading = $request->heading;
     $banner->subtitle = $request->subtitle;
     $banner->type = $request->type;
+    switch ($request->type) {
+        case 'Home':
+            $url_type = 'Home';
+            break;
+        case 'ADHD':
+            $url_type = 'ADHD';
+            break;
+        case 'Autism':
+            $url_type = 'Autism';
+            break;
+        case 'Assessment':
+            $url_type = 'Assessment';
+            break;
+        case 'Fees':
+            $url_type = 'Fees';
+            break;
+        case 'About Us':
+            $url_type = 'About Us';
+            break;
+        case 'Our Approach':
+            $url_type = 'Our Approach';
+            break;
+        case 'Accreditation & Certifications':
+            $url_type = 'Accreditation & Certifications';
+            break;
+
+        default:
+            $url_type = null;
+            break;
+    }
+    $banner->url = $url_type;
     $banner->section_type = $request->section_type ?? '';
     $banner->description = $request->description;
     $banner->button_text = $request->button_text;
@@ -203,8 +234,38 @@ class BannerController extends Controller
         $banner->heading = $request->heading;
         $banner->subtitle = $request->subtitle;
         $banner->type = $request->type;
-        $banner->section_type = $request->section_type;
-        $banner->section_type = $request->section_banner;
+        switch ($request->type) {
+            case 'Home':
+                $url_type = 'Home';
+                break;
+            case 'ADHD':
+                $url_type = 'ADHD';
+                break;
+            case 'Autism':
+                $url_type = 'Autism';
+                break;
+            case 'Assessment':
+                $url_type = 'Assessment';
+                break;
+            case 'Fees':
+                $url_type = 'Fees';
+                break;
+            case 'About Us':
+                $url_type = 'About Us';
+                break;
+            case 'Our Approach':
+                $url_type = 'Our Approach';
+                break;
+            case 'Accreditation & Certifications':
+                $url_type = 'Accreditation & Certifications';
+                break;
+    
+            default:
+                $url_type = null;
+                break;
+        }
+        $banner->url = $url_type;
+        $banner->section_type = $request->section_type ?? '';
         $banner->description = $request->description;
         $banner->button_text = $request->button_text;
         $banner->button_link = $request->button_link;

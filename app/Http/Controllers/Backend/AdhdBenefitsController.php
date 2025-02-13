@@ -125,6 +125,7 @@ class AdhdBenefitsController extends Controller
             $adhdBenefit->subtitle = $request->subtitle;
             $adhdBenefit->description_1 = $request->description_1;
             $adhdBenefit->status = $request->status ?? "off";
+            $adhdBenefit->url = 'ADHD';
             $adhdBenefit->pointers = json_encode($pointers);
             $adhdBenefit->save();
 
@@ -202,7 +203,7 @@ class AdhdBenefitsController extends Controller
 
 
         // Fetch or create a new section
-        $adhdfirstSection = $request->id
+        $adhdSection = $request->id
             ? AdhdSection::find($request->id)
             : new AdhdSection();
 
@@ -218,34 +219,35 @@ class AdhdBenefitsController extends Controller
         }
 
         // Assign data
-        $adhdfirstSection->type = $request->type;
-        $adhdfirstSection->first_title = $request->first_title;
-        $adhdfirstSection->first_subtitle = $request->first_subtitle;
-        $adhdfirstSection->first_description = $request->first_description;
-        $adhdfirstSection->first_button_content = $request->first_button_content;
-        $adhdfirstSection->first_button_link = $request->first_button_link;
-        // $adhdfirstSection->second_title = $request->second_title;
-        // $adhdfirstSection->second_subtitle = $request->second_subtitle;
-        // $adhdfirstSection->second_description = $request->second_description;
-        // $adhdfirstSection->status = $request->status ?? "off";
-        // $adhdfirstSection->pointers = json_encode($pointers);
+        $adhdSection->type = $request->type;
+        $adhdSection->first_title = $request->first_title;
+        $adhdSection->first_subtitle = $request->first_subtitle;
+        $adhdSection->first_description = $request->first_description;
+        $adhdSection->first_button_content = $request->first_button_content;
+        $adhdSection->first_button_link = $request->first_button_link;
+        $adhdSection->url = 'ADHD';
+        // $adhdSection->second_title = $request->second_title;
+        // $adhdSection->second_subtitle = $request->second_subtitle;
+        // $adhdSection->second_description = $request->second_description;
+        // $adhdSection->status = $request->status ?? "off";
+        // $adhdSection->pointers = json_encode($pointers);
 
         // Handle first image upload
         if ($request->hasFile('first_image') && $request->file('first_image')->isValid()) {
             $imageName = time() . '_' . uniqid() . '_' . $request->file('first_image')->getClientOriginalName();
             $imagePath = $request->file('first_image')->storeAs('adhd', $imageName, 'public');
-            $adhdfirstSection->first_image = 'storage/' . $imagePath;
+            $adhdSection->first_image = 'storage/' . $imagePath;
         }
 
         // Handle second image upload
         if ($request->hasFile('second_image') && $request->file('second_image')->isValid()) {
             $imageName = time() . '_' . uniqid() . '_' . $request->file('second_image')->getClientOriginalName();
             $imagePath = $request->file('second_image')->storeAs('adhd', $imageName, 'public');
-            $adhdfirstSection->second_image = 'storage/' . $imagePath;
+            $adhdSection->second_image = 'storage/' . $imagePath;
         }
 
         // Save the record
-        if (!$adhdfirstSection->save()) {
+        if (!$adhdSection->save()) {
             return redirect()->back()->withErrors(['error' => 'Failed to save the record.']);
         }
 
@@ -337,6 +339,7 @@ class AdhdBenefitsController extends Controller
             $adhdSecondSection->second_description = $validated['second_description'] ?? null;
             $adhdSecondSection->heading = $validated['heading'] ?? null;
             $adhdSecondSection->status = $request->status ?? "off";
+            $adhdSecondSection->url = 'ADHD';
             $adhdSecondSection->pointers = json_encode($pointers);
     
             // Handle second image upload

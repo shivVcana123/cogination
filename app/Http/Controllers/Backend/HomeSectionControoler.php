@@ -57,6 +57,7 @@ class HomeSectionControoler extends Controller
         $about->button_content = $request->button_content;
         $about->button_link = $request->button_link;
         $about->status = $request->status ?? "off";
+        $about->url = 'Home';
 
         // Image handling logic
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
@@ -121,7 +122,7 @@ class HomeSectionControoler extends Controller
         $healthcare->button_content = $request->button_content ?? null;
         $healthcare->button_link = $request->button_link ?? null;
         $healthcare->status = $request->status ?? "off";
-
+        $healthcare->url = 'Home';
         // Handle image upload
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $directory = 'home';
@@ -193,6 +194,7 @@ class HomeSectionControoler extends Controller
         $chooseus->subtitle = $request->subtitle ?? null;
         $chooseus->description_1 = $request->description_1 ?? null;
         $chooseus->status = $request->status ?? "off";
+        $chooseus->url = 'Home';
         $chooseus->pointers = json_encode($pointers);
 
         // Handle image upload if provided
@@ -251,7 +253,7 @@ class HomeSectionControoler extends Controller
         $healthcare->button_content2 = $request->button_content2 ?? null;
         $healthcare->button_link2 = $request->button_link2 ?? null;
         $healthcare->status = $request->status ?? "off";
-
+        $healthcare->url = 'Home';
         // Handle image upload
    
         if ($request->hasFile('image')) {
@@ -334,6 +336,7 @@ class HomeSectionControoler extends Controller
         $saveFaqs->title = $validated['title'];
         $saveFaqs->subtitle = $validated['subtitle'] ?? null;
         $saveFaqs->status = $request->status ?? "off";
+        $saveFaqs->url = 'Home';
         $saveFaqs->pointers = json_encode($pointers);
 
         // Save the record
@@ -352,11 +355,13 @@ class HomeSectionControoler extends Controller
     public function saveOurServices(Request $request)
     {
         // dd($request->all());
+ 
+        
         $validated = $request->validate([
             'title' => 'required|string',
             'subtitle' => 'nullable|string',
             'description_1' => 'required|string',
-            'image' => 'required|array',
+            'image' => 'nullable|array',
             'image.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048', // No need for nullable since 'image' is required
             'sub_title' => 'required|array',
             'sub_title.*' => 'required|string',
@@ -419,6 +424,7 @@ class HomeSectionControoler extends Controller
         $ourservice->subtitle = $request->subtitle;
         $ourservice->description_1 = $request->description_1;
         $ourservice->status = $request->status ?? "off";
+        $ourservice->url ='/';
         $ourservice->pointers = json_encode($pointers);  // Store updated pointers data
 
         // Save the model (create or update)
@@ -428,5 +434,7 @@ class HomeSectionControoler extends Controller
 
         // Redirect with a success message
         return redirect()->route('our-services')->with('success', $message);
+    
     }
+    
 }

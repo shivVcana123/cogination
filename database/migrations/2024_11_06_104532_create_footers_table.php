@@ -27,7 +27,6 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('button_content')->nullable();
             $table->string('button_link')->nullable();
-            $table->string('url')->nullable();
             $table->timestamps();
         });
     }

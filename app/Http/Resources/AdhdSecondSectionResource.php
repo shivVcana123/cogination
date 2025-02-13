@@ -26,6 +26,7 @@ class AdhdSecondSectionResource extends JsonResource
             'second_image' => $this->second_image,
             'pointers' => json_decode($this->pointers),
             'status' => $this->status,
+            'url' => $this->url,
         ];
     }
 }

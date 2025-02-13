@@ -45,6 +45,7 @@ class FeesController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'status' => $request->status ?? "off",
+            'url' => "Fees",
         ];
 
         if ($request->id) {
@@ -226,7 +227,7 @@ class FeesController extends Controller
             $autismSection->description = $request->description;
             $autismSection->status = $request->status ?? "off";
             $autismSection->pointers = json_encode($pointers);
-
+            $autismSection->url = "Fees";
             // Save the record
             $autismSection->save();
 

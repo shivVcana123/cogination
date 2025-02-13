@@ -30,19 +30,19 @@ class CtaController extends Controller
      */
     public function create()
     {
-      	$cta= new Cta();
-        $links = Header::where('link','!=',null)->get();
-        $headerChild = Header::with('children')->whereNull('parent_id')->where('category','Services')->get();
-         $headerChild = HeaderResource::collection($headerChild);
+        $cta = new Cta();
+        $links = Header::where('link', '!=', null)->get();
+        $headerChild = Header::with('children')->whereNull('parent_id')->where('category', 'Services')->get();
+        $headerChild = HeaderResource::collection($headerChild);
 
-        return view('Cta.cta',compact('cta','headerChild','links'));
+        return view('Cta.cta', compact('cta', 'headerChild', 'links'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
+    {
 
         $validated = $request->validate([
             'cta_type' => 'required',
@@ -70,11 +70,42 @@ class CtaController extends Controller
                 ->withErrors(['cta_type' => 'This cta section already exists.'])
                 ->withInput(); // <-- This ensures old input is kept
         }
-        
-        
+
+
         $cta = new Cta();
         $cta->title = $request->title;
         $cta->cta_type = $request->cta_type;
+        switch ($request->type) {
+            case 'Home':
+                $url_type = 'Home';
+                break;
+            case 'ADHD':
+                $url_type = 'ADHD';
+                break;
+            case 'Autism':
+                $url_type = 'Autism';
+                break;
+            case 'Assessment':
+                $url_type = 'Assessment';
+                break;
+            case 'Fees':
+                $url_type = 'Fees';
+                break;
+            case 'About Us':
+                $url_type = 'About Us';
+                break;
+            case 'Our Approach':
+                $url_type = 'Our Approach';
+                break;
+            case 'Accreditation & Certifications':
+                $url_type = 'Accreditation & Certifications';
+                break;
+    
+            default:
+                $url_type = null;
+                break;
+        }
+        $cta->url = $url_type;
         $cta->button_content = $request->button_content;
         $cta->button_link = $request->button_link;
         $cta->description = $request->description;
@@ -82,16 +113,16 @@ class CtaController extends Controller
         $cta->save();
 
         return redirect()->route('cta.index')->with('success', 'Record created successfully!');
-}
+    }
 
     public function edit(string $id)
     {
-       $cta= Cta::find($id);
-  		$headerChild = Header::with('children')->whereNull('parent_id')->where('category','Services')->get();
-       $headerChild = HeaderResource::collection($headerChild);
-              $links = Header::where('link','!=','')->get();
+        $cta = Cta::find($id);
+        $headerChild = Header::with('children')->whereNull('parent_id')->where('category', 'Services')->get();
+        $headerChild = HeaderResource::collection($headerChild);
+        $links = Header::where('link', '!=', '')->get();
 
-        return view('Cta.cta',compact('cta','headerChild','links'));   
+        return view('Cta.cta', compact('cta', 'headerChild', 'links'));
     }
 
     /**
@@ -100,36 +131,68 @@ class CtaController extends Controller
     public function update(Request $request, string $id)
     {
         // dd($request->all());
-    
-            $validated = $request->validate([
-                'title' => 'required|string|min:3|max:255',
-                'description' => 'required|string|min:100|max:2000',
-                'button_content' => 'nullable|string|max:255',
-                'button_link' => 'nullable|required_with:button_content',
-            ], [
-                'title.required' => 'The title is required.',
-                'title.string' => 'The title must be a valid string.',
-                'title.min' => 'The title must be at least 3 characters.',
-                'title.max' => 'The title must not exceed 255 characters.',
-                'button_link.required_with' => 'The button link is required when button content is provided.',
-                'description.required' => 'The description is required.',
-                'description.string' => 'The description must be a valid string.',
-                'description.min' => 'The description must be at least 100 characters.',
-                'description.max' => 'The description must not exceed 2000 characters.',
-            ]);
-            
-            $cta = Cta::findOrFail($request->hidden_id);
 
-             $cta->title = $request->title;
-            $cta->cta_type = $request->cta_type;
-            $cta->button_content = $request->button_content;
-            $cta->button_link = $request->button_link;
-            $cta->description = $request->description;
-            $cta->status = $request->status ?? "off";
-            
-   			 $cta->save();
-            return redirect()->route('cta.index')->with('success', 'Record updated successfully!');
-      
+        $validated = $request->validate([
+            'title' => 'required|string|min:3|max:255',
+            'description' => 'required|string|min:100|max:2000',
+            'button_content' => 'nullable|string|max:255',
+            'button_link' => 'nullable|required_with:button_content',
+        ], [
+            'title.required' => 'The title is required.',
+            'title.string' => 'The title must be a valid string.',
+            'title.min' => 'The title must be at least 3 characters.',
+            'title.max' => 'The title must not exceed 255 characters.',
+            'button_link.required_with' => 'The button link is required when button content is provided.',
+            'description.required' => 'The description is required.',
+            'description.string' => 'The description must be a valid string.',
+            'description.min' => 'The description must be at least 100 characters.',
+            'description.max' => 'The description must not exceed 2000 characters.',
+        ]);
+
+        $cta = Cta::findOrFail($request->hidden_id);
+
+        $cta->title = $request->title;
+        $cta->cta_type = $request->cta_type;
+
+        switch ($request->type) {
+            case 'Home':
+                $url_type = 'Home';
+                break;
+            case 'ADHD':
+                $url_type = 'ADHD';
+                break;
+            case 'Autism':
+                $url_type = 'Autism';
+                break;
+            case 'Assessment':
+                $url_type = 'Assessment';
+                break;
+            case 'Fees':
+                $url_type = 'Fees';
+                break;
+            case 'About Us':
+                $url_type = 'About Us';
+                break;
+            case 'Our Approach':
+                $url_type = 'Our Approach';
+                break;
+            case 'Accreditation & Certifications':
+                $url_type = 'Accreditation & Certifications';
+                break;
+    
+            default:
+                $url_type = null;
+                break;
+        }
+
+        $cta->url = $url_type;
+        $cta->button_content = $request->button_content;
+        $cta->button_link = $request->button_link;
+        $cta->description = $request->description;
+        $cta->status = $request->status ?? "off";
+
+        $cta->save();
+        return redirect()->route('cta.index')->with('success', 'Record updated successfully!');
     }
 
     /**
@@ -141,7 +204,7 @@ class CtaController extends Controller
             $cta = Cta::findOrFail($id);
 
             // Delete images if exist
-          
+
 
             $cta->delete();
 

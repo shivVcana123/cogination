@@ -20,6 +20,7 @@ class HomeFaqResource extends JsonResource
             'subtitle' => $this->subtitle,
             'pointers' => $this->pointers,
             'status' => $this->status,
+            'url' => $this->url,
         ];
     }
 }

@@ -59,7 +59,11 @@
                                 </div>
                                 @else
                                 <label for="title"> Page</label>
-                                <input type="text" class="form-control" name="type" id="button_text" placeholder="Enter Button Text" value="{{ old('type', $banner->type) }}" readonly>
+                                <input type="text" class="form-control" name="type" id="button_text" value="{{ old('type', $banner->type) }}" readonly>
+                                @if (!empty($banner->section_type))
+                                <label for="title"> Choose Type</label>
+                                <input type="text" class="form-control" name="section_type" id="section_type" value="{{ old('section_type', $banner->section_type) }}" readonly>
+                                @endif
                                 @endif
 
                                 <div class="form-group type-area">
