@@ -24,6 +24,7 @@ class AboutResource extends JsonResource
             'first_image' => $this->first_image,
             'second_image' => $this->second_image,
             'status' => $this->status,
+            'url' => $this->url,
             
         ];
     }

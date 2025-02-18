@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Financial Responsibility</h1>
+                    <h1>Financial Responsibility Section</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -33,7 +33,7 @@
                                     <label for="title">Title</label>
                                     <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
                                     <input type="text" class="form-control" name="title" id="title"
-                                        placeholder="Enter title" value="{{ old('title',$finance->title ?? '') }}">
+                                        placeholder="Enter title" value="{{ old('title',$finance->title ?? '') }}" required>
                                     @error('title')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -44,7 +44,7 @@
                                 <div class="form-group">
                                     <label for="description_1">Description</label>
                                     <i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
-                                    <textarea class="form-control" name="description" id="description">{{ old('description', $finance->description ?? '') }}</textarea>
+                                    <textarea class="form-control" name="description" id="description" required>{{ old('description', $finance->description ?? '') }}</textarea>
                                     @error('description')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -55,7 +55,7 @@
                             <div class="card-footer">
                             <input type="checkbox" id="status" name="status" {{ ($finance->status ?? '') === 'on' ? 'checked' : '' }}>
                             <label for="status">Show On Website</label>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </form>
                     </div>

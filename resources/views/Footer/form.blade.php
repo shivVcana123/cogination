@@ -35,22 +35,31 @@
                                 <div class="row">
 
                                     <div class="form-group col-md-6">
-                                        <label for="phone_no">Email</label><i class="fas fa-info-circle" title="Enter a rmail for Footer Section ."></i>
-                                        <input type="email" class="form-control" name="email" id="email" value="{{$footerData[0]->email ?? ''}}">
+                                        <label for="phone_no">Email</label> <i class="fas fa-info-circle" title="Enter a rmail for Footer Section ."></i>
+                                        <input type="email" class="form-control" name="email" id="email" value="{{$footerData[0]->email ?? ''}}" required>
+                                        @error('email')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
                                     </div>
 
                                     <div class="form-group col-md-6">
-                                        <label for="phone_no">Contact Info</label><i class="fas fa-info-circle" title="Enter a Phone number for Footer Section ."></i>
-                                        <input type="phone" class="form-control" name="phone_no" value="{{$footerData[0]->phone_no ?? ''}}" id="phone_no">
+                                        <label for="phone_no">Contact Info</label> <i class="fas fa-info-circle" title="Enter a Phone number for Footer Section ."></i>
+                                        <input type="phone" class="form-control" name="phone_no" value="{{$footerData[0]->phone_no ?? ''}}" id="phone_no" required>
+                                        @error('phone_no')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
                                     </div>
 
                                     <div class="form-group col-md-6">
-                                        <label for="link">Address</label><i class="fas fa-info-circle" title="Enter a Address for Footer Section ."></i>
-                                        <input type="text" class="form-control" name="address" id="address" value="{{$footerData[0]->address ?? ''}}" placeholder="Enter Address">
+                                        <label for="link">Address</label> <i class="fas fa-info-circle" title="Enter a Address for Footer Section ."></i>
+                                        <input type="text" class="form-control" name="address" id="address" value="{{$footerData[0]->address ?? ''}}" placeholder="Enter Address" required>
+                                        @error('address')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
                                     </div>
 
                                     <div class="form-group col-md-6">
-                                        <label for="timing">Timing</label><i class="fas fa-info-circle" title="Enter the working hours for Footer Section."></i>
+                                        <label for="timing">Timing</label> <i class="fas fa-info-circle" title="Enter the working hours for Footer Section."></i>
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <input
@@ -92,12 +101,15 @@
                                 <div class="row">
 
                                     <div class="form-group col-md-12">
-                                        <label for="title">Title 1</label><i class="fas fa-info-circle" title="Enter a first title for Footer Section ."></i>
-                                        <input type="text" class="form-control" name="title1" id="title1" value="{{$footerData[0]->title1 ?? ''}}" placeholder="Enter title1">
+                                        <label for="title">Title </label> <i class="fas fa-info-circle" title="Enter a first title for Footer Section ."></i>
+                                        <input type="text" class="form-control" name="title1" id="title1" value="{{$footerData[0]->title1 ?? ''}}" placeholder="Enter title1" required>
+                                        @error('title1')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
                                     </div>
-                                    <div class="row">
+                                    <div class="row data-clss">
                                         <div class="col-12">
-                                            <label class="selct-data" for="headers">Select Display Data</label>
+                                            <label class="selct-data" for="headers">Select Display Data</label> 
                                             <i class="fas fa-info-circle" title="Select the values you want to show in the footer."></i>
                                         </div>
 
@@ -131,83 +143,11 @@
                                         </div>
                                         @endforeach
                                     </div>
-
-
-                                    <!-- <div class="row">
-                                        <div class="col-12">
-                                            <label for="headers">Select Display Data</label><i class="fas fa-info-circle" title="Select the values you want to show in the footer."></i>
-                                        </div>
-
-                                        @php
-                                        $footerValue = isset($footerData[0]) && !empty($footerData[0]->display_data)
-                                        ? json_decode($footerData[0]->display_data)
-                                        : []; // Decode JSON to an array
-                                        @endphp
-
-                                        @foreach ($headers as $header)
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <div class="form-check">
-                                                    <input
-                                                        type="checkbox"
-                                                        class="form-check-input"
-                                                        name="dats_display[]"
-                                                        id="header_{{ $header->id }}"
-                                                        value="{{ $header->category }}"
-                                                        {{ in_array($header->category, $footerValue ?? []) ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="header_{{ $header->id }}">
-                                                        {{ $header->category }}
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @endforeach
-
-                                    </div> -->
                                 </div>
-
-                                <!-- <hr>
-                                <div class="row">
-                                    <div class="form-group col-md-12">
-                                        <label for="title">Title 2</label><i class="fas fa-info-circle" title="Enter a second title for Footer Section."></i>
-                                        <input type="text" class="form-control" name="title2" id="title2" value="{{$footerData[0]->title2 ?? ''}}" placeholder="Enter title2">
-                                    </div>
-
-                                    @php
-                                    $linkValues = isset($footerData[0]) && !empty($footerData[0]->link)
-                                    ? json_decode($footerData[0]->link)
-                                    : [];
-                                    @endphp
-
-                                    <div class="form-group col-md-12">
-                                        <label for="link_name">Link Name</label>
-                                        <div id="link-url-container">
-                                            @if (!empty($linkValues))
-                                            @foreach ($linkValues as $value)
-                                            <div class="link-url-row">
-                                                <div class="row">
-                                                    <input type="text" class="form-control col-md-6 mb-2" name="name[]" placeholder="Enter Link Name" value="{{ $value->name ?? '' }}">
-                                                    <input type="text" class="form-control col-md-6 mb-2" name="link[]" placeholder="Enter URL" value="{{ $value->link ?? '' }}">
-                                                    <button type="button" class="btn btn-danger btn-sm remove-link-url">Remove</button>
-                                                </div>
-                                            </div>
-                                            @endforeach
-                                            @else
-                                            <div class="link-url-row">
-                                                <div class="row">
-                                                    <input type="text" class="form-control col-md-6 mb-2" name="name[]" placeholder="Enter Link Name">
-                                                    <input type="text" class="form-control col-md-6 mb-2" name="link[]" placeholder="Enter URL">
-                                                    <button type="button" class="btn btn-danger btn-sm remove-link-url">Remove</button>
-                                                </div>
-                                            </div>
-                                            @endif
-                                        </div>
-                                        <button type="button" class="btn btn-success btn-sm mt-2" id="add-more-link-url">Add More</button>
-                                    </div>
-                                </div> -->
+                               
                                 <hr>
                                 <div class="form-group">
-                                    <label for="image">WebSite Logo</label>
+                                    <label for="image">WebSite Logo</label> 
                                     <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
                                     <img id="blah" src="{{asset($footerData[0]->image ?? '')}}" alt="Image Preview" style="width: 130px; display: {{ empty($footerData[0]->image) ? 'none' : 'block' }};" />
                                     <input type="file" class="form-control" name="image" id="imgInp" accept="image/*">
@@ -215,14 +155,37 @@
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+                              <br>
+                                <h5>Header Button Text</h5>
+                                <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="title">Button Text</label>
+                                    <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i> <label class="option-area">(Optional)</label>
+                                    <input type="text" class="form-control" name="button_content" id="button_content" placeholder="Enter Button Text" value="{{old('button_content',$footerData[0]->button_content ?? '')}}">
+                                    @error('button_content')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="title">Button Link</label>
+                                    <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i> <label class="option-area">(Optional)</label>
+                                    <input type="text" class="form-control" name="button_link" id="button_link" placeholder="Enter Button Link" value="{{old('button_link',$footerData[0]->button_link ?? '')}}">
+                                    @error('button_link')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                </div>
                                 <hr>
                                 <div class="form-group col-md-12">
-                                    <label for="email">Footer Description</label><i class="fas fa-info-circle" title="Enter a description for Footer Section."></i>
+                                    <label for="email">Footer Description</label> <i class="fas fa-info-circle" title="Enter a description for Footer Section."></i>
                                     <textarea class="form-control" name="description" id="description" placeholder="Enter Text">{{$footerData[0]->description ?? ''}}</textarea>
+                                    @error('description')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </form>
                     </div>

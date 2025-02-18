@@ -34,15 +34,13 @@
                             @endif
 
                             <div class="card-body">
-                                @if($errors->any())
+                                @if ($errors->has('section_type'))
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                     <ul>
-                                        @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                        @endforeach
+                                        <li>{{ $errors->first('section_type') }}</li>
                                     </ul>
                                 </div>
                                 @endif
@@ -61,7 +59,11 @@
                                 </div>
                                 @else
                                 <label for="title"> Page</label>
-                                <input type="text" class="form-control" name="type" id="button_text" placeholder="Enter Button Text" value="{{ old('type', $banner->type) }}" readonly>
+                                <input type="text" class="form-control" name="type" id="button_text" value="{{ old('type', $banner->type) }}" readonly>
+                                @if (!empty($banner->section_type))
+                                <label for="title"> Choose Type</label>
+                                <input type="text" class="form-control" name="section_type" id="section_type" value="{{ old('section_type', $banner->section_type) }}" readonly>
+                                @endif
                                 @endif
 
                                 <div class="form-group type-area">
@@ -79,8 +81,8 @@
 
                                 <div class="row">
                                     <div class="form-group col-md-6 mt-3">
-                                        <label for="title">Heading</label><i class="fas fa-info-circle" title="Enter a title for Banner Section ."></i>
-                                        <input type="text" class="form-control" name="heading" id="heading" placeholder="Enter heading" value="{{ old('heading', $banner->heading) }}">
+                                        <label for="title">Heading</label> <i class="fas fa-info-circle" title="Enter a title for Banner Section ."></i>
+                                        <input type="text" class="form-control" name="heading" id="heading" placeholder="Enter heading" value="{{ old('heading', $banner->heading) }}" required>
                                         @error('heading')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -89,14 +91,14 @@
                                     <div class="form-group col-md-6 mt-3">
                                         <label for="subtitle">Subtitle</label>
                                         <i class="fas fa-info-circle" title="Enter a subtitle for Banner Section ."></i>
-                                        <label>(Optional)</label>
+                                        <label class="option-area">(Optional)</label>
                                         <input type="text" class="form-control " name="subtitle" id="subtitle" placeholder="Enter sub heading" value="{{ old('subtitle', $banner->subtitle ?? '') }}">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="description_1">Description</label><i class="fas fa-info-circle" title="Enter a Description for Banner Section."></i>
-                                    <textarea class="form-control" name="description" id="description_1">{{ old('description', $banner->description) }}</textarea>
+                                    <label for="description_1">Description</label> <i class="fas fa-info-circle" title="Enter a Description for Banner Section."></i>
+                                    <textarea class="form-control" name="description" id="description_1" required>{{ old('description', $banner->description) }}</textarea>
                                     @error('description')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -104,7 +106,7 @@
 
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label for="button_content">Button Text</label><i class="fas fa-info-circle" title="Enter a Button text for Banner Section."></i> <label>(Optional)</label>
+                                        <label for="button_content">Button Text</label> <i class="fas fa-info-circle" title="Enter a Button text for Banner Section."></i> <label class="option-area">(Optional)</label>
                                         <input type="text" class="form-control" name="button_text" id="button_text" placeholder="Enter Button Text" value="{{ old('button_text', $banner->button_text) }}">
                                         @error('button_text')
                                         <span class="text-danger">{{ $message }}</span>
@@ -112,7 +114,7 @@
                                     </div>
 
                                     <div class="form-group col-md-6">
-                                        <label for="button_link">Button Link</label><i class="fas fa-info-circle" title="Enter a Button link for Banner Section."></i> <label>(Optional)</label>
+                                        <label for="button_link">Button Link</label> <i class="fas fa-info-circle" title="Enter a Button link for Banner Section."></i> <label class="option-area">(Optional)</label>
                                         <input type="text" class="form-control" name="button_link" id="button_link" placeholder="Enter Button Link" value="{{ old('button_link', $banner->button_link) }}">
                                     </div>
                                     @error('button_link')
@@ -133,7 +135,7 @@
                             </div>
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </form>
 
@@ -162,7 +164,6 @@
 
     function resetFields() {
         $('#form-baaner-id')[0].reset();
-        $('#section_banner').prop('selectedIndex', 0); // Set to the first (disabled) option
         $('#section_type').prop('selectedIndex', 0);
 
     }
@@ -173,15 +174,10 @@
         // Show or hide areas based on initial value or old input
         const initializeVisibility = () => {
             if (pageType === "Autism" || pageType === "ADHD" || pageType === "{{ old('type') }}") {
-                $('.type-area').show();
+                // alert('okk');
+                $('.type-area').hide();
             } else {
                 $('.type-area').hide();
-            }
-
-            if (pageType === "Home" || pageType === "{{ old('type') }}") {
-                $('.home-area').show();
-            } else {
-                $('.home-area').hide();
             }
         };
 
@@ -196,11 +192,6 @@
                 $('.type-area').hide();
             }
 
-            if (this.value === "Home") {
-                $('.home-area').show();
-            } else {
-                $('.home-area').hide();
-            }
             // alert(this.value);
             if (this.value !== "Home") {
                 //   resetFields();

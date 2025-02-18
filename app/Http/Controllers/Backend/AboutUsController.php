@@ -38,7 +38,7 @@ class AboutUsController extends Controller
         
         
         // Fetch or create a new section
-        $autismSection = $request->id
+        $ourStorySection = $request->id
             ? AboutUsOurStory::find($request->id)
             : new AboutUsOurStory();
 
@@ -46,21 +46,22 @@ class AboutUsController extends Controller
         if ($request->hasFile('first_image') && $request->file('first_image')->isValid()) {
             $imageName = time() . '_' . uniqid() . '_' . $request->file('first_image')->getClientOriginalName();
             $imagePath = $request->file('first_image')->storeAs('about', $imageName, 'public');
-            $autismSection->first_image = 'storage/' . $imagePath;
+            $ourStorySection->first_image = 'storage/' . $imagePath;
         }
         if ($request->hasFile('second_image') && $request->file(key: 'second_image')->isValid()) {
             $imageName = time() . '_' . uniqid() . '_' . $request->file('second_image')->getClientOriginalName();
             $imagePath = $request->file('second_image')->storeAs('about', $imageName, 'public');
-            $autismSection->second_image = 'storage/' . $imagePath;
+            $ourStorySection->second_image = 'storage/' . $imagePath;
         }
         // Assign data
-        $autismSection->title = $request->title;
-        $autismSection->subtitle = $request->subtitle;
-        $autismSection->description =$request->description;
-        $autismSection->button_content = $request->button_content;
-        $autismSection->button_link = $request->button_link;
-        $autismSection->status = $request->status ?? "off";
-        $autismSection->save();
+        $ourStorySection->title = $request->title;
+        $ourStorySection->subtitle = $request->subtitle;
+        $ourStorySection->description =$request->description;
+        $ourStorySection->button_content = $request->button_content;
+        $ourStorySection->button_link = $request->button_link;
+        $ourStorySection->status = $request->status ?? "off";
+        $ourStorySection->url = 'About Us';
+        $ourStorySection->save();
         return redirect()->route('our-story-section')->with('success', 'Adhd details saved successfully.');
     }
 
@@ -82,7 +83,7 @@ class AboutUsController extends Controller
         ]);
 
         // Fetch or create a new section
-        $autismSection = $request->id
+        $ourMissionSection = $request->id
             ? AboutUsOurMission::find($request->id)
             : new AboutUsOurMission();
 
@@ -90,16 +91,16 @@ class AboutUsController extends Controller
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $imageName = time().'_'.uniqid().'_'.$request->file('image')->getClientOriginalName();
             $imagePath = $request->file('image')->storeAs('about', $imageName, 'public');
-            $autismSection->image = 'storage/'.$imagePath;
+            $ourMissionSection->image = 'storage/'.$imagePath;
         }
         
 
 
         // Assign data
-        $autismSection->title = $request->title;
-        $autismSection->status = $request->status ?? "off";
-
-        $autismSection->save();
+        $ourMissionSection->title = $request->title;
+        $ourMissionSection->status = $request->status ?? "off";
+        $ourMissionSection->url = 'About Us';
+        $ourMissionSection->save();
    
 
         return redirect()->route('our-mission-section')->with('success', 'Adhd details saved successfully.');
@@ -143,7 +144,7 @@ class AboutUsController extends Controller
             'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, svg, webp.',
         ]);
         // Fetch or create a new section
-        $autismSection = $request->id
+        $joinCommunitySection = $request->id
             ? AboutUsJoinCommunity::find($request->id)
             : new AboutUsJoinCommunity();
     
@@ -162,18 +163,19 @@ class AboutUsController extends Controller
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
             $imagePath = $request->file('image')->storeAs('about', $imageName, 'public');
-            $autismSection->image = 'storage/' . $imagePath;
+            $joinCommunitySection->image = 'storage/' . $imagePath;
         }
     
         // Assign data to the model
-        $autismSection->title = $request->title;
-        $autismSection->subtitle = $request->subtitle;
-        $autismSection->description = $request->description;
-        $autismSection->status = $request->status ?? "off";
-        $autismSection->pointers = json_encode($pointers, JSON_THROW_ON_ERROR);
+        $joinCommunitySection->title = $request->title;
+        $joinCommunitySection->subtitle = $request->subtitle;
+        $joinCommunitySection->description = $request->description;
+        $joinCommunitySection->status = $request->status ?? "off";
+        $joinCommunitySection->url = 'About Us';
+        $joinCommunitySection->pointers = json_encode($pointers, JSON_THROW_ON_ERROR);
     
         // Save the model
-        $autismSection->save();
+        $joinCommunitySection->save();
     
         // Redirect with success message
         return redirect()->route('join-community-section')

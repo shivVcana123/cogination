@@ -52,7 +52,7 @@
                                         <label for="title">Title</label>
                                         <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
                                         <input type="text" class="form-control" name="title" id="title"
-                                            placeholder="Enter title" value="{{ old('title', $adhdBenefit[0]->title ?? '') }}">
+                                            placeholder="Enter title" value="{{ old('title', $adhdBenefit[0]->title ?? '') }}" required>
                                         @error('title')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -62,7 +62,7 @@
                                     <!-- Subtitle Field -->
                                     <div class="form-group col-md-6">
                                         <label for="subtitle">Subtitle</label>
-                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label for="">(Optional)</label>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label class="option-area">(Optional)</label>
                                         <input type="text" class="form-control" name="subtitle" id="subtitle"
                                             placeholder="Enter subtitle" value="{{ old('subtitle', $adhdBenefit[0]->subtitle ?? '') }}">
                                         @error('subtitle')
@@ -77,7 +77,7 @@
                                 <div class="form-group">
                                     <label for="description_1">Description</label>
                                     <i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
-                                    <textarea class="form-control" name="description_1" id="description_1">{{ old('description_1', $adhdBenefit[0]->description_1 ?? '') }}</textarea>
+                                    <textarea class="form-control" name="description_1" id="description_1" required>{{ old('description_1', $adhdBenefit[0]->description_1 ?? '') }}</textarea>
                                     @error('description_1')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -93,7 +93,7 @@
 
 
                                 <!-- Pointers Section -->
-                                <label for="">Card Details</label>
+                                <h5>Card Details</h5>
                                 <div id="Pointers-container">
 
                                     @if(!empty($pointers) && is_array($pointers))
@@ -104,12 +104,12 @@
                                             <div class="form-group col-md-6">
                                                 <label> Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" id="sub_title" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter title">
+                                                <input type="text" name="sub_title[]" id="sub_title" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter title" required>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label> Description</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
-                                                <input type="text" name="sub_description[]" id="sub_description" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter  description">
+                                                <input type="text" name="sub_description[]" id="sub_description" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter  description" required>
                                             </div>
 
                                             <div class="form-group col-md-6">
@@ -135,12 +135,12 @@
                                             <div class="form-group col-md-6">
                                                 <label> Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" id="sub_title" class="form-control" value="" placeholder="Enter title">
+                                                <input type="text" name="sub_title[]" id="sub_title" class="form-control" value="" placeholder="Enter title" required>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label> Description</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_description[]" id="sub_description" class="form-control" value="" placeholder="Enter description">
+                                                <input type="text" name="sub_description[]" id="sub_description" class="form-control" value="" placeholder="Enter description" required>
                                             </div>
 
                                             <div class="form-group col-md-6">
@@ -166,7 +166,7 @@
                             <div class="card-footer">
                             <input type="checkbox" id="status" name="status" {{ ($adhdBenefit[0]->status ?? '') === 'on' ? 'checked' : '' }}>
                             <label for="status">Show On Website</label>
-                                <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
+                                <button type="submit" id="form-submit-button" class="btn btn-primary">Save</button>
                             </div>
                         </form>
                     </div>
@@ -198,13 +198,13 @@ document.getElementById('add-Pointers').addEventListener('click', function () {
             <div class="form-group col-md-6">
                 <label> Title</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                <input type="text" name="sub_title[]" class="form-control" placeholder="Enter title">
+                <input type="text" name="sub_title[]" class="form-control" placeholder="Enter title" required>
                 <div class="text-danger title-error" style="display: none;">Sub title is required.</div>
             </div>
             <div class="form-group col-md-6">
                 <label> Description</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                <input type="text" name="sub_description[]" class="form-control" placeholder="Enter description">
+                <input type="text" name="sub_description[]" class="form-control" placeholder="Enter description" required>
                 <div class="text-danger description-error" style="display: none;">Sub description is required.</div>
             </div>
             <div class="form-group col-md-6">
@@ -331,11 +331,11 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label> Title</label>
-                                        <input type="text" name="sub_title[]" class="form-control" value="${pointer.sub_title || ''}" placeholder="Enter title">
+                                        <input type="text" name="sub_title[]" class="form-control" value="${pointer.sub_title || ''}" placeholder="Enter title" required>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label> Description</label>
-                                        <input type="text" name="sub_description[]" class="form-control" value="${pointer.sub_description || ''}" placeholder="Enter description">
+                                        <input type="text" name="sub_description[]" class="form-control" value="${pointer.sub_description || ''}" placeholder="Enter description" required>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="image">Image</label>

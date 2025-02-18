@@ -1,5 +1,5 @@
 <!-- Main Sidebar Container -->
-<span?php
+<?php
 
 use App\Models\Logo;
 
@@ -207,7 +207,7 @@ $logo = Logo::first();
                     </ul>
                 </li>
 
-                       <!-- Assessments -->
+                <!-- Assessments -->
                 <li class="nav-item {{ request()->is('assessment-section*') || request()->is('assessment-whychoose*') || request()->is('our-diagnostic-services*') || request()->is('understanding-conditions*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-clipboard-list" style="color:black"></i>
@@ -247,7 +247,7 @@ $logo = Logo::first();
 
 
                 <!-- About Us -->
-                <li class="nav-item {{ request()->is('our-story-section*') || request()->is('our-mission-section*') || request()->is('join-community-section*') || request()->is('understanding-conditions*') ? 'menu-open' : '' }}">
+                <li class="nav-item {{ request()->is('our-story-section*') || request()->is('our-mission-section*') || request()->is('join-community-section*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-info-circle" style="color:black"></i>
                         <p style="color:black">
@@ -379,16 +379,16 @@ $logo = Logo::first();
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-envelope" style="color:black"></i>
                         <p style="color:black">
-                        Newsletter
+                            Newsletter
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                        <a href="{{ route('news-letter-form') }}" class="nav-link {{ request()->is('news-letter-form*') ? 'active' : '' }}">
-                        <i class="far fa-circle nav-icon" style="color:black"></i>
-                        <p style="color:black">Form</p>
-                        </a>
+                            <a href="{{ route('news-letter-form') }}" class="nav-link {{ request()->is('news-letter-form*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon" style="color:black"></i>
+                                <p style="color:black">Form</p>
+                            </a>
                         </li>
                     </ul>
 
@@ -401,7 +401,7 @@ $logo = Logo::first();
                         </li>
                     </ul>
                 </li>
-            
+
                 <!-- CTA -->
                 <li class="nav-item">
                     <a href="{{ route('cta.index') }}" class="nav-link {{ request()->is('cta*') ? 'active' : '' }}">
@@ -410,9 +410,6 @@ $logo = Logo::first();
                     </a>
                 </li>
 
-
-
-
                 <!-- Footer -->
                 <li class="nav-item">
                     <a href="{{ route('footer') }}" class="nav-link {{ request()->is('footer*') ? 'active' : '' }}">
@@ -420,21 +417,9 @@ $logo = Logo::first();
                         <p style="color:black">Footer</p>
                     </a>
                 </li>
-
-                <!-- Design Styles -->
-                <!-- <li class="nav-item">
-                    <a href="{{ route('page.index') }}" class="nav-link {{ request()->is('page*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-paint-brush" style="color:black"></i> 
-                        <p style="color:black">Design Styles</p>
-                    </a>
-                </li> -->
-
-
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
 </aside>
-
-

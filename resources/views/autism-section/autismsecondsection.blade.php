@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Autism Section</h1>
+                    <h1>Autism Assessment Journey Section</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -50,7 +50,7 @@
                                             <label for="title">Title</label>
                                             <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
                                             <input type="text" class="form-control" name="second_title" id="second_title"
-                                                placeholder="Enter title" value="{{ old('second_title',$autismSection[0]->second_title ?? '') }}">
+                                                placeholder="Enter title" value="{{ old('second_title',$autismSection[0]->second_title ?? '') }}" required>
                                             @error('second_title')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -59,7 +59,7 @@
                                         <!-- Subtitle Field -->
                                         <div class="form-group col-md-6">
                                             <label for="subtitle">Subtitle</label>
-                                            <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label for="">(Optional)</label>
+                                            <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label class="option-area">(Optional)</label>
                                             <input type="text" class="form-control" name="second_subtitle" id="second_subtitle"
                                                 placeholder="Enter subtitle" value="{{ old('second_subtitle',$autismSection[0]->second_subtitle ?? '') }}">
                                             @error('second_subtitle')
@@ -69,7 +69,7 @@
 
                                         <div class="form-group col-md-6">
                                             <label for="title">Button Text</label>
-                                            <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i> <label for="">(Optional)</label>
+                                            <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i> <label class="option-area">(Optional)</label>
                                             <input type="text" class="form-control" name="second_button_content" id="second_button_content" placeholder="Enter Button Text" value="{{old('second_button_content',$autismSection[0]->second_button_content ?? '')}}">
                                             @error('second_button_content')
                                             <div class="text-danger">{{ $message }}</div>
@@ -77,7 +77,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="title">Button Link</label>
-                                            <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i> <label for="">(Optional)</label>
+                                            <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i> <label class="option-area">(Optional)</label>
 
                                             <input type="text" class="form-control" name="second_button_link" id="second_button_link" placeholder="Enter Button Link" value="{{old('second_button_link',$autismSection[0]->second_button_link ?? '')}}">
                                             @error('second_button_link')
@@ -89,11 +89,11 @@
                                     <div class="form-group">
                                         <label for="description_1">Description</label>
                                         <i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
-                                        <textarea class="form-control" name="second_description" id="second_description">{{ old('second_description', $autismSection[0]->second_description ?? '') }}</textarea>
+                                        <textarea class="form-control" name="second_description" id="second_description" required>{{ old('second_description', $autismSection[0]->second_description ?? '') }}</textarea>
                                         @error('second_description')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
-                                    </div>
+                                    </div><br>
 
                                     @php
                                     // Check if the $autismSection exists and contains data before attempting to decode
@@ -104,9 +104,7 @@
 
                                     <hr>
                                     <!-- Pointers Section -->
-                                    <label for="">Card Details</label>
-                                    <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-
+                                    <h5>Card Details</h5>
                                     <div id="Pointers-container">
 
                                         @if(!empty($pointers) && is_array($pointers))
@@ -115,7 +113,7 @@
                                         <div class="form-group url-group">
                                             <label>Sub Title</label>
                                             <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                            <input type="text" name="second_sub_title[]" class="form-control" value="{{$pointer->second_sub_title}}" placeholder="Enter title">
+                                            <input type="text" name="second_sub_title[]" class="form-control" value="{{$pointer->second_sub_title}}" placeholder="Enter title" required>
 
                                             <button type="button" class="btn btn-danger remove-Pointers mt-3">Remove</button>
                                         </div>
@@ -126,7 +124,7 @@
                                         <div class="form-group url-group">
                                             <label> Title</label>
                                             <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                            <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter  title">
+                                            <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter  title" required>
 
                                             <button type="button" class="btn btn-danger remove-Pointers mt-3">Remove</button>
                                         </div>
@@ -150,7 +148,7 @@
                                 <div class="card-footer">
                                     <input type="checkbox" id="status" name="status" {{ ($autismSection[0]->status ?? '') === 'on' ? 'checked' : '' }}>
                                     <label for="status">Show On Website</label>
-                                    <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
+                                    <button type="submit" id="form-submit-button" class="btn btn-primary">Save</button>
                                 </div>
                                 </div>
                         </form>
@@ -182,7 +180,7 @@
         newInputGroup.innerHTML = `
         <label> Title</label>
         <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-        <input type="text" name="second_sub_title[]" class="form-control" placeholder="Enter title">
+        <input type="text" name="second_sub_title[]" class="form-control" placeholder="Enter title" required>
         <div class="text-danger error-message" style="display: none;">Sub Title is required.</div>
 
         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
@@ -273,6 +271,7 @@
                     success: function(response) {
                         if (response && response.data && response.data.length > 0) {
                             const section = response.data[0]; // Assuming a single record
+                            console.log('section',section.second_image)
                             if (section) {
                                 $('#id').val(section.id || '');
                                 CKEDITOR.instances.second_description.setData(section.second_description || '');
@@ -296,7 +295,7 @@
                                         const pointerHtml = `
                                     <div class="form-group url-group">
                                         <label>Sub Title</label>
-                                        <input type="text" name="second_sub_title[]" class="form-control" value="${pointer.second_sub_title || ''}" placeholder="Enter title">
+                                        <input type="text" name="second_sub_title[]" class="form-control" value="${pointer.second_sub_title || ''}" placeholder="Enter title" required>
                                        
                                         <button type="button" class="btn btn-danger remove-Pointers mt-3">Remove</button>
                                     </div>
@@ -308,7 +307,7 @@
                                     container.append(`
                                 <div class="form-group url-group">
                                     <label> Title</label>
-                                    <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter title">
+                                    <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter title" required>
                                    
                                     <button type="button" class="btn btn-danger remove-Pointers mt-3">Remove</button>
                                 </div>
@@ -335,7 +334,7 @@
                             container.append(`
                         <div class="form-group url-group">
                             <label> Title</label>
-                            <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter title">
+                            <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter title" required>
                            
                             <button type="button" class="btn btn-danger remove-Pointers mt-3">Remove</button>
                         </div>
@@ -365,9 +364,9 @@
             $('#Pointers-container').append(`
         <div class="form-group url-group">
             <label> Title</label>
-            <input type="text" name="second_sub_title[]" class="form-control" placeholder="Enter sub title">
+            <input type="text" name="second_sub_title[]" class="form-control" placeholder="Enter sub title" required>
             <label>Sub Description</label>
-            <input type="text" name="second_sub_description[]" class="form-control" placeholder="Enter description">
+            <input type="text" name="second_sub_description[]" class="form-control" placeholder="Enter description" required>
             <button type="button" class="btn btn-danger remove-Pointers mt-3">Remove</button>
         </div>
     `);

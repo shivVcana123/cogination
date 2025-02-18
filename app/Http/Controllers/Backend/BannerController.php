@@ -36,51 +36,99 @@ class BannerController extends Controller
 {
     // Validate request data with custom error messages
     $request->validate([
-        'type' => 'required|string',
-        'section_type' => $request->type === 'Home' ? 'required|string' : 'nullable|string',
-        'heading' => 'nullable|string',
-        'subtitle' => 'nullable|string',
-        'description' => 'nullable|string',
-        'button_text' => 'nullable|string',
-        'button_link' => 'nullable|url',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'type' => 'required|string|min:3|max:50',
+        'section_type' => $request->type === 'Home' ? 'nullable' : 'required|string|min:3|max:50',
+        'heading' => 'required|string|min:3|max:255',
+        'subtitle' => 'nullable|string|min:3|max:255',
+        'description' => 'required|string|min:10|max:2000',
+        'button_text' => 'nullable|string|min:3|max:100',
+        'button_link' => 'nullable|max:500',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg',
     ], [
         'type.required' => 'The banner type is required.',
-        'section_type.required' => 'The section banner is required when the type is Home.',
-        'button_link.url' => 'The button link must be a valid URL.',
+        'type.min' => 'The banner type must be at least 3 characters.',
+        'type.max' => 'The banner type must not exceed 50 characters.',
+        'section_type.required' => 'A banner with this type and section type already exists.',
+        'section_type.min' => 'The section type must be at least 3 characters.',
+        'section_type.max' => 'The section type must not exceed 50 characters.',
+        'heading.required' => 'The heading is required.',
+        'heading.min' => 'The heading must be at least 3 characters.',
+        'heading.max' => 'The heading must not exceed 255 characters.',
+        'subtitle.min' => 'The subtitle must be at least 3 characters.',
+        'subtitle.max' => 'The subtitle must not exceed 255 characters.',
+        'description.required' => 'The description is required.',
+        'description.min' => 'The description must be at least 10 characters.',
+        'description.max' => 'The description must not exceed 2000 characters.',
+        'button_text.min' => 'The button text must be at least 3 characters.',
+        'button_text.max' => 'The button text must not exceed 100 characters.',
+        'button_link.max' => 'The button link must not exceed 500 characters.',
         'image.image' => 'The uploaded file must be an image.',
-        'image.mimes' => 'Only JPEG, PNG, JPG, and GIF image formats are allowed.',
-        'image.max' => 'The image size must not exceed 2MB.',
+        'image.mimes' => 'Only jpeg, png, jpg, gif, webp, and svg image formats are allowed.',
     ]);
+    
 
     // Allow multiple banners if type is "Home"
-    if ($request->type !== 'Home') {
-        // Check for existing banner with the same type and section_type
-        $existingBanner = BannerSection::where('type', $request->type)
-            ->where('section_type', $request->section_type)
-            ->first();
+     if ($request->type !== 'Home') {
+    //     // Check for existing banner with the same type and section_type
+         $existingBanner = BannerSection::where('type', $request->type)
+             ->where('section_type', $request->section_type)
+             ->first();
+     
 
-        // Check for existing banner with the same type (excluding Home)
-        $existingBannerData = BannerSection::where('type', $request->type)->first();
 
-        if ($existingBanner) {
+
+    //     // Check for existing banner with the same type (excluding Home)
+    //     $existingBannerData = BannerSection::where('type', $request->type)->first();
+
+         if ($existingBanner) {
             return redirect()->back()->withErrors([
-                'section_type' => 'A banner with this type and section type already exists.',
-            ]);
-        }
+                 'section_type' => 'A banner with this type and section type already exists.',
+             ]);
+         }
 
-        if ($existingBannerData) {
-            return redirect()->back()->withErrors([
-                'type' => 'A banner with this type already exists and is not Home.',
-            ]);
-        }
-    }
+    //     if ($existingBannerData) {
+    //         return redirect()->back()->withErrors([
+    //             'type' => 'A banner with this type already exists and is not Home.',
+    //         ]);
+    //     }
+     }
 
     // Store new banner
     $banner = new BannerSection();
     $banner->heading = $request->heading;
     $banner->subtitle = $request->subtitle;
     $banner->type = $request->type;
+    switch ($request->type) {
+        case 'Home':
+            $url_type = 'Home';
+            break;
+        case 'ADHD':
+            $url_type = 'ADHD';
+            break;
+        case 'Autism':
+            $url_type = 'Autism';
+            break;
+        case 'Assessment':
+            $url_type = 'Assessment';
+            break;
+        case 'Fees':
+            $url_type = 'Fees';
+            break;
+        case 'About Us':
+            $url_type = 'About Us';
+            break;
+        case 'Our Approach':
+            $url_type = 'Our Approach';
+            break;
+        case 'Accreditation & Certifications':
+            $url_type = 'Accreditation & Certifications';
+            break;
+
+        default:
+            $url_type = null;
+            break;
+    }
+    $banner->url = $url_type;
     $banner->section_type = $request->section_type ?? '';
     $banner->description = $request->description;
     $banner->button_text = $request->button_text;
@@ -186,8 +234,38 @@ class BannerController extends Controller
         $banner->heading = $request->heading;
         $banner->subtitle = $request->subtitle;
         $banner->type = $request->type;
-        $banner->section_type = $request->section_type;
-        $banner->section_type = $request->section_banner;
+        switch ($request->type) {
+            case 'Home':
+                $url_type = 'Home';
+                break;
+            case 'ADHD':
+                $url_type = 'ADHD';
+                break;
+            case 'Autism':
+                $url_type = 'Autism';
+                break;
+            case 'Assessment':
+                $url_type = 'Assessment';
+                break;
+            case 'Fees':
+                $url_type = 'Fees';
+                break;
+            case 'About Us':
+                $url_type = 'About Us';
+                break;
+            case 'Our Approach':
+                $url_type = 'Our Approach';
+                break;
+            case 'Accreditation & Certifications':
+                $url_type = 'Accreditation & Certifications';
+                break;
+    
+            default:
+                $url_type = null;
+                break;
+        }
+        $banner->url = $url_type;
+        $banner->section_type = $request->section_type ?? '';
         $banner->description = $request->description;
         $banner->button_text = $request->button_text;
         $banner->button_link = $request->button_link;

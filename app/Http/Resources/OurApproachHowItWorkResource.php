@@ -20,6 +20,7 @@ class OurApproachHowItWorkResource extends JsonResource
             'image' => $this->image,
             'pointers' => $this->pointers,
             'status' => $this->status,
+            'url' => $this->url,
         ];
     }
 }

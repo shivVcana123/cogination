@@ -70,6 +70,7 @@ class AssessmentController extends Controller
         $assessmentSection->button_content = $request->button_content;
         $assessmentSection->button_link = $request->button_link;
         $assessmentSection->status = $request->status ?? "off";
+        $assessmentSection->url = 'Assessment';
 
         // Handle first image upload
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
@@ -158,6 +159,7 @@ class AssessmentController extends Controller
         $assessmentWhyChoose->second_button_content = $request->second_button_content;
         $assessmentWhyChoose->second_button_link = $request->second_button_link;
         $assessmentWhyChoose->status = $request->status ?? "off";
+        $assessmentWhyChoose->url = 'Assessment';
         $assessmentWhyChoose->pointers = json_encode($pointers);
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
@@ -177,53 +179,26 @@ class AssessmentController extends Controller
         return view('assessment-section.ourdiagnosticservices', compact('ourDiagnostic'));
     }
 
+
     public function saveOurDiagnosticServices(Request $request)
     {
 
+
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string|max:2000',
-            'pointerTitle' => 'array',
-            'pointerTitle.*' => 'required|string|max:255',  // Ensure pointer titles are valid strings
-            'pointerDescription' => 'array',
-            'pointerDescription.*' => 'required|string|max:500',  // Ensure descriptions are valid strings
-            'button1Text' => 'array',
-            'button1Text.*' => 'nullable|string|max:255',
-            'button1Link' => 'array',
-            'button1Link.*' => 'nullable|url',
-            'pointerSubTitle' => 'array',
-            'pointerSubTitle.*' => 'required|array',
-            'pointerSubDescription' => 'array',
-            'pointerSubDescription.*' => 'required|array',
-            'image' => 'array',
-            'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg', // Max size 2MB
+            'title' => 'required|string|min:3|max:255',
+            'description' => 'required|string',
+            'button1Text' => 'nullable',
+            'button1Link' => 'nullable',
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp', // Image validation
         ], [
             'title.required' => 'The title field is required.',
-            'title.string' => 'The title must be a valid string.',
-            'title.max' => 'The title must not exceed 255 characters.',
-
-            'pointerTitle.*.required' => 'Each pointer title is required.',
-            'pointerTitle.*.string' => 'Each pointer title must be a valid string.',
-            'pointerTitle.*.max' => 'Each pointer title must not exceed 255 characters.',
-
-            'pointerDescription.*.required' => 'Each pointer description is required.',
-            'pointerDescription.*.string' => 'Each pointer description must be a valid string.',
-            'pointerDescription.*.max' => 'Each pointer description must not exceed 500 characters.',
-
-            'button1Link.*.url' => 'Each Button 1 Link must be a valid URL.',
-
-            'pointerSubTitle.*.required' => 'Each pointer sub-title is required.',
-            'pointerSubTitle.*.array' => 'Each pointer sub-title must be an array.',
-
-            'pointerSubDescription.*.required' => 'Each pointer sub-description is required.',
-            'pointerSubDescription.*.array' => 'Each pointer sub-description must be an array.',
-
-            'image.*.image' => 'Each image must be a valid image file.',
-            'image.*.mimes' => 'Each image must be of type: jpeg, png, jpg, gif, svg.',
+            'title.min' => 'The title must be at least 3 characters.',
+            'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, svg, webp.',
         ]);
-
+        // dd($request->all());
+    
         // Retrieve or create a new section
-        $adhdfirstSection = $request->id
+        $ourDiagnostic = $request->id
             ? AssessmentOurDiagnosticService::find($request->id)
             : new AssessmentOurDiagnosticService();
 
@@ -239,9 +214,9 @@ class AssessmentController extends Controller
                     $imageName = time() . '_' . $request->file('image')[$index]->getClientOriginalName();
                     $subImagePath = $request->file('image')[$index]->storeAs('assessment', $imageName, 'public');
                     $subImagePath = 'storage/' . $subImagePath;
-                } elseif (isset($adhdfirstSection->pointers)) {
+                } elseif (isset($ourDiagnostic->pointers)) {
                     // Fetch existing pointer image if available
-                    $existingPointers = json_decode($adhdfirstSection->pointers, true);
+                    $existingPointers = json_decode($ourDiagnostic->pointers, true);
                     $subImagePath = $existingPointers[$index]['sub_image'] ?? null;
                 }
 
@@ -263,24 +238,23 @@ class AssessmentController extends Controller
                     'sub_image' => $subImagePath,
                     'button1Text' => $request->button1Text[$index] ?? null,
                     'button1Link' => $request->button1Link[$index] ?? null,
-                    'button2Text' => $request->button2Text[$index] ?? null,
-                    'button2Link' => $request->button2Link[$index] ?? null,
                     'sub_pointer' => $subPointers, // Add sub-pointers here
                 ];
             }
         }
 
         // Save the main section data
-        $adhdfirstSection->title = $request->title;
-        $adhdfirstSection->description = $request->description ?? null;
-        $adhdfirstSection->pointers = json_encode($pointers); // Save pointers as JSON
-        $adhdfirstSection->status = $request->status ?? "off";
-        $adhdfirstSection->save();
+        $ourDiagnostic->title = $request->title;
+        $ourDiagnostic->description = $request->description ?? null;
+        $ourDiagnostic->pointers = json_encode($pointers); // Save pointers as JSON
+        $ourDiagnostic->status = $request->status ?? "off";
+        $ourDiagnostic->url = 'Assessment';
+        $ourDiagnostic->save();
 
         return redirect()->route('assessment-our-diagnostic-services-section')->with('success', 'Details saved successfully.');
     }
-
-
+    
+    
     public function understandingConditionsSection()
     {
         $ourDiagnostic = AssessmentUnderstandingCondition::all();
@@ -329,7 +303,7 @@ class AssessmentController extends Controller
         ]);
 
        
-        $adhdfirstSection = $request->id
+        $assessmentUnderstanding = $request->id
             ? AssessmentUnderstandingCondition::find($request->id)
             : new AssessmentUnderstandingCondition();
 
@@ -349,14 +323,15 @@ class AssessmentController extends Controller
         }
 
 
-        $adhdfirstSection->title = $request->title;
-        $adhdfirstSection->subtitle = $request->subtitle;
-        $adhdfirstSection->description = $request->description; // Handle nullable description
-        $adhdfirstSection->status = $request->status ?? "off";
-        $adhdfirstSection->pointers = json_encode($pointers);
+        $assessmentUnderstanding->title = $request->title;
+        $assessmentUnderstanding->subtitle = $request->subtitle;
+        $assessmentUnderstanding->description = $request->description; // Handle nullable description
+        $assessmentUnderstanding->status = $request->status ?? "off";
+        $assessmentUnderstanding->url = 'Assessment';
+        $assessmentUnderstanding->pointers = json_encode($pointers);
 
 
-        if (!$adhdfirstSection->save()) {
+        if (!$assessmentUnderstanding->save()) {
             return redirect()->back()->withErrors(['error' => 'Failed to save the record.']);
         }
 

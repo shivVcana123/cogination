@@ -24,6 +24,7 @@ class AutismsSectionResource extends JsonResource
             'first_button_link' => $this->first_button_link,
             'first_image' => $this->first_image,
             'status' => $this->status,
+            'url' => $this->url,
         ];
     }
 }

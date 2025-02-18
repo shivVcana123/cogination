@@ -48,7 +48,7 @@
                                         <label for="title">Title</label>
                                         <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
 
-                                        <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" value="{{ old('title', $autismProcess[0]->title ?? '') }}">
+                                        <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" value="{{ old('title', $autismProcess[0]->title ?? '') }}" required>
                                         @error('title')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -56,7 +56,7 @@
 
                                     <div class="form-group col-md-6">
                                         <label for="subtitle">Subtitle</label>
-                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label for="">(Optional)</label>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label class="option-area">(Optional)</label>
                                         <input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="Enter subtitle" value="{{ old('subtitle', $autismProcess[0]->subtitle ?? '') }}">
                                         @error('subtitle')
                                         <div class="text-danger">{{ $message }}</div>
@@ -68,15 +68,14 @@
                                     <label for="description">Description</label>
                                     <i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
 
-                                    <textarea name="description" id="description" class="form-control">{{ old('description', $autismProcess[0]->description ?? '') }}</textarea>
+                                    <textarea name="description" id="description" class="form-control" required>{{ old('description', $autismProcess[0]->description ?? '') }}</textarea>
                                     @error('description')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <hr>
                                 <!-- Pointers Section -->
-                                <label for="">Card Details</label>
-                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                <h5>Card Details</h5>
 
                                 <div id="Pointers-container">
                                     @php
@@ -88,20 +87,22 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label> Title</label>
-                                                <input type="text" name="sub_title[]" class="form-control" value="{{ $pointer->sub_title }}" placeholder="Enter title">
+                                              <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                                                <input type="text" name="sub_title[]" class="form-control" value="{{ $pointer->sub_title }}" placeholder="Enter title" required>
                                                 @error('sub_title')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                             <div class="col-md-6">
                                                 <label> Description</label>
-                                                <textarea name="sub_description[]" class="form-control">{{ $pointer->sub_description }}</textarea>
+                                              <i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
+                                                <input name="sub_description[]" class="form-control" value="{{ $pointer->sub_description }}" required>
                                                 @error('sub_description')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>
-                                        <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                                        <button type="button" class="btn btn-danger remove-Pointers mt-2">Remove</button>
                                     </div>
                                     @endforeach
                                     @else
@@ -110,16 +111,16 @@
                                             <div class="col-md-6">
                                                 <label> Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter title">
+                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter title" required>
                                                 @error('sub_title')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                             <div class="col-md-6">
                                                 <label> Description</label>
-                                                <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
+                                                <i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
 
-                                                <textarea name="sub_description[]" class="form-control"></textarea>
+                                                <textarea name="sub_description[]" class="form-control" required></textarea>
                                                 @error('sub_description')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -134,7 +135,7 @@
                                 <div class="card-footer">
                                     <input type="checkbox" id="status" name="status" {{ ($autismProcess[0]->status ?? '') === 'on' ? 'checked' : '' }}>
                                     <label for="status">Show On Website</label>
-                                    <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
+                                    <button type="submit" id="form-submit-button" class="btn btn-primary">Save</button>
                                 </div>
                         </form>
                     </div>
@@ -146,7 +147,7 @@
 @endsection
 @section('java_script')
 
-<script>
+<!-- <script>
     CKEDITOR.replace('description');
 
     // Handle adding new pointers (cards)
@@ -158,11 +159,11 @@
             <div class="row">
                 <div class="col-md-6">
                     <label>Title</label>
-                    <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter title">
+                    <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter title" required>
                 </div>
                 <div class="col-md-6">
                     <label>Description</label>
-                    <textarea name="sub_description[]" class="form-control"></textarea>
+                    <textarea name="sub_description[]" class="form-control" required></textarea>
                 </div>
             </div>
             <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
@@ -211,6 +212,7 @@
                 const errorMessage = document.createElement('div');
                 errorMessage.classList.add('validation-error');
                 errorMessage.style.color = 'red';
+                errorMessage.style.paddingBottom = '10px';
                 errorMessage.textContent = 'Title is required.';
                 input.parentElement.appendChild(errorMessage);
             }
@@ -224,7 +226,7 @@
                 const errorMessage = document.createElement('div');
                 errorMessage.classList.add('validation-error');
                 errorMessage.style.color = 'red';
-                errorMessage.textContent = 'Sub Description is required.';
+                errorMessage.textContent = 'Description is required.';
                 subDescription.parentElement.appendChild(errorMessage);
             }
         });
@@ -271,11 +273,11 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label>Title</label>
-                                                    <input type="text" name="sub_title[]" class="form-control sub-title-input" value="${pointer.sub_title || ''}" placeholder="Enter title">
+                                                    <input type="text" name="sub_title[]" class="form-control sub-title-input" value="${pointer.sub_title || ''}" placeholder="Enter title" required>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label>Sub Description</label>
-                                                    <textarea name="sub_description[]" class="form-control sub-description-input">${pointer.sub_description || ''}</textarea>
+                                                    <textarea name="sub_description[]" class="form-control sub-description-input" required>${pointer.sub_description || ''}</textarea>
                                                 </div>
                                                 <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                             </div>
@@ -289,11 +291,11 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Title</label>
-                                                <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter title">
+                                                <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter title" required>
                                             </div>
                                             <div class="col-md-6">
                                                 <label>Description</label>
-                                                <textarea name="sub_description[]" class="form-control sub-description-input"></textarea>
+                                                <textarea name="sub_description[]" class="form-control sub-description-input" required></textarea>
                                             </div>
                                             <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                                         </div>
@@ -333,20 +335,161 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label>Title</label>
-                        <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter title">
+                        <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter title" required>
                     </div>
                     <div class="col-md-6">
                         <label>Description</label>
-                        <textarea name="sub_description[]" class="form-control sub-description-input"></textarea>
+                        <textarea name="sub_description[]" class="form-control sub-description-input" required></textarea>
                     </div>
                     <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
                 </div>
             </div>
         `);
     }
+</script> -->
+
+
+<script>
+    $(document).ready(function() {
+        CKEDITOR.replace('description');
+
+        // Handle adding new pointers (cards)
+        $('#add-Pointers').on('click', function() {
+            addEmptyPointer($('#Pointers-container'));
+        });
+
+        // Handle removing pointers (cards)
+        $(document).on('click', '.remove-Pointers', function() {
+            $(this).closest('.url-group').remove();
+            toggleRemoveButtons();
+        });
+
+        // Toggle remove button visibility
+        function toggleRemoveButtons() {
+            const pointers = $('.url-group');
+            $('.remove-Pointers').toggle(pointers.length > 1);
+        }
+
+        // Form submission validation
+        $('#form-submit-button').on('click', function(event) {
+            event.preventDefault();
+            $('.validation-error').remove();
+
+            let isValid = true;
+            $('.sub-title-input, .sub-description-input').each(function() {
+                if (!$(this).val().trim()) {
+                    isValid = false;
+                    $(this).after(`<div class="validation-error" style="color: red; padding-bottom: 10px;">This field is required.</div>`);
+                }
+            });
+
+            if (isValid) {
+                console.log('Form is valid, submitting...');
+                $('form').submit();
+            } else {
+                console.log('Form has errors, not submitting.');
+            }
+        });
+
+        // Handle type change for AJAX
+        $('#type').on('change', function() {
+            const selectedType = $(this).val();
+            if (selectedType) {
+                $.ajax({
+                    url: "{{ route('fetch-process-section-by-type') }}",
+                    type: "GET",
+                    data: { type: selectedType },
+                    success: function(response) {
+                        if (response?.data?.length > 0) {
+                            populateForm(response.data[0]);
+                        } else {
+                            resetForm();
+                        }
+                    },
+                    error: function(error) {
+                        console.error('Error fetching data:', error);
+                    }
+                });
+            }
+        });
+
+        // Populate form with fetched data
+        function populateForm(section) {
+            $('#id').val(section.id || '');
+            $('#title').val(section.title || '');
+            $('#subtitle').val(section.subtitle || '');
+            $('#status').prop('checked', section.status === 'on');
+
+            if (CKEDITOR.instances.description) {
+                CKEDITOR.instances.description.setData(section.description || '');
+            }
+
+            const pointers = section.pointers ? JSON.parse(section.pointers) : [];
+            const container = $('#Pointers-container').empty();
+
+            if (pointers.length > 0) {
+                pointers.forEach(pointer => {
+                    container.append(`
+                        <div class="form-group url-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Title</label>
+<i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                                    <input type="text" name="sub_title[]" class="form-control sub-title-input" value="${pointer.sub_title || ''}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Sub Description</label>
+<i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
+                                    <textarea name="sub_description[]" class="form-control sub-description-input" required>${pointer.sub_description || ''}</textarea>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                        </div>
+                    `);
+                });
+            } else {
+                addEmptyPointer(container);
+            }
+
+            toggleRemoveButtons();
+        }
+
+        // Reset form fields
+        function resetForm() {
+            $('#id, #title, #subtitle').val('');
+            $('#status').prop('checked', false);
+            if (CKEDITOR.instances.description) {
+                CKEDITOR.instances.description.setData('');
+            }
+            $('#Pointers-container').empty();
+            addEmptyPointer($('#Pointers-container'));
+        }
+
+        // Add an empty pointer input
+        function addEmptyPointer(container) {
+            container.append(`
+                <div class="form-group url-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Title</label>
+<i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
+                            <input type="text" name="sub_title[]" class="form-control sub-title-input" placeholder="Enter title" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Description</label>
+<i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
+                            <textarea name="sub_description[]" class="form-control sub-description-input" required></textarea>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+                </div>
+            `);
+        }
+
+        // Initial setup
+        toggleRemoveButtons();
+    });
 </script>
-
-
 
 
 @endsection

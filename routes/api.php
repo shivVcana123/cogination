@@ -25,6 +25,8 @@ Route::get('cta-section', [ApiController::class, 'fetchCtaSectionData']); // Fet
 Route::get('banner-section', [ApiController::class, 'fetchBannerSectionData']); // Fetch all website-style data
 Route::get('search-content', [ApiController::class, 'searchContent']);
 Route::post('/create-checkout-session', [StripePaymentController::class, 'createCheckoutSession']);
+Route::get('/check-stripe-api-key', [StripePaymentController::class, 'checkApiKey']);
+
 Route::post('/subscribe-newsletter', [ApiController::class, 'subscribeNewsletter']);
 Route::post('/checkout', [WebhookController::class,'handleWebhook']);
 

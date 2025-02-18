@@ -21,6 +21,7 @@ class HomeOurServicesResource extends JsonResource
             'description_1' => $this->description_1,
             'pointers' => $this->pointers,
             'status' => $this->status,
+            'url' => $this->url,
         ];
     }
 }

@@ -40,7 +40,7 @@
                                         <label for="title">Title</label>
                                         <i class="fas fa-info-circle" title="Enter a meaningful title that summarizes the purpose of this section."></i>
                                         <input type="text" class="form-control" name="title" id="title"
-                                            placeholder="Enter title" value="{{ old('title', $joinCommunitySection[0]->title ?? '') }}">
+                                            placeholder="Enter title" value="{{ old('title', $joinCommunitySection[0]->title ?? '') }}" required>
                                         @error('title')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -49,7 +49,7 @@
                                     <!-- Subtitle Field -->
                                     <div class="form-group col-md-6">
                                         <label for="subtitle">Subtitle</label>
-                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label for="">(Optional)</label>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label class="option-area">(Optional)</label>
                                         <input type="text" class="form-control" name="subtitle" id="subtitle"
                                             placeholder="Enter subtitle" value="{{ old('subtitle', $joinCommunitySection[0]->subtitle ?? '') }}">
                                         @error('subtitle')
@@ -65,7 +65,7 @@
                                 <div class="form-group">
                                     <label for="description">Description</label>
                                     <i class="fas fa-info-circle" title="Describe the purpose or details of this section in 2-3 sentences."></i>
-                                    <textarea class="form-control" name="description" id="description">{{ old('description', $joinCommunitySection[0]->description ?? '') }}</textarea>
+                                    <textarea class="form-control" name="description" id="description" required>{{ old('description', $joinCommunitySection[0]->description ?? '') }}</textarea>
                                     @error('description')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -83,7 +83,7 @@
 
 
                                 <!-- Pointers Section -->
-                                <label for="">Card Details</label>
+                                <h5>Card Details</h5>
                                 <div id="Pointers-container">
 
                                     @if(!empty($pointers) && is_array($pointers))
@@ -94,12 +94,12 @@
                                             <div class="form-group col-md-6">
                                                 <label> Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter title">
+                                                <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter title" required>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label> Description</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter description">
+                                                <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter description" required>
                                             </div>
 
                                         </div>
@@ -114,12 +114,12 @@
                                             <div class="form-group col-md-6">
                                                 <label> Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter title">
+                                                <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter title" required>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label> Description</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter description">
+                                                <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter description" required>
                                             </div>
 
                                         </div>
@@ -145,7 +145,7 @@
                             <div class="card-footer">
                                 <input type="checkbox" id="status" name="status" {{ ($joinCommunitySection[0]->status ?? '') === 'on' ? 'checked' : '' }}>
                                 <label for="status">Show On Website</label>
-                                <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
+                                <button type="submit" id="form-submit-button" class="btn btn-primary">Save</button>
                             </div>
                         </form>
                     </div>
@@ -177,13 +177,13 @@
             <div class="form-group col-md-6">
                 <label> Title</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                <input type="text" name="sub_title[]" class="form-control" placeholder="Enter title">
+                <input type="text" name="sub_title[]" class="form-control" placeholder="Enter title" required>
                 <div class="text-danger sub-title-error" style="display: none;">This field is required.</div>
             </div>
             <div class="form-group col-md-6">
                 <label> Description</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-                <input type="text" name="sub_description[]" class="form-control" placeholder="Enter description">
+                <input type="text" name="sub_description[]" class="form-control" placeholder="Enter description" required>
                 <div class="text-danger sub-description-error" style="display: none;">This field is required.</div>
             </div>
         </div>

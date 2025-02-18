@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('second_button_link')->nullable();
             $table->string('second_image')->nullable();
             $table->json('pointers')->nullable();
+            $table->string('url')->nullable();
             $table->timestamps();
         });
     }
