@@ -46,7 +46,7 @@ class AccreditationController extends Controller
         ]);
         
         // Fetch or create a new section
-        $autismSection = $request->id
+        $ourCommitmentSection = $request->id
             ? AccreditationOurCommitment::find($request->id)
             : new AccreditationOurCommitment();
 
@@ -54,15 +54,16 @@ class AccreditationController extends Controller
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
             $imagePath = $request->file('image')->storeAs('about', $imageName, 'public');
-            $autismSection->image = 'storage/' . $imagePath;
+            $ourCommitmentSection->image = 'storage/' . $imagePath;
         }
         // Assign data
-        $autismSection->title = $request->title;
-        $autismSection->description = $request->description;
-        $autismSection->button_content = $request->button_content;
-        $autismSection->button_link = $request->button_link;
-        $autismSection->status = $request->status ?? "off";
-        $autismSection->save();
+        $ourCommitmentSection->title = $request->title;
+        $ourCommitmentSection->description = $request->description;
+        $ourCommitmentSection->button_content = $request->button_content;
+        $ourCommitmentSection->button_link = $request->button_link;
+        $ourCommitmentSection->status = $request->status ?? "off";
+        $ourCommitmentSection->url = 'Accreditation & Certifications';
+        $ourCommitmentSection->save();
 
         return redirect()->route('our-commitment-section')->with('success', 'Adhd details saved successfully.');
     }
@@ -112,7 +113,7 @@ class AccreditationController extends Controller
             'sub_description.*.max' => 'Each sub-description must not exceed 1000 characters.',
         ]);
         
-        $adhdfirstSection = $request->id
+        $certificationsSection = $request->id
             ? AccreditationCertification::find($request->id)
             : new AccreditationCertification();
     
@@ -129,14 +130,15 @@ class AccreditationController extends Controller
         }
         
     
-        $adhdfirstSection->title = $request->title;
-        $adhdfirstSection->subtitle = $request->subtitle;
-        $adhdfirstSection->description =$request->description; // Handle nullable description
-        $adhdfirstSection->status = $request->status ?? "off";
-        $adhdfirstSection->pointers = json_encode($pointers);
+        $certificationsSection->title = $request->title;
+        $certificationsSection->subtitle = $request->subtitle;
+        $certificationsSection->description =$request->description; // Handle nullable description
+        $certificationsSection->status = $request->status ?? "off";
+        $certificationsSection->url = 'Accreditation & Certifications';
+        $certificationsSection->pointers = json_encode($pointers);
         
     
-        if (!$adhdfirstSection->save()) {
+        if (!$certificationsSection->save()) {
             return redirect()->back()->withErrors(['error' => 'Failed to save the record.']);
         }
     
@@ -189,7 +191,7 @@ class AccreditationController extends Controller
         ]);
         
 
-        $adhdfirstSection = $request->id
+        $accreditationsSection = $request->id
             ? AccreditationAccreditation::find($request->id)
             : new AccreditationAccreditation();
     
@@ -206,14 +208,15 @@ class AccreditationController extends Controller
         }
         
     
-        $adhdfirstSection->title = $request->title;
-        $adhdfirstSection->subtitle = $request->subtitle;
-        $adhdfirstSection->description = $request->description; // Handle nullable description
-        $adhdfirstSection->status = $request->status ?? "off";
-        $adhdfirstSection->pointers = json_encode($pointers);
+        $accreditationsSection->title = $request->title;
+        $accreditationsSection->subtitle = $request->subtitle;
+        $accreditationsSection->description = $request->description; // Handle nullable description
+        $accreditationsSection->status = $request->status ?? "off";
+        $accreditationsSection->url = 'Accreditation & Certifications';
+        $accreditationsSection->pointers = json_encode($pointers);
         
     
-        if (!$adhdfirstSection->save()) {
+        if (!$accreditationsSection->save()) {
             return redirect()->back()->withErrors(['error' => 'Failed to save the record.']);
         }
     
@@ -262,7 +265,7 @@ class AccreditationController extends Controller
         ]);
         
 
-        $adhdfirstSection = $request->id
+        $accreditationsSection = $request->id
             ? AccreditationSpecializedCertification::find($request->id)
             : new AccreditationSpecializedCertification();
     
@@ -279,13 +282,14 @@ class AccreditationController extends Controller
         }
         
     
-        $adhdfirstSection->title = $request->title;
-        $adhdfirstSection->subtitle = $request->subtitle;
-        $adhdfirstSection->status = $request->status ?? "off";
-        $adhdfirstSection->pointers = json_encode($pointers);
+        $accreditationsSection->title = $request->title;
+        $accreditationsSection->subtitle = $request->subtitle;
+        $accreditationsSection->status = $request->status ?? "off";
+        $accreditationsSection->url = 'Accreditation & Certifications';
+        $accreditationsSection->pointers = json_encode($pointers);
         
     
-        if (!$adhdfirstSection->save()) {
+        if (!$accreditationsSection->save()) {
             return redirect()->back()->withErrors(['error' => 'Failed to save the record.']);
         }
     
@@ -331,7 +335,7 @@ class AccreditationController extends Controller
 
 
         // Fetch or create a new section
-        $autismSection = $request->id
+        $ourTeamContinuousSection = $request->id
             ? AccreditationOurTeamContinuous::find($request->id)
             : new AccreditationOurTeamContinuous();
 
@@ -339,18 +343,18 @@ class AccreditationController extends Controller
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
             $imagePath = $request->file('image')->storeAs('about', $imageName, 'public');
-            $autismSection->image = 'storage/' . $imagePath;
+            $ourTeamContinuousSection->image = 'storage/' . $imagePath;
         }
   
 
         // Assign data
-        $autismSection->title = $request->title;
-        $autismSection->description = $request->description;
-        // $autismSection->button_content = $request->button_content;
-        // $autismSection->button_link = $request->button_link;
-        $autismSection->status = $request->status ?? "off";
-
-        $autismSection->save();
+        $ourTeamContinuousSection->title = $request->title;
+        $ourTeamContinuousSection->description = $request->description;
+        // $ourTeamContinuousSection->button_content = $request->button_content;
+        // $ourTeamContinuousSection->button_link = $request->button_link;
+        $ourTeamContinuousSection->status = $request->status ?? "off";
+        $ourTeamContinuousSection->url = 'Accreditation & Certifications';
+        $ourTeamContinuousSection->save();
    
 
         return redirect()->route('our-team-continuous-section')->with('success', 'Adhd details saved successfully.');

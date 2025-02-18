@@ -43,7 +43,7 @@
                                     <!-- Subtitle Field -->
                                     <div class="form-group col-md-6">
                                         <label for="subtitle">Subtitle</label>
-                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label>(Optional)</label>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label class="option-area">(Optional)</label>
                                         <input type="text" class="form-control" name="subtitle" id="subtitle"
                                             placeholder="Enter first subtitle" value="{{ old('subtitle',$certificationsSection[0]->subtitle ?? '') }}">
                                         @error('subtitle')
@@ -73,7 +73,7 @@
                                 
                                 <hr>
                                 <!-- Pointers Section -->
-                                <label for="">Card Details</label>
+                                <h5>Card Details</h5>
                                 <div id="Pointers-container">
 
                                     @if(!empty($pointers) && is_array($pointers))
@@ -125,7 +125,7 @@
                             <div class="card-footer">
                             <input type="checkbox" id="status" name="status" {{ ($certificationsSection[0]->status ?? '') === 'on' ? 'checked' : '' }}>
                             <label for="status">Show On Website</label>
-                                <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
+                                <button type="submit" id="form-submit-button" class="btn btn-primary">Save</button>
                             </div>
                         </form>
                     </div>

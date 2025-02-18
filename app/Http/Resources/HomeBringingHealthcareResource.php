@@ -24,6 +24,7 @@ class HomeBringingHealthcareResource extends JsonResource
             'button_link2' => $this->button_link2,
             'image' => $this->image,
             'status' => $this->status,
+            'url' => $this->url,
         ];
     }
 }

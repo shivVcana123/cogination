@@ -47,6 +47,7 @@ class OurApproachController extends Controller
         $autismSection->title = $request->title;
         $autismSection->description = $request->description;
         $autismSection->status = $request->status ?? "off";
+        $autismSection->url = 'Our Approach';
         // Save the model
         $autismSection->save();
 
@@ -106,6 +107,7 @@ class OurApproachController extends Controller
             // Assign data to the model
             $autismSection->title = $request->title;
             $autismSection->status = $request->status ?? "off";
+            $autismSection->url = 'Our Approach';
             $autismSection->pointers = json_encode($pointers);
 
             // Save the model

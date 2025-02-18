@@ -49,7 +49,7 @@
                                     <!-- Subtitle Field -->
                                     <div class="form-group col-md-6">
                                         <label for="subtitle">Subtitle</label>
-                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label for="">(Optional)</label>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label class="option-area">(Optional)</label>
                                         <input type="text" class="form-control" name="subtitle"
                                             placeholder="Enter first subtitle" value="{{ old('subtitle',$ourDiagnostic[0]->subtitle ?? '') }}">
                                         @error('subtitle')
@@ -80,7 +80,7 @@
 
 
                                 <!-- Pointers Section -->
-                                <label for="">Card Details</label>
+                                <h5>Card Details</h5>
                                 <div id="Pointers-container">
 
                                     @if(!empty($pointers) && is_array($pointers))
@@ -92,7 +92,7 @@
                                                 <label> Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
                                                 <input type="text" name="sub_title[]" class="form-control" value="{{$pointer->sub_title}}" placeholder="Enter title" required>
-                                                @error('button_link_2')
+                                                @error('sub_title')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -102,7 +102,7 @@
                                                 <label> Description</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
                                                 <input type="text" name="sub_description[]" class="form-control" value="{{$pointer->sub_description}}" placeholder="Enter description" required>
-                                                @error('button_link_2')
+                                                @error('sub_description')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -138,7 +138,7 @@
                                                 <label> Title</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
                                                 <input type="text" name="sub_title[]" class="form-control" value="" placeholder="Enter title" required>
-                                                @error('button_link_2')
+                                                @error('sub_title')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -148,7 +148,7 @@
                                                 <label> Description</label>
                                                 <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
                                                 <input type="text" name="sub_description[]" class="form-control" value="" placeholder="Enter  description" required>
-                                                @error('button_link_2')
+                                                @error('sub_description')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -184,7 +184,7 @@
                             <div class="card-footer">
                             <input type="checkbox" id="status" name="status" {{ ($ourDiagnostic[0]->status ?? '') === 'on' ? 'checked' : '' }}>
                             <label for="status">Show On Website</label>
-                                <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
+                                <button type="submit" id="form-submit-button" class="btn btn-primary">Save</button>
                             </div>
                         </form>
                     </div>

@@ -54,7 +54,7 @@
                                 <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="title">Button Text 1</label>
-                                    <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
+                                    <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i> <label class="option-area">(Optional)</label>
                                     <input type="text" class="form-control" name="first_button_content" id="button_content" placeholder="Enter Button Text" value="{{old('first_button_content',$assessmentWhyChoose[0]->first_button_content ?? '')}}">
                                     @error('first_button_content')
                                     <div class="text-danger">{{ $message }}</div>
@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="title">Button Link 1</label>
-                                    <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
+                                    <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i> <label class="option-area">(Optional)</label>
                                     <input type="text" class="form-control" name="first_button_link" id="button_link" placeholder="Enter Button Link" value="{{old('first_button_link',$assessmentWhyChoose[0]->first_button_link ?? '')}}">
                                     @error('first_button_link')
                                     <div class="text-danger">{{ $message }}</div>
@@ -71,7 +71,7 @@
 
                                 <div class="form-group col-md-6">
                                     <label for="title">Button Text 2</label>
-                                    <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i>
+                                    <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i> <label class="option-area">(Optional)</label>
                                     <input type="text" class="form-control" name="second_button_content" id="button_content" placeholder="Enter Button Text" value="{{old('second_button_content',$assessmentWhyChoose[0]->second_button_content ?? '')}}">
                                     @error('second_button_content')
                                     <div class="text-danger">{{ $message }}</div>
@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="title">Button Link 2</label>
-                                    <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i>
+                                    <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i> <label class="option-area">(Optional)</label>
                                     <input type="text" class="form-control" name="second_button_link" id="button_link" placeholder="Enter Button Link" value="{{old('second_button_link',$assessmentWhyChoose[0]->second_button_link ?? '')}}">
                                     @error('second_button_link')
                                     <div class="text-danger">{{ $message }}</div>
@@ -163,7 +163,7 @@
                             <div class="card-footer">
                             <input type="checkbox" id="status" name="status" {{ ($assessmentWhyChoose[0]->status ?? '') === 'on' ? 'checked' : '' }}>
                             <label for="status">Show On Website</label>
-                                <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
+                                <button type="submit" id="form-submit-button" class="btn btn-primary">Save</button>
                             </div>
                         </form>
                     </div>

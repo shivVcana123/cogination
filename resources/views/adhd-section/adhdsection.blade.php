@@ -57,7 +57,7 @@
                                     <!-- Subtitle Field -->
                                     <div class="form-group col-md-6">
                                         <label for="subtitle">Subtitle</label>
-                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label for="">(Optional)</label>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label class="option-area">(Optional)</label>
                                         <input type="text" class="form-control" name="first_subtitle" id="subtitle"
                                             placeholder="Enter first subtitle" value="{{ old('first_subtitle',$adhdSection[0]->first_subtitle ?? '') }}">
                                         @error('first_subtitle')
@@ -66,7 +66,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="title">Button Text</label>
-                                        <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i> <label for="">(Optional)</label>
+                                        <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i> <label class="option-area">(Optional)</label>
                                         <input type="text" class="form-control" name="first_button_content" id="button_content" placeholder="Enter Button Text" value="{{old('first_button_content',$adhdSection[0]->first_button_content ?? '')}}">
                                         @error('first_button_content')
                                         <div class="text-danger">{{ $message }}</div>
@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="title">Button Link</label>
-                                        <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i> <label for="">(Optional)</label>
+                                        <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i> <label class="option-area">(Optional)</label>
                                         <input type="text" class="form-control" name="first_button_link" id="button_link" placeholder="Enter Button Link" value="{{old('first_button_link',$adhdSection[0]->first_button_link ?? '')}}">
                                         @error('first_button_link')
                                         <div class="text-danger">{{ $message }}</div>
@@ -111,7 +111,7 @@
                             <div class="card-footer">
                             <input type="checkbox" id="status" name="status" {{ ($adhdSection[0]->status ?? '') === 'on' ? 'checked' : '' }}>
                             <label for="status">Show On Website</label>
-                                <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
+                                <button type="submit" id="form-submit-button" class="btn btn-primary">Save</button>
                             </div>
                         </form>
                     </div>
@@ -125,6 +125,7 @@
 <script>
     CKEDITOR.replace('first_description');
 
+    // Handle image preview
     imgInp.onchange = evt => {
         const [file] = imgInp.files;
         if (file) {
@@ -136,21 +137,19 @@
         }
     };
 
-
     $(document).ready(function() {
-       
-
         // Handle change event on the #type dropdown
         $('#type').on('change', function() {
             const selectedType = $(this).val();
+
+            // Clear validation errors when type is changed
+            $('.validation-error').remove();
 
             if (selectedType) {
                 $.ajax({
                     url: "{{ route('fetch-adhd-section-by-type') }}", // Update with your route
                     type: "GET",
-                    data: {
-                        type: selectedType
-                    },
+                    data: { type: selectedType },
                     beforeSend: function() {
                         $('#loading-spinner').show(); // Show loader
                     },
@@ -165,18 +164,19 @@
                             $('#button_content').val(section.first_button_content || '');
                             $('#button_link').val(section.first_button_link || '');
                             CKEDITOR.instances.first_description.setData(section.first_description || '');
-                            const imageUrl = section.first_image || '';
-                            $('#blah').attr('src', imageUrl ? imageUrl : '#'); // Use the image URL or reset
-                            $('#status').prop('checked', section.status === 'on');
 
-                           
+                            const imageUrl = section.first_image || '';
+                            if (imageUrl) {
+                                $('#blah').attr('src', imageUrl).show();
+                            } else {
+                                $('#blah').attr('src', '#').hide(); // Reset if no image
+                            }
+
+                            $('#status').prop('checked', section.status === 'on');
                         } else {
                             // Reset form fields if no data is found
-                            $('#id, #title, #subtitle, #description, #button_content, #button_link').val('');
-                            
+                            resetFormFields();
                         }
-
-                       
                     },
                     error: function() {
                         alert('An error occurred while fetching data.');
@@ -185,12 +185,20 @@
                         $('#loading-spinner').hide(); // Hide loader
                     }
                 });
+            } else {
+                resetFormFields();
             }
         });
 
-        // Handle click event to dynamically add pointers
-    
+        // Function to reset all form fields
+        function resetFormFields() {
+            $('#id, #title, #subtitle, #button_content, #button_link').val('');
+            CKEDITOR.instances.first_description.setData(''); // Reset CKEditor
+            $('#blah').attr('src', '#').hide(); // Reset image
+            $('#status').prop('checked', false); // Uncheck status
+        }
     });
 </script>
+
 
 @endsection

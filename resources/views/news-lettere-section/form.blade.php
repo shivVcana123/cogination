@@ -42,7 +42,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                          
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="button_content">Button Text</label>
@@ -53,15 +53,6 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <!-- <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="button_link">Button Link</label>
-                                            <input type="text" class="form-control" name="button_link" id="button_link" value="{{ old('button_link', $subscribeNewsletter->button_link ?? '') }}" placeholder="Enter Button Link">
-                                            @error('button_link')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div> -->
                                 </div>
 
                                 <hr>
@@ -71,19 +62,18 @@
                                 <div id="Pointers-container">
                                     @if(isset($subscribeNewsletter->pointers) && is_array(json_decode($subscribeNewsletter->pointers, true)))
                                     @foreach(json_decode($subscribeNewsletter->pointers, true) as $key => $pointer)
-                                   
                                     <div class="form-group url-group">
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label>Media Icon</label>
-                                                <i class="fas fa-info-circle" title="Provide a brief media icon of this section."></i> <label for="">(Optional)</label>
+                                                <i class="fas fa-info-circle" title="Provide a brief media icon of this section."></i>
                                                 <img class="media-icon" id="blah" src="{{asset($pointer['image'])}}" alt="Image Preview" style="width: auto; display:{{empty($pointer['image']) ? 'none' : 'block'}};" />
                                                 <input type="file" name="image[{{ $key }}]" id="imgInp" class="form-control">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Media Link</label>
-                                                <i class="fas fa-info-circle" title="Provide a brief media link of this section."></i> <label for="">(Optional)</label>
-                                                <input type="text" name="link[{{ $key }}]" class="form-control" value="{{ $pointer['link'] ?? '' }}" placeholder="Enter Media Link">
+                                                <i class="fas fa-info-circle" title="Provide a brief media link of this section."></i>
+                                                <input type="text" name="link[{{ $key }}]" class="form-control" value="{{ $pointer['link'] ?? '' }}" placeholder="Enter Media Link" required>
                                             </div>
                                         </div>
                                         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
@@ -94,13 +84,13 @@
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label>Media Icon</label>
-                                                <i class="fas fa-info-circle" title="Provide a brief media icon of this section."></i> <label for="">(Optional)</label>
+                                                <i class="fas fa-info-circle" title="Provide a brief media icon of this section."></i>
                                                 <img class="media-icon" id="blah" src="#" alt="Image Preview" style="width: auto; display:none;" />
                                                 <input type="file" name="image[]" id="imgInp" class="form-control">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Media Link</label>
-                                                <i class="fas fa-info-circle" title="Provide a brief media link of this section."></i> <label for="">(Optional)</label>
+                                                <i class="fas fa-info-circle" title="Provide a brief media link of this section."></i>
                                                 <input type="text" name="link[]" class="form-control" placeholder="Enter Media Link">
                                             </div>
                                         </div>
@@ -129,71 +119,175 @@
 </div>
 @endsection
 @section('java_script')
-<script>
+<!-- <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const pointersContainer = document.getElementById('Pointers-container');
+    const form = document.getElementById('subscribeNewsletterForm');
     const addPointersButton = document.getElementById('add-Pointers');
+    const submitButton = document.getElementById('form-submit-button');
+    
+    // Function to add a new pointer
+    addPointersButton.addEventListener('click', function () {
+        const newPointerHTML = `
+            <div class="form-group url-group">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Media Icon</label>
+                        <i class="fas fa-info-circle" title="Provide a brief media icon of this section."></i>
+                                                <img class="media-icon" id="blah" src="#" alt="Image Preview" style="width: auto; display:none;" />
 
-    // Add Pointer
-    addPointersButton.addEventListener('click', () => {
-        const newPointer = document.createElement('div');
-        newPointer.classList.add('form-group', 'url-group');
-        const uniqueId = Date.now(); // Generate a unique ID for the image and input
-        newPointer.innerHTML = `
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label>Media Icon</label>
-                     <i class="fas fa-info-circle" media icon of this section."></i>
-                    <img class="media-icon" id="img-preview-${uniqueId}" src="#" alt="Image Preview" style="width: auto; display:none;" /> <label for="">(Optional)</label>
-                    <input type="file" name="image[]" id="file-input-${uniqueId}" class="form-control">
+                        <input type="file" name="image[]" id="imgInp" class="form-control">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Media Link</label>
+                        <i class="fas fa-info-circle" title="Provide a brief media link of this section."></i>
+                        <input type="text" name="link[]" class="form-control" placeholder="Enter Media Link">
+                    </div>
                 </div>
-                <div class="form-group col-md-6">
-                    <label>Media Link</label>
-                     <i class="fas fa-info-circle" title="Provide a brief media link of this section."></i> <label for="">(Optional)</label>
-                    <input type="text" name="link[]" class="form-control" placeholder="Enter Media Link">
-                </div>
+                <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
             </div>
-            <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
         `;
-        pointersContainer.appendChild(newPointer);
+        const pointersContainer = document.getElementById('Pointers-container');
+        pointersContainer.insertAdjacentHTML('beforeend', newPointerHTML);
+    });
 
-        // Add onchange event for the new input
-        const fileInput = document.getElementById(`file-input-${uniqueId}`);
-        const imgPreview = document.getElementById(`img-preview-${uniqueId}`);
-        fileInput.addEventListener('change', function () {
-            const [file] = fileInput.files;
-            if (file) {
-                imgPreview.src = URL.createObjectURL(file);
-                imgPreview.style.display = "block";
+    // Event delegation for "Remove" button
+    document.getElementById('Pointers-container').addEventListener('click', function(event) {
+        if (event.target && event.target.classList.contains('remove-Pointers')) {
+            event.target.closest('.url-group').remove();
+        }
+    });
+
+    // Add event listener to the submit button
+    submitButton.addEventListener('click', function(event) {
+        let isValid = true;
+
+        // Check if all required fields are filled
+        const urlGroups = document.querySelectorAll('.url-group');
+        urlGroups.forEach(group => {
+            const imageInput = group.querySelector('input[type="file"]');
+            const linkInput = group.querySelector('input[type="text"]');
+            const errorMessage = group.querySelector('.error-message');
+
+            // Validate that at least one field is not empty
+            if (!imageInput.value.trim() && !linkInput.value.trim()) {
+                errorMessage.style.display = 'block'; // Show error message
+                isValid = false;
             } else {
-                imgPreview.style.display = "none";
-                imgPreview.src = "#";
+                errorMessage.style.display = 'none'; // Hide error message
             }
         });
 
-        // Attach remove event to the new button
-        newPointer.querySelector('.remove-Pointers').addEventListener('click', function () {
-            newPointer.remove();
-        });
+        // Prevent form submission if validation fails
+        if (!isValid) {
+            event.preventDefault(); // Prevent form from submitting
+            alert("Please fill out all required fields.");
+        }
     });
-
-    // Existing file input preview functionality
-    pointersContainer.addEventListener('change', function (e) {
-        if (e.target.type === 'file') {
-            const imgPreview = e.target.closest('.url-group').querySelector('.media-icon');
-            const [file] = e.target.files;
+});
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById('Pointers-container').addEventListener('change', function (event) {
+        if (event.target.type === "file") {
+            const fileInput = event.target;
+            const imagePreview = fileInput.closest('.url-group').querySelector('.media-icon');
+            const [file] = fileInput.files;
             if (file) {
-                imgPreview.src = URL.createObjectURL(file);
-                imgPreview.style.display = "block";
+                imagePreview.src = URL.createObjectURL(file);
+                imagePreview.style.display = "block";
             } else {
-                imgPreview.style.display = "none";
-                imgPreview.src = "#";
+                imagePreview.style.display = "none";
+                imagePreview.src = "#";
             }
         }
     });
 });
 
+</script> -->
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('subscribeNewsletterForm');
+        const addPointersButton = document.getElementById('add-Pointers');
+        const submitButton = document.getElementById('form-submit-button');
+        const pointersContainer = document.getElementById('Pointers-container');
+
+        // Function to add a new pointer
+        addPointersButton.addEventListener('click', function() {
+            const newPointerHTML = `
+            <div class="form-group url-group">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Media Icon</label>
+                        <i class="fas fa-info-circle" title="Provide a brief media icon of this section."></i>
+                        <img class="media-icon" src="#" alt="Image Preview" style="width: auto; display:none;" />
+                        <input type="file" name="image[]" class="form-control">
+                        <span class="error-message text-danger" style="display:none;">This field is required.</span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Media Link</label>
+                        <i class="fas fa-info-circle" title="Provide a brief media link of this section."></i>
+                        <input type="text" name="link[]" class="form-control" placeholder="Enter Media Link">
+                        <span class="error-message text-danger" style="display:none;">This field is required.</span>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
+            </div>
+        `;
+            pointersContainer.insertAdjacentHTML('beforeend', newPointerHTML);
+        });
+
+        // Event delegation for "Remove" button
+        pointersContainer.addEventListener('click', function(event) {
+            if (event.target.classList.contains('remove-Pointers')) {
+                event.target.closest('.url-group').remove();
+            }
+        });
+
+        // Show preview for selected image & hide (Optional) label
+        pointersContainer.addEventListener('change', function(event) {
+            if (event.target.type === "file") {
+                const fileInput = event.target;
+                const imagePreview = fileInput.closest('.url-group').querySelector('.media-icon');
+                const [file] = fileInput.files;
+                if (file) {
+                    imagePreview.src = URL.createObjectURL(file);
+                    imagePreview.style.display = "block";
+                } else {
+                    imagePreview.style.display = "none";
+                    imagePreview.src = "#";
+                }
+            }
+
+            if (event.target.type === "text" || event.target.type === "file") {
+                const errorMessage = event.target.closest('.form-group').querySelector('.error-message');
+                if (event.target.value.trim() !== "") {
+                    errorMessage.style.display = "none"; // Hide error message when user enters data
+                }
+            }
+        });
+
+        // Form submission validation
+        submitButton.addEventListener('click', function(event) {
+            let isValid = true;
+
+            document.querySelectorAll('.url-group').forEach(group => {
+                const imageInput = group.querySelector('input[type="file"]');
+                const linkInput = group.querySelector('input[type="text"]');
+                const errorMessages = group.querySelectorAll('.error-message');
+
+                // Validate that at least one field is not empty
+                if (!imageInput.value.trim() && !linkInput.value.trim()) {
+                    errorMessages.forEach(msg => msg.style.display = 'block');
+                    isValid = false;
+                }
+            });
+
+            // Prevent form submission if validation fails
+            if (!isValid) {
+                event.preventDefault();
+                // alert("Please fill out all required fields before submitting.");
+            }
+        });
+    });
 </script>
 
 @endsection

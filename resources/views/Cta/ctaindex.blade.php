@@ -16,7 +16,7 @@
                         <tr>
                             <th>#</th>
                             <th>Title</th>
-                            <th>Service Type</th>
+                            <th>Page</th>
                             <th>Button Content</th>
                             <th>Action</th>
                         </tr>

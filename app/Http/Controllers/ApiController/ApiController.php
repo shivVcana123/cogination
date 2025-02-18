@@ -86,7 +86,7 @@ class ApiController extends Controller
     {
         $headerData = Header::with('children')->whereNull('parent_id')->get();
         $footerData = Footer::latest()->first();
-        $newslatter =NewsLetterSection::latest()->first();
+        $newslatter = NewsLetterSection::latest()->first();
         $ctaData = Cta::get();
 
         $data = [
@@ -96,14 +96,14 @@ class ApiController extends Controller
             'newslatter' => $newslatter,
         ];
 
-        //return $this->jsonResponse($data);
+
 
 
         return response()->json([
             'status' => 'success',
-             'message' => 'Data fetched successfully',
-             'data' => $data,
-         ], 200);
+            'message' => 'Data fetched successfully',
+            'data' => $data,
+        ], 200);
     }
     public function fetchHomeData()
     {
@@ -127,12 +127,12 @@ class ApiController extends Controller
             'homeFaq' => $homeFaqData ? new HomeFaqResource($homeFaqData) : null,
         ];
 
-        //return $this->jsonResponse($data);
-         return response()->json([
-             'status' => 'success',
-             'message' => 'Data fetched successfully',
-             'data' => $data,
-         ], 200);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data fetched successfully',
+            'data' => $data,
+        ], 200);
     }
     public function fetchAboutData()
     {
@@ -147,12 +147,12 @@ class ApiController extends Controller
             'joinCommunityData' => $joinCommunityData ? new AboutUsJoinCommunityResource($joinCommunityData) : null,
         ];
 
-        //return $this->jsonResponse($data);
-         return response()->json([
-             'status' => 'success',
-             'message' => 'Data fetched successfully',
-             'data' => $data,
-         ], 200);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data fetched successfully',
+            'data' => $data,
+        ], 200);
     }
     public function fetchOurApproachSectionData()
     {
@@ -165,12 +165,12 @@ class ApiController extends Controller
             'ourApproachHowItWork' => $ourApproachHowItWorkData ? new OurApproachHowItWorkResource($ourApproachHowItWorkData) : null,
         ];
 
-        //return $this->jsonResponse($data);
-         return response()->json([
-             'status' => 'success',
-             'message' => 'Data fetched successfully',
-             'data' => $data,
-         ], 200);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data fetched successfully',
+            'data' => $data,
+        ], 200);
     }
     public function fetchAccreditationSectionData()
     {
@@ -188,12 +188,12 @@ class ApiController extends Controller
             'accreditationOurTeamContinuous' => $accreditationOurTeamContinuousDate ? new AccreditationOurCommitmentResource($accreditationOurTeamContinuousDate) : null,
         ];
 
-        //return $this->jsonResponse($data);
-         return response()->json([
-             'status' => 'success',
-             'message' => 'Data fetched successfully',
-             'data' => $data,
-         ], 200);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data fetched successfully',
+            'data' => $data,
+        ], 200);
     }
     public function fetchAdhdSectionData()
     {
@@ -208,12 +208,12 @@ class ApiController extends Controller
 
         ];
 
-        //return $this->jsonResponse($data);
-         return response()->json([
-             'status' => 'success',
-             'message' => 'Data fetched successfully',
-             'data' => $data,
-         ], 200);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data fetched successfully',
+            'data' => $data,
+        ], 200);
     }
     public function fetchAutismSectionData()
     {
@@ -231,12 +231,12 @@ class ApiController extends Controller
             'bookSection' => AutismsBookResource::collection($bookSectionData),
         ];
 
-        //return $this->jsonResponse($data);
-         return response()->json([
-             'status' => 'success',
+
+        return response()->json([
+            'status' => 'success',
             'message' => 'Data fetched successfully',
-             'data' => $data,
-         ], 200);
+            'data' => $data,
+        ], 200);
     }
     public function fetchAssessmentSectionData()
     {
@@ -253,12 +253,12 @@ class ApiController extends Controller
             'understandingConditionSection' => $understandingConditionSectionData ? new AssessmentUnderstandingConditionResource($understandingConditionSectionData) : null,
         ];
 
-        //return $this->jsonResponse($data);
-         return response()->json([
-             'status' => 'success',
-             'message' => 'Data fetched successfully',
-             'data' => $data,
-       ], 200);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data fetched successfully',
+            'data' => $data,
+        ], 200);
     }
     public function fetchFeesSectionData(Request $request)
     {
@@ -269,33 +269,33 @@ class ApiController extends Controller
             'financialResponsibility' => $financialResponsibilityData ? new FinancialResponsibilityResource($financialResponsibilityData) : null,
 
         ];
-       // return $this->jsonResponse($data);
 
-         return response()->json([
-             'status' => 'success',
-             'message' => 'Data fetched successfully',
-             'data' => $data,
-         ], 200);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data fetched successfully',
+            'data' => $data,
+        ], 200);
     }
     public function fetchCtaSectionData()
     {
         $ctaData = Cta::get();
-       // return $this->jsonResponse($ctaData);
-       return response()->json([
+        // return $this->jsonResponse($ctaData);
+        return response()->json([
             'status' => 'success',
-             'message' => 'CSS styles fetched successfully',
+            'message' => 'CSS styles fetched successfully',
             'data' =>  $ctaData,
-         ], 200);
+        ], 200);
     }
     public function fetchBannerSectionData()
     {
         $bannerSection = BannerSection::get();
         //return $this->jsonResponse($bannerSection);
-       return response()->json([
-             'status' => 'success',
-             'message' => 'CSS styles fetched successfully',
-             'data' =>$bannerSection,
-         ], 200);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'CSS styles fetched successfully',
+            'data' => $bannerSection,
+        ], 200);
     }
     // public function fetchWebsiteStyle()
     // {
@@ -306,79 +306,210 @@ class ApiController extends Controller
     //         'data' => WebsiteStyleResource::collection($pageDesign),
     //     ], 200);
     // }
+    // public function searchContent(Request $request)
+    // {
+    //     try {
+    //         // Get the search query from the request
+    //         $query = $request->query('search_');
+
+    //         // If no query is provided, return an empty result
+    //         if (!$query) {
+    //             return response()->json([]);
+    //         }
+
+    //         // Define the models and their searchable columns
+    //         $models = [
+    //             HomeAboutUsData::class => ['title', 'description'],
+    //             HomeAppointment::class => ['title', 'subtitle'],
+    //             HomeChooseUs::class => ['title', 'description_1'],
+    //             HomeOurService::class => ['title', 'description_1'],
+    //             AdhdSection::class => ['first_title', 'first_description'],
+    //             AdhdBenefit::class => ['title', 'description_1'],
+    //             AutismsSection::class => ['first_title', 'first_description'],
+    //             AutismsProcess::class => ['title', 'description'],
+    //             AutismsScreening::class => ['title', 'description'],
+    //             AutismsBook::class => ['title', 'description'],
+    //             Assessment::class => ['title', 'description'],
+    //             AssessmentOurDiagnosticService::class => ['title', 'description'],
+    //             AssessmentWhyChoose::class => ['title', 'description'],
+    //             AssessmentUnderstandingCondition::class => ['title', 'description'],
+    //             FeesOurPricing::class => ['title', 'description'],
+    //             FinancialResponsibility::class => ['title', 'description'],
+    //             Cta::class => ['title', 'description'],
+    //         ];
+
+    //         $results = [];
+
+    //         // Loop through the models and search each one
+    //         foreach ($models as $model => $columns) {
+    //             // Perform the search query on each model
+    //             $modelResults = $model::query()
+    //                 ->where(function ($queryBuilder) use ($columns, $query) {
+    //                     foreach ($columns as $column) {
+    //                         $queryBuilder->orWhere($column, 'LIKE', '%' . $query . '%')
+    //                             ->whereNotNull($column);  // Ensure columns are not null
+    //                     }
+    //                 })
+    //                 ->get(['id', ...$columns])  // Fetch columns with id
+    //                 ->toArray();
+
+
+    //             // Filter out any rows where values are null or 'undefined' (string)
+    //             foreach ($modelResults as $result) {
+    //                 $filteredResult = array_filter($result, function ($value) {
+    //                     // Only include values that are not null or 'undefined' (string)
+    //                     return !(is_null($value) || $value === 'undefined');
+    //                 });
+
+    //                 // Only add non-empty results to the final list
+    //                 if (!empty($filteredResult)) {
+    //                     $results[] = array_merge($filteredResult, ['model' => class_basename($model)]);
+    //                 }
+    //             }
+    //         }
+
+    //         // Return the results or a message if no matches are found
+    //         return response()->json($results ?: ['message' => 'No matches found'], 200);
+    //     } catch (\Exception $e) {
+    //         // Log the error and return a generic message
+    //         return response()->json([
+    //             'message' => 'An error occurred while processing the search. Please try again later.',
+    //             'error' => $e->getMessage(),
+    //         ], 500);
+    //     }
+    // }
+
+
     public function searchContent(Request $request)
     {
         try {
-            // Get the search query from the request
-            $query = $request->query('search_');
-
-            // If no query is provided, return an empty result
+            // Get the search query
+            $query = $request->input('search_');
+    
+            // If no query is provided, return a message
             if (!$query) {
-                return response()->json([]);
+                return response()->json(['message' => 'Please enter a search term.'], 400);
             }
-
-            // Define the models and their searchable columns
+    
+            // Define models and their searchable columns
             $models = [
-                HomeAboutUsData::class => ['title', 'description'],
-                HomeAppointment::class => ['title', 'subtitle'],
-                HomeChooseUs::class => ['title', 'description_1'],
-                HomeOurService::class => ['title', 'description_1'],
-                AdhdSection::class => ['first_title', 'first_description'],
-                AdhdBenefit::class => ['title', 'description_1'],
-                AutismsSection::class => ['first_title', 'first_description'],
-                AutismsProcess::class => ['title', 'description'],
-                AutismsScreening::class => ['title', 'description'],
-                AutismsBook::class => ['title', 'description'],
-                Assessment::class => ['title', 'description'],
-                AssessmentOurDiagnosticService::class => ['title', 'description'],
-                AssessmentWhyChoose::class => ['title', 'description'],
-                AssessmentUnderstandingCondition::class => ['title', 'description'],
-                FeesOurPricing::class => ['title', 'description'],
-                FinancialResponsibility::class => ['title', 'description'],
-                Cta::class => ['title', 'description'],
+                HomeAboutUsData::class => ['title', 'description', 'button_content','url'],
+                HomeAppointment::class => ['title', 'subtitle', 'button_content','url'],
+                HomeChooseUs::class => ['title', 'subtitle', 'pointers', 'description_1','url'],
+                HomeOurService::class => ['title', 'subtitle', 'pointers', 'description_1','url'],
+                HomeBringingHealthcare::class => ['title', 'subtitle', 'button_content1','url'],
+                HomeFaq::class => ['title', 'subtitle', 'pointers','url'],
+                AdhdSection::class => ['first_title', 'first_subtitle', 'first_button_content', 'first_description','url','type'],
+                AdhdSecondSection::class => ['second_title', 'second_subtitle', 'second_description', 'pointers', 'heading','url','type'],
+                AdhdBenefit::class => ['title', 'description_1', 'pointers', 'subtitle','url','type'],
+                AutismsSection::class => ['first_title', 'first_subtitle', 'first_button_content', 'first_description','url','type'],
+                AutismsSecondSection::class => ['second_title', 'second_subtitle', 'second_description', 'pointers','url','type'],
+                AutismsProcess::class => ['title', 'subtitle', 'pointers', 'description','url','type'],
+                AutismsScreening::class => ['title', 'subtitle', 'description', 'button_content','url','type'],
+                AutismsBook::class => ['title', 'subtitle', 'description', 'button_content','url','type'],
+                Assessment::class => ['title', 'subtitle', 'description', 'button_content','url'],
+                AssessmentOurDiagnosticService::class => ['title', 'description', 'pointers','url'],
+                AssessmentWhyChoose::class => ['title', 'subtitle', 'description', 'pointers', 'first_button_content', 'second_button_content','url'],
+                AssessmentUnderstandingCondition::class => ['title', 'pointers', 'description','url'],
+                FeesOurPricing::class => ['title', 'description', 'button_content', 'pointers','url'],
+                FinancialResponsibility::class => ['title', 'description','url'],
+                Cta::class => ['title', 'description', 'button_content','url','type'],
+                AboutUsOurStory::class => ['title', 'subtitle', 'description', 'button_content','url'],
+                AboutUsJoinCommunity::class => ['title', 'subtitle', 'description', 'pointers','url'],
+                AboutUsOurMission::class => ['title','url'],
+                AccreditationOurCommitment::class => ['title', 'description', 'button_content','url'],
+                AccreditationAccreditation::class => ['title', 'subtitle', 'description', 'pointers','url'],
+                AccreditationCertification::class => ['title', 'subtitle', 'description', 'pointers','url'],
+                AccreditationOurTeamContinuous::class => ['title', 'button_content', 'description','url'],
+                AccreditationSpecializedCertification::class => ['title', 'subtitle', 'pointers','url'],
+                OurApproach::class => ['title', 'description','url'],
+                OurApproachHowItWork::class => ['title', 'pointers','url'],
+                BannerSection::class => ['heading', 'subtitle', 'description', 'button_text','url','section_type'],
             ];
-
+    
             $results = [];
-
-            // Loop through the models and search each one
-            foreach ($models as $model => $columns) {
-                // Perform the search query on each model
+    
+            // Loop through models and search
+            // foreach ($models as $model => $columns) {    
+            //     $modelResults = $model::query()
+            //         ->where(function ($queryBuilder) use ($columns, $query) {
+            //             foreach ($columns as $column) {
+            //                 if ($column === 'pointers') {
+            //                     $queryBuilder->orWhereRaw("JSON_UNQUOTE(JSON_EXTRACT($column, '$[*].sub_title')) LIKE ?", ["%$query%"])
+            //                                  ->orWhereRaw("JSON_UNQUOTE(JSON_EXTRACT($column, '$[*].sub_description')) LIKE ?", ["%$query%"])
+            //                                  ->orWhereRaw("JSON_UNQUOTE(JSON_EXTRACT($column, '$[*].pointerTitle')) LIKE ?", ["%$query%"])
+            //                                  ->orWhereRaw("JSON_UNQUOTE(JSON_EXTRACT($column, '$[*].pointerDescription')) LIKE ?", ["%$query%"])
+            //                                  ->orWhereRaw("JSON_UNQUOTE(JSON_EXTRACT($column, '$[*].second_sub_title')) LIKE ?", ["%$query%"])
+            //                                  ->orWhereRaw("JSON_UNQUOTE(JSON_EXTRACT($column, '$[*].second_sub_description')) LIKE ?", ["%$query%"]);
+            //                 } else {
+            //                     $queryBuilder->orWhere($column, 'LIKE', '%' . $query . '%')
+            //                                  ->whereNotNull($column);
+            //                 }
+            //             }
+            //         })
+            //         ->get(array_merge(['id'], $columns))
+            //         ->toArray();
+    
+            //     // Filter out null or 'undefined' values
+            //     foreach ($modelResults as $result) {
+            //         $filteredResult = array_filter($result, function ($value) {
+            //             return !is_null($value) && $value !== 'undefined';
+            //         });
+    
+            //         if (!empty($filteredResult)) {
+            //             $results[] = array_merge($filteredResult, ['model' => class_basename($model)]);
+            //         }
+            //     }
+            // }
+            foreach ($models as $model => $columns) {    
                 $modelResults = $model::query()
                     ->where(function ($queryBuilder) use ($columns, $query) {
                         foreach ($columns as $column) {
-                            $queryBuilder->orWhere($column, 'LIKE', '%' . $query . '%')
-                                ->whereNotNull($column);  // Ensure columns are not null
+                            if ($column === 'pointers') {
+                                $queryBuilder->orWhereRaw("JSON_UNQUOTE(JSON_EXTRACT($column, '$[*].sub_title')) LIKE ?", ["%$query%"])
+                                             ->orWhereRaw("JSON_UNQUOTE(JSON_EXTRACT($column, '$[*].sub_description')) LIKE ?", ["%$query%"])
+                                             ->orWhereRaw("JSON_UNQUOTE(JSON_EXTRACT($column, '$[*].pointerTitle')) LIKE ?", ["%$query%"])
+                                             ->orWhereRaw("JSON_UNQUOTE(JSON_EXTRACT($column, '$[*].pointerDescription')) LIKE ?", ["%$query%"])
+                                             ->orWhereRaw("JSON_UNQUOTE(JSON_EXTRACT($column, '$[*].second_sub_title')) LIKE ?", ["%$query%"])
+                                             ->orWhereRaw("JSON_UNQUOTE(JSON_EXTRACT($column, '$[*].second_sub_description')) LIKE ?", ["%$query%"]);
+
+
+                                $queryBuilder->orWhereRaw("JSON_UNQUOTE(JSON_EXTRACT($column, '$[*].sub_pointer[*].pointerSubTitle1')) LIKE ?", ["%$query%"])
+                                 ->orWhereRaw("JSON_UNQUOTE(JSON_EXTRACT($column, '$[*].sub_pointer[*].pointerSubDescription1')) LIKE ?", ["%$query%"]);
+                                 
+                            } else {
+                                $queryBuilder->orWhere($column, 'LIKE', '%' . $query . '%')
+                                             ->whereNotNull($column);
+                            }
                         }
                     })
-                    ->get(['id', ...$columns])  // Fetch columns with id
+                    ->get(array_merge(['id'], $columns))
                     ->toArray();
-
-
-                // Filter out any rows where values are null or 'undefined' (string)
+            
+                // Filter out null or 'undefined' values
                 foreach ($modelResults as $result) {
                     $filteredResult = array_filter($result, function ($value) {
-                        // Only include values that are not null or 'undefined' (string)
-                        return !(is_null($value) || $value === 'undefined');
+                        return !is_null($value) && $value !== 'undefined';
                     });
-
-                    // Only add non-empty results to the final list
+            
                     if (!empty($filteredResult)) {
                         $results[] = array_merge($filteredResult, ['model' => class_basename($model)]);
                     }
                 }
             }
-
-            // Return the results or a message if no matches are found
+            
+    
+            // Return results or message if no matches
             return response()->json($results ?: ['message' => 'No matches found'], 200);
         } catch (\Exception $e) {
-            // Log the error and return a generic message
             return response()->json([
                 'message' => 'An error occurred while processing the search. Please try again later.',
                 'error' => $e->getMessage(),
             ], 500);
         }
     }
-    
+
+
     public function subscribeNewsletter(Request $request)
     {
         // dd($request->all());

@@ -14,27 +14,57 @@ class DashboardController extends Controller
     {
         $totalServicesCount = 0;
         $fees = FeesOurPricing::first();
-    
-        if ($fees && $fees->pointers) {
-            $services = json_decode($fees->pointers);
-            foreach ($services as $value) {
-                $sub_description = explode(',', $value->sub_description);
-                $totalServicesCount += count($sub_description);
-            }
+        $services = json_decode($fees->pointers);
+        foreach ($services as $value) {
+            $sub_description = explode(',', $value->sub_description);
+            $totalServicesCount += count($sub_description);
         }
-    
+
         $pageCount = Header::where('link', '!=', '')->count();
         $newsLetterCount = NewsletterSubscription::count();
-    
+
         return view("dashboard.dashboard", compact('totalServicesCount', 'pageCount', 'newsLetterCount'));
     }
+
+    // public function getRecentNewsletterSubscriptions(Request $request)
+    // {
+    //     $filterType = $request->input('filter', 'month'); // Default filter is 'month'
+    //     $query = NewsletterSubscription::query();
+
+    //     if ($filterType === 'week') {
+    //         $query->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()]);
+    //     } elseif ($filterType === 'month') {
+    //         $query->whereYear('created_at', now()->year)
+    //               ->whereMonth('created_at', now()->month);
+    //     } elseif ($filterType === 'year') {
+    //         $query->whereYear('created_at', now()->year);
+    //     }
+
+    //     $subscriptions = $query->selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, COUNT(*) as count')
+    //                            ->groupBy('year', 'month')
+    //                            ->orderBy('year', 'asc')
+    //                            ->orderBy('month', 'asc')
+    //                            ->get();
+
+    //     return response()->json($subscriptions);
     
+    // }
 
     public function getRecentNewsletterSubscriptions(Request $request)
-    {
-        $filterType = $request->input('filter', 'month'); // Default filter is 'month'
-        $query = NewsletterSubscription::query();
+{
+    $filterType = $request->input('filter', 'month'); // Default filter is 'month'
+    $query = NewsletterSubscription::query();
 
+    // Check for 'all' option
+    if ($filterType === 'all') {
+        // Get data for all years and months
+        $subscriptions = $query->selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, COUNT(*) as count')
+                               ->groupBy('year', 'month')
+                               ->orderBy('year', 'asc')
+                               ->orderBy('month', 'asc')
+                               ->get();
+    } else {
+        // Apply filters for week, month, or year
         if ($filterType === 'week') {
             $query->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()]);
         } elseif ($filterType === 'month') {
@@ -49,7 +79,9 @@ class DashboardController extends Controller
                                ->orderBy('year', 'asc')
                                ->orderBy('month', 'asc')
                                ->get();
-
-        return response()->json($subscriptions);
     }
+
+    return response()->json($subscriptions);
+}
+
 }

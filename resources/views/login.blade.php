@@ -1,4 +1,3 @@
-
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -50,7 +49,7 @@
     }
     
     .login-section h5 {
-      font-size: 39.15px !important;
+      font-size: 25px !important;
       font-weight: 400 !important;
       line-height: 55px;
       letter-spacing: 0.02em;
@@ -61,7 +60,7 @@
     }
     
     .login-section h2 {
-      font-size: 44.04px;
+      font-size: 35px;
       font-weight: 700 !important;
       line-height: 60px;
       letter-spacing: 0.02em;
@@ -80,6 +79,7 @@
       color: #fff;
       text-align: center;
       line-height: 24.75px;
+      font-size: 16px !important;
     }
     
     .login-foot {
@@ -388,21 +388,22 @@ span.fa.fa-fw.fa-eye.field-icon.toggle-password, span.fa.fa-fw.field-icon.toggle
             <div class="col-md-12 col-sm-12 col-lg-6 col-xl-7 first-colm">
               <div class="inner-colm space-left">
                 <div class="heading-colm">
-                  <h5>Hello,</h5>
-                  <h2>Welcome Back!</h2>
+                <h5>Welcome to Cognition Care</h5>
+                <h2>Your Trusted Healthcare Partner</h2>
                 </div>
                 <div class="image-colm">
                   <img src="{{ asset('assets/images/logocognition.png') }}" alt="" />
                   <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting
-                    <br />
-                    industry. Lorem Ipsum has been the industry's standard dummy
-                    text ever <br />
-                    since the 1500s.
-                  </p>
-                  <p class="login-foot">
-                    Lorem Ipsum <span class="space-colm">|</span> Lorem Ipsum
-                  </p>
+                Your health and well-being are our top priorities. At Cognition Care, we provide a seamless and secure 
+                healthcare management experience.  
+              </p>
+              <p>
+                Access your personalized dashboard, manage your appointments, and stay informed with the latest 
+                healthcare updates.
+              </p>
+                   <p class="login-foot">
+                Stay Connected <span class="space-colm">|</span> Stay Healthy
+              </p>
                 </div>
               </div>
             </div>
@@ -411,7 +412,8 @@ span.fa.fa-fw.fa-eye.field-icon.toggle-password, span.fa.fa-fw.field-icon.toggle
               <div class="inner-colm">
                 <div class="heading-colm">
                   <h4>Hello!</h4>
-                  <h6>Sign In To Your Account</h6>
+              <h6>Sign In To Your Account</h6>
+              <p class="text-muted">Access your account to manage your healthcare journey.</p>
                 </div>
                   @if (session('error'))
                     <div class="">
@@ -432,7 +434,7 @@ span.fa.fa-fw.fa-eye.field-icon.toggle-password, span.fa.fa-fw.field-icon.toggle
                   </div>
 
                   <div class="form-group profile-icon">
-                        <input  id="password-field" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required>
+                        <input  id="password-field" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Enter Your Password" required>
                         @error('password')
                         <div style="color:red">{{ $message }}</div>
                         @enderror

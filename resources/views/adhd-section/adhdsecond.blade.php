@@ -57,7 +57,7 @@
 
                                     <div class="form-group col-md-6">
                                         <label for="second_subtitle">Subtitle</label>
-                                        <i class="fas fa-info-circle" title="Provide a subtitle."></i> <label for="">(Optional)</label>
+                                        <i class="fas fa-info-circle" title="Provide a subtitle."></i> <label class="option-area">(Optional)</label>
                                         <input type="text" class="form-control" name="second_subtitle" id="second_subtitle"
                                             placeholder="Enter second subtitle" value="{{ old('second_subtitle', $adhdSection[0]->second_subtitle ?? '') }}">
                                         @error('second_subtitle')
@@ -83,12 +83,12 @@
                                 @endphp
                                 <hr>
                                 <!-- Pointers -->
-                                <label for="">Card Details</label>
+                              <h5>Card Details</h5>
                                 <div class="form-group">
                                     <label for="heading">Heading</label>
                                     <i class="fas fa-info-circle" title="Provide a Heading."></i> <label for="">(Optional)</label>
-                                    <input class="form-control" name="heading" id="heading"
-                                        value="{{ old('heading', $adhdSection[0]->heading ?? '') }} " required>
+                                    <input class="form-control" name="heading" id="heading" placeholder="Enter heading"
+                                        value="{{ old('heading', $adhdSection[0]->heading ?? '') }} ">
                                     @error('heading')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -160,7 +160,7 @@
                             <div class="card-footer">
                                 <input type="checkbox" id="status" name="status" {{ ($adhdSection[0]->status ?? '') === 'on' ? 'checked' : '' }}>
                                 <label for="status">Show On Website</label>
-                                <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
+                                <button type="submit" id="form-submit-button" class="btn btn-primary">Save</button>
                             </div>
                         </form>
 
@@ -196,13 +196,13 @@
                 <label> Title</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful sub title for this section."></i>
                 <input type="text" name="second_sub_title[]" class="form-control" value="" placeholder="Enter title" required>
-                <div class="text-danger title-error" style="display: none;">At least one field is required.</div>
+                <div class="text-danger title-error" style="display: none;">The title field is required.</div>
             </div>
             <div class="form-group col-md-6">
                 <label> Description</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful sub description for this section."></i>
                 <input type="text" name="second_sub_description[]" class="form-control" value="" placeholder="Enter description" required>
-                <div class="text-danger description-error" style="display: none;">At least one field is required.</div>
+                <div class="text-danger description-error" style="display: none;">The description field is required.</div>
             </div>
         </div>
         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>
@@ -275,7 +275,7 @@
                 },
                 success: function(response) {
                     const section = response.data?.[0] || null;
-
+console.log(section);
                     if (section) {
                         // Populate other fields
                         $('#id').val(section.id || '');
@@ -333,13 +333,13 @@
                 <label> Title</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful sub title for this section."></i>
                 <input type="text" name="second_sub_title[]" class="form-control" value="${data.second_sub_title || ''}" placeholder="Enter title" required>
-                <div class="text-danger title-error" style="display: none;">At least one field is required.</div>
+                <div class="text-danger title-error" style="display: none;">The title field is required</div>
             </div>
             <div class="form-group col-md-6">
                 <label> Description</label>
                 <i class="fas fa-info-circle" title="Provide a meaningful description for this section."></i>
                 <input type="text" name="second_sub_description[]" class="form-control" value="${data.second_sub_description || ''}" placeholder="Enter description" required>
-                <div class="text-danger description-error" style="display: none;">At least one field is required.</div>
+                <div class="text-danger description-error" style="display: none;">The description field is required</div>
             </div>
         </div>
         <button type="button" class="btn btn-danger remove-Pointers">Remove</button>

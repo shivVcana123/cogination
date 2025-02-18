@@ -21,7 +21,7 @@
 <script src="{{asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <!-- AdminLTE App -->
 
-<script src="../../plugins/select2/js/select2.full.min.js"></script>
+<script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
 
 <script src="{{asset('dist/js/adminlte.js')}}"></script>
 <!-- AdminLTE for demo purposes -->

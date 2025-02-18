@@ -57,7 +57,7 @@
                                     <!-- Subtitle Field -->
                                     <div class="form-group col-md-6">
                                         <label for="subtitle">Subtitle</label>
-                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label for="">(Optional)</label>
+                                        <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label class="option-area">(Optional)</label>
                                         <input type="text" class="form-control" name="first_subtitle" id="subtitle"
                                             placeholder="Enter first subtitle" value="{{ old('first_subtitle',$autismSection[0]->first_subtitle ?? '') }}">
                                         @error('first_subtitle')
@@ -67,7 +67,7 @@
 
                                     <div class="form-group col-md-6">
                                         <label for="title">Button Text</label>
-                                        <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i> <label for="">(Optional)</label>
+                                        <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i> <label class="option-area">(Optional)</label>
                                         <input type="text" class="form-control" name="first_button_content" id="first_button_content" placeholder="Enter Button Text" value="{{old('first_button_content',$autismSection[0]->first_button_content ?? '')}}">
                                         @error('first_button_content')
                                         <div class="text-danger">{{ $message }}</div>
@@ -75,7 +75,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="title">Button Link</label>
-                                        <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i> <label for="">(Optional)</label>
+                                        <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i> <label class="option-area">(Optional)</label>
                                         <input type="text" class="form-control" name="first_button_link" id="first_button_link" placeholder="Enter Button Link" value="{{old('first_button_link',$autismSection[0]->first_button_link ?? '')}}">
                                         @error('first_button_link')
                                         <div class="text-danger">{{ $message }}</div>
@@ -107,7 +107,7 @@
                                 <div class="card-footer">
                                     <input type="checkbox" id="status" name="status" {{ ($autismSection[0]->status ?? '') === 'on' ? 'checked' : '' }}>
                                     <label for="status">Show On Website</label>
-                                    <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
+                                    <button type="submit" id="form-submit-button" class="btn btn-primary">Save</button>
                                 </div>
                         </form>
                     </div>
@@ -197,6 +197,8 @@
                     success: function(response) {
                         if (response && response.data && response.data.length > 0) {
                             const section = response.data[0]; // Assuming a single record
+                            console.log('section',section.first_image)
+
                             if (section) {
                                 $('#id').val(section.id || '');
                                 $('#first_title').val(section.first_title || '');
@@ -209,13 +211,6 @@
                                 const imageUrl = section.first_image || '';
                                 $('#blah').attr('src', imageUrl ? imageUrl : '#'); 
                                 // Update pointers dynamically
-                               
-
-                                
-                          
-                                
-
-                          
                             }
                         } else {
                             // Clear fields if no data is found

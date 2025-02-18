@@ -45,6 +45,7 @@ class FeesController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'status' => $request->status ?? "off",
+            'url' => "Fees",
         ];
 
         if ($request->id) {
@@ -146,7 +147,25 @@ class FeesController extends Controller
 
     public function saveOurPricingSection(Request $request)
     {
-        try {
+     
+            $validated = $request->validate([
+                'title' => 'required|string|min:3|max:255',
+                'button_content' => 'required|string|min:3|max:255',
+                'description' => 'required|string|min:10',
+                'sub_title' => 'required|array|min:1',
+                'sub_description' => 'required|array|min:1',
+                'price' => 'required|array|min:1',
+            ], [
+                'title.required' => 'The title field is required.',
+                'title.min' => 'The title must be at least 3 characters.',
+                'title.max' => 'The title must not exceed 255 characters.',
+                'description.required' => 'The description field is required.',
+                'description.min' => 'The description must be at least 10 characters.',
+                'sub_title.required' => 'The sub-title field is required.',
+                'sub_description.required' => 'The sub-description field is required.',
+                'price.required' => 'The price field is required.',
+            ]);
+            
             // Fetch or create a new record
             $autismSection = $request->id
                 ? FeesOurPricing::find($request->id)
@@ -208,16 +227,13 @@ class FeesController extends Controller
             $autismSection->description = $request->description;
             $autismSection->status = $request->status ?? "off";
             $autismSection->pointers = json_encode($pointers);
-
+            $autismSection->url = "Fees";
             // Save the record
             $autismSection->save();
 
             // Success redirect
             return redirect()->route('our-pricing-section')->with('success', 'Pricing section saved successfully.');
-        } catch (\Exception $e) {
-            // Handle error and display message
-            return redirect()->route('our-pricing-section')->with('error', 'An error occurred: ' . $e->getMessage());
-        }
+        
     }
 
 

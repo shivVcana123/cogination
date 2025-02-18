@@ -59,7 +59,7 @@
                                         <!-- Subtitle Field -->
                                         <div class="form-group col-md-6">
                                             <label for="subtitle">Subtitle</label>
-                                            <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label for="">(Optional)</label>
+                                            <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i> <label class="option-area">(Optional)</label>
                                             <input type="text" class="form-control" name="second_subtitle" id="second_subtitle"
                                                 placeholder="Enter subtitle" value="{{ old('second_subtitle',$autismSection[0]->second_subtitle ?? '') }}">
                                             @error('second_subtitle')
@@ -69,7 +69,7 @@
 
                                         <div class="form-group col-md-6">
                                             <label for="title">Button Text</label>
-                                            <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i> <label for="">(Optional)</label>
+                                            <i class="fas fa-info-circle" title="The Button Text field allows you to specify the label that will appear on the button."></i> <label class="option-area">(Optional)</label>
                                             <input type="text" class="form-control" name="second_button_content" id="second_button_content" placeholder="Enter Button Text" value="{{old('second_button_content',$autismSection[0]->second_button_content ?? '')}}">
                                             @error('second_button_content')
                                             <div class="text-danger">{{ $message }}</div>
@@ -77,7 +77,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="title">Button Link</label>
-                                            <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i> <label for="">(Optional)</label>
+                                            <i class="fas fa-info-circle" title="The Button Link field is where you provide the URL the button will navigate to when clicked."></i> <label class="option-area">(Optional)</label>
 
                                             <input type="text" class="form-control" name="second_button_link" id="second_button_link" placeholder="Enter Button Link" value="{{old('second_button_link',$autismSection[0]->second_button_link ?? '')}}">
                                             @error('second_button_link')
@@ -93,7 +93,7 @@
                                         @error('second_description')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
-                                    </div>
+                                    </div><br>
 
                                     @php
                                     // Check if the $autismSection exists and contains data before attempting to decode
@@ -104,9 +104,7 @@
 
                                     <hr>
                                     <!-- Pointers Section -->
-                                    <label for="">Card Details</label>
-                                    <i class="fas fa-info-circle" title="Provide a meaningful title for this section."></i>
-
+                                    <h5>Card Details</h5>
                                     <div id="Pointers-container">
 
                                         @if(!empty($pointers) && is_array($pointers))
@@ -150,7 +148,7 @@
                                 <div class="card-footer">
                                     <input type="checkbox" id="status" name="status" {{ ($autismSection[0]->status ?? '') === 'on' ? 'checked' : '' }}>
                                     <label for="status">Show On Website</label>
-                                    <button type="submit" id="form-submit-button" class="btn btn-primary">Submit</button>
+                                    <button type="submit" id="form-submit-button" class="btn btn-primary">Save</button>
                                 </div>
                                 </div>
                         </form>
@@ -273,6 +271,7 @@
                     success: function(response) {
                         if (response && response.data && response.data.length > 0) {
                             const section = response.data[0]; // Assuming a single record
+                            console.log('section',section.second_image)
                             if (section) {
                                 $('#id').val(section.id || '');
                                 CKEDITOR.instances.second_description.setData(section.second_description || '');

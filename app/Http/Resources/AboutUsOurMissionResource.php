@@ -19,6 +19,7 @@ class AboutUsOurMissionResource extends JsonResource
             'title' => $this->title,
             'image' => $this->image,
             'status' => $this->status,
+            'url' => $this->url,
         ];
     }
 }
