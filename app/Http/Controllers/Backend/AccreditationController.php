@@ -62,7 +62,8 @@ class AccreditationController extends Controller
         $ourCommitmentSection->button_content = $request->button_content;
         $ourCommitmentSection->button_link = $request->button_link;
         $ourCommitmentSection->status = $request->status ?? "off";
-        $ourCommitmentSection->url = 'Accreditation & Certifications';
+        $ourCommitmentSection->page = 'Accreditation & Certifications';
+        $ourCommitmentSection->url = 'accreditation';
         $ourCommitmentSection->save();
 
         return redirect()->route('our-commitment-section')->with('success', 'Adhd details saved successfully.');
@@ -134,7 +135,8 @@ class AccreditationController extends Controller
         $certificationsSection->subtitle = $request->subtitle;
         $certificationsSection->description =$request->description; // Handle nullable description
         $certificationsSection->status = $request->status ?? "off";
-        $certificationsSection->url = 'Accreditation & Certifications';
+        $certificationsSection->page = 'Accreditation & Certifications';
+        $certificationsSection->url = 'accreditation';
         $certificationsSection->pointers = json_encode($pointers);
         
     
@@ -212,7 +214,8 @@ class AccreditationController extends Controller
         $accreditationsSection->subtitle = $request->subtitle;
         $accreditationsSection->description = $request->description; // Handle nullable description
         $accreditationsSection->status = $request->status ?? "off";
-        $accreditationsSection->url = 'Accreditation & Certifications';
+        $accreditationsSection->page = 'Accreditation & Certifications';
+        $accreditationsSection->url = 'accreditation';
         $accreditationsSection->pointers = json_encode($pointers);
         
     
@@ -285,7 +288,8 @@ class AccreditationController extends Controller
         $accreditationsSection->title = $request->title;
         $accreditationsSection->subtitle = $request->subtitle;
         $accreditationsSection->status = $request->status ?? "off";
-        $accreditationsSection->url = 'Accreditation & Certifications';
+        $accreditationsSection->page = 'Accreditation & Certifications';
+        $accreditationsSection->url = 'accreditation';
         $accreditationsSection->pointers = json_encode($pointers);
         
     
@@ -353,7 +357,8 @@ class AccreditationController extends Controller
         // $ourTeamContinuousSection->button_content = $request->button_content;
         // $ourTeamContinuousSection->button_link = $request->button_link;
         $ourTeamContinuousSection->status = $request->status ?? "off";
-        $ourTeamContinuousSection->url = 'Accreditation & Certifications';
+        $ourTeamContinuousSection->page = 'Accreditation & Certifications';
+        $ourTeamContinuousSection->url = 'accreditation';
         $ourTeamContinuousSection->save();
    
 

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('type')->nullable();
             $table->text('subtitle')->nullable();
             $table->text('description')->nullable();
+            $table->string('page')->nullable();
             $table->string('url')->nullable();
             $table->json('pointers')->nullable();
             $table->enum('status', ['on', 'off'])->default('on')->comment('on = show, off = hide');

@@ -62,7 +62,6 @@ class HeaderController extends Controller
         }
     }
 
-
     /**
      * Display the specified resource.
      */
@@ -79,8 +78,6 @@ class HeaderController extends Controller
         $headerData = Header::with('children')->whereNull('parent_id')->where('id', $id)->get();
         return view('header.editHeader', compact('headerData'));
     }
-
-
 
     public function update(Request $request, string $id)
     {
@@ -130,7 +127,6 @@ class HeaderController extends Controller
 
         }
     }
-
 
     /**
      * Remove the specified resource from storage.

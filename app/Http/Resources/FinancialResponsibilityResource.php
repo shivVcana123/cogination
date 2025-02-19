@@ -20,6 +20,7 @@ class FinancialResponsibilityResource extends JsonResource
             'description' => $this->description,
             'status' => $this->status,
             'url' => $this->url,
+            'page' => $this->page,
         ];
     }
 }

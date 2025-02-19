@@ -180,6 +180,8 @@ Route::middleware(['auth'])->group(function () {
      Route::get('news-letter-form', [NewsLetterSubscriptionController::class,'newsLetterForm'])->name('news-letter-form');
      Route::post('news-letter-save', [NewsLetterSubscriptionController::class,'newsLetterSave'])->name('news-letter-save');
      Route::get('news-letter-list', [NewsLetterSubscriptionController::class,'subscribeNewsletter'])->name('news-letter-list');
+     Route::post('delete-emails', [NewsLetterSubscriptionController::class,'deleteEmails'])->name('delete-emails');
+
      Route::get('/newsletter-subscriptions/recent/', [DashboardController::class, 'getRecentNewsletterSubscriptions'])->name('newsletter-subscriptions-recent');
 });
 

@@ -58,7 +58,7 @@
                                 <hr>
 
                                 <!-- Pointers Section -->
-                                <label for="">Card Icon</label>
+                                <h5>Card Icon</h5>
                                 <div id="Pointers-container">
                                     @if(isset($subscribeNewsletter->pointers) && is_array(json_decode($subscribeNewsletter->pointers, true)))
                                     @foreach(json_decode($subscribeNewsletter->pointers, true) as $key => $pointer)
