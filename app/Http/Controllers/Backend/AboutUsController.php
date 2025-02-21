@@ -60,7 +60,8 @@ class AboutUsController extends Controller
         $ourStorySection->button_content = $request->button_content;
         $ourStorySection->button_link = $request->button_link;
         $ourStorySection->status = $request->status ?? "off";
-        $ourStorySection->url = 'About Us';
+        $ourStorySection->page = 'About Us';
+        $ourStorySection->url = 'about';
         $ourStorySection->save();
         return redirect()->route('our-story-section')->with('success', 'Adhd details saved successfully.');
     }
@@ -74,7 +75,7 @@ class AboutUsController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|min:3|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg',
+            'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg',
         ], [
             'title.required' => 'The title field is required.',
             'title.min' => 'The title must be at least 3 characters.',
@@ -99,7 +100,8 @@ class AboutUsController extends Controller
         // Assign data
         $ourMissionSection->title = $request->title;
         $ourMissionSection->status = $request->status ?? "off";
-        $ourMissionSection->url = 'About Us';
+        $ourMissionSection->page = 'About Us';
+        $ourMissionSection->url = 'about';
         $ourMissionSection->save();
    
 
@@ -121,7 +123,7 @@ class AboutUsController extends Controller
             'sub_title.*' => 'required|string|min:3|max:255', // Each subtitle must have at least 3 characters
             'sub_description' => 'nullable|array',
             'sub_description.*' => 'required|string|min:3|max:255', // Each sub-description must have at least 3 characters
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg', // 2MB file size limit
+            'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg', // 2MB file size limit
         ], [
             'title.required' => 'The title field is required.',
             'title.string' => 'The title must be a valid string.',
@@ -171,7 +173,8 @@ class AboutUsController extends Controller
         $joinCommunitySection->subtitle = $request->subtitle;
         $joinCommunitySection->description = $request->description;
         $joinCommunitySection->status = $request->status ?? "off";
-        $joinCommunitySection->url = 'About Us';
+        $joinCommunitySection->page = 'About Us';
+        $joinCommunitySection->url = 'about';
         $joinCommunitySection->pointers = json_encode($pointers, JSON_THROW_ON_ERROR);
     
         // Save the model

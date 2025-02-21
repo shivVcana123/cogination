@@ -27,7 +27,7 @@ class AssessmentController extends Controller
             'button_content' => 'nullable|string|min:3|max:255',
             'button_link' => 'nullable|required_with:button_content',
             'description' => 'required|string|min:100|max:2000', // Min length set to 100
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048', // Max file size 2MB
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg', // Max file size 2MB
         ], [
             'title.required' => 'The title field is required.',
             'title.string' => 'The title must be a valid string.',
@@ -70,7 +70,8 @@ class AssessmentController extends Controller
         $assessmentSection->button_content = $request->button_content;
         $assessmentSection->button_link = $request->button_link;
         $assessmentSection->status = $request->status ?? "off";
-        $assessmentSection->url = 'Assessment';
+        $assessmentSection->page = 'Assessment';
+        $assessmentSection->url = 'assessment';
 
         // Handle first image upload
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
@@ -104,7 +105,7 @@ class AssessmentController extends Controller
             'sub_title.*' => 'nullable|string|max:255', // Ensure subtitles are strings and with max length
             'sub_description' => 'nullable|array',
             'sub_description.*' => 'nullable|string|max:500', // Each sub-description is a string with max length 500
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048', // Max size 2MB
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg', // Max size 2MB
         ], [
             'title.required' => 'The title field is required.',
             'title.string' => 'The title must be a valid string.',
@@ -159,7 +160,8 @@ class AssessmentController extends Controller
         $assessmentWhyChoose->second_button_content = $request->second_button_content;
         $assessmentWhyChoose->second_button_link = $request->second_button_link;
         $assessmentWhyChoose->status = $request->status ?? "off";
-        $assessmentWhyChoose->url = 'Assessment';
+        $assessmentWhyChoose->page = 'Assessment';
+        $assessmentWhyChoose->url = 'assessment';
         $assessmentWhyChoose->pointers = json_encode($pointers);
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
@@ -179,17 +181,16 @@ class AssessmentController extends Controller
         return view('assessment-section.ourdiagnosticservices', compact('ourDiagnostic'));
     }
 
-
     public function saveOurDiagnosticServices(Request $request)
     {
 
-
+        //  dd($request->all());
         $validated = $request->validate([
-            'title' => 'required|string|min:3|max:255',
-            'description' => 'required|string',
+            'title' => 'required|min:3|max:255',
+            'description' => 'required',
             'button1Text' => 'nullable',
             'button1Link' => 'nullable',
-            'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp', // Image validation
+            'images.*' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
         ], [
             'title.required' => 'The title field is required.',
             'title.min' => 'The title must be at least 3 characters.',
@@ -248,12 +249,13 @@ class AssessmentController extends Controller
         $ourDiagnostic->description = $request->description ?? null;
         $ourDiagnostic->pointers = json_encode($pointers); // Save pointers as JSON
         $ourDiagnostic->status = $request->status ?? "off";
-        $ourDiagnostic->url = 'Assessment';
+        $ourDiagnostic->page = 'Assessment';
+        $ourDiagnostic->url = 'assessment';
         $ourDiagnostic->save();
 
         return redirect()->route('assessment-our-diagnostic-services-section')->with('success', 'Details saved successfully.');
-    }
     
+    }
     
     public function understandingConditionsSection()
     {
@@ -327,7 +329,8 @@ class AssessmentController extends Controller
         $assessmentUnderstanding->subtitle = $request->subtitle;
         $assessmentUnderstanding->description = $request->description; // Handle nullable description
         $assessmentUnderstanding->status = $request->status ?? "off";
-        $assessmentUnderstanding->url = 'Assessment';
+        $assessmentUnderstanding->page = 'Assessment';
+        $assessmentUnderstanding->url = 'assessment';
         $assessmentUnderstanding->pointers = json_encode($pointers);
 
 

@@ -77,34 +77,44 @@ class CtaController extends Controller
         $cta->cta_type = $request->cta_type;
         switch ($request->type) {
             case 'Home':
-                $url_type = 'Home';
+                $url_type = '/';
+                $url_page = $request->type;
                 break;
             case 'ADHD':
-                $url_type = 'ADHD';
+                $url_type = 'adhd';
+                $url_page = $request->type;
                 break;
             case 'Autism':
-                $url_type = 'Autism';
+                $url_type = 'autism';
+                $url_page = $request->type;
                 break;
             case 'Assessment':
-                $url_type = 'Assessment';
+                $url_type = 'assessment';
+                $url_page = $request->type;
                 break;
             case 'Fees':
-                $url_type = 'Fees';
+                $url_type = 'fee';
+                $url_page = $request->type;
                 break;
             case 'About Us':
-                $url_type = 'About Us';
+                $url_type = 'about';
+                $url_page = $request->type;
                 break;
             case 'Our Approach':
-                $url_type = 'Our Approach';
+                $url_type = 'our-approach';
+                $url_page = $request->type;
                 break;
             case 'Accreditation & Certifications':
-                $url_type = 'Accreditation & Certifications';
+                $url_type = 'accreditation';
+                $url_page = $request->type;
                 break;
     
             default:
                 $url_type = null;
+                $url_page = null;
                 break;
         }
+        $cta->page = $url_page;
         $cta->url = $url_type;
         $cta->button_content = $request->button_content;
         $cta->button_link = $request->button_link;
@@ -156,35 +166,44 @@ class CtaController extends Controller
 
         switch ($request->type) {
             case 'Home':
-                $url_type = 'Home';
+                $url_type = '/';
+                $url_page = $request->type;
                 break;
             case 'ADHD':
-                $url_type = 'ADHD';
+                $url_type = 'adhd';
+                $url_page = $request->type;
                 break;
             case 'Autism':
-                $url_type = 'Autism';
+                $url_type = 'autism';
+                $url_page = $request->type;
                 break;
             case 'Assessment':
-                $url_type = 'Assessment';
+                $url_type = 'assessment';
+                $url_page = $request->type;
                 break;
             case 'Fees':
-                $url_type = 'Fees';
+                $url_type = 'fee';
+                $url_page = $request->type;
                 break;
             case 'About Us':
-                $url_type = 'About Us';
+                $url_type = 'about';
+                $url_page = $request->type;
                 break;
             case 'Our Approach':
-                $url_type = 'Our Approach';
+                $url_type = 'our-approach';
+                $url_page = $request->type;
                 break;
             case 'Accreditation & Certifications':
-                $url_type = 'Accreditation & Certifications';
+                $url_type = 'accreditation';
+                $url_page = $request->type;
                 break;
     
             default:
                 $url_type = null;
+                $url_page = null;
                 break;
         }
-
+        $cta->page = $url_page;
         $cta->url = $url_type;
         $cta->button_content = $request->button_content;
         $cta->button_link = $request->button_link;

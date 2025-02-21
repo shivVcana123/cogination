@@ -24,6 +24,7 @@ class HomeAboutUsDataResource extends JsonResource
             'button_link' => $this->button_link,
             'status' => $this->status,
             'url' => $this->url,
+            'page' => $this->page,
         ];
     }
 }

@@ -43,7 +43,7 @@ class BannerController extends Controller
         'description' => 'required|string|min:10|max:2000',
         'button_text' => 'nullable|string|min:3|max:100',
         'button_link' => 'nullable|max:500',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg',
+        'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg',
     ], [
         'type.required' => 'The banner type is required.',
         'type.min' => 'The banner type must be at least 3 characters.',
@@ -100,34 +100,44 @@ class BannerController extends Controller
     $banner->type = $request->type;
     switch ($request->type) {
         case 'Home':
-            $url_type = 'Home';
+            $url_type = '/';
+            $url_page = $request->type;
             break;
         case 'ADHD':
-            $url_type = 'ADHD';
+            $url_type = 'adhd';
+            $url_page = $request->type;
             break;
         case 'Autism':
-            $url_type = 'Autism';
+            $url_type = 'autism';
+            $url_page = $request->type;
             break;
         case 'Assessment':
-            $url_type = 'Assessment';
+            $url_type = 'assessment';
+            $url_page = $request->type;
             break;
         case 'Fees':
-            $url_type = 'Fees';
+            $url_type = 'fee';
+            $url_page = $request->type;
             break;
         case 'About Us':
-            $url_type = 'About Us';
+            $url_type = 'about';
+            $url_page = $request->type;
             break;
         case 'Our Approach':
-            $url_type = 'Our Approach';
+            $url_type = 'our-approach';
+            $url_page = $request->type;
             break;
         case 'Accreditation & Certifications':
-            $url_type = 'Accreditation & Certifications';
+            $url_type = 'accreditation';
+            $url_page = $request->type;
             break;
 
         default:
             $url_type = null;
+            $url_page = null;
             break;
     }
+    $banner->page = $url_page;
     $banner->url = $url_type;
     $banner->section_type = $request->section_type ?? '';
     $banner->description = $request->description;
@@ -143,60 +153,8 @@ class BannerController extends Controller
     $banner->save();
 
     return redirect()->route('banner.index')->with('success', 'Banner created successfully!');
-}
+    }
 
-//     public function store(Request $request)
-//     {
-
-        
-//         // Allow multiple banners if type is "Home"
-// if ($request->type === 'Home') {
-//     // Skip validation and allow multiple banners
-// } else {
-//     // Check for existing banner with the same type and section_type
-//     $existingBanner = BannerSection::where('type', $request->type)
-//         ->where('section_type', $request->section_type)
-//         ->first();
-
-//     // Check for existing banner with the same type (excluding Home)
-//     $existingBannerData = BannerSection::where('type', $request->type)
-//         ->first();
-
-//     if ($existingBanner) {
-//         return redirect()->back()->withErrors([
-//             'section_type' => 'A banner with this type and section type already exists.',
-//         ]);
-//     }
-
-//     if ($existingBannerData) {
-//         return redirect()->back()->withErrors([
-//             'type' => 'A banner with this type already exists and is not Home.',
-//         ]);
-//     }
-// }
-
-// dd('sdsadsa');
-//         $banner = new BannerSection();
-//         $banner->heading = $request->heading;
-//         $banner->subtitle = $request->subtitle;
-//         $banner->type = $request->type;
-//         $banner->section_type = $request->section_type ?? '';
-//         $banner->description = $request->description;
-//         $banner->button_text = $request->button_text;
-//         $banner->button_link = $request->button_link;
-//         if ($request->hasFile('image') && $request->file('image')->isValid()) {
-//             $imageName = time() . '_' . uniqid() . '_' . $request->file('image')->getClientOriginalName();
-//             $imagePath = $request->file('image')->storeAs('banner', $imageName, 'public');
-//             $banner->image = 'storage/' . $imagePath;
-//         }
-
-//         $banner->save();
-//         return redirect()->route('banner.index')->with('success', 'Record created successfully!');
-//     }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
@@ -236,34 +194,44 @@ class BannerController extends Controller
         $banner->type = $request->type;
         switch ($request->type) {
             case 'Home':
-                $url_type = 'Home';
+                $url_type = '/';
+                $url_page = $request->type;
                 break;
             case 'ADHD':
-                $url_type = 'ADHD';
+                $url_type = 'adhd';
+                $url_page = $request->type;
                 break;
             case 'Autism':
-                $url_type = 'Autism';
+                $url_type = 'autism';
+                $url_page = $request->type;
                 break;
             case 'Assessment':
-                $url_type = 'Assessment';
+                $url_type = 'assessment';
+                $url_page = $request->type;
                 break;
             case 'Fees':
-                $url_type = 'Fees';
+                $url_type = 'fee';
+                $url_page = $request->type;
                 break;
             case 'About Us':
-                $url_type = 'About Us';
+                $url_type = 'about';
+                $url_page = $request->type;
                 break;
             case 'Our Approach':
-                $url_type = 'Our Approach';
+                $url_type = 'our-approach';
+                $url_page = $request->type;
                 break;
             case 'Accreditation & Certifications':
-                $url_type = 'Accreditation & Certifications';
+                $url_type = 'accreditation';
+                $url_page = $request->type;
                 break;
     
             default:
                 $url_type = null;
+                $url_page = null;
                 break;
         }
+        $banner->page = $url_page;
         $banner->url = $url_type;
         $banner->section_type = $request->section_type ?? '';
         $banner->description = $request->description;

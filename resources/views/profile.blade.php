@@ -1,5 +1,11 @@
 @extends('layouts.guest')
 @section('content')
+
+<style>
+    .admin-caard{
+    border-top: 43px solid #069aef !important;
+}
+</style>
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
@@ -22,20 +28,18 @@
             <div class="col-md-12">
 
                     <!-- Profile Image -->
-                    <div class="card card-primary card-outline">
+                    <div class="card card-primary card-outline admin-caard">
                     <div class="card-body box-profile">
                        
 
-                        <h3 class="profile-username text-center">{{ auth()->user()->name }}</h3>
+               
 
-                        <p class="text-muted text-center">{{ auth()->user()->email }}</p>
-
-                        <ul class="list-group list-group-unbordered mb-3">
+                        <ul class="list-group  mb-3">
                         <li class="list-group-item">
-                            <b>Admin Name</b> <a class="float-right">{{ auth()->user()->name }}</a>
+                            <b>Name</b> <a class="float-right">{{ auth()->user()->name }}</a>
                         </li>
                         <li class="list-group-item">
-                            <b>Admin Email</b> <a class="float-right">{{ auth()->user()->email }}</a>
+                            <b>Email</b> <a class="float-right">{{ auth()->user()->email }}</a>
                         </li>
                         
                         </ul>
