@@ -21,6 +21,7 @@ class AssessmentOurDiagnosticServiceResource extends JsonResource
             'pointers' => json_decode($this->pointers),
             'status' => $this->status,
             'url' => $this->url,
+            'page' => $this->page,
         ];
     }
 }

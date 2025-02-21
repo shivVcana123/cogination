@@ -15,7 +15,6 @@ span.edit-area {
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{route('header.index')}}">Header</a></li>
-                        <li class="breadcrumb-item active">Form</li>
                     </ol>
                 </div>
             </div>

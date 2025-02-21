@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('second_sub_title')->nullable();
             $table->string('second_sub_description')->nullable();
             $table->string('second_image')->nullable();
+            $table->string('page')->nullable();
             $table->string('url')->nullable();
             $table->json('pointers')->nullable();
             $table->enum('status', ['on', 'off'])->default('on')->comment('on = show, off = hide');

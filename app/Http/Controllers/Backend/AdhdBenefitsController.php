@@ -125,7 +125,8 @@ class AdhdBenefitsController extends Controller
             $adhdBenefit->subtitle = $request->subtitle;
             $adhdBenefit->description_1 = $request->description_1;
             $adhdBenefit->status = $request->status ?? "off";
-            $adhdBenefit->url = 'ADHD';
+            $adhdBenefit->page = 'ADHD';
+            $adhdBenefit->url = 'adhd';
             $adhdBenefit->pointers = json_encode($pointers);
             $adhdBenefit->save();
 
@@ -138,7 +139,6 @@ class AdhdBenefitsController extends Controller
             return redirect()->route('adhd-benefits')->with('success', $message);
         
     }
-
 
     public function adhdSection()
     {
@@ -225,7 +225,8 @@ class AdhdBenefitsController extends Controller
         $adhdSection->first_description = $request->first_description;
         $adhdSection->first_button_content = $request->first_button_content;
         $adhdSection->first_button_link = $request->first_button_link;
-        $adhdSection->url = 'ADHD';
+        $adhdSection->page = 'ADHD';
+        $adhdSection->url = 'adhd';
         // $adhdSection->second_title = $request->second_title;
         // $adhdSection->second_subtitle = $request->second_subtitle;
         // $adhdSection->second_description = $request->second_description;
@@ -339,7 +340,8 @@ class AdhdBenefitsController extends Controller
             $adhdSecondSection->second_description = $validated['second_description'] ?? null;
             $adhdSecondSection->heading = $validated['heading'] ?? null;
             $adhdSecondSection->status = $request->status ?? "off";
-            $adhdSecondSection->url = 'ADHD';
+            $adhdSecondSection->page = 'ADHD';
+            $adhdSecondSection->url = 'adhd';
             $adhdSecondSection->pointers = json_encode($pointers);
     
             // Handle second image upload
@@ -356,7 +358,6 @@ class AdhdBenefitsController extends Controller
        
     
     }
-    
 
     public function fetchAdhdSecondSectionByType(Request $request)
     {

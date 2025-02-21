@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('button_link')->nullable();
             $table->string('background_color')->nullable();
             $table->string('background_image')->nullable();
+            $table->string('page')->nullable();
             $table->string('url')->nullable();
             $table->text('description')->nullable();
             $table->enum('status', ['on', 'off'])->default('on')->comment('on = show, off = hide');

@@ -13,9 +13,9 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('cta.index') }}">cta</a>
                         </li>
-                        <li class="breadcrumb-item active">
+                        <!-- <li class="breadcrumb-item active">
                             {{ isset($cta->id) ? 'Edit Form' : 'Add Form' }}
-                        </li>
+                        </li> -->
                     </ol>
                 </div>
             </div>

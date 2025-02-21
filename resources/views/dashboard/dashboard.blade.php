@@ -1,23 +1,30 @@
 @extends('layouts.guest')
 @section('content')
 <style>
-   body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-        }
-        #chartContainer {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        #newsletterChart {
-            width: 90% !important;
-            height: 460px !important
-        }
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  #chartContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #newsletterChart {
+    width: 90% !important;
+    height: 460px !important
+  }
+
+  .content-header {
+    margin-bottom: 0px !important;
+  }
 </style>
 <div class="content-wrapper">
   <div class="content-header">
@@ -26,12 +33,11 @@
         <div class="col-sm-6">
           <h1 class="m-0">Dashboard</h1>
         </div>
-        <div class="col-sm-6">
+        <!-- <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item active">Dashboard</li>
           </ol>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -96,9 +102,8 @@
             </div>
             <div class="card-body">
               <div class="tab-content p-0">
-                <div class="chart tab-pane active" id="revenue-chart"
-                >
-                  <canvas id="newsletterChart" ></canvas>
+                <div class="chart tab-pane active" id="revenue-chart">
+                  <canvas id="newsletterChart"></canvas>
                 </div>
               </div>
             </div>
@@ -109,9 +114,9 @@
   </section>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-  function fetchData(filterType = "week") { // Default value is "week"
+  function fetchData(filterType = "week") {
     let baseUrl = "{{ route('newsletter-subscriptions-recent', ['filter' => 'PLACEHOLDER']) }}";
     let apiUrl = baseUrl.replace("PLACEHOLDER", filterType); // Replace placeholder with actual filter
 
@@ -119,13 +124,20 @@
       url: apiUrl,
       type: "GET",
       dataType: "json",
-      success: function (data) {
+      success: function(data) {
         // Format labels as Month/Year
         const labels = data.map(item => `${item.month}/${item.year}`);
         const subscriptionCounts = data.map(item => item.count);
 
         const ctx = document.getElementById('newsletterChart').getContext('2d');
-        new Chart(ctx, {
+
+        // Destroy existing chart instance if it exists to avoid duplication
+        if (window.myChart) {
+          window.myChart.destroy();
+        }
+
+        // Create a new chart instance
+        window.myChart = new Chart(ctx, {
           type: "bar",
           data: {
             labels: labels,
@@ -139,10 +151,20 @@
           },
           options: {
             responsive: true,
+            hover: {
+              mode: null // Prevent hover effects from changing the chart
+            },
+            interaction: {
+              mode: 'nearest', // Ensures tooltip shows on nearest bar
+              intersect: true
+            },
             plugins: {
               legend: {
                 display: true,
                 position: 'top'
+              },
+              tooltip: {
+                enabled: true // Keep tooltips active
               }
             },
             scales: {
@@ -152,8 +174,8 @@
                   text: 'Month/Year'
                 },
                 ticks: {
-                  autoSkip: false,  // Ensure all labels are shown
-                  maxRotation: 45,  // Rotate labels to avoid overlapping
+                  autoSkip: false, // Ensure all labels are shown
+                  maxRotation: 45, // Rotate labels to avoid overlapping
                   minRotation: 45
                 }
               },
@@ -168,7 +190,7 @@
           }
         });
       },
-      error: function (xhr, status, error) {
+      error: function(xhr, status, error) {
         console.error("Error fetching newsletter subscription data:", error);
       }
     });

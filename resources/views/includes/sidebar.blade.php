@@ -387,7 +387,7 @@ $logo = Logo::first();
                         <li class="nav-item">
                             <a href="{{ route('news-letter-form') }}" class="nav-link {{ request()->is('news-letter-form*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Form</p>
+                                <p style="color:black">Newsletter Section</p>
                             </a>
                         </li>
                     </ul>
@@ -396,7 +396,7 @@ $logo = Logo::first();
                         <li class="nav-item">
                             <a href="{{ route('news-letter-list') }}" class="nav-link {{ request()->is('news-letter-list*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
-                                <p style="color:black">Index</p>
+                                <p style="color:black">User Email Details</p>
                             </a>
                         </li>
                     </ul>

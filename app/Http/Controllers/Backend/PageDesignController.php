@@ -59,9 +59,6 @@ class PageDesignController extends Controller
          return redirect()->route('page.index')->with('success', 'Page created successfully');
      }
      
-
-   
-
     /**
      * Display the specified resource.
      */
@@ -80,8 +77,6 @@ class PageDesignController extends Controller
         return view('page-design.page_design', compact('pageData', 'categories'));
     }
 
-
-    
     /**
      * Update the specified resource in storage.
      */

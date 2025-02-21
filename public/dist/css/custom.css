@@ -14,6 +14,9 @@
 .card-header h3{
    color: #fff;
 }
+.content-header {
+    margin-bottom: -30px !important;
+}
 
 label:not(.form-check-label):not(.custom-file-label) {
     font-weight: 600;

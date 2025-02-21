@@ -71,8 +71,8 @@ class AutismsSectionController extends Controller
         $autismSection->first_description = $validated['first_description'];
         $autismSection->first_button_content = $validated['first_button_content'];
         $autismSection->first_button_link = $validated['first_button_link'];
-        $autismSection->url = 'Autism';
-    
+        $autismSection->page = 'Autism';
+        $autismSection->url = 'autism';
       
         $autismSection->status = $request->status ?? "off";  
 
@@ -184,7 +184,8 @@ class AutismsSectionController extends Controller
         $autismSection->second_button_link = $validated['second_button_link'];
         $autismSection->second_description = $validated['second_description'];
         $autismSection->status = $request->status ?? "off";
-        $autismSection->url = 'Autism';
+        $autismSection->page = 'Autism';
+        $autismSection->url = 'autism';
         $autismSection->pointers = json_encode($pointers);
 
         // Handle second image upload
@@ -285,7 +286,8 @@ class AutismsSectionController extends Controller
         $autismSection->subtitle = $validated['subtitle'];
         $autismSection->description = $validated['description'];
         $autismSection->status = $request->status ?? "off";
-        $autismSection->url = 'Autism';
+        $autismSection->page = 'Autism';
+        $autismSection->url = 'autism';
         $autismSection->pointers = json_encode($pointers);
 
         $autismSection->save();
@@ -368,7 +370,8 @@ class AutismsSectionController extends Controller
         $autismSection->description = $validated['description'];
         $autismSection->button_content = $validated['button_content'];
         $autismSection->button_link = $validated['button_link'];
-        $autismSection->url = 'Autism';
+        $autismSection->page = 'Autism';
+        $autismSection->url = 'autism';
         $autismSection->status = $request->status ?? "off";
         $autismSection->save();
    
@@ -452,7 +455,8 @@ class AutismsSectionController extends Controller
         $autismBook->button_content = $validated['button_content'];
         $autismBook->button_link = $validated['button_link'];
         $autismBook->status = $request->status ?? "off";
-        $autismBook->url = 'Autism';
+        $autismBook->page = 'Autism';
+        $autismBook->url = 'autism';
         $autismBook->save();
    
 
@@ -555,5 +559,4 @@ class AutismsSectionController extends Controller
         return redirect()->route('autism-index')->with('success', 'Adhd details saved successfully.');
 
     }
-
 }

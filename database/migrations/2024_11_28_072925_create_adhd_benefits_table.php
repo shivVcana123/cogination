@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('subtitle')->nullable();
             $table->text('description_1')->nullable();
             $table->json('pointers')->nullable();
+            $table->string('page')->nullable();
             $table->string('url')->nullable();
             $table->enum('status', ['on', 'off'])->default('on')->comment('on = show, off = hide');
             $table->timestamps();
