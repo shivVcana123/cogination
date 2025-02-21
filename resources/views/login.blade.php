@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8" />
     <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset('assets/images/smallLogo.png') }}" sizes="65x65" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
@@ -35,7 +35,7 @@
     }
     
     .login-section .space-left {
-      padding-left: 50px;
+      padding-left: 65px;
     }
     
     .first-colm {
@@ -70,7 +70,7 @@
     
     .login-section img {
       display: block;
-      width: 25%;
+      width: 40%;
       margin: 0 auto;
       padding-bottom: 70px;
     }
@@ -83,7 +83,7 @@
     }
     
     .login-foot {
-      padding-top: 70px;
+      padding-top: 30px;
     }
     
     .space-colm {
@@ -130,7 +130,7 @@
       line-height: 60px;
       letter-spacing: 0.02em;
       text-align: center;
-      color: #04498c;
+      color: #02B3E9;
     }
     
     .login-section h6 {
@@ -184,7 +184,8 @@
     }
     
     .loginbtn {
-      background-color: #04498c !important;
+      /* background-color: #04498c !important; */
+      background-image: linear-gradient(to left, #02B3E8 0%, #12C9CD 100%);
       height: 60px;
       border-radius: 10px !important;
       border: none !important;
@@ -197,8 +198,8 @@
     
     .loginbtn:hover {
       background-color: transparent !important;
-      color: #04498c !important;
-      border: 1px solid #04498c !important;
+      color:rgb(255, 255, 255) !important;
+      border: 1px solid #02B3E9 !important;
     }
     
     .form-container {
@@ -364,7 +365,7 @@
     
     @media (min-width: 1400px) and (max-width: 1600px) {
       .login-section .space-left {
-        padding-left: 0px;
+        /* padding-left: 0px; */
         padding-right: 100px;
       }
     }
@@ -377,6 +378,11 @@ span.fa.fa-fw.fa-eye.field-icon.toggle-password, span.fa.fa-fw.field-icon.toggle
     display: block;
     float: right;
     right: 168px;
+}
+
+p a {
+  color: floralwhite;
+  text-decoration-line: blink;
 }
     </style>
     
@@ -392,18 +398,18 @@ span.fa.fa-fw.fa-eye.field-icon.toggle-password, span.fa.fa-fw.field-icon.toggle
                 <h2>Your Trusted Healthcare Partner</h2>
                 </div>
                 <div class="image-colm">
-                  <img src="{{ asset('assets/images/logocognition.png') }}" alt="" />
+                  <!-- <img src="{{ asset('assets/images/logocognition.png') }}" alt="" /> -->
+                  <img src="{{ asset('assets/images/New-logo.png') }}" alt="" />
                   <p>
-                Your health and well-being are our top priorities. At Cognition Care, we provide a seamless and secure 
-                healthcare management experience.  
+                  We Are Dedicated To Empowering You With  Best Mental Health Care 
               </p>
-              <p>
-                Access your personalized dashboard, manage your appointments, and stay informed with the latest 
-                healthcare updates.
-              </p>
-                   <p class="login-foot">
-                Stay Connected <span class="space-colm">|</span> Stay Healthy
-              </p>
+         
+              <p class="login-foot">
+    <span onclick="openInNewTab('https://cognition-demo.vercel.app')">Stay Connected</span> 
+    <span class="space-colm">|</span> 
+    <span onclick="openInNewTab('https://cognition-demo.vercel.app/about')">Stay Healthy</span>
+</p>
+
                 </div>
               </div>
             </div>
@@ -471,5 +477,9 @@ span.fa.fa-fw.fa-eye.field-icon.toggle-password, span.fa.fa-fw.field-icon.toggle
         input.attr("type", "password");
       }
     });
+
+    function openInNewTab(url) {
+        window.open(url, '_blank');
+    }
   </script>
 </html>

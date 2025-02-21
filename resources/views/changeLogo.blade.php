@@ -36,6 +36,8 @@
                             <input type="file" id="imageInput" name="image" accept="image/*" style="display: none;">
                             <button type="button" id="chooseImageBtn" style="background-color:#17a2b8;color:white">Choose Image</button>
                             <button type="submit" id="upload" style="background-color:#17a2b8;color:white">Upload</button>
+                            <button type="button" id="reset" style="background-color:#17a2b8;color:white">Reset</button>
+
                         </form>
                     </div>
                     <!-- /.card-body -->
@@ -47,7 +49,7 @@
 </div>
  <style>
     #preview {
-      width: 200px;
+      width: 227px;
       height: 200px;
       border: 2px dashed #ccc;
       display: flex;
@@ -61,30 +63,41 @@
     }
   </style>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
- <script>
-    $(document).ready(function () {
-        // Trigger file input click on button click
-        $('#chooseImageBtn').click(function () {
-            $('#imageInput').click();
-        });
+  <script>
+$(document).ready(function () {
+    let oldImage = "{{ $logo->logo ? asset($logo->logo) : '' }}"; // Store old image URL
 
-        // Preview the selected image and submit the form
-        $('#imageInput').change(function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#preview').html(`<img src="${e.target.result}" alt="Selected Image">`);
-                };
-                reader.readAsDataURL(file);
-
-              
-            } else {
-                $('#preview').html('Choose an image');
-            }
-        });
-       
+    // Trigger file input when "Choose Image" is clicked
+    $('#chooseImageBtn').on('click', function () {
+        $('#imageInput').click();
     });
+
+    // Update preview when a new file is selected
+    $('#imageInput').on('change', function (e) {
+        let file = e.target.files[0];
+        if (file) {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                $('#preview').html('<img id="previewImage" src="' + e.target.result + '" alt="Logo" style="width: 100%; height: auto;">');
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Reset preview and file input when "Reset" is clicked
+    $('#reset').on('click', function (e) {
+        e.preventDefault(); // Prevent unintended behavior
+        $('#imageInput').val(''); // Clear file input
+
+        if (oldImage) {
+            // If old image exists, restore it
+            $('#preview').html('<img id="previewImage" src="' + oldImage + '" alt="Logo" style="width: 100%; height: auto;">');
+        } else {
+            // If no old image, show default text
+            $('#preview').html('<span id="previewText">Choose an image</span>');
+        }
+    });
+});
 </script>
 
 @endsection
