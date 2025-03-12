@@ -70,7 +70,7 @@ $logo = Logo::first();
                 </li>
 
                 <!-- Home Section -->
-                <li class="nav-item {{ request()->is('home*') || request()->is('whychooseus*') || request()->is('bringinghealthcare*') || request()->is('faqs*') || request()->is('appointment*') || request()->is('about-us*') || request()->is('our-services*') ? 'menu-open' : '' }}">
+                <li class="nav-item {{ request()->is('home*') || request()->is('whychooseus*') || request()->is('bringinghealthcare*') || request()->is('faqs*') || request()->is('appointment*') || request()->is('about-us*') || request()->is('assessment-whychoose*') || request()->is('our-services*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-home" style="color:black"></i>
                         <p style="color:black">
@@ -86,6 +86,14 @@ $logo = Logo::first();
                                 <!-- <p class="sectiontext">Section</p> -->
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('assessment-whychoose-section') }}" class="nav-link {{ request()->is('assessment-whychoose*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon" style="color:black"></i>
+                                <p style="color:black">Why Choose Cognitive Care (section)</p>
+                            </a>
+                        </li>
+
                         <li class="nav-item">
                             <a href="{{route('appointment')}}" class="nav-link {{ request()->is('appointment*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
@@ -208,7 +216,7 @@ $logo = Logo::first();
                 </li>
 
                 <!-- Assessments -->
-                <li class="nav-item {{ request()->is('assessment-section*') || request()->is('assessment-whychoose*') || request()->is('our-diagnostic-services*') || request()->is('understanding-conditions*') ? 'menu-open' : '' }}">
+                <li class="nav-item {{ request()->is('assessment-section*') || request()->is('our-diagnostic-services*') || request()->is('understanding-conditions*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-clipboard-list" style="color:black"></i>
                         <p style="color:black">
@@ -229,12 +237,12 @@ $logo = Logo::first();
                                 <p style="color:black">Our Diagnostic Services (section)</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="{{ route('assessment-whychoose-section') }}" class="nav-link {{ request()->is('assessment-whychoose*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="color:black"></i>
                                 <p style="color:black">Why Choose Cognitive Care (section)</p>
                             </a>
-                        </li>
+                        </li> -->
 
                         <li class="nav-item">
                             <a href="{{ route('understanding-conditions-section') }}" class="nav-link {{ request()->is('understanding-conditions*') ? 'active' : '' }}">

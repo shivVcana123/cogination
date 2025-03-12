@@ -71,42 +71,131 @@ class AboutUsController extends Controller
         return view('about-section.ourmission',compact('ourMissionSection'));
     }
 
-    public function saveOurMissionSection(Request $request)
-    {
-        $validated = $request->validate([
-            'title' => 'required|min:3|max:255',
-            'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg',
-        ], [
-            'title.required' => 'The title field is required.',
-            'title.min' => 'The title must be at least 3 characters.',
-            'title.max' => 'The title must not exceed 255 characters.',
-            'image.mimes' => 'The second image must be a file of type: jpeg, png, jpg, gif,svg, webp.',
-        ]);
+    // public function saveOurMissionSection(Request $request)
+    // {
+    //     $validated = $request->validate([
+    //         'title' => 'required|min:3|max:255',
+    //         'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg',
+    //     ], [
+    //         'title.required' => 'The title field is required.',
+    //         'title.min' => 'The title must be at least 3 characters.',
+    //         'title.max' => 'The title must not exceed 255 characters.',
+    //         'image.mimes' => 'The second image must be a file of type: jpeg, png, jpg, gif,svg, webp.',
+    //     ]);
 
-        // Fetch or create a new section
-        $ourMissionSection = $request->id
-            ? AboutUsOurMission::find($request->id)
-            : new AboutUsOurMission();
+    //     // Fetch or create a new section
+    //     $ourMissionSection = $request->id
+    //         ? AboutUsOurMission::find($request->id)
+    //         : new AboutUsOurMission();
 
-        // Handle first image upload
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $imageName = time().'_'.uniqid().'_'.$request->file('image')->getClientOriginalName();
-            $imagePath = $request->file('image')->storeAs('about', $imageName, 'public');
-            $ourMissionSection->image = 'storage/'.$imagePath;
-        }
+    //     // Handle first image upload
+    //     if ($request->hasFile('image') && $request->file('image')->isValid()) {
+    //         $imageName = time().'_'.uniqid().'_'.$request->file('image')->getClientOriginalName();
+    //         $imagePath = $request->file('image')->storeAs('about', $imageName, 'public');
+    //         $ourMissionSection->image = 'storage/'.$imagePath;
+    //     }
         
 
 
-        // Assign data
-        $ourMissionSection->title = $request->title;
-        $ourMissionSection->status = $request->status ?? "off";
-        $ourMissionSection->page = 'About Us';
-        $ourMissionSection->url = 'about';
-        $ourMissionSection->save();
+    //     // Assign data
+    //     $ourMissionSection->title = $request->title;
+    //     $ourMissionSection->status = $request->status ?? "off";
+    //     $ourMissionSection->page = 'About Us';
+    //     $ourMissionSection->url = 'about';
+    //     $ourMissionSection->save();
    
 
-        return redirect()->route('our-mission-section')->with('success', 'Adhd details saved successfully.');
+    //     return redirect()->route('our-mission-section')->with('success', 'Adhd details saved successfully.');
+    // }
+
+    
+// public function saveOurMissionSection(Request $request)
+// {
+//     $validated = $request->validate([
+//         'title' => 'required|min:3|max:255',
+//         'file' => 'nullable|mimes:jpeg,png,jpg,gif,webp,svg,mp4,mov,avi,wmv|max:50000',
+//     ], [
+//         'title.required' => 'The title field is required.',
+//         'title.min' => 'The title must be at least 3 characters.',
+//         'title.max' => 'The title must not exceed 255 characters.',
+//         'file.mimes' => 'The file must be an image (jpeg, png, jpg, gif, webp, svg) or a video (mp4, mov, avi, wmv).',
+//         'file.max' => 'The file size must not exceed 50MB.',
+//     ]);
+
+//     // Fetch or create a new section
+//     $ourMissionSection = $request->id
+//         ? AboutUsOurMission::find($request->id)
+//         : new AboutUsOurMission();
+
+//     // Handle file upload (image or video)
+//     if ($request->hasFile('file') && $request->file('file')->isValid()) {
+//         $file = $request->file('file');
+//         $fileName = time().'_'.uniqid().'_'.$file->getClientOriginalName();
+//         $folder = in_array($file->getClientOriginalExtension(), ['mp4', 'mov', 'avi', 'wmv']) ? 'about/videos' : 'about/images';
+//         $filePath = $file->storeAs($folder, $fileName, 'public');
+//         $ourMissionSection->image = 'storage/'.$filePath;
+//     }
+
+//     // Assign data
+//     $ourMissionSection->title = $request->title;
+//     $ourMissionSection->status = $request->status ?? "off";
+//     $ourMissionSection->page = 'About Us';
+//     $ourMissionSection->url = 'about';
+//     $ourMissionSection->save();
+
+//     return redirect()->route('our-mission-section')->with('success', 'Our mission section saved successfully.');
+// }
+
+public function saveOurMissionSection(Request $request)
+{
+    $validated = $request->validate([
+        'title' => 'required|min:3|max:255',
+        'file' => 'nullable|mimes:jpeg,png,jpg,gif,webp,svg,mp4,mov,avi,wmv|max:50000',
+    ], [
+        'title.required' => 'The title field is required.',
+        'title.min' => 'The title must be at least 3 characters.',
+        'title.max' => 'The title must not exceed 255 characters.',
+        'file.mimes' => 'The file must be an image (jpeg, png, jpg, gif, webp, svg) or a video (mp4, mov, avi, wmv).',
+        'file.max' => 'The file size must not exceed 50MB.',
+    ]);
+
+    // Fetch or create a new section
+    $ourMissionSection = $request->id
+        ? AboutUsOurMission::find($request->id)
+        : new AboutUsOurMission();
+
+    // Handle file upload (image or video)
+    // if ($request->hasFile('file') && $request->file('file')->isValid()) {
+    //     $file = $request->file('file');
+    //     $fileName = time().'_'.uniqid().'_'.$file->getClientOriginalName();
+    //     $filePath = $file->storeAs('about', $fileName, 'public'); // Store all files in "about/" folder
+    //     $ourMissionSection->image = 'storage/'.$filePath;
+    // }
+    if ($request->hasFile('file') && $request->file('file')->isValid()) {
+        $file = $request->file('file');
+        $fileName = time().'_'.uniqid().'_'.str_replace(' ', '', trim($file->getClientOriginalName()));
+        $filePath = $file->storeAs('about', $fileName, 'public');
+        $ourMissionSection->image = 'storage/'.$filePath;
     }
+    
+
+
+
+
+
+
+
+    // Assign data
+    $ourMissionSection->title = $request->title;
+    $ourMissionSection->status = $request->status ?? "off";
+    $ourMissionSection->page = 'About Us';
+    $ourMissionSection->url = 'about';
+    $ourMissionSection->save();
+
+    return redirect()->route('our-mission-section')->with('success', 'Our mission section saved successfully.');
+}
+
+
 
     public function joinCommunitySection(){
         $joinCommunitySection = AboutUsJoinCommunity::all();

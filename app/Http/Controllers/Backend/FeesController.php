@@ -16,7 +16,9 @@ class FeesController extends Controller
 
     public function __construct()
     {
-        $this->stripe = new StripeClient(env('STRIPE_SECRET'));
+        // $this->stripe = new StripeClient(env('STRIPE_SECRET'));
+        $this->stripe = new StripeClient(config('services.stripe.secret'));
+
     }
 
     public function financialResponsibilities()

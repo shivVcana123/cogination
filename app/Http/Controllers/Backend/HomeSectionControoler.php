@@ -87,63 +87,121 @@ class HomeSectionControoler extends Controller
         return view('home-section.appointment', compact('appointment'));
     }
   
+    // public function saveappointment(Request $request)
+    // {
+
+    //     // Validate request data
+    //     $request->validate(
+    //         [
+    //             'title' => 'required',
+    //             'subtitle' => 'required',
+    //             'button_content' => 'nullable',
+    //             'button_link' => 'nullable|required_with:button_content',
+    //             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
+    //         ],
+    //         [
+    //             'title.required' => 'The title field is required.',
+    //             'subtitle.required' => 'The description field is required.',
+    //             'button_link.required_with' => 'The button link is required when button content is provided.',
+    //             'image.image' => 'The uploaded file must be an image.',
+    //             'image.mimes' => 'The image must be in jpeg, png, jpg, gif, webp, or svg format.',
+    //         ]
+    //     );
+
+    //     // Fetch or create a new record
+    //     $healthcare = $request->id ? HomeAppointment::find($request->id) : new HomeAppointment();
+    //     if (!$healthcare) {
+    //         return redirect()->route('whyhealthcare')->withErrors('Record not found.');
+    //     }
+
+    //     // Assign values from request
+    //     $healthcare->title = $request->title;
+    //     $healthcare->subtitle = $request->subtitle ?? null;
+    //     $healthcare->button_content = $request->button_content ?? null;
+    //     $healthcare->button_link = $request->button_link ?? null;
+    //     $healthcare->status = $request->status ?? "off";
+    //     $healthcare->page = 'Home';
+    //     $healthcare->url = '/';
+    //     // Handle image upload
+    //     if ($request->hasFile('image') && $request->file('image')->isValid()) {
+    //         $directory = 'home';
+
+    //         // Delete the old image if it exists
+    //         if ($healthcare->image) {
+    //             $oldImage = str_replace('storage/', '', $healthcare->image);
+    //             Storage::disk('public')->delete($oldImage);
+    //         }
+
+    //         // Upload the new image
+    //         $uploadedImage = $request->file('image');
+    //         $imageName = uniqid() . '_' . str_replace(' ', '_', $uploadedImage->getClientOriginalName());
+    //         $imagePath = $uploadedImage->storeAs($directory, $imageName, 'public');
+    //         $healthcare->image = 'storage/' . $imagePath;
+    //     }
+
+    //     // Save the record
+    //     $healthcare->save();
+
+    //     return redirect()->route('appointment')->with('message', 'Data saved successfully.');
+    // }
+
+    
     public function saveappointment(Request $request)
-    {
+{
+    // Validate request data
+    $request->validate(
+        [
+            'title' => 'required',
+            'subtitle' => 'required',
+            'button_content' => 'nullable',
+            'button_link' => 'nullable|required_with:button_content',
+            'file' => 'nullable|mimes:jpeg,png,jpg,gif,webp,svg,mp4,mov,avi,wmv|max:50000',
+        ],
+        [
+            'title.required' => 'The title field is required.',
+            'subtitle.required' => 'The description field is required.',
+            'button_link.required_with' => 'The button link is required when button content is provided.',
+            'file.mimes' => 'The file must be an image (jpeg, png, jpg, gif, webp, svg) or a video (mp4, mov, avi, wmv).',
+            'file.max' => 'The file size must not exceed 50MB.',
+        ]
+    );
 
-        // Validate request data
-        $request->validate(
-            [
-                'title' => 'required',
-                'subtitle' => 'required',
-                'button_content' => 'nullable',
-                'button_link' => 'nullable|required_with:button_content',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
-            ],
-            [
-                'title.required' => 'The title field is required.',
-                'subtitle.required' => 'The description field is required.',
-                'button_link.required_with' => 'The button link is required when button content is provided.',
-                'image.image' => 'The uploaded file must be an image.',
-                'image.mimes' => 'The image must be in jpeg, png, jpg, gif, webp, or svg format.',
-            ]
-        );
+    // Fetch existing record or create new one
+    $healthcare = HomeAppointment::find($request->id) ?? new HomeAppointment();
 
-        // Fetch or create a new record
-        $healthcare = $request->id ? HomeAppointment::find($request->id) : new HomeAppointment();
-        if (!$healthcare) {
-            return redirect()->route('whyhealthcare')->withErrors('Record not found.');
+    // Assign values from request
+    $healthcare->title = $request->title;
+    $healthcare->subtitle = $request->subtitle ?? null;
+    $healthcare->button_content = $request->button_content ?? null;
+    $healthcare->button_link = $request->button_link ?? null;
+    $healthcare->status = $request->status ?? "off";
+    $healthcare->page = 'Home';
+    $healthcare->url = '/';
+
+    // Handle image/video upload
+    if ($request->hasFile('file') && $request->file('file')->isValid()) {
+        $directory = 'home';
+
+        // Delete old file if it exists
+        if ($healthcare->image) {
+            $oldFile = str_replace('storage/', '', $healthcare->image);
+            Storage::disk('public')->delete($oldFile);
         }
 
-        // Assign values from request
-        $healthcare->title = $request->title;
-        $healthcare->subtitle = $request->subtitle ?? null;
-        $healthcare->button_content = $request->button_content ?? null;
-        $healthcare->button_link = $request->button_link ?? null;
-        $healthcare->status = $request->status ?? "off";
-        $healthcare->page = 'Home';
-        $healthcare->url = '/';
-        // Handle image upload
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $directory = 'home';
+        // Upload new file
+        $uploadedFile = $request->file('file');
+        $fileName = uniqid() . '_' . str_replace(' ', '_', $uploadedFile->getClientOriginalName());
+        $filePath = $uploadedFile->storeAs($directory, $fileName, 'public');
 
-            // Delete the old image if it exists
-            if ($healthcare->image) {
-                $oldImage = str_replace('storage/', '', $healthcare->image);
-                Storage::disk('public')->delete($oldImage);
-            }
-
-            // Upload the new image
-            $uploadedImage = $request->file('image');
-            $imageName = uniqid() . '_' . str_replace(' ', '_', $uploadedImage->getClientOriginalName());
-            $imagePath = $uploadedImage->storeAs($directory, $imageName, 'public');
-            $healthcare->image = 'storage/' . $imagePath;
-        }
-
-        // Save the record
-        $healthcare->save();
-
-        return redirect()->route('appointment')->with('message', 'Data saved successfully.');
+        // Store file path
+        $healthcare->image = 'storage/' . $filePath;
     }
+
+    // Save the record
+    $healthcare->save();
+
+    return redirect()->route('appointment')->with('message', 'Data saved successfully.');
+}
 
     public function whychooseus()
     {

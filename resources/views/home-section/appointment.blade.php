@@ -42,7 +42,7 @@
                                     </div>
     
                                     <!-- Subtitle Field -->
-                                    <div class="form-group col-md-6">
+                                    <!-- <div class="form-group col-md-6">
                                     <label for="image">Image</label>
                                     <i class="fas fa-info-circle" title="Upload an image that visually represents this section."></i>
                                     <img id="blah" src="{{asset($appointment->image ?? '')}}" alt="Image Preview"  style="width: 130px; display: {{ empty($appointment->image) ? 'none' : 'block' }};" />
@@ -50,7 +50,32 @@
                                     @error('image')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
-                                </div>
+                                </div> -->
+                                <div class="form-group col-md-6">
+    <label for="file">Upload Image/Video</label>
+    <i class="fas fa-info-circle" title="Upload an image or video that visually represents this section."></i>
+
+    <!-- Image Preview -->
+    <img id="imagePreview"
+        src="{{ asset($appointment->image ?? '') }}"
+        alt="Image Preview"
+        style="width: 130px; display: none;" />
+
+    <!-- Video Preview -->
+    <video id="videoPreview" controls style="width: 130px; display: none;">
+        <source id="videoSource" src="{{ asset($appointment->image ?? '') }}" type="video/mp4">
+    </video>
+
+    <!-- File Input -->
+    <input type="file" class="form-control" name="file" id="fileInput"
+        accept="image/*,video/mp4,video/mov,video/avi,video/wmv"
+        onchange="previewFile()">
+
+    @error('file')
+    <div class="text-danger">{{ $message }}</div>
+    @enderror
+</div>
+
                                     <!-- <div class="form-group col-md-6">
                                         <label for="subtitle">Description</label>
                                         <i class="fas fa-info-circle" title="Provide a brief subtitle that complements the main title of this section."></i>
@@ -118,16 +143,112 @@
 @section('java_script')
 <script>
     CKEDITOR.replace('subtitle');
-    imgInp.onchange = evt => {
-        const [file] = imgInp.files;
-        if (file) {
-            blah.src = URL.createObjectURL(file);
-            blah.style.display = "block"; // Show the image
-        } else {
-            blah.style.display = "none"; // Hide the image if no file is selected
-            blah.src = "#"; // Reset the src
+    // imgInp.onchange = evt => {
+    //     const [file] = imgInp.files;
+    //     if (file) {
+    //         blah.src = URL.createObjectURL(file);
+    //         blah.style.display = "block"; // Show the image
+    //     } else {
+    //         blah.style.display = "none"; // Hide the image if no file is selected
+    //         blah.src = "#"; // Reset the src
+    //     }
+    // };
+    // function previewFile() {
+    //     let fileInput = document.getElementById("fileInput");
+    //     let imagePreview = document.getElementById("imagePreview");
+    //     let videoPreview = document.getElementById("videoPreview");
+    //     let videoSource = document.getElementById("videoSource");
+
+    //     if (fileInput.files.length > 0) {
+    //         let file = fileInput.files[0];
+    //         let fileType = file.type.split("/")[0]; // Get 'image' or 'video'
+    //         let fileURL = URL.createObjectURL(file);
+
+    //         if (fileType === "image") {
+    //             imagePreview.src = fileURL;
+    //             imagePreview.style.display = "block";
+    //             videoPreview.style.display = "none";
+    //         } else if (fileType === "video") {
+    //             videoSource.src = fileURL;
+    //             videoPreview.load(); // Reload video source
+    //             videoPreview.style.display = "block";
+    //             imagePreview.style.display = "none";
+    //         }
+    //     }
+    // }
+
+    // Auto-detect existing file type (for loaded image/video)
+    // document.addEventListener("DOMContentLoaded", function() {
+    //     let imagePreview = document.getElementById("imagePreview");
+    //     let videoPreview = document.getElementById("videoPreview");
+    //     let videoSource = document.getElementById("videoSource");
+
+    //     let filePath = "{{ asset($ourMissionSection[0]->image ?? '') }}";
+    //     if (filePath) {
+    //         let extension = filePath.split('.').pop().toLowerCase();
+    //         let videoExtensions = ["mp4", "mov", "avi", "wmv"];
+
+    //         if (videoExtensions.includes(extension)) {
+    //             videoSource.src = filePath;
+    //             videoPreview.load();
+    //             videoPreview.style.display = "block";
+    //             imagePreview.style.display = "none";
+    //         } else {
+    //             imagePreview.src = filePath;
+    //             imagePreview.style.display = "block";
+    //             videoPreview.style.display = "none";
+    //         }
+    //     }
+    // });
+
+    function previewFile() {
+    let fileInput = document.getElementById("fileInput");
+    let imagePreview = document.getElementById("imagePreview");
+    let videoPreview = document.getElementById("videoPreview");
+    let videoSource = document.getElementById("videoSource");
+
+    if (fileInput.files.length > 0) {
+        let file = fileInput.files[0];
+        let fileType = file.type.split("/")[0]; // Extracts 'image' or 'video'
+        let fileURL = URL.createObjectURL(file);
+
+        if (fileType === "image") {
+            imagePreview.src = fileURL;
+            imagePreview.style.display = "block";
+            videoPreview.style.display = "none";
+        } else if (fileType === "video") {
+            videoSource.src = fileURL;
+            videoPreview.load(); // Reload video source
+            videoPreview.style.display = "block";
+            imagePreview.style.display = "none";
         }
-    };
+    }
+}
+
+// Auto-detect existing file type (for loaded image/video)
+document.addEventListener("DOMContentLoaded", function() {
+    let imagePreview = document.getElementById("imagePreview");
+    let videoPreview = document.getElementById("videoPreview");
+    let videoSource = document.getElementById("videoSource");
+
+    let filePath = "{{ asset($appointment->image ?? '') }}"; // Ensure it's the correct file field
+    if (filePath && filePath !== "{{ asset('') }}") {
+        let extension = filePath.split('.').pop().toLowerCase();
+        let videoExtensions = ["mp4", "mov", "avi", "wmv"];
+        
+        if (videoExtensions.includes(extension)) {
+            videoSource.src = filePath;
+            videoPreview.load();
+            videoPreview.style.display = "block";
+            imagePreview.style.display = "none";
+        } else {
+            imagePreview.src = filePath;
+            imagePreview.style.display = "block";
+            videoPreview.style.display = "none";
+        }
+    }
+});
+
 </script>
 
 @endsection
